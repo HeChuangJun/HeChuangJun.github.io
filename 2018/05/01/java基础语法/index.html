@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>Java基本语法 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Java基本语法</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Java基本语法</h1><div class="post-meta">May 1, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>从今天开始尽量每天上传自己的自学总结当是面试前的复习<br><a id="more"></a></p>
+<h2 id="Java开发环境的搭建"><a href="#Java开发环境的搭建" class="headerlink" title="Java开发环境的搭建"></a>Java开发环境的搭建</h2><h3 id="Java概述"><a href="#Java概述" class="headerlink" title="Java概述"></a>Java概述</h3><pre><code>Java是一门编程语言是用来编写软件的，主要有以下两种
+    互联网：电商、P2P等等；企业级应用：ERP、CRM、BOS、OA
+</code></pre><h3 id="7个常用dos命令-win-R-cmd-编译和运行时java程序使用"><a href="#7个常用dos命令-win-R-cmd-编译和运行时java程序使用" class="headerlink" title="7个常用dos命令(win+R+cmd:编译和运行时java程序使用)"></a>7个常用dos命令(win+R+cmd:编译和运行时java程序使用)</h3><pre><code>清屏：cls
+    切换盘符：例如：C:\ &gt;E:，回车就到了E盘下。一定要回到盘符根目录使用
+    进入指定目录：cd；例如D:\&gt;cd develop\Java，这样就进入了D:\develop\Java目录
+    返回上一级目录：cd..；0 例如：D:\develop\Java&gt;cd..，回车，就返回到D:\develop目录下
+    返回盘符根目录：cd\；
+    显示当前目录下的文件和子目录信息：dir；
+    运行记事本程序：D:\&gt;  C:\windows\notepad[.exe]
+</code></pre><h3 id="Java开发环境概述（Java程序运行需要的环境）"><a href="#Java开发环境概述（Java程序运行需要的环境）" class="headerlink" title="Java开发环境概述（Java程序运行需要的环境）"></a>Java开发环境概述（Java程序运行需要的环境）</h3><pre><code>JDK：Java Development Kit，程序员的电脑上安装JDK；JDK包含JRE
+    JRE：Java Runtime Environment，Java运行环境，用户在电脑上安装JRE即可
+</code></pre><h3 id="JDK下载-amp-安装-amp-校验（WIN-R-CMD-JDK安装路径-bin-java-exe）"><a href="#JDK下载-amp-安装-amp-校验（WIN-R-CMD-JDK安装路径-bin-java-exe）" class="headerlink" title="JDK下载&amp;安装&amp;校验（WIN+R+CMD+JDK安装路径\bin\java.exe）"></a>JDK下载&amp;安装&amp;校验（WIN+R+CMD+JDK安装路径\bin\java.exe）</h3><h3 id="Java跨平台（操作系统-（Windows，Linux，Mac））特性"><a href="#Java跨平台（操作系统-（Windows，Linux，Mac））特性" class="headerlink" title="Java跨平台（操作系统 （Windows，Linux，Mac））特性"></a>Java跨平台（操作系统 （Windows，Linux，Mac））特性</h3><pre><code>Java程序可以在任意操作系统上运行，一次编写到处运行
+    实现跨平台需要依赖Java的虚拟机JVM（Java Virtual Machine）
+</code></pre><h2 id="HelloWorld案例"><a href="#HelloWorld案例" class="headerlink" title="HelloWorld案例"></a>HelloWorld案例</h2><h3 id="编写Java源文件（源代码文件），扩展名为-java"><a href="#编写Java源文件（源代码文件），扩展名为-java" class="headerlink" title="编写Java源文件（源代码文件），扩展名为.java"></a>编写Java源文件（源代码文件），扩展名为.java</h3><pre><code>使用最普通的文本编辑器编写，修改文件名称为HelloWorld.java
+    注意文件名称的大小写。以及是否已经修改了文件的扩展名
+    类名必须与源文件名称相同
+    public class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println(&quot;HelloWorld&quot;);
+        }
+    }
+</code></pre><h3 id="编译：通过编译器把源文件编译成字节码文件，扩展名为-class"><a href="#编译：通过编译器把源文件编译成字节码文件，扩展名为-class" class="headerlink" title="编译：通过编译器把源文件编译成字节码文件，扩展名为.class"></a>编译：通过编译器把源文件编译成字节码文件，扩展名为.class</h3><pre><code>编译器：JDK目录下的bin目录javac.exe
+    编译命令为：D:\develop\Java\jdk1.7.0_72\bin\javac.exe D:\java\HelloWorld.java
+    编译之后会在源文件同目录下生成字节码文件，字节码文件的扩展名为.class
+    编译时控制台上不会有输出，如果有输出说明源代码有错误
+</code></pre><h3 id="运行：使用解释器来运行字节码文件"><a href="#运行：使用解释器来运行字节码文件" class="headerlink" title="运行：使用解释器来运行字节码文件"></a>运行：使用解释器来运行字节码文件</h3><pre><code>D:\develop\Java\jdk1.7.0_72\bin\java.exe HelloWord；
+    在运行HelloWorld.class文件时不能给出“.class”，切记！！！
+</code></pre><h3 id="配置环境变量（减少输入JDK的bin目录的麻烦）"><a href="#配置环境变量（减少输入JDK的bin目录的麻烦）" class="headerlink" title="配置环境变量（减少输入JDK的bin目录的麻烦）"></a>配置环境变量（减少输入JDK的bin目录的麻烦）</h3><pre><code>在DOS控制台中使用的程序只给出程序名称，而没有给出完整路径时，
+    Windows系统会到Path变量保存的路径中查找程序
+    鼠标右键点击计算机→属性→高级系统设置→环境变量→系统变量中的Path→编辑
+    将JDK安装目录\bin路径配置到PATH变量中，用英文分号与其他变量隔开
+    编译：D:/java/&gt;javac HelloWorld.java；
+    运行：D:/java/&gt;java HelloWorld；
+</code></pre><h2 id="注释、关键字与标识符"><a href="#注释、关键字与标识符" class="headerlink" title="注释、关键字与标识符"></a>注释、关键字与标识符</h2><h3 id="程序注释：对源码进行解释说明的文字"><a href="#程序注释：对源码进行解释说明的文字" class="headerlink" title="程序注释：对源码进行解释说明的文字"></a>程序注释：对源码进行解释说明的文字</h3><pre><code>单行注释//注释内容
+    多行注释/*注释内容*/
+    文档注释/**注释内容*/
+</code></pre><h3 id="关键字：被赋予特殊含义，具有专门用途的均为小写的单词"><a href="#关键字：被赋予特殊含义，具有专门用途的均为小写的单词" class="headerlink" title="关键字：被赋予特殊含义，具有专门用途的均为小写的单词"></a>关键字：被赋予特殊含义，具有专门用途的均为小写的单词</h3><h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><pre><code>类名、方法名、变量名、包名、接口名
+    组成元素：英文字符: a-zA-Z、数字: 0-9、符号: _与$
+    规则：数字不能开头、不可以使用关键字、严格区分大小写，见名知意
+    命名规范
+        类名&amp;接口名：大驼峰式AaaBbbCcc  
+        变量名&amp;方法名：小驼峰式aaaBbbCcc
+        常量名：多单词组成是所有字母均大写，使用_连接AAA_BBB_CCC
+        包名：多单词组成时所有字母均小写，使用.连接aaa.bbb.ccc
+</code></pre><h2 id="数据类型：基本数据类型和引用数据类型（数组、类、接口）"><a href="#数据类型：基本数据类型和引用数据类型（数组、类、接口）" class="headerlink" title="数据类型：基本数据类型和引用数据类型（数组、类、接口）"></a>数据类型：基本数据类型和引用数据类型（数组、类、接口）</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">四类</th>
+<th style="text-align:center">八种</th>
+<th style="text-align:center">字节数</th>
+<th style="text-align:center">数据表示范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">整型</td>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-128～127 7次方</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-32768～32767 15次方</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2147483648～2147483648 31次方</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">long</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-263～263-1 63次方+L</td>
+</tr>
+<tr>
+<td style="text-align:center">浮点型</td>
+<td style="text-align:center">float</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-3.403E38～3.403E38 128次方～127次方+F 7位有效数字</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">double</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-1.798E308～1.798E308 1024次方～1023次方+D 16位~</td>
+</tr>
+<tr>
+<td style="text-align:center">字符型</td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">‘’包裹，只包含一字符，运算按ASCII码对应的整数运算</td>
+</tr>
+<tr>
+<td style="text-align:center">布尔型</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">true、false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="不同数据类型的初始值"><a href="#不同数据类型的初始值" class="headerlink" title="不同数据类型的初始值"></a>不同数据类型的初始值</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">默认初始化值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">byte、short、int、long</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">float、double</td>
+<td style="text-align:center">0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">char</td>
+<td style="text-align:center">一个空字符（空格），即’\u00000’</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">引用数据类型</td>
+<td style="text-align:center">null，表示变量不引用任何对象</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据类型转换（布尔值除外）"><a href="#数据类型转换（布尔值除外）" class="headerlink" title="数据类型转换（布尔值除外）"></a>数据类型转换（布尔值除外）</h3><pre><code>不同类型的变量可以在一起运算，但要先进行类型转换再运算
+    范围小的数据类型值（如byte），可以直接转换为范围大的数据类型值（如int）
+    范围大的数据类型值（如int），不可以直接转换为范围小的数据类型值（如byte）
+    数据类型数据范围从小到大：byte -&gt; short -&gt; int -&gt; long -&gt; float -&gt; double
+    自动类型转换：范围小的数据类型转换成范围大的数据类型
+    格式：范围大的数据类型 变量 = 范围小的数据类型值；
+    强制类型转换：范围大的数据类型转换成范围小的数据类型
+    格式：范围小的数据类型  变量 = (范围小的数据类型) 范围大的数据类型值;
+    多种类型数据混合运算时，系统自动将所有数据转换成容量最大的那一种数据类型再计算。
+</code></pre><h3 id="常量：不变的数据量"><a href="#常量：不变的数据量" class="headerlink" title="常量：不变的数据量"></a>常量：不变的数据量</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">举例（字符均指汉字数字和字母）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">整数类型</td>
+<td style="text-align:center">二进制：以0零b(0B)开头    如0b1011 、0B1001</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">八进制：以0开头   如01、07、0721</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">十进制：正常数字   如 13、25等</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">十六进制：以0x(0X)开头,数字以0-9及A-F组成,如0x23A2、0xa、0x10</td>
+</tr>
+<tr>
+<td style="text-align:center">浮点类型</td>
+<td style="text-align:center">1.0、-3.15、3.168等</td>
+</tr>
+<tr>
+<td style="text-align:center">字符类型</td>
+<td style="text-align:center">字符必须使用’’ 包裹，并且其中只能且仅能包含一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">布尔类型</td>
+<td style="text-align:center">true、false</td>
+</tr>
+<tr>
+<td style="text-align:center">字符串类型(引用类型)</td>
+<td style="text-align:center">字符串必须使用””包裹，可以包含0~N个字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常量的类型"><a href="#常量的类型" class="headerlink" title="常量的类型"></a>常量的类型</h3><h4 id="整数常量可以根据所在范围来确定类型、默认的整数类型是int类型"><a href="#整数常量可以根据所在范围来确定类型、默认的整数类型是int类型" class="headerlink" title="整数常量可以根据所在范围来确定类型、默认的整数类型是int类型"></a>整数常量可以根据所在范围来确定类型、默认的整数类型是int类型</h4><pre><code>不在int范围内的常量必须添加“L”后缀（小写的也可以，建议大写）
+      在int范围内的常量也可以添加“L”后缀。添加了“L”后缀的整数常量都是long类型
+</code></pre><h4 id="java中默认的浮点类型是double类型"><a href="#java中默认的浮点类型是double类型" class="headerlink" title="java中默认的浮点类型是double类型"></a>java中默认的浮点类型是double类型</h4><pre><code>所有没有后缀以及使用“D”后缀的小数都是double类型；
+     float类型常量必须添加“F”后缀，
+</code></pre><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><pre><code>内存中装载数据的小盒子，用来存数据和取数据
+    变量必须要有明确的类型，同时也要指定变量能装载多大的数据
+    定义变量：数据类型  变量名  =  数据值；
+    变量名是合法的标识符。在程序中可通过变量名来操作变量。给变量赋的值要与类型符合
+    注意事项
+        变量定义后可以不赋值，使用时再赋值。不赋值不能使用
+        变量不可以重复定义
+        变量使用时有作用域的限制
+</code></pre><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符-、-、-、-、-、-、-、-、-、–"><a href="#算术运算符-、-、-、-、-、-、-、-、-、–" class="headerlink" title="算术运算符:+、+、+、-、-、*、/、%、++、–"></a>算术运算符:+、+、+、-、-、*、/、%、++、–</h3><pre><code>加法运算符在连接字符串时只有直接与字符串相加才会转成字符串
+    “%”小数取余没有意义。结果符号与被取余符号相同
+    “/”当两边为整数时，取整数部分，舍余数
+    当其中一边为浮点型时，按正常规则相除。整数做被除数，0不能做除数
+    ++,--运算符单独使用，不参与运算操作时，运算符前后位置导致的运算结果一致
+    ++,--运算符后置时，变量a先参与运算操作，然后变量a自增1或者自减1
+    ++,--运算符前置时，变量a的值先自增1或者自减1，然后参与运算操作
+</code></pre><h3 id="赋值运算符-、-、-、-、-、"><a href="#赋值运算符-、-、-、-、-、" class="headerlink" title="赋值运算符:=、+=、-=、*=、/=、%="></a>赋值运算符:=、+=、-=、*=、/=、%=</h3><pre><code>将结果自动强转成等号左边的数据类型,左边必须是变量
+</code></pre><h3 id="比较运算符-、！-、-lt-、-gt-、-lt-、-gt"><a href="#比较运算符-、！-、-lt-、-gt-、-lt-、-gt" class="headerlink" title="比较运算符:==、！=、&lt;、&gt;、&lt;=、&gt;="></a>比较运算符:==、！=、&lt;、&gt;、&lt;=、&gt;=</h3><pre><code>返回布尔值，判断两个操作数的大小关系及是否相等关系
+    赋值运算符的=符号，是用来将=符号右边的值，赋值给=符号左边的变量
+    比较运算符的 == 符号，对于基本数字类型的变量来说是用来判断 == 符号 
+    左右变量的值是否相等的，而对于对象来说，比较的是内存地址
+</code></pre><h3 id="逻辑运算符-amp-（与）、-、-、！、-amp-amp-、"><a href="#逻辑运算符-amp-（与）、-、-、！、-amp-amp-、" class="headerlink" title="逻辑运算符:&amp;（与）、|、^、！、&amp;&amp;、||"></a>逻辑运算符:&amp;（与）、|、^、！、&amp;&amp;、||</h3><pre><code>连接两个其他表达式计算后的布尔值结果
+    当使用短路与或者短路或时，只要能判断出结果则后边的部分就不再判断。
+    异或^： 左右两边条件结果相同，结果就为false，左右两边条件结果不同，结果就为true；
+</code></pre><h3 id="三元运算符-条件表达式-？表达式1：表达式2；"><a href="#三元运算符-条件表达式-？表达式1：表达式2；" class="headerlink" title="三元运算符:(条件表达式)？表达式1：表达式2；"></a>三元运算符:(条件表达式)？表达式1：表达式2；</h3><pre><code>先判断条件表达式的值，若为true，运算结果为表达式1；若为false，运算结果为表达式2
+    System.out.println( 3&gt;2 ? “正确” : “错误” ); 
+    int a = 3;int b = 4;String result = (a==b) ? “相等” : “不相等”;  
+    int n = (3&gt;2 &amp;&amp; 4&gt;6) ? 100 : 200;
+</code></pre><h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h3><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><h4 id="①选择结构if"><a href="#①选择结构if" class="headerlink" title="①选择结构if"></a>①选择结构if</h4><pre><code>if语句判断条件是一个布尔值，当判断条件为true时，{}中的执行语句才会执行
+        if (条件语句){ 
+            执行语句;
+            ……
+        }
+    if…else语句指如果判断条件为true时，就进行某种处理，否则就进行另一种处理
+        if (判断条件){
+            执行语句1
+            ……
+        }else{
+            执行语句2
+            ……
+        }//与三元运算符功能相似
+    if…else if…else语句所有条件均未满足，else后面{}中的执行语句n+1会执行
+        if (判断条件1) {
+            执行语句1
+        } else if (判断条件2) {
+            执行语句2
+        }
+        ...
+        else if (判断条件n) {
+            执行语句n
+        } else {
+            执行语句n+1
+        }
+</code></pre><h4 id="②选择结构switch"><a href="#②选择结构switch" class="headerlink" title="②选择结构switch"></a>②选择结构switch</h4><pre><code>if…else if…else语句来实现，但是由于判断条件比较多，实现起来代码过长，不便于阅读。
+        switch (表达式){
+        case 目标值1:
+            执行语句1
+            break;
+        case 目标值2:
+        case目标值3:
+            执行语句2
+            break;
+        ．．．．．．
+        case 目标值n:
+            执行语句n
+            break;
+        default:
+            执行语句n+1
+            break;
+        }
+    表达式的值为byte、short、int、char、enum枚举、String
+</code></pre><h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><pre><code>循环语句while
+        反复地进行条件判断，条件成立，{}内的执行语句就会执行，直到条件不成立，while循环结束
+        while(循环条件表达式){//循环体
+        执行语句...
+        控制条件表达式;
+        }
+    循环语句do…while
+        do {
+        执行语句………
+        控制条件表达式;
+        } while(循环条件表达式);
+        循环体会无条件执行一次，然后再根据循环条件来决定是否继续执行
+    循环语句for
+        一般用在循环次数已知的情况下
+        for（初始化表达式; 循环条件; 操作表达式）{//1243243
+            执行语句
+            ………
+        }
+    无限循环:while(true){} 或for(;;){}
+        无限循环存在的原因是并不知道循环多少次，而是根据某些条件，来控制循环
+    循环嵌套:在一个循环语句的循环体中再定义一个循环语句的语法结构
+</code></pre><h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><pre><code>break语句
+        在switch条件语句中时，终止某个case并跳出switch结构
+        在循环语句中，作跳出本层循环语句，执行后面的代码
+        标记：当break语句出现在嵌套循环中的内层循环时，它只能跳出内层循环，
+        如果想使用break语句跳出外层循环则需要对外层循环添加   标记XXX：然后break XXX
+    continue语句
+        终止本次循环，执行下一次循环
+        continue语句后面也可以通过使用标记的方式结束本次外层循环，用法与break语句相似
+        public class BreakDemo {
+        public static void main(String[] args) {
+        int i, j; // 定义两个循环变量
+        itcast: for (i = 1; i &lt;= 9; i++) { // 外层循环
+        for (j = 1; j &lt;= i; j++) { // 内层循环
+        if (i &gt; 4) { // 判断i的值是否大于4
+        break itcast; // 跳出外层循环
+        }
+        System.out.print(&quot;*&quot;); // 打印*
+        }
+        System.out.print(&quot;\n&quot;); // 换行
+        }
+        }
+        }//只打印了4个*
+</code></pre><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><pre><code>数组是用来存储同一个数据类型多个元素的一个容器
+    （数组长度是固定的，数组中存储的元素的数据类型要求一致）
+    数组定义：
+        ①动态初始化（定义数组时只指定数组长度）
+            数据类型[] 数组名 = new 数据类型[元素个数或数组长度];
+            int[] x;// 声明一个int[]类型的变量
+            x = new int[100];// 创建一个长度为100的数组
+            int[] x; 声明了一个变量x，该变量的类型为int[]，即一个int类型的数组。
+            变量x会占用一块内存单元，它没有被分配初始值。
+            x = new int[100]; 创建了一个数组，将数组的地址赋值给变量x。
+            在程序运行期间可以使用变量x来引用数组，这时内存中的状态会发生变化
+        ②静态初始化（定义数组时为元素赋值）
+            类型[] 数组名 = new 类型[]{元素，元素，……};
+            类型[] 数组名 = {元素，元素，元素，……};（建议）
+
+    访问
+            数组名[索引/角标]   索引从0开始到数组长度-1
+            数组名[索引/角标] =值
+            数组长度：数组名.length
+
+    遍历
+            for (int i = 0; i &lt; arr.length; i++) {
+                System.out.println(arr[i]); // 通过索引访问元素
+            }
+
+    数组最值
+            int[] arr = { 4, 1, 6, 3, 9, 8 }; 
+            int max = arr[0];
+            for (int x = 1; x &lt; arr.length; x++){
+                if (arr[x] &gt; max) { 
+                    max = arr[x];
+                }
+            }
+</code></pre><h3 id="二维数组-包含多个一维数组的数组，数组中每个元素都是一维数组"><a href="#二维数组-包含多个一维数组的数组，数组中每个元素都是一维数组" class="headerlink" title="二维数组:包含多个一维数组的数组，数组中每个元素都是一维数组"></a>二维数组:包含多个一维数组的数组，数组中每个元素都是一维数组</h3><pre><code>定义
+        int[][] arr = new int[m][n];
+            m: 代表二维数组中一维数组的个数,n: 代表每个一维数组中元素的个数
+        int[][] arr = new int[3][];
+            m: 代表二维数组中一维数组的个数,每一个一维数组通过赋值来确定数组长度
+        int[][] arr = {{1,2},{3,4,5,6},{7,8,9}};
+
+    访问
+        数组名[索引][索引]
+        数组名[索引][索引]=值
+        数组名.length
+
+    遍历
+        for (int i=0; i&lt;arr2.length; i++) {
+            for (int j=0; j&lt;arr2[i].length; j++) {
+                sum2 += arr2[i][j];
+            }
+        }
+</code></pre><h3 id="数组异常"><a href="#数组异常" class="headerlink" title="数组异常"></a>数组异常</h3><pre><code>空指针异常NullPointerException：变量引用一个数组时，变量的值必须是数组对象，不能为null
+    数组越界异常ArrayIndexOutOfBoundsException
+</code></pre></div><div class="tags"><a href="/tags/Java基本语法/">Java基本语法</a></div><div class="post-nav"><a class="pre" href="/2018/05/07/计算机常识/">计算机常识</a><a class="next" href="/2018/04/21/hello-world/">Hello World</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/异常/">异常</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/多线程/">多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/IO/">IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/集合框架/">集合框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/常用API/">常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/面向对象/">面向对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/07/计算机常识/">计算机常识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/java基础语法/">Java基本语法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
