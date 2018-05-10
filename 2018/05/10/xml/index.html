@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>xml | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">xml</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">xml</h1><div class="post-meta">May 10, 2018<span> | </span><span class="category"><a href="/categories/xml/">xml</a></span></div><div class="post-content"><p>xml：Extensible Markup Language 可扩展的标记语言，标签可自定义，其他与Html相似<br><a id="more"></a></p>
+<h2 id="xml-配置文件-存放数据"><a href="#xml-配置文件-存放数据" class="headerlink" title="xml:配置文件\存放数据"></a>xml:配置文件\存放数据</h2><h3 id="文档声明-lt-xml-version-”1-0”-encoding-”UTF-8”-gt"><a href="#文档声明-lt-xml-version-”1-0”-encoding-”UTF-8”-gt" class="headerlink" title="文档声明:&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;"></a>文档声明:&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</h3><h3 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素<servlet></servlet></h3><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性<web-app version="2.5"></web-app></h3><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释<!--注释--></h3><h3 id="转义字符-lt-CDATA-需要大量转义字符原来的字符-gt"><a href="#转义字符-lt-CDATA-需要大量转义字符原来的字符-gt" class="headerlink" title="转义字符&lt;![CDATA[需要大量转义字符原来的字符]]&gt;"></a>转义字符&lt;![CDATA[需要大量转义字符原来的字符]]&gt;</h3><h3 id="xml约束"><a href="#xml约束" class="headerlink" title="xml约束"></a>xml约束</h3><h4 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h4><pre><code>概念
+    文档类型定义，约束XML元素及其子元素的名称及顺序、属性等
+</code></pre><h5 id="文档声明"><a href="#文档声明" class="headerlink" title="文档声明"></a>文档声明</h5><pre><code>内部DTD:&lt;!DOCTYPE 根标签名  [语法....]&gt;只对当前的xml有效
+    外部DTD--本地文件:在&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;下面
+    &lt;!DOCTYPE web-app SYSTEM &quot;web-app_2_3.dtd&quot;&gt;
+    格式&lt;!DOCTYPE 根标签名 SYSTEM &quot;xxxx.dtd&quot;&gt;
+    外部DTD--网络:&lt;!DOCTYPE 根标签名 PUBLIC &quot;名称&quot; &quot;路径&quot;&gt;一般由框架提供
+</code></pre><h5 id="元素声明-lt-ELEMENT-标签名-描述-gt"><a href="#元素声明-lt-ELEMENT-标签名-描述-gt" class="headerlink" title="元素声明&lt;!ELEMENT 标签名  描述&gt;"></a>元素声明&lt;!ELEMENT 标签名  描述&gt;</h5><pre><code>描述组成：符号，约束
+    符号：+ * ？  , | ()   “文嘉兴”
+    约束：#PCDATA 表示内容是文本不是子标签
+    后面没加符号的表示有且只有一次，()分组并指示子元素个数及顺序
+</code></pre><h5 id="属性声明-lt-ATTLIST-标签名-属性描述-属性描述2-…-gt"><a href="#属性声明-lt-ATTLIST-标签名-属性描述-属性描述2-…-gt" class="headerlink" title="属性声明&lt;!ATTLIST 标签名 属性描述 属性描述2 …&gt;"></a>属性声明&lt;!ATTLIST 标签名 属性描述 属性描述2 …&gt;</h5><pre><code>属性描述：属性名  属性类型  属性约束
+    名称：自定义
+    类型：CDATA ，ID ，枚举（xx|）
+    约束：#REQUIRED （必须） #IMPLIED（可选）            
+</code></pre><h4 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h4><pre><code>概念
+    xml文档约束，比DTD功能强、扩展名为xsd、支持命名空间、数据类型更完善
+</code></pre><h5 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h5><h5 id="文档声明-1"><a href="#文档声明-1" class="headerlink" title="文档声明"></a>文档声明</h5><pre><code>&lt;xxx xmlns=&quot;....&quot;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+     xsi:schemaLocation=&quot;名称  路径   名称2 路径2  .....&quot;&gt;  .....
+    &lt;web-app xmlns=&quot;http://www.example.org/web-app_2_5&quot; 自定义文档命名空间（包名）
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;（官方文档命名空间）
+    xsi:schemaLocation=&quot;http://www.example.org/web-app_2_5 web-app_2_5.xsd&quot; 
+    使用了官方文档的自定义文档位置属性（包里面的具体类）version=&quot;2.5&quot;&gt;
+    命名空间namespace，就是给schema文档起一个名称，只是建议采用是url进行命名。
+    是不是官方文档看那个url
+</code></pre><h4 id="目的：在xml中区别多个约束文档中，重名的元素、属性等内容。"><a href="#目的：在xml中区别多个约束文档中，重名的元素、属性等内容。" class="headerlink" title="目的：在xml中区别多个约束文档中，重名的元素、属性等内容。"></a>目的：在xml中区别多个约束文档中，重名的元素、属性等内容。</h4><h4 id="缺省命名空间（默认）使用元素或属性时不加前缀"><a href="#缺省命名空间（默认）使用元素或属性时不加前缀" class="headerlink" title="缺省命名空间（默认）使用元素或属性时不加前缀"></a>缺省命名空间（默认）<xxx xmlns="“”">使用元素或属性时不加前缀<xxx></xxx></xxx></h4><h4 id="显示命名空间-使用元素或属性时加前缀-lt-别名-xxx-gt"><a href="#显示命名空间-使用元素或属性时加前缀-lt-别名-xxx-gt" class="headerlink" title="显示命名空间 使用元素或属性时加前缀&lt;别名:xxx&gt;"></a>显示命名空间 <xsd xmlns:xsd="“”">使用元素或属性时加前缀&lt;别名:xxx&gt;</xsd></h4><pre><code>只要url一样，两种声明方式一样
+</code></pre><h2 id="xml解析"><a href="#xml解析" class="headerlink" title="xml解析"></a>xml解析</h2><pre><code>xpath
+</code></pre><h3 id="解析方式"><a href="#解析方式" class="headerlink" title="解析方式"></a>解析方式</h3><h4 id="DOM解析"><a href="#DOM解析" class="headerlink" title="DOM解析"></a>DOM解析</h4><pre><code>将xml文档加载到内存形成树结构，形成Document对象
+    优点:元素与元素有结构关系，能CRUD，
+    缺点：文档太大易内存溢出
+</code></pre><h4 id="SAX"><a href="#SAX" class="headerlink" title="SAX"></a>SAX</h4><pre><code>事件驱动的方式逐行边读边解析，每执行一行都触发相应的事件
+    优点：文档大也不内存溢出，速度快
+    缺点：只读，不能CRUD，运行后释放资源
+</code></pre><h4 id="PULL-解析开发包"><a href="#PULL-解析开发包" class="headerlink" title="PULL:解析开发包"></a>PULL:解析开发包</h4><pre><code>DOM解析原理及结构模型
+    原理:将整个xml文档加载到内存，生成一个DOM树并获得Document对象，通过该对象完成DOM操作    
+    API使用
+    ①引入jar包dom4j-1.6.1.jar
+    ②获得saxreader对象
+    SAXReader saxReader = new SAXReader();
+    ③获得Document
+    Document doc = saxReader.read(&quot;src/cn/itheima/xml/schema/web.xml&quot;);
+    ④获得根元素
+    Element rootElement = doc.getRootElement();
+    ⑤获得元素
+    List elements()获得指定名称的所有子元素，可以不指定名称
+    element element(&quot;servlet-name&quot;)获得指定名称的第一个子元素
+    遍历所有元素
+        for (Element element : childElements) {
+        if (&quot;servlet&quot;.equals(element.getName())) {
+        Element servletName = element.element(&quot;servlet-name&quot;);
+        Element servletClass = element.element(&quot;servlet-class&quot;);
+        }
+        }
+    ⑥获得元素内容
+    attributeValue(&quot;XXX&quot;)根据属性名得到属性值
+    getName()获得当前元素的元素名
+    getText()获得当前元素的文本内容
+    string elementText（“xxx”）=element（xxx）.getText()
+</code></pre></div><div class="tags"><a href="/tags/xml/">xml</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/http协议/">http协议</a><a class="next" href="/2018/05/10/web/">WEB</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/xml/">xml</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/web/">WEB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/07/异常/">异常</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/07/计算机常识/">计算机常识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/06/多线程/">多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/05/IO/">IO</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
