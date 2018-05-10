@@ -1,14 +1,145 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>多线程 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">多线程</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">多线程</h1><div class="post-meta">May 8, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>多线程<br><a id="more"></a></p>
-<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><pre><code>介绍
-    进程是处于运行过程中的程序，并且具有一定独立功能
-</code></pre><p>线程：线程是进程中的一个执行单元，负责当前进程中程序的执行<br>一个程序运行后至少有一个进程，一个进程中包含至少一个线程<br>            单线程程序：若有多个任务只能依次执行<br>            多线程程序：若有多个任务可以同时执行<br>            主线程：jvm启动后，必然有一个从main方法开始的，一直执行到main方法结束的线程<br>        程序运行原理2<br>            分时调度：所有线程轮流使用 CPU 的使用权，平均分配每个线程占用 CPU 的时间。<br>抢占式调度：优先让优先级高的线程使用 CPU，线程优先级相同，随机选择一个(线程随机性)，Java使用的为抢占式调度<br>CPU(中央处理器)使用抢占式调度模式在多个线程间进行着高速的切换。对于CPU的一个核而言，某个时刻，只能执行一个线程，而 CPU的在多个线程间切换速度相对我们的感觉要快，看上去就是在同一时刻运行。<br>其实，多线程程序并不能提高程序的运行速度，但能够提高程序运行效率，让CPU的使用率更高<br>        Thread类是程序中的执行线程，实现了Runnable接口<br>Java 虚拟机允许应用程序并发地运行多个执行线程。<br>            构造方法2+2<br>                Thread()分配新的Thread对象<br>                Thread(String name)分配新的Thread对象,将指定的name作为线程名称<br>                Thread(Runnable target)分配新的Thread对象，以便将target做为其运行对象<br>                Thread(Runnable target,String name)~指定的name作为线程名称<br>            方法3+2<br>                void start()使该线程开始执行，Java虚拟机调用该线程的run方法<br>                void run()该线程要执行的操作<br>                (Thread.)static void sleep(long millis)在指定的毫秒数内让当前正在执行的线程休眠<br>                static Thread currentThread()返回当前正在执行的线程对象的引用<br>主线程的名称：main；自定义的线程：Thread-0，线程多个时，数字顺延。如Thread-1……<br>                String getName()返回该线程的名称<br>        创建线程的方式<br>            继承Thread类<br>                定义一个类a继承Thread并重写run方法。<br>创建子类对象（线程对象）b，调用start方法，开启线程并让线程执行，同时还会告诉jvm去调用run方法<br>                思考：线程对象调用 run方法和调用start方法区别？<br>线程对象调用run方法不开启线程。仅是对象调用方法。线程对象调用start开启线程，并让jvm调用run方法在开启的线程中执行。<br>                我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？<br>继承Thread类：因为Thread类用来描述线程，具备线程应该有功能。<br>                创建线程的目的是什么？<br>是为了建立程序单独的执行路径，让多部分代码实现同时执行。也就是说线程创建并执行需要给定线程要执行的任务。<br>主线程，它的任务定义在main函数中。自定义线程需要执行的任务都定义在run方法中<br>                为什么不直接创建Thread类的对象呢？<br>因为即使创建Thread对象并调用start方法，run方法也没有我们需要线程执行的任务<br>                示例<br>                    测试类<br>public class Demo01 {<br>    public static void main(String[] args) {<br>        //创建自定义线程对象<br>        MyThread mt = new MyThread(“新的线程！”);<br>        //开启新线程<br>        mt.start();<br>        //在主方法中执行for循环<br>        for (int i = 0; i &lt; 10; i++) {<br>            System.out.println(“main线程！”+i);<br>        }<br>    }<br>}<br>自定义线程类<br>public class MyThread extends Thread {<br>    //定义指定线程名称的构造方法<br>    public MyThread(String name) {<br>        //调用父类的String参数的构造方法，指定线程的名称<br>        super(name);<br>    }<br>    /**</p>
-<pre><code> * 重写run方法，完成该线程执行的逻辑
- */
-@Override
-public void run() {
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><pre><code>进程是处于运行过程中的程序，并且具有一定独立功能
+    线程：线程是进程中的一个执行单元，负责当前进程中程序的执行
+    一个程序运行后至少有一个进程，一个进程中包含至少一个线程
+    单线程程序：若有多个任务只能依次执行
+    多线程程序：若有多个任务可以同时执行
+    主线程：jvm启动后，必然有一个从main方法开始的，一直执行到main方法结束的线程
+</code></pre><h3 id="程序运行原理"><a href="#程序运行原理" class="headerlink" title="程序运行原理"></a>程序运行原理</h3><pre><code>分时调度：所有线程轮流使用 CPU 的使用权，平均分配每个线程占用 CPU 的时间。
+    抢占式调度（Java）：优先让优先级高的线程使用 CPU，线程优先级相同，随机选择一个(线程随机性)
+    CPU(中央处理器)使用抢占式调度模式在多个线程间进行着高速的切换。
+    对于CPU的一个核而言，某个时刻，只能执行一个线程，
+    而 CPU的在多个线程间切换速度相对我们的感觉要快，看上去就是在同一时刻运行。
+    其实，多线程程序并不能提高程序的运行速度，但能够提高程序运行效率，让CPU的使用率更高
+</code></pre><h3 id="Thread类是程序中的执行线程，实现了Runnable接口"><a href="#Thread类是程序中的执行线程，实现了Runnable接口" class="headerlink" title="Thread类是程序中的执行线程，实现了Runnable接口"></a>Thread类是程序中的执行线程，实现了Runnable接口</h3><pre><code>Java 虚拟机允许应用程序并发地运行多个执行线程。
+    Thread()分配新的Thread对象
+    Thread(String name)分配新的Thread对象,将指定的name作为线程名称
+    Thread(Runnable target)分配新的Thread对象，以便将target做为其运行对象
+    Thread(Runnable target,String name)~指定的name作为线程名称
+
+    void start()使该线程开始执行，Java虚拟机调用该线程的run方法
+    void run()该线程要执行的操作
+    (Thread.)static void sleep(long millis)在指定的毫秒数内让当前正在执行的线程休眠
+    static Thread currentThread()返回当前正在执行的线程对象的引用
+    String getName()返回该线程的名称，
+    主线程的名称：main；自定义的线程：Thread-0，线程多个时，数字顺延。如Thread-1......
+</code></pre><h3 id="创建线程的方式"><a href="#创建线程的方式" class="headerlink" title="创建线程的方式"></a>创建线程的方式</h3><h4 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h4><pre><code>定义一个类a继承Thread并重写run方法。创建子类对象（线程对象）b，调用start方法，
+    开启线程并让线程执行，同时还会告诉jvm去调用run方法
+</code></pre><h5 id="线程对象调用run方法和调用start方法区别？"><a href="#线程对象调用run方法和调用start方法区别？" class="headerlink" title="线程对象调用run方法和调用start方法区别？"></a>线程对象调用run方法和调用start方法区别？</h5><pre><code>线程对象调用run方法不开启线程(对象调用方法),调用start方法开启线程,让run方法在线程中执行
+</code></pre><h5 id="我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？"><a href="#我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？" class="headerlink" title="我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？"></a>我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？</h5><pre><code>继承Thread类：因为Thread类用来描述线程，具备线程应该有功能
+</code></pre><h5 id="创建线程的目的是什么？"><a href="#创建线程的目的是什么？" class="headerlink" title="创建线程的目的是什么？"></a>创建线程的目的是什么？</h5><pre><code>是为了让多部分代码实现同时执行,线程创建并执行需要给定线程要执行的任务
+    主线程，它的任务定义在main函数中。自定义线程需要执行的任务都定义在run方法中
+</code></pre><h5 id="为什么不直接创建Thread类的对象呢？"><a href="#为什么不直接创建Thread类的对象呢？" class="headerlink" title="为什么不直接创建Thread类的对象呢？"></a>为什么不直接创建Thread类的对象呢？</h5><pre><code>因为即使创建Thread对象并调用start方法，run方法也没有我们需要线程执行的任务
+</code></pre><h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><pre><code>public class Demo01 {
+    public static void main(String[] args) {
+    MyThread mt = new MyThread(&quot;新的线程！&quot;);
+    mt.start();
     for (int i = 0; i &lt; 10; i++) {
-        System.out.println(getName()+&quot;：正在执行！&quot;+i);
+        System.out.println(&quot;main线程！&quot;+i);
+        }
+        }
     }
-}
-</code></pre><p>}<br>            实现Runnable接口<br>只有run方法<br>                定义类a实现Runnable接口并覆盖接口中的run方法<br>创建Thread类的对象并将用多态创建的Runnable接口的子类对象a作为参数传递给Thread类的构造函数<br>调用Thread类的start方法开启线程<br>                原理<br>                    创建Thread类的对象，只有创建Thread类的对象才可以创建线程。线程任务已被封装到Runnable接口的run方法中，而这个run方法所属于Runnable接口的子类对象，所以将这个子类对象作为参数传递给Thread的构造函数，这样，线程对象创建时就可以明确要运行的线程的任务<br>                优点<br>                    避免了继承Thread类的单继承局限性<br>                    实现Runnable接口的方式，更加的符合面向对象，线程分为两部分，一部分线程对象，一部分线程任务。继承Thread类，线程对象和线程任务耦合在一起。一旦创建Thread类的子类对象，既是线程对象，有又有线程任务。实现runnable接口，将线程任务单独分离出来封装成对象，类型就是Runnable接口类型。<br>Runnable接口对线程对象和线程任务进行解耦。<br>                示例<br>                    public class Demo02 {<br>    public static void main(String[] args) {<br>        //创建线程执行目标类对象<br>        Runnable runn = new MyRunnable();<br>        //将Runnable接口的子类对象作为参数传递给Thread类的构造函数<br>        Thread thread = new Thread(runn);<br>        Thread thread2 = new Thread(runn);<br>        //开启线程<br>        thread.start();<br>        thread2.start();<br>        for (int i = 0; i &lt; 10; i++) {<br>            System.out.println(“main线程：正在执行！”+i);<br>        }<br>    }<br>}<br>自定义线程执行任务类<br>public class MyRunnable implements Runnable{<br>    //定义线程要执行的run方法逻辑<br>    @Override<br>    public void run() {<br>        for (int i = 0; i &lt; 10; i++) {<br>            System.out.println(“我的线程：正在执行！”+i);<br>            }<br>    }<br>}<br>        内存图解<br>            当执行线程的任务结束了，线程自动在栈内存中释放了。但是当所有的执行线程都结束了，那么进程就结束了。<br>        线程匿名内部类的使用<br>            创建线程对象时，重写Thread类中的run方法<br>                new Thread() {<br>public void run() {<br>for (int x = 0; x &lt; 40; x++) {<br>System.out.println(Thread.currentThread().getName()+ “…X….” + x);<br>}<br>}<br>}.start();<br>            实现Runnable接口，重写Runnable接口中的run方法<br>                Runnable r = new Runnable() {<br>public void run() {<br>for (int x = 0; x &lt; 40; x++) {<br>System.out.println(Thread.currentThread().getName()+ “…Y….” + x);<br>}<br>}<br>};<br>new Thread(r).start();<br>    线程池<br>        概念<br>            一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，无需反复创建线程而消耗过多资源<br>        使用原因<br>            线程池主要用来解决①线程生命周期开销问题(创建和销毁线程花费的时间和系统资源都相当大，活动的线程)和②资源不足问题（线程太多过度消耗内存或‘切换过度’）和③运行速度问题（使线程响应更快）。通过对多个任务重复使用线程，线程创建的开销就被分摊到了多个任务上了，而且由于在请求到达时线程已经存在，所以消除了线程创建所带来的延迟。这样，就可以立即为请求服务，使用应用程序响应更快。另外，通过适当的调整线程中的线程数目可以防止出现资源不足的情况。<br>        使用方式<br>            ①Executors：线程池创建工厂类<br>public static ExecutorService newFixedThreadPool(int nThreads)：返回线程池对象<br>ExecutorService service = Executors.newFixedThreadPool(2);//包含2个线程对象<br>            ②实现Runnable接口并覆盖public void run()方法，创建该对象，不用多态<br>            ②实现Callable<t>接口<br>覆盖public Object call() throws Exception方法，可以返回线程任务执行后的结果Object、可抛出异常、创建该对象，不用多态<br>            ③调用线程池类的方法<br>                Future&lt;?&gt; submit(Runnable task)：获取线程池中的某一个线程对象，并执行，该 Future 的 get 方法在成功 完成时将会返回 null<br>                <t> Future<t> submit(Callable<t> task)：获取线程池中的某一个线程对象，并执行线程中的call()方法<br>            ④只有实现了callable<t>接口并覆盖call方法返回Futrue&lt;指定泛型&gt;<br>                Future接口：用来记录线程任务执行完毕后产生的结果。线程池创建与使用<br>V get() 获取Future对象中封装的数据结果<br>对于实现了callable接口的线程类，线程执行成功则返回覆盖call方法执行的返回的object<br>            关闭线程池ExecutorService  void shutdown();线程自动关闭<br>    线程安全<br>        概念<br>            多线程每次运行的结果与单线程运行的结果是一样的，而且其他的变量的值也是预期的一样的<br>            其实，线程安全问题都是由全局变量及静态变量引起的。若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。<br>        解决办法：线程同步<br>            同步代码块<br>                synchronized (锁对象) {<br>可能会产生线程安全问题的代码<br>}<br>同步代码块中的锁对象可以是任意的对象是同步锁，对象监视器；但多个线程时，要使用同一个锁对象才能够保证线程安全。<br>            同步方法<br>                public synchronized void 方法名(){<br>可能会产生线程安全问题的代码<br>}然后在run中调用这个方法就行<br>同步方法中的锁对象是 this<br>                public static synchronized void method(){<br>可能会产生线程安全问题的代码<br>}<br>静态同步方法中的锁对象是 类名.class<br>            死锁<br>                同步锁使用的弊端：当线程任务中出现了多个同步(多个锁)时，如果同步中嵌套了其他的同步。这时容易引发一种现象：程序出现无限等待，这种现象我们称为死锁。是由于进入同步代码块的线程不释放锁而引起的，如AB交叉<br>synchronzied(A锁){<br>    synchronized(B锁){<br>}<br>}<br>                解决办法<br>                    多态使用Lock接口Lock ck = new ReentrantLock();//ReentrantLock实现了Lock接口<br>调用void lock（）方法获取锁，void unlock（）方法释放锁,代替同步代码块<br>                    Lock ck = new ReentrantLock();<br>ck.lock();中间安插要同步的代码块ck.unlock();<br>            线程同步执行过程<br>                ①加了同步之后，线程进同步之前判断锁，没锁进不去，有锁进去并获取锁，出同步释放锁，导致线程运行速度下降<br>②没有锁的线程，不能进入同步，③在同步中的线程，不出去同步，不会释放锁，即使休眠了<br>            等待唤醒机制<br>同步中才有效<br>                线程之间的通信：多个线程在处理同一个资源，但是处理的动作（线程的任务）却不相同。通过一定的手段使各个线程能有效的利用资源。而这种手段即—— 等待唤醒机制。<br>                Object中的相关方法<br>                    wait（） :等待，将正在执行的线程释放其执行资格和执行权，并存储到线程池中<br>                    notify（）：唤醒，唤醒线程池中被wait（）的线程，一次唤醒一个，而且是任意的<br>                    notifyAll（）： 唤醒全部：可以将线程池中的所有wait() 线程都唤醒<br>                    因为这些方法在使用时，必须要标明所属的锁，而锁又可以是任意对象。能被任意对象调用的方法一定定义在Object类中。<br>                    sleep()和wait()方法的区别<br>                        sleep: 不释放锁对象, 释放CPU使用权、在休眠的时间内，不能唤醒<br>wait(): 释放锁对象, 释放CPU使用权、在等待的时间内，能唤醒</t></t></t></t></t></p>
-</div><div class="tags"><a href="/tags/多线程/">多线程</a></div><div class="post-nav"><a class="pre" href="/2018/05/08/异常/">异常</a><a class="next" href="/2018/05/08/IO/">IO</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/异常/">异常</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/多线程/">多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/IO/">IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/集合框架/">集合框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/常用API/">常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/面向对象/">面向对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/07/计算机常识/">计算机常识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/java基础语法/">Java基本语法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+public class MyThread extends Thread {
+    public MyThread(String name) {
+        super(name);
+    }
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(getName()+&quot;：正在执行！&quot;+i);
+            }
+        }
+    }
+</code></pre><h4 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h4><pre><code>避免了继承Thread类的单继承局限性
+    实现Runnable接口的方式，更加的符合面向对象，线程分为线程对象和线程任务。
+    继承Thread类，线程对象和线程任务耦合。Thread类的子类对象，既是线程对象，有又有线程任务。
+    实现runnable接口，将线程任务单独分离出来封装成对象，类型就是Runnable接口类型。
+    Runnable接口对线程对象和线程任务进行解耦。
+    public class Demo02 {
+    public static void main(String[] args) {
+        //创建线程执行目标类对象
+        Runnable runn = new MyRunnable();
+        //将Runnable接口的子类对象作为参数传递给Thread类的构造函数
+        Thread thread = new Thread(runn);
+        Thread thread2 = new Thread(runn);
+        //开启线程
+        thread.start();
+        thread2.start();
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(&quot;main线程：正在执行！&quot;+i);
+        }
+    }
+    }    
+    public class MyRunnable implements Runnable{
+    @Override
+        public void run() {
+            for (int i = 0; i &lt; 10; i++) {
+                System.out.println(&quot;我的线程：正在执行！&quot;+i);
+                }
+        }
+    }
+    当执行线程的任务结束了，线程自动在栈内存中释放了。当所有的执行线程都结束了，进程就结束了
+</code></pre><h3 id="线程匿名内部类的使用"><a href="#线程匿名内部类的使用" class="headerlink" title="线程匿名内部类的使用"></a>线程匿名内部类的使用</h3><h4 id="创建线程对象时，重写Thread类中的run方法"><a href="#创建线程对象时，重写Thread类中的run方法" class="headerlink" title="创建线程对象时，重写Thread类中的run方法"></a>创建线程对象时，重写Thread类中的run方法</h4><pre><code>new Thread() {
+    public void run() {
+    for (int x = 0; x &lt; 40; x++) {
+    System.out.println(Thread.currentThread().getName()+ &quot;...X....&quot; + x);
+    }
+    }
+    }.start();
+</code></pre><h4 id="实现Runnable接口，重写Runnable接口中的run方法"><a href="#实现Runnable接口，重写Runnable接口中的run方法" class="headerlink" title="实现Runnable接口，重写Runnable接口中的run方法"></a>实现Runnable接口，重写Runnable接口中的run方法</h4><pre><code>Runnable r = new Runnable() {
+    public void run() {
+    for (int x = 0; x &lt; 40; x++) {
+    System.out.println(Thread.currentThread().getName()+ &quot;...Y....&quot; + x);
+    }
+    }
+    };
+    new Thread(r).start();
+</code></pre><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><pre><code>容纳多个线程的容器(使线程可以反复使用),无需反复创建线程而消耗过多资源
+    ①线程生命周期开销问题(创建和销毁线程花费的时间和系统资源都相当大)
+    ②资源不足问题（线程太多过度消耗内存或‘切换过度’）
+    适当的调整线程中的线程数目可以防止出现资源不足的情况。
+    ③运行速度问题（响应快）,通过对多个任务重复使用线程,
+    线程创建的开销就被分摊到了多个任务上了，
+    而且由于在请求到达时线程已经存在，所以消除了线程创建所带来的延迟。
+</code></pre><h3 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h3><pre><code>①Executors：线程池创建工厂类
+    public static ExecutorService newFixedThreadPool(int nThreads)：返回线程池对象
+    ExecutorService service = Executors.newFixedThreadPool(2);//包含2个线程对象
+    ②实现Runnable接口并覆盖void run()方法，创建该对象（非多态）
+    ②实现Callable&lt;T&gt;接口覆盖Object call()方法，创建该对象（非多态）
+    ③调用线程池类的方法
+    Future&lt;?&gt; submit(Runnable task);获取线程池中的某个线程对象并执行线程中的run()方法，
+    &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task);获取线程池中的某个线程对象并执行线程中的call()方法
+    ④Future接口：用来记录线程任务执行完毕后产生的结果。
+    V get() 获取Future对象中封装的数据结果
+    对于实现了callable接口的线程类，线程执行成功则返回覆盖call方法执行的返回的object
+    对于实现了Runnable接口的线程类，线程执行成功则返回覆盖run方法执行的返回的null
+    关闭线程池ExecutorService  void shutdown();线程自动关闭
+</code></pre><h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><pre><code>线程安全:多线程每次运行的结果与单线程运行的结果是一样的，而且其他的变量的值也是预期的一样的
+    其实，线程安全问题都是由全局变量及静态变量引起的。
+    若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；
+    若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。
+</code></pre><h3 id="线程同步-解决线程安全问题"><a href="#线程同步-解决线程安全问题" class="headerlink" title="线程同步:解决线程安全问题"></a>线程同步:解决线程安全问题</h3><pre><code>同步代码块synchronized (锁对象) {同步代码}
+    同步代码块中的锁对象可以是任意的对象；多个线程时，同一个锁对象才能够保证线程安全。
+    同步方法public synchronized void 方法名(){同步代码}在run中调用这个方法，锁对象是 this
+    静态同步方法public static synchronized void method(){同步代码}，锁对象是 类名.class
+</code></pre><h3 id="死锁：同步锁使用的弊端"><a href="#死锁：同步锁使用的弊端" class="headerlink" title="死锁：同步锁使用的弊端"></a>死锁：同步锁使用的弊端</h3><pre><code>当线程任务中出现了多个同步(多个锁)时，如果同步中嵌套了其他的同步。程序出现无限等待的现象
+    是由于进入同步代码块的线程不释放锁而引起的，如AB锁交叉
+        synchronzied(A锁){
+            synchronized(B锁){         
+        }
+        }
+</code></pre><h4 id="死锁解决办法（使用lock接口）"><a href="#死锁解决办法（使用lock接口）" class="headerlink" title="死锁解决办法（使用lock接口）"></a>死锁解决办法（使用lock接口）</h4><pre><code>Lock ck = new ReentrantLock();//ReentrantLock实现了Lock接口多态
+    ck.lock();获取锁
+    同步代码块
+    ck.unlock();释放锁
+</code></pre><h4 id="线程同步执行过程"><a href="#线程同步执行过程" class="headerlink" title="线程同步执行过程"></a>线程同步执行过程</h4><pre><code>①线程进同步之前判断锁，没锁进不去，有锁进去并获取锁，出同步释放锁，导致线程运行速度下降
+    ②没有锁的线程，不能进入同步，③在同步中的线程，不出去同步，不会释放锁，即使休眠了
+</code></pre><h4 id="等待唤醒机制（同步中才有效）"><a href="#等待唤醒机制（同步中才有效）" class="headerlink" title="等待唤醒机制（同步中才有效）"></a>等待唤醒机制（同步中才有效）</h4><pre><code>等待唤醒机制：使各个线程能有效的利用资源。
+    Object中的相关方法
+    wait（） :等待，将正在执行的线程释放其执行资格和执行权，并存储到线程池中
+    notify（）：唤醒，唤醒线程池中被wait（）的线程，一次唤醒一个，而且是任意的
+    notifyAll（）： 唤醒全部：可以将线程池中的所有wait() 线程都唤醒
+</code></pre><h3 id="sleep-和wait-方法的区别"><a href="#sleep-和wait-方法的区别" class="headerlink" title="sleep()和wait()方法的区别"></a>sleep()和wait()方法的区别</h3><pre><code>sleep: 不释放锁对象, 释放CPU使用权、在休眠的时间内，不能唤醒
+    wait(): 释放锁对象, 释放CPU使用权、在等待的时间内，能唤醒
+</code></pre></div><div class="tags"><a href="/tags/多线程/">多线程</a></div><div class="post-nav"><a class="pre" href="/2018/05/08/异常/">异常</a><a class="next" href="/2018/05/08/IO/">IO</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/异常/">异常</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/多线程/">多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/IO/">IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/集合框架/">集合框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/常用API/">常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/面向对象/">面向对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/07/计算机常识/">计算机常识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/java基础语法/">Java基本语法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
