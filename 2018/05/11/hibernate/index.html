@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>hibernate | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">hibernate</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">hibernate</h1><div class="post-meta">May 11, 2018<span> | </span><span class="category"><a href="/categories/hibernate/">hibernate</a></span></div><div class="post-content"><p>框架是用来提高开发效率的,只需懂得如何使用即可<br><a id="more"></a></p>
+<h2 id="hibernate"><a href="#hibernate" class="headerlink" title="hibernate"></a>hibernate</h2><img src="/2018/05/11/hibernate/hibernate.jpg" title="hibernate位置">
+<h3 id="hibernate的优点"><a href="#hibernate的优点" class="headerlink" title="hibernate的优点"></a>hibernate的优点</h3><pre><code>操作数据库的时候,可以以面向对象的方式来完成.不需要书写SQL语句
+</code></pre><h3 id="hibernate是一款orm（orm-object-relationg-mapping-对象关系映射）框架"><a href="#hibernate是一款orm（orm-object-relationg-mapping-对象关系映射）框架" class="headerlink" title="hibernate是一款orm（orm:object relationg mapping. 对象关系映射）框架"></a>hibernate是一款orm（orm:object relationg mapping. 对象关系映射）框架</h3><img src="/2018/05/11/hibernate/orm.jpg" title="orm">
+<p>orm分4级：hibernate属于4级:完全面向对象操作数据库、mybatis属于2级、dbutils属于1级</p>
+<h2 id="hibernate框架的搭建"><a href="#hibernate框架的搭建" class="headerlink" title="hibernate框架的搭建"></a>hibernate框架的搭建</h2><h3 id="导包：web-content-–-gt-web-INF–-gt-lib"><a href="#导包：web-content-–-gt-web-INF–-gt-lib" class="headerlink" title="导包：web-content –&gt;web-INF–&gt;lib"></a>导包：web-content –&gt;web-INF–&gt;lib</h3><pre><code>hibernate-commons-annotations-5.0.1.Final.jar
+    hibernate-core-5.0.7.Final.jar
+    hibernate-jpa-2.1-api-1.0.0.Final.jar
+    jandex-2.0.0.Final.jar
+    javassist-3.18.1-GA.jar
+    jboss-logging-3.3.0.Final.jar
+    antlr-2.7.7.jar
+    dom4j-1.6.1.jar
+    geronimo-jta_1.1_spec-1.1.1.jar
+
+    mysql-connector-java-5.1.7-bin.jar
+</code></pre><h3 id="创建数据库-创建表"><a href="#创建数据库-创建表" class="headerlink" title="创建数据库,创建表"></a>创建数据库,创建表</h3><h3 id="书写orm元数据-对象与表的映射配置文件"><a href="#书写orm元数据-对象与表的映射配置文件" class="headerlink" title="书写orm元数据(对象与表的映射配置文件)"></a>书写orm元数据(对象与表的映射配置文件)</h3><h4 id="导入mapping约束-window菜单–-gt-preference–-gt-cata"><a href="#导入mapping约束-window菜单–-gt-preference–-gt-cata" class="headerlink" title="导入mapping约束 window菜单–&gt; preference–&gt;cata"></a>导入mapping约束 window菜单–&gt; preference–&gt;cata</h4><pre><code>Web App Libraries--hibernate-core-5.0.7.final.jar-
+    org.hibernate-hibernate-mapping-3.0.dtd    
+</code></pre><h4 id="创建实体src目录的domain包下创建实体对象类"><a href="#创建实体src目录的domain包下创建实体对象类" class="headerlink" title="创建实体src目录的domain包下创建实体对象类"></a>创建实体src目录的domain包下创建实体对象类</h4><h4 id="orm元数据-配置表与实体对象的关系（配置文件）src-gt-表名-hbm-xml"><a href="#orm元数据-配置表与实体对象的关系（配置文件）src-gt-表名-hbm-xml" class="headerlink" title="orm元数据:配置表与实体对象的关系（配置文件）src-&gt;表名.hbm.xml"></a>orm元数据:配置表与实体对象的关系（配置文件）src-&gt;表名.hbm.xml</h4><pre><code class="bash">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;
+    &lt;!DOCTYPE hibernate-mapping PUBLIC 
+    <span class="string">"-//Hibernate/Hibernate Mapping DTD 3.0//EN"</span>
+    <span class="string">"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"</span>&gt;
+    &lt;hibernate-mapping package=<span class="string">""</span> &gt;
+        &lt;class name=<span class="string">""</span> table=<span class="string">""</span> &gt;
+            &lt;id name=<span class="string">""</span>  column=<span class="string">""</span>&gt;
+                &lt;generator class=<span class="string">"native"</span>&gt;&lt;/generator&gt;
+            &lt;/id&gt;
+            &lt;property name=<span class="string">"cust_name"</span> column=<span class="string">"cust_name"</span> &gt;&lt;/property&gt;
+        &lt;/class&gt;
+    &lt;/hibernate-mapping&gt;
+</code></pre>
+<h3 id="主配置文件src目录–-gt-hibernate-cfg-xml"><a href="#主配置文件src目录–-gt-hibernate-cfg-xml" class="headerlink" title="主配置文件src目录–&gt;hibernate.cfg.xml"></a>主配置文件src目录–&gt;hibernate.cfg.xml</h3><h4 id="导入configuration约束window菜单–-gt-preference–-gt-cata"><a href="#导入configuration约束window菜单–-gt-preference–-gt-cata" class="headerlink" title="导入configuration约束window菜单–&gt; preference–&gt;cata"></a>导入configuration约束window菜单–&gt; preference–&gt;cata</h4><pre><code>Web App Libraries--hibernate-core-5.0.7.final.jar-
+    org.hibernate-hibernate-configuration-3.0.dtd                   
+</code></pre><pre><code class="bash">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;
+&lt;!DOCTYPE hibernate-configuration PUBLIC
+    <span class="string">"-//Hibernate/Hibernate Configuration DTD 3.0//EN"</span>
+    <span class="string">"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"</span>&gt;
+&lt;hibernate-configuration&gt;
+    &lt;session-factory&gt;
+    &lt;property name=<span class="string">"hibernate.connection.driver_class"</span>&gt;com.mysql.jdbc.Driver&lt;/property&gt; 
+        &lt;property name=<span class="string">"hibernate.connection.url"</span>&gt;jdbc:mysql:///hibernate&lt;/property&gt;
+        &lt;property name=<span class="string">"hibernate.connection.username"</span>&gt;root&lt;/property&gt;
+        &lt;property name=<span class="string">"hibernate.connection.password"</span>&gt;1234&lt;/property&gt;
+        &lt;property name=<span class="string">"hibernate.dialect"</span>&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
+
+        &lt;property name=<span class="string">"hibernate.show_sql"</span>&gt;<span class="literal">true</span>&lt;/property&gt;
+        &lt;property name=<span class="string">"hibernate.format_sql"</span>&gt;<span class="literal">true</span>&lt;/property&gt;
+        &lt;!-- <span class="comment">## auto schema export  自动导出表结构. 自动建表</span>
+        create    自动建表.每次框架运行都创建新表.以前表将会被覆盖,表数据会丢失.(开发测试使用)
+        create-drop 自动建表.每次框架运行结束都会将所有表删除.(开发环境中测试使用)
+        update(推荐) 自动生成表.如果已经存在不会再生成.如果表有变动.自动更新表(不删除任何数据)
+        validate    校验.不自动生成表.每次启动会校验数据库中表是否正确.校验失败.--&gt;
+        &lt;property name=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;update&lt;/property&gt;    
+        &lt;mapping resource=<span class="string">"com/hechuangjun/domain/Customer.hbm.xml"</span> /&gt;
+    &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+</code></pre>
+<h3 id="测试（一般操作）"><a href="#测试（一般操作）" class="headerlink" title="测试（一般操作）"></a>测试（一般操作）</h3><pre><code class="bash">class Test Hibernate {
+    public void <span class="function"><span class="title">fun</span></span>(){
+        Configuration configuration = new Configuration().config();
+        SessionFactory sessionfactory = configuration.buildSessionFactory;
+        Session session = sessionfactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Customer c=new Customer();
+        c.setCust_name(<span class="string">"xiaojun"</span>);
+        session.save(c);
+        tx.commit();
+        session.close();
+        sessionfactory.close();
+        }
+    }
+</code></pre>
+<h2 id="hibernate-API"><a href="#hibernate-API" class="headerlink" title="hibernate-API"></a>hibernate-API</h2><h3 id="Configuration-用于加载主配置-orm元数据加载-创建sessionFactory对象"><a href="#Configuration-用于加载主配置-orm元数据加载-创建sessionFactory对象" class="headerlink" title="Configuration:用于加载主配置,orm元数据加载,创建sessionFactory对象"></a>Configuration:用于加载主配置,orm元数据加载,创建sessionFactory对象</h3><pre><code>Configuration conf = new Configuration().configure();,默认加载src下hibernate.cfg.xml
+    sf = conf.buildSessionFactory();根据主配置信息,创建SessionFactory对象
+    加载指定orm元数据(了解)
+    如果主配置中已经引入映射配置&lt;mapping resource=&quot;?&quot;&gt;.则不需要手动加载orm元数据
+    conf.addResource(resourceName);    conf.addClass(persistentClass);
+</code></pre><h3 id="SessionFactory-创建操作数据库核心对象session对象"><a href="#SessionFactory-创建操作数据库核心对象session对象" class="headerlink" title="SessionFactory:创建操作数据库核心对象session对象"></a>SessionFactory:创建操作数据库核心对象session对象</h3><pre><code>①sessionfactory 负责保存和使用所有配置信息.消耗内存资源非常大. 
+    ②sessionFactory属于线程安全的对象设计.结论: 保证在web项目中,只创建一个sessionFactory.
+    获得一个新的session对象 sf.openSession();
+    获得一个与线程绑定的session对象 sf.getCurrentSession();//事务操作
+</code></pre><h3 id="Session-hibernate操作数据库的核心对象-与数据库之间的连接-会话-类似于JDBC的connection对象"><a href="#Session-hibernate操作数据库的核心对象-与数据库之间的连接-会话-类似于JDBC的connection对象" class="headerlink" title="Session:hibernate操作数据库的核心对象,与数据库之间的连接(会话)类似于JDBC的connection对象."></a>Session:hibernate操作数据库的核心对象,与数据库之间的连接(会话)类似于JDBC的connection对象.</h3><pre><code>session开启事务并获得操作事务的tx对象(推荐)Transaction tx = session.beginTransaction();
+    增session.save(c);
+    改session.update(c);
+    删session.delete(c);
+    查session.get(Customer.class, 1l);
+</code></pre><h3 id="Transaction：封装了事务的操作"><a href="#Transaction：封装了事务的操作" class="headerlink" title="Transaction：封装了事务的操作."></a>Transaction：封装了事务的操作.</h3><pre><code>打开事务：Transaction tx2 = session.beginTransaction();
+    提交事务：tx2.commit();
+    回滚事务：tx2.rollback();
+    释放资源：session.close();   sf.close();
+</code></pre><h2 id="hibernateutils"><a href="#hibernateutils" class="headerlink" title="hibernateutils"></a>hibernateutils</h2><pre><code>package com.jun.utils;
+    import org.hibernate.Session;
+    import org.hibernate.SessionFactory;
+    import org.hibernate.cfg.Configuration;
+    public class HibernateUtils {
+        private static SessionFactory sf;
+        static{
+            Configuration conf = new Configuration().configure();
+             sf = conf.buildSessionFactory();
+        }
+        public static Session openSession(){
+                    Session session = sf.openSession();
+                    return session;
+
+        }
+        public static Session getCurrentSession(){
+            Session session = sf.getCurrentSession();
+            return session;
+        }
+    }
+    使用
+        Session session = HibernateUtils.openSession();
+        Transaction tx = session.beginTransaction();
+        //3执行操作
+        tx.commit();
+        session.close();
+</code></pre><h2 id="hibernate中的实体规则"><a href="#hibernate中的实体规则" class="headerlink" title="hibernate中的实体规则"></a>hibernate中的实体规则</h2><pre><code>不要用final修饰class
+    hibernate用cglib代理生成代理对象.代理对象是继承被代理对象.若被final修饰.将无法生成代理
+    成员变量私有,属性使用包装类型
+    提供get/set方法访问.需提供属性            
+    提供无参数构造
+    持久化类需要提供oid.与数据库中的主键列对应
+    主键oid类型
+    自然主键(少见)
+    表的业务列中,有某业务列符合,必须有,且不重复的特征时,该列可以作为主键使用.如身份证号
+    代理主键(常见)
+    表的业务列中,没有某业务列符合,必须有,且不重复的特征时,创建一个无业务意义的列作为主键id
+</code></pre><h2 id="全部主键生成策略（在orm元数据—表名-hbm-xml中配置）"><a href="#全部主键生成策略（在orm元数据—表名-hbm-xml中配置）" class="headerlink" title="全部主键生成策略（在orm元数据—表名.hbm.xml中配置）"></a>全部主键生成策略（在orm元数据—表名.hbm.xml中配置）</h2><pre><code>generator:主键生成策略.每条记录录入时,主键生成规则.(7个)
+    identity : 主键自增.由数据库来维护主键值.录入时不需要指定主键.
+    sequence: Oracle中的主键生成策略.
+    hilo(了解): 高低位算法.主键自增.由hibernate来维护.开发时不使用.
+    native:hilo+sequence+identity 自动三选一策略.（使用这个换数据库不用改）
+    increment(了解): 主键自增.由hibernate来维护.每次插入前会先查询表中id最大值.
+    +1作为新主键值.    线程不安全，效率低开发不使用，数据库本身自己维护
+    uuid: 产生随机字符串作为主键. 主键类型必须为string 类型.
+    assigned:自然主键生成策略. hibernate不会管理主键值.录入时指定主键. 
+</code></pre><h2 id="hibernate中的对象状态"><a href="#hibernate中的对象状态" class="headerlink" title="hibernate中的对象状态"></a>hibernate中的对象状态</h2><pre><code>瞬时状态：没有id,没有在session缓存中（注意是id、其他普通属性不算）delete
+    持久化状态：有id,在session缓存中与session有关（save update get）
+    游离|托管状态：有id,没有在session缓存中，与session无关联 close
+</code></pre><h2 id="hibernate进阶-一级缓存-快照"><a href="#hibernate进阶-一级缓存-快照" class="headerlink" title="hibernate进阶-一级缓存+快照"></a>hibernate进阶-一级缓存+快照</h2><pre><code>缓存:提高效率.hibernate中的一级缓存也是为了提高操作数据库的效率.，提高查询效率
+</code></pre><img src="/2018/05/11/hibernate/一级缓存.jpg" title="一级缓存">
+<pre><code>减少不必要的修改语句发送
+</code></pre><img src="/2018/05/11/hibernate/快照.jpg" title="快照">            
+<h2 id="hibernate中的事务"><a href="#hibernate中的事务" class="headerlink" title="hibernate中的事务"></a>hibernate中的事务</h2><h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><h4 id="事务特性"><a href="#事务特性" class="headerlink" title="事务特性"></a>事务特性</h4><h5 id="a-原子性-操作数据库的最小单位"><a href="#a-原子性-操作数据库的最小单位" class="headerlink" title="a 原子性:操作数据库的最小单位"></a>a 原子性:操作数据库的最小单位</h5><pre><code>c 一致性:数据总量不变
+i 隔离性
+d 持久性
+</code></pre><h5 id="事务并发问题1-脏读2-不可重复度3-幻-虚读"><a href="#事务并发问题1-脏读2-不可重复度3-幻-虚读" class="headerlink" title="事务并发问题1.脏读2.不可重复度3.幻|虚读"></a>事务并发问题1.脏读2.不可重复度3.幻|虚读</h5><h5 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h5><pre><code>读未提交- 123
+    读已提交 - 23
+    可重复读(mysql默认级别)-3
+    串行化 - 没有问题效率低 
+</code></pre><h3 id="hibernate中指定数据库的隔离级别在hibernate-cfg-xml中配置，额外的可选属性"><a href="#hibernate中指定数据库的隔离级别在hibernate-cfg-xml中配置，额外的可选属性" class="headerlink" title="hibernate中指定数据库的隔离级别在hibernate.cfg.xml中配置，额外的可选属性"></a>hibernate中指定数据库的隔离级别在hibernate.cfg.xml中配置，额外的可选属性</h3><pre><code>#hibernate.connection.isolation 1|2|4|8        
+    0001    1    读未提交
+    0010    2    读已提交
+    0100    4    可重复读（mysql）
+    1000    8    串行化--&gt;
+    &lt;property name=&quot;hibernate.connection.isolation&quot;&gt;4&lt;/property&gt;
+</code></pre><h3 id="在项目中管理事务"><a href="#在项目中管理事务" class="headerlink" title="在项目中管理事务"></a>在项目中管理事务</h3><pre><code>业务开始之前打开事务,业务执行之后提交事务. 执行过程中出现异常.回滚事务.
+    在dao层操作数据库需要用到session对象.在service控制事务也是使用session对象完成. 
+    要确保dao层和service层使用的使用同一个session对象，
+    在hibernate中,只需要调用sf.getCurrentSession()方法即可获得与当前线程绑定的session对象
+    注意1: 调用getCurrentSession方法必须配合主配置中的一段配置在hibernate.cfg.xml文件中配置
+    &lt;!-- 指定session与当前线程绑定 --&gt;
+    &lt;property name=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/property&gt;
+    注意2:通过getCurrentSession方法获得的session对象.
+    当事务提交时,session会自动关闭.不要手动调用close关闭.
+</code></pre><h2 id="一对多-多对一"><a href="#一对多-多对一" class="headerlink" title="一对多|多对一"></a>一对多|多对一</h2><h3 id="关系表达"><a href="#关系表达" class="headerlink" title="关系表达"></a>关系表达</h3><pre><code>表中的表达：多方（从表）外键引用一方（主表）主键
+    实体中的表达(多的一方用外键)private Set&lt;多&gt; 多;private 一 一;
+    orm元数据中分别新建hbm.xml表达注意在主配置引入orm数据源
+    &lt;!-- name:表达一对多的集合属性名column: 外键列名class: 关联对象完整类名（many）--&gt;
+    &lt;set name=&quot;linkMens&quot;  &gt;
+    &lt;key column=&quot;lkm_cust_id&quot; &gt;&lt;/key&gt;
+    &lt;one-to-many class=&quot;LinkMan&quot; /&gt;
+    &lt;/set&gt;
+    &lt;!-- name:表达多对一关系的属性名column: 外键列名class: 关联对象完整类名（one）--&gt;
+    &lt;many-to-one name=&quot;customer&quot; column=&quot;lkm_cust_id&quot; class=&quot;Customer&quot; &gt;&lt;/many-to-one&gt;
+</code></pre><h3 id="操作关联属性"><a href="#操作关联属性" class="headerlink" title="操作关联属性"></a>操作关联属性</h3><pre><code>增
+    Customer c = session.get(Customer.class,1l);
+    LinkMan lm1 = new LinkMan();
+    lm1.setLkm_name(&quot;郝强勇&quot;);
+    c.getLinkMens().add(lm1);
+    lm1.setCustomer(c);
+    session.save(lm1);
+    存
+    Customer c = new Customer();
+    c.setCust_name(&quot;传智播客&quot;);    
+    LinkMan lm1 = new LinkMan();
+    lm1.setLkm_name(&quot;黎活明&quot;);
+    LinkMan lm2 = new LinkMan();
+    lm2.setLkm_name(&quot;刘悦东&quot;);
+    //表达一对多,客户下有多个联系人
+    c.getLinkMens().add(lm1);
+    c.getLinkMens().add(lm2);
+    //表达对对对,联系人属于哪个客户
+    lm1.setCustomer(c);
+    lm2.setCustomer(c);
+    session.save(c);
+    //    session.save(lm1);
+    //    session.save(lm2);
+    删
+    Customer c = session.get(Customer.class,1l);
+    LinkMan lm = session.get(LinkMan.class, 3l);
+    c.getLinkMens().remove(lm);
+    lm.setCustomer(null);
+</code></pre><h3 id="进阶操作（一对多-多对一）"><a href="#进阶操作（一对多-多对一）" class="headerlink" title="进阶操作（一对多|多对一）"></a>进阶操作（一对多|多对一）</h3><h4 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h4><pre><code>级联操作:cascade（简化操作）
+    save-update: 级联保存更新（推荐）
+    delete:级联删除，删除一的数据，多的外键还在
+    all:save-update+delete
+    &lt;set name=&quot;linkMens&quot; inverse=&quot;true&quot; cascade=&quot;delete&quot;  &gt;
+    &lt;key column=&quot;lkm_cust_id&quot; &gt;&lt;/key&gt;
+    &lt;one-to-many class=&quot;LinkMan&quot; /&gt;
+    &lt;/set&gt;
+</code></pre><h4 id="关系维护"><a href="#关系维护" class="headerlink" title="关系维护"></a>关系维护</h4><pre><code>在保存时.两方都会维护外键关系.关系维护两次,冗余了. 
+    多余的维护关系语句,显然是客户这一端在维护关系（通过更新外键来维护的）
+    inverse(反转)属性: 配置关系是否维护. 性能优化.提高关系维护的性能.
+    true: 不维护关系
+    false(默认值): 维护关系,删除一的数据，多的外键消失          
+    原则: 一对多关系中: 一的一方放弃.也只能一的一方放弃.多的一方不能放弃.
+    如果客户放弃维护与联系人的关系. 维护关系的代码可以省略
+</code></pre><h2 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h2><h3 id="表中的表达：通过中间表（从表）两个外键引用两个表的（主表）主键"><a href="#表中的表达：通过中间表（从表）两个外键引用两个表的（主表）主键" class="headerlink" title="表中的表达：通过中间表（从表）两个外键引用两个表的（主表）主键"></a>表中的表达：通过中间表（从表）两个外键引用两个表的（主表）主键</h3><h3 id="实体中的表达：private-Set-lt-多-gt-多-private-Set-lt-多-gt-多"><a href="#实体中的表达：private-Set-lt-多-gt-多-private-Set-lt-多-gt-多" class="headerlink" title="实体中的表达：private Set&lt;多&gt; 多; private Set&lt;多&gt; 多;"></a>实体中的表达：private Set&lt;多&gt; 多; private Set&lt;多&gt; 多;</h3><h3 id="orm元数据中分别新建hbm-xml表达注意在主配置引入orm数据源"><a href="#orm元数据中分别新建hbm-xml表达注意在主配置引入orm数据源" class="headerlink" title="orm元数据中分别新建hbm.xml表达注意在主配置引入orm数据源"></a>orm元数据中分别新建hbm.xml表达注意在主配置引入orm数据源</h3><pre><code>name: 集合属性名table: 配置中间表名 key
+    |-column:外键,别人引用&quot;我&quot;的外键列名
+    class: 我与哪个类是多对多关系
+    column:外键.我引用比人的外键列名
+    &lt;set name=&quot;roles&quot; table=&quot;sys_user_role&quot; cascade=&quot;save-update&quot; &gt;
+    &lt;key column=&quot;user_id&quot; &gt;&lt;/key&gt;
+    &lt;many-to-many class=&quot;Role&quot; column=&quot;role_id&quot; &gt;&lt;/many-to-many&gt;
+    &lt;/set&gt;
+    &lt;set name=&quot;users&quot; table=&quot;sys_user_role&quot; inverse=&quot;true&quot; &gt;
+    &lt;key column=&quot;role_id&quot; &gt;&lt;/key&gt;
+    &lt;many-to-many class=&quot;User&quot; column=&quot;user_id&quot; &gt;&lt;/many-to-many&gt;
+    &lt;/set&gt;
+</code></pre><h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><h4 id="操作关联属性-1"><a href="#操作关联属性-1" class="headerlink" title="操作关联属性"></a>操作关联属性</h4><pre><code>u1.getRoles().add(r1);
+    u1.getRoles().add(r2);
+
+    u2.getRoles().add(r1);
+    u2.getRoles().add(r2);
+
+    r1.getUsers().add(u1);
+    r1.getUsers().add(u2);
+
+    r2.getUsers().add(u1);
+    r2.getUsers().add(u2);
+
+    session.save(u1);
+    session.save(u2);
+    session.save(r1);
+    session.save(r2);
+</code></pre><h4 id="操作进阶"><a href="#操作进阶" class="headerlink" title="操作进阶"></a>操作进阶</h4><pre><code>inverse属性
+    使用inverse属性
+    true: 放弃维护外键关系
+    false(默认值):维护关系        
+    多对多关系.一定要选择一方放弃维护关系.(看业务方向)
+
+    级联属性cascade级联操作:
+    save-update: 级联保存更新
+    delete:级联删除
+    all:级联保存更新+级联删除
+    cascade简化代码书写.该属性使不使用无所谓. 建议要用只用save-update.
+    如果使用delete操作太过危险.尤其在多对多中.不建议使用.
+    一对一和多对多的误区
+    一对多可以两边的都维护关系是因为在一的方面根据多的一方的id和
+    外键设置的值来用update来维护外键关系，
+    多的方面用insert维护外键，虽然外键更新了，但是没冲突，只是影响了效率，
+    而多对多两方面都使用insert语句来维护外键，此时第三张表两次插入相同的外键，
+    违反了外键唯一的约束
+</code></pre><h2 id="查询总结-session"><a href="#查询总结-session" class="headerlink" title="查询总结(session)"></a>查询总结(session)</h2><h3 id="oid查询-get"><a href="#oid查询-get" class="headerlink" title="oid查询-get"></a>oid查询-get</h3><h3 id="对象属性导航查询"><a href="#对象属性导航查询" class="headerlink" title="对象属性导航查询"></a>对象属性导航查询</h3><h3 id="HQL：HQL查询-hibernate-Query-Language-多表查询-但不复杂时使用-操作列"><a href="#HQL：HQL查询-hibernate-Query-Language-多表查询-但不复杂时使用-操作列" class="headerlink" title="HQL：HQL查询-hibernate Query Language(多表查询,但不复杂时使用)操作列"></a>HQL：HQL查询-hibernate Query Language(多表查询,但不复杂时使用)操作列</h3><pre><code>Hibernate独家查询语言,属于面向对象的查询语言
+</code></pre><h4 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h4><pre><code>String hql = &quot; from  cn.itcast.domain.Customer &quot;;//
+    Query query = session.createQuery(hql);
+    List list = query.list();//接受list结果    
+    //query.uniqueResult();//接收唯一的查询结果
+</code></pre><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><pre><code>String hql1 = &quot; from  cn.itcast.domain.Customer order by cust_id asc &quot;;
+    String hql2 = &quot; from  cn.itcast.domain.Customer order by cust_id desc &quot;;
+    Query query = session.createQuery(hql2);    
+    List list = query.list();
+</code></pre><h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><pre><code>String hql1 = &quot; select count(*) from  cn.itcast.domain.Customer  &quot;;
+    String hql2 = &quot; select sum(cust_id) from  cn.itcast.domain.Customer  &quot;;
+    String hql3 = &quot; select avg(cust_id) from  cn.itcast.domain.Customer  &quot;;
+    String hql4 = &quot; select max(cust_id) from  cn.itcast.domain.Customer  &quot;;
+    String hql5 = &quot; select min(cust_id) from  cn.itcast.domain.Customer  &quot;;        
+    Query query = session.createQuery(hql5);
+    Number number  = (Number) query.uniqueResult();
+</code></pre><h4 id="投影（查询一部分）"><a href="#投影（查询一部分）" class="headerlink" title="投影（查询一部分）"></a>投影（查询一部分）</h4><pre><code>String hql1 = &quot; select cust_name from  cn.itcast.domain.Customer&quot;;
+    //把列名封装到对象中，同时要在对象中写这个构造函数，且同时记得要写无参构造
+    String hql3 = &quot; select new Customer(id,name) from  cn.itcast.domain.Customer&quot;;
+    Query query = session.createQuery(hql3);
+    List list = query.list();
+</code></pre><h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><pre><code>String hql1 = &quot; from  cn.itcast.domain.Customer  &quot;;
+    Query query = session.createQuery(hql1);//limit ?,? (当前页数-1)*每页条数
+    query.setFirstResult(2);
+    query.setMaxResults(2);    
+    List list = query.list();    
+</code></pre><h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><pre><code>？占位符
+    String hql1 = &quot; from  cn.itcast.domain.Customer where cust_id =? &quot;;//完整写法
+    Query query = session.createQuery(hql1);    
+    query.setParameter(0, 2l);    
+    List list = query.list(); 
+    命名占位符
+    String hql = &quot; from  cn.itcast.domain.Customer where cust_id = :id &quot;;//完整写法
+    Query query = session.createQuery(hql1);
+    query.setParameter(&quot;id&quot;, 2l);
+    List list = query.list();
+</code></pre><h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="原生SQL"><a href="#原生SQL" class="headerlink" title="原生SQL"></a>原生SQL</h4><pre><code>交叉连接-笛卡尔积(避免)select * from A,B 
+</code></pre><h5 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h5><pre><code>隐式内连接select * from A,B  where b.aid = a.id
+    显式内连接select * from A inner join B on b.aid = a.id
+</code></pre><h5 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h5><pre><code>左外select * from A left [outer] join B on b.aid = a.id
+    右外select * from A right [outer] join B on b.aid = a.id
+</code></pre><h4 id="HQL语法"><a href="#HQL语法" class="headerlink" title="HQL语法"></a>HQL语法</h4><h4 id="内连接：将连接的两端对象分别返回-放到数组中"><a href="#内连接：将连接的两端对象分别返回-放到数组中" class="headerlink" title="内连接：将连接的两端对象分别返回.放到数组中."></a>内连接：将连接的两端对象分别返回.放到数组中.</h4><pre><code>String hql = &quot; from Customer c inner join c.linkMens &quot;;
+    Query query = session.createQuery(hql);
+    List&lt;Object[]&gt; list = query.list();
+    for(Object[] arr : list){
+    System.out.println(Arrays.toString(arr));
+    }
+    //迫切内连接 =&gt; 帮我们进行封装.返回值就是一个对象
+    String hql = &quot; from Customer c inner join fetch c.linkMens &quot;;
+    Query query = session.createQuery(hql);
+    List&lt;Customer&gt; list = query.list();
+    左外链接（迫切）
+    //左外连接 =&gt; 将连接的两端对象分别返回.放到数组中.
+    String hql = &quot; from Customer c left join c.linkMens &quot;;    
+    Query query = session.createQuery(hql);    
+    List&lt;Object[]&gt; list = query.list();    
+    for(Object[] arr : list){
+    System.out.println(Arrays.toString(arr));
+    }
+    右外连接（迫切）：将连接的两端对象分别返回.放到数组中.
+    String hql = &quot; from Customer c right join c.linkMens &quot;;
+    Query query = session.createQuery(hql);
+    List&lt;Object[]&gt; list = query.list();
+    for(Object[] arr : list){
+    System.out.println(Arrays.toString(arr));
+    }
+</code></pre><h3 id="原生SQL：复杂的业务查询"><a href="#原生SQL：复杂的业务查询" class="headerlink" title="原生SQL：复杂的业务查询"></a>原生SQL：复杂的业务查询</h3><h4 id="基本查询"><a href="#基本查询" class="headerlink" title="基本查询"></a>基本查询</h4><pre><code>返回数组List
+    String sql = &quot;select * from cst_customer&quot;;    
+    SQLQuery query = session.createSQLQuery(sql);
+    List&lt;Object[]&gt; list = query.list();
+    //query.uniqueResult();
+    for(Object[] objs : list){
+    System.out.println(Arrays.toString(objs));
+    }
+    返回对象List
+    String sql = &quot;select * from cst_customer&quot;;    
+    SQLQuery query = session.createSQLQuery(sql);
+    query.addEntity(Customer.class);
+    List&lt;Customer&gt; list = query.list();
+</code></pre><h4 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h4><pre><code>String sql = &quot;select * from cst_customer where cust_id = ? &quot;;        
+    SQLQuery query = session.createSQLQuery(sql);
+    query.setParameter(0, 1l);
+    query.addEntity(Customer.class);    
+    List&lt;Customer&gt; list = query.list();
+</code></pre><h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><pre><code>tring sql = &quot;select * from cst_customer  limit ?,? &quot;;
+    SQLQuery query = session.createSQLQuery(sql);    
+    query.setParameter(0, 0);
+    query.setParameter(1, 1);
+    query.addEntity(Customer.class);    
+    List&lt;Customer&gt; list = query.list();
+</code></pre><h3 id="Criteria：-单表条件查询"><a href="#Criteria：-单表条件查询" class="headerlink" title="Criteria：(单表条件查询)"></a>Criteria：(单表条件查询)</h3><h4 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h4><pre><code>Criteria c = session.createCriteria(Customer.class);
+    List&lt;Customer&gt; list = c.list();
+</code></pre><h4 id="条件-1"><a href="#条件-1" class="headerlink" title="条件"></a>条件</h4><pre><code>Criteria c = session.createCriteria(Customer.class);        
+    c.add(Restrictions.idEq(2l));//id专用
+    c.add(Restrictions.eq(&quot;cust_id&quot;,2l));//其他属性字段
+    List&lt;Customer&gt; list = c.list();   
+    Customer c = (Customer) criteria.uniqueResult();
+    System.out.println(list);
+    //HQL语句中,不可能出现任何数据库相关的信息的
+    // &gt;                 gt
+    // &gt;=                ge
+    // &lt;                lt
+    // &lt;=                le
+    // ==                eq
+    // !=                ne
+    // in                in
+    // between and        between
+    // like                          like
+    // is not null                         isNotNull
+    // is null            isNull
+    // or                or
+    // and                and
+</code></pre><h4 id="分页limit"><a href="#分页limit" class="headerlink" title="分页limit ?,?"></a>分页limit ?,?</h4><pre><code>Criteria c = session.createCriteria(Customer.class);
+    c.setFirstResult(0);
+    c.setMaxResults(2);        
+    List&lt;Customer&gt; list = c.list();
+    System.out.println(list);
+</code></pre><h4 id="排序-1"><a href="#排序-1" class="headerlink" title="排序"></a>排序</h4><pre><code>Criteria c = session.createCriteria(Customer.class);    
+    c.addOrder(Order.asc(&quot;cust_id&quot;));//升序
+    c.addOrder(Order.desc(&quot;cust_id&quot;));    //降序
+    List&lt;Customer&gt; list = c.list();    
+    System.out.println(list);
+</code></pre><h4 id="统计-查询总记录数"><a href="#统计-查询总记录数" class="headerlink" title="统计(查询总记录数)"></a>统计(查询总记录数)</h4><pre><code>Criteria c = session.createCriteria(Customer.class);            
+    c.setProjection(Projections.rowCount());//设置查询目标        
+    List list = c.list();    
+</code></pre><h3 id="离线查询"><a href="#离线查询" class="headerlink" title="离线查询"></a>离线查询</h3><pre><code>//Service/web层
+    DetachedCriteria dc  = DetachedCriteria.forClass(Customer.class);    
+    dc.add(Restrictions.idEq(6l));//拼装条件(全部与普通Criteria一致)        
+    //----------------------------------------------------
+    Session session = HibernateUtils.openSession();
+    Transaction tx = session.beginTransaction();
+    //----------------------------------------------------
+    Criteria c = dc.getExecutableCriteria(session);
+    List list = c.list();        
+    System.out.println(list);
+    //----------------------------------------------------
+    tx.commit();
+    session.close();
+</code></pre><h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><h3 id="类级别查询（原理是代理对象）"><a href="#类级别查询（原理是代理对象）" class="headerlink" title="类级别查询（原理是代理对象）"></a>类级别查询（原理是代理对象）</h3><pre><code>get方法:没有任何策略.调用即立即查询数据库加载数据.
+    load方法(默认):应用级别加载策略，是在执行时,不发送任何sql语句.返回一个对象.
+    使用该对象时,才执行查询.延迟加载: 仅仅获得没有使用.不会查询.在使用时才进行查询.
+    在customer.hbm.xml中配置&lt;class name=&quot;Customer&quot; table=&quot;cst_customer&quot; lazy=&quot;false&quot; &gt;
+    lazy(默认值):true, 查询类时,会返回代理对象variable中有$.会在使用属性时,
+    根据关联的session查询数据库.加载数据.
+    lazy:false. load方法会与get方法没有任何区别.调用时即加载数据.
+    结论:为了提高效率.建议使用延迟加载(懒加载)
+    注意:使用懒加载时要确保,调用属性加载数据时,session还是打开的.不然会抛出异常
+</code></pre><h4 id="关联级别查询"><a href="#关联级别查询" class="headerlink" title="关联级别查询"></a>关联级别查询</h4><pre><code>集合策略（one to many）在hbm.xml的set配置
+    lazy属性: 决定是否延迟加载
+    true(默认值): 延迟加载,懒加载
+    false: 立即加载
+    extra: 极其懒惰
+    fetch属性: 决定加载策略.使用什么类型的sql语句加载集合数据
+    select(默认值): 单表查询加载
+    join: 使用多表查询加载集合
+    subselect:使用子查询加载集合
+关联属性策略（many to one）在hbm.xml的set配置
+    lazy  决定加载时机
+    false: 立即加载
+    proxy: 由customer的类级别加载策略决定.
+    fetch 决定加载的sql语句
+    select: 使用单表查询
+    join : 多表查询
+    结论:为了提高效率.fetch的选择上应选择select. lazy的取值应选择 true. 全部使用默认值.
+</code></pre><h4 id="批量抓取在hbm-xml的set配置"><a href="#批量抓取在hbm-xml的set配置" class="headerlink" title="批量抓取在hbm.xml的set配置"></a>批量抓取在hbm.xml的set配置</h4><pre><code>batch-size: 抓取集合的数量为3.抓取客户的集合时,一次抓取几个客户的联系人集合.
+</code></pre><h2 id="no-session问题解决"><a href="#no-session问题解决" class="headerlink" title="no-session问题解决:"></a>no-session问题解决:</h2><pre><code>扩大session的作用范围.使用了懒加载后会节省资源，但页面加载需要的数据时，
+    发送要求到dao层，但此时的session已经关闭了，此时取不出相应的数据
+</code></pre></div><div class="tags"><a href="/tags/hibrenate/">hibrenate</a></div><div class="post-nav"><a class="pre" href="/2018/05/11/struts2/">struts2</a><a class="next" href="/2018/05/10/设计模式/">设计模式</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

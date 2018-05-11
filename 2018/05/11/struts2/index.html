@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>struts2 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">struts2</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">struts2</h1><div class="post-meta">May 11, 2018<span> | </span><span class="category"><a href="/categories/struts2/">struts2</a></span></div><div class="post-content"><p>struts2<br><a id="more"></a></p>
+<h2 id="struts2"><a href="#struts2" class="headerlink" title="struts2"></a>struts2</h2><pre><code>struts2用于处理浏览器的请求
+</code></pre><h2 id="struts2访问流程-amp-struts2架构"><a href="#struts2访问流程-amp-struts2架构" class="headerlink" title="struts2访问流程&amp;struts2架构"></a>struts2访问流程&amp;struts2架构</h2><img src="/2018/05/11/struts2/struts2.png" title="struts2.png">
+<h3 id="struts2优点"><a href="#struts2优点" class="headerlink" title="struts2优点"></a>struts2优点</h3><pre><code>①自动封装参数
+    ②参数校验
+    ③结果的处理(转发|重定向)
+    ④国际化
+    ⑤显示等待页面
+    ⑥表单的防止重复提交
+    ⑦struts2具有更加先进的架构以及思想
+</code></pre><h3 id="struts2的历史"><a href="#struts2的历史" class="headerlink" title="struts2的历史"></a>struts2的历史</h3><pre><code>struts2前身：webwork框架.(基于filter)与struts1(基于Servlet)两者无关.
+</code></pre><h2 id="搭建struts2框架"><a href="#搭建struts2框架" class="headerlink" title="搭建struts2框架"></a>搭建struts2框架</h2><h3 id="导包，在apps下将-war文件用360压缩打开即可在lib文件下找到所有包"><a href="#导包，在apps下将-war文件用360压缩打开即可在lib文件下找到所有包" class="headerlink" title="导包，在apps下将.war文件用360压缩打开即可在lib文件下找到所有包"></a>导包，在apps下将.war文件用360压缩打开即可在lib文件下找到所有包</h3><pre><code>asm-3.3.jar
+    asm-commons-3.3.jar
+    asm-tree-3.3.jar
+    commons-fileupload-1.3.1.jar
+    commons-io-2.2.jar
+    commons-lang3-3.2.jar
+    freemarker-2.3.22.jar
+    javassist-3.11.0.GA.jar
+    log4j-api-2.2.jar
+    log4j-core-2.2.jar
+    ognl-3.0.6.jar
+    struts2-core-2.3.24.jar
+    xwork-core-2.3.24.jar            
+</code></pre><h3 id="Action类在src下面-Action-java"><a href="#Action类在src下面-Action-java" class="headerlink" title="Action类在src下面*Action.java"></a>Action类在src下面*Action.java</h3><h4 id="Action类的书写方式"><a href="#Action类的书写方式" class="headerlink" title="Action类的书写方式"></a>Action类的书写方式</h4><h5 id="创建一个类-不继承任何父类-不实现任何接口-使struts2框架的代码侵入性更低"><a href="#创建一个类-不继承任何父类-不实现任何接口-使struts2框架的代码侵入性更低" class="headerlink" title="创建一个类.不继承任何父类.不实现任何接口.使struts2框架的代码侵入性更低."></a>创建一个类.不继承任何父类.不实现任何接口.使struts2框架的代码侵入性更低.</h5><pre><code>public class Demo3Action {}
+</code></pre><h5 id="实现一个接口Action"><a href="#实现一个接口Action" class="headerlink" title="实现一个接口Action"></a>实现一个接口Action</h5><pre><code>import com.opensymphony.xwork2.Action;
+    // 里面有execute方法,提供action方法的规范.
+    // Action接口预置了一些字符串.可以在返回结果时使用.为了方便
+    public class Demo4Action implements Action {
+        @Override
+        public String execute() throws Exception {
+            return null;
+        }
+    }
+</code></pre><h4 id="继承ActionSupport"><a href="#继承ActionSupport" class="headerlink" title="继承ActionSupport"></a>继承ActionSupport</h4><pre><code>// 帮我们实现了 Validateable, ValidationAware, TextProvider, LocaleProvider .
+    //如果我们需要用到这些接口的实现时,不需要自己来实现了.
+    public class Demo5Action  extends ActionSupport{}
+</code></pre><h3 id="src-struts-xml"><a href="#src-struts-xml" class="headerlink" title="src/struts.xml"></a>src/struts.xml</h3><h4 id="导入约束window菜单–-gt-preference–-gt-cata"><a href="#导入约束window菜单–-gt-preference–-gt-cata" class="headerlink" title="导入约束window菜单–&gt; preference–&gt;cata"></a>导入约束window菜单–&gt; preference–&gt;cata</h4><pre><code>在web App Libraries--struts2-core-2.3.24.jar--struts-2.3.dtd
+</code></pre><h4 id="struts-xml配置"><a href="#struts-xml配置" class="headerlink" title="struts.xml配置"></a>struts.xml配置</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;!DOCTYPE struts PUBLIC
+    &quot;-//Apache Software Foundation//DTD Struts Configuration 2.3//EN&quot;
+    &quot;http://struts.apache.org/dtds/struts-2.3.dtd&quot;&gt;
+
+    &lt;struts&gt;
+    &lt;package name=&quot;hello&quot; namespace=&quot;/hello&quot; extends=&quot;struts-default&quot;&gt;
+    &lt;action name=&quot;TestAction&quot; class=&quot;com.junye.test.HelloAction&quot; method=&quot;fun&quot;&gt;
+    &lt;result name=&quot;success&quot;&gt;/hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+    &lt;/package&gt;
+    &lt;include file=&quot;cn/itheima/b_dynamic/struts.xml&quot;&gt;&lt;/include&gt;
+    &lt;/struts&gt;
+</code></pre><h2 id="strust-xml配置详解"><a href="#strust-xml配置详解" class="headerlink" title="strust.xml配置详解"></a>strust.xml配置详解</h2><h3 id="struts2常量配置"><a href="#struts2常量配置" class="headerlink" title="struts2常量配置"></a>struts2常量配置</h3><h4 id="struts2默认常量配置位置"><a href="#struts2默认常量配置位置" class="headerlink" title="struts2默认常量配置位置"></a>struts2默认常量配置位置</h4><pre><code>App Libraries--struts2-core-2.3.24.jar--struts-default.xml                        
+    修改struts2常量配置(方式先后也是加载顺序)后加载覆盖
+</code></pre><h5 id="方式1-src-struts-xml（只用这个）"><a href="#方式1-src-struts-xml（只用这个）" class="headerlink" title="方式1:src/struts.xml（只用这个）"></a>方式1:src/struts.xml（只用这个）</h5><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;constant name=<span class="string">"struts.i18n.encoding"</span> value=<span class="string">"UTF8"</span>&gt;&lt;/constant&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><h5 id="方式2-在src下创建struts-properties："><a href="#方式2-在src下创建struts-properties：" class="headerlink" title="方式2:在src下创建struts.properties："></a>方式2:在src下创建struts.properties：</h5><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struts.i18n.encoding=UTF8</span><br></pre></td></tr></table></figure>
+</code></pre><h5 id="方式3-在项目的web-xml中"><a href="#方式3-在项目的web-xml中" class="headerlink" title="方式3:在项目的web.xml中"></a>方式3:在项目的web.xml中</h5><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;context-param&gt;</span><br><span class="line">&lt;param-name&gt;struts.i18n.encoding&lt;/param-name&gt;</span><br><span class="line">&lt;param-value&gt;UTF-8&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><h4 id="常量配置struts-xml"><a href="#常量配置struts-xml" class="headerlink" title="常量配置struts.xml"></a>常量配置struts.xml</h4><pre><code>&lt;!-- i18n:国际化. 解决post提交乱码 get提交，按以前的方式--&gt;
+    &lt;constant name=&quot;struts.i18n.encoding&quot; value=&quot;UTF-8&quot;&gt;&lt;/constant&gt;
+    &lt;!-- 指定访问action时的后缀名 http://localhost:8080/struts2_day01/hello/HelloAction.？
+    默认.action 和 “空”--&gt;
+    &lt;constant name=&quot;struts.action.extension&quot; value=&quot;？&quot;&gt;&lt;/constant&gt;
+    &lt;!-- 指定struts2是否以开发模式运行1.热加载主配置.(不需要重启即可生效)
+    2.提供更多错误信息输出,方便开发时的调试--&gt;
+    &lt;constant name=&quot;struts.devMode&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;
+</code></pre><h4 id="struts2配置的进阶"><a href="#struts2配置的进阶" class="headerlink" title="struts2配置的进阶"></a>struts2配置的进阶</h4><h5 id="动态方法调用"><a href="#动态方法调用" class="headerlink" title="动态方法调用"></a>动态方法调用</h5><pre><code>方式1:&lt;!-- 配置动态方法调用是否开启常量  默认是关闭的,需要开启--&gt;
+    &lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;false&quot;&gt;&lt;/constant&gt;
+    http://localhost:8080/struts2_day01/dynamic/Demo1Action!find.action
+    方式2&lt;package name=&quot;dynamic&quot; namespace=&quot;/dynamic&quot; extends=&quot;struts-default&quot; &gt;
+    &lt;!-- 动态方法调用方式2:通配符方式  使用{1} 取出第一个星号通配的内容--&gt;
+    &lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.itheima.b_dynamic.Demo1Action&quot; method=&quot;{1}&quot; &gt;
+    &lt;result name=&quot;success&quot; &gt;/hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+    &lt;/package&gt;
+    http://localhost:8080/struts2_day01/dynamic/Demo1Action_find.action
+</code></pre><h3 id="struts2中的默认配置"><a href="#struts2中的默认配置" class="headerlink" title="struts2中的默认配置"></a>struts2中的默认配置</h3><pre><code>&lt;package name=&quot;default&quot; namespace=&quot;/default&quot; extends=&quot;struts-default&quot; &gt;
+    &lt;!-- 找不到包下的action,会使用Demo2Action作为默认action处理请求 --&gt;
+    &lt;default-action-ref name=&quot;Demo2Action&quot;&gt;&lt;/default-action-ref&gt;
+    &lt;!-- method属性:execute 
+     result的name属性:success   result的type属性:dispatcher 转发  --&gt;
+    &lt;!-- class属性:com.opensymphony.xwork2.ActionSupport --&gt;
+    &lt;action name=&quot;Demo2Action&quot;   &gt;
+    &lt;result  &gt;/hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+    &lt;/package&gt;
+    http://localhost:8080/struts2_day01/default/xxxx.action,默认访问Demo2Action
+</code></pre><h3 id="将struts2核心过滤器配置到web-xml-配置在欢迎页前面"><a href="#将struts2核心过滤器配置到web-xml-配置在欢迎页前面" class="headerlink" title="将struts2核心过滤器配置到web.xml,配置在欢迎页前面"></a>将struts2核心过滤器配置到web.xml,配置在欢迎页前面</h3><pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+    &lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h2 id="结果跳转方式struts-xml中result中的type属性"><a href="#结果跳转方式struts-xml中result中的type属性" class="headerlink" title="结果跳转方式struts.xml中result中的type属性"></a>结果跳转方式struts.xml中result中的type属性</h2><h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><pre><code>&lt;action name=&quot;Demo1Action&quot; class=&quot;cn.itheima.a_result.Demo1Action&quot; method=&quot;execute&quot; &gt;
+    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot; &gt;/hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+</code></pre><h3 id="重定向地址栏发生变化"><a href="#重定向地址栏发生变化" class="headerlink" title="重定向地址栏发生变化"></a>重定向地址栏发生变化</h3><pre><code>&lt;action name=&quot;Demo2Action&quot; class=&quot;cn.itheima.a_result.Demo2Action&quot; method=&quot;execute&quot; &gt;
+    &lt;result name=&quot;success&quot; type=&quot;redirect&quot; &gt;/hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+</code></pre><h3 id="转发到Action"><a href="#转发到Action" class="headerlink" title="转发到Action"></a>转发到Action</h3><pre><code>&lt;action name=&quot;Demo3Action&quot; class=&quot;cn.itheima.a_result.Demo3Action&quot; method=&quot;execute&quot; &gt;
+    &lt;result name=&quot;success&quot; type=&quot;chain&quot;&gt;
+    &lt;param name=&quot;actionName&quot;&gt;Demo1Action&lt;/param&gt;
+    &lt;param name=&quot;namespace&quot;&gt;/&lt;/param&gt;
+    &lt;/result&gt;
+    &lt;/action&gt;
+</code></pre><h3 id="重定向到Action"><a href="#重定向到Action" class="headerlink" title="重定向到Action"></a>重定向到Action</h3><pre><code>&lt;action name=&quot;Demo4Action&quot; class=&quot;cn.itheima.a_result.Demo4Action&quot; method=&quot;execute&quot; &gt;
+    &lt;result  name=&quot;success&quot;  type=&quot;redirectAction&quot;&gt;
+    &lt;param name=&quot;actionName&quot;&gt;Demo1Action&lt;/param&gt;
+     &lt;param name=&quot;namespace&quot;&gt;/&lt;/param&gt;
+     &lt;/result&gt;
+    &lt;/action&gt;
+</code></pre><h2 id="访问servletAPI方式"><a href="#访问servletAPI方式" class="headerlink" title="访问servletAPI方式"></a>访问servletAPI方式</h2><h3 id="ActionContext内容"><a href="#ActionContext内容" class="headerlink" title="ActionContext内容"></a>ActionContext内容</h3><img src="/2018/05/11/struts2/ActionContext.png" title="ActionContext.png">
+<p>attr域以最小的域的map的键为准、request域就是request中的一个map</p>
+<h3 id="通过ActionContext-通过Map原来的方法键值对获得-或者通过封装好的方法获得"><a href="#通过ActionContext-通过Map原来的方法键值对获得-或者通过封装好的方法获得" class="headerlink" title="通过ActionContext,通过Map原来的方法键值对获得,或者通过封装好的方法获得"></a>通过ActionContext,通过Map原来的方法键值对获得,或者通过封装好的方法获得</h3><pre><code>//request域=&gt; map (不推荐,ActionContext生命周期和request一样，推荐ActionContext)
+    //不推荐Map&lt;String, Object&gt; requestScope = (Map&lt;String, Object&gt;)
+    ActionContext.getContext().get(&quot;request&quot;);
+    ActionContext.getContext().put(&quot;name&quot;, &quot;requestTom&quot;);//推荐
+    //session域 =&gt; map
+    Map&lt;String, Object&gt; sessionScope = ActionContext.getContext().getSession(); 
+    sessionScope.put(&quot;name&quot;, &quot;sessionTom&quot;);
+    //application域=&gt;map
+    Map&lt;String, Object&gt; applicationScope = ActionContext.getContext().getApplication(); 
+    applicationScope.put(&quot;name&quot;, &quot;applicationTom&quot;);
+    jsp获得    
+    request: ${requestScope.name}&lt;br&gt;
+    session:${sessionScope.name}&lt;br&gt;
+    application:${applicationScope.name}&lt;br&gt;
+    ${name}按顺序取
+</code></pre><h4 id="获得response的方法-推荐"><a href="#获得response的方法-推荐" class="headerlink" title="获得response的方法(推荐)"></a>获得response的方法(推荐)</h4><pre><code>HttpServletResponse response = ServletActionContext.getResponse();//原生response
+</code></pre><h3 id="通过ServletActionContext（不推荐）获得各种原生域"><a href="#通过ServletActionContext（不推荐）获得各种原生域" class="headerlink" title="通过ServletActionContext（不推荐）获得各种原生域"></a>通过ServletActionContext（不推荐）获得各种原生域</h3><pre><code>HttpServletRequest request = ServletActionContext.getRequest();
+    HttpSession session = request.getSession();
+    HttpServletResponse response = ServletActionContext.getResponse();
+    ServletContext servletContext = ServletActionContext.getServletContext();
+    PageContext pageContext = ServletActionContext.getPageContext();//原生pageContext
+</code></pre><h3 id="通过实现接口方式（用拦截器完成的）"><a href="#通过实现接口方式（用拦截器完成的）" class="headerlink" title="通过实现接口方式（用拦截器完成的）"></a>通过实现接口方式（用拦截器完成的）</h3><pre><code>public class Demo7Action extends ActionSupport implements ServletRequestAware {
+    private HttpServletRequest request;
+    public String execute() throws Exception {     
+        System.out.println(&quot;原生request:&quot;+request);
+        return SUCCESS;
+    }
+    @Override
+    public void setServletRequest(HttpServletRequest request) {
+        this.request = request;
+    }    
+}
+</code></pre><h2 id="获得参数"><a href="#获得参数" class="headerlink" title="获得参数"></a>获得参数</h2><pre><code>单个类型：能获得radio和chekbox的值
+</code></pre><h3 id="Action生命周期"><a href="#Action生命周期" class="headerlink" title="Action生命周期"></a>Action生命周期</h3><pre><code>1.每次请求到来时,都会创建一个新的Action实例、
+    2.Action是线程安全的.可以使用成员变量接收参数,servlet线程不安全
+</code></pre><h4 id="属性驱动获得参数：set-get方法"><a href="#属性驱动获得参数：set-get方法" class="headerlink" title="属性驱动获得参数：set/get方法"></a>属性驱动获得参数：set/get方法</h4><pre><code>&lt;form action=&quot;${pageContext.request.contextPath}/Demo8Action&quot;&gt;
+    用户名:&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;br&gt;
+    年龄:&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br&gt;
+    生日:&lt;input type=&quot;text&quot; name=&quot;birthday&quot; /&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+    public class Demo8Action extends ActionSupport  {
+    //准备与参数键名称相同的属性
+    private String name;
+    //自动类型转换 只能转换8大基本数据类型以及对应包装类
+    private Integer age;
+    //支持特定类型字符串转换为Date ,例如 yyyy-MM-dd，一定要有set/get方法
+    private Date   birthday;
+    public String execute() throws Exception { 
+        System.out.println(&quot;name参数值:&quot;+name+&quot;,age参数值:&quot;+age+&quot;,生日:&quot;+birthday);
+        return SUCCESS;
+    }
+</code></pre><h4 id="对象驱动获得参数"><a href="#对象驱动获得参数" class="headerlink" title="对象驱动获得参数"></a>对象驱动获得参数</h4><pre><code>&lt;form action=&quot;${pageContext.request.contextPath}/Demo9Action&quot;&gt;
+    用户名:&lt;input type=&quot;text&quot; name=&quot;user.name&quot; /&gt;&lt;br&gt;
+    年龄:&lt;input type=&quot;text&quot; name=&quot;user.age&quot; /&gt;&lt;br&gt;
+    生日:&lt;input type=&quot;text&quot; name=&quot;user.birthday&quot; /&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+    public class Demo9Action extends ActionSupport  {
+    private User user;//生成set/get方法
+    public String execute() throws Exception {     
+    System.out.println(user);
+    return SUCCESS;
+    }
+</code></pre><h4 id="模型驱动获得参数实现接口（只能返回一个对象）"><a href="#模型驱动获得参数实现接口（只能返回一个对象）" class="headerlink" title="模型驱动获得参数实现接口（只能返回一个对象）"></a>模型驱动获得参数实现接口（只能返回一个对象）</h4><pre><code>&lt;form action=&quot;${pageContext.request.contextPath}/Demo10Action&quot;&gt;
+    用户名:&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;br&gt;
+    年龄:&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br&gt;
+    生日:&lt;input type=&quot;text&quot; name=&quot;birthday&quot; /&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+    public class Demo10Action extends ActionSupport implements ModelDriven&lt;User&gt; {
+    private User user =new User();
+    public String execute() throws Exception { 
+    System.out.println(user);
+    return SUCCESS;
+    }
+    @Override
+    public User getModel() {
+    return user;
+    }
+    只要将属性名字设置成对应的radio或checkbox的值即可获得提交的参数，
+    radio是单个值，而checkbox是一行value，空格value的结构，只要这样
+    String[] split = hobby.split(&quot;, &quot;);
+    for(String s:split) {
+        System.err.println(s);
+    }
+</code></pre><h5 id="集合类型参数封装"><a href="#集合类型参数封装" class="headerlink" title="集合类型参数封装"></a>集合类型参数封装</h5><pre><code>list
+    list:&lt;input type=&quot;text&quot; name=&quot;list&quot; /&gt;&lt;br&gt;//不指定索引则一个一个塞
+    list:&lt;input type=&quot;text&quot; name=&quot;list[3]&quot; /&gt;&lt;br&gt;//指定就放到规定的地方，不指定就null
+    private List&lt;String&gt; list;set、get方法
+    map
+    map:&lt;input type=&quot;text&quot; name=&quot;map[&apos;haha&apos;]&quot; /&gt;&lt;br&gt;//值封装到键值haha上
+    private Map&lt;String,String&gt; map;set/get方法
+</code></pre><h2 id="注意-struts和hibernate包在合并时-javassist-3-18-1-GA-jar包是重复的-删除版本低的"><a href="#注意-struts和hibernate包在合并时-javassist-3-18-1-GA-jar包是重复的-删除版本低的" class="headerlink" title="注意:struts和hibernate包在合并时.javassist-3.18.1-GA.jar包是重复的,删除版本低的."></a>注意:struts和hibernate包在合并时.javassist-3.18.1-GA.jar包是重复的,删除版本低的.</h2><h2 id="OGNL表达式"><a href="#OGNL表达式" class="headerlink" title="OGNL表达式"></a>OGNL表达式</h2><pre><code>OGNL:对象视图导航语言.  ${user.addr.name} 这种写法就叫对象视图导航.
+    OGNL不仅仅可以视图导航.支持比EL表达式更加丰富的功能.
+</code></pre><h3 id="使用OGNL准备工作"><a href="#使用OGNL准备工作" class="headerlink" title="使用OGNL准备工作"></a>使用OGNL准备工作</h3><h4 id="导包ognl-3-0-6-jar而struts2-的包中已经包含了-所以不需要导入额外的jar包"><a href="#导包ognl-3-0-6-jar而struts2-的包中已经包含了-所以不需要导入额外的jar包" class="headerlink" title="导包ognl-3.0.6.jar而struts2 的包中已经包含了.所以不需要导入额外的jar包"></a>导包ognl-3.0.6.jar而struts2 的包中已经包含了.所以不需要导入额外的jar包</h4><pre><code>root和context都可以放多个对象或者map，查找时只输入key或者属性名即可。从栈顶一直查到栈低，重复的查不到两个
+    User rootUser = new User(&quot;tom&quot;,18);
+    Map&lt;String,User&gt; context = new HashMap&lt;String,User&gt;();
+    context.put(&quot;user1&quot;, new User(&quot;jack&quot;,18));
+    context.put(&quot;user2&quot;, new User(&quot;rose&quot;,22));
+    OgnlContext oc = new OgnlContext();
+    oc.setRoot(rootUser);//将rootUser作为root部分
+    oc.setValues(context);//将context这个Map作为Context部分
+    基本取值
+    //取出root中user对象的name属性
+    String name = (String) Ognl.getValue(&quot;name&quot;, oc, oc.getRoot());
+    Integer age = (Integer) Ognl.getValue(&quot;age&quot;, oc, oc.getRoot());
+    //取出context中键为user1对象的name属性#代表context
+    String name = (String) Ognl.getValue(&quot;#user1.name&quot;, oc, oc.getRoot());
+    String name2 = (String) Ognl.getValue(&quot;#user2.name&quot;, oc, oc.getRoot());
+    Integer age = (Integer) Ognl.getValue(&quot;#user2.age&quot;, oc, oc.getRoot());
+    赋值
+    //将root中的user对象的name属性赋值
+    Ognl.getValue(&quot;name=&apos;jerry&apos;&quot;, oc, oc.getRoot());
+    String name2 = (String) Ognl.getValue(&quot;#user1.name=&apos;郝强勇&apos;,#user1.name&quot;, oc, oc.getRoot());
+    调用方法（赋值和取值）
+    //调用root中user对象的setName方法
+    Ognl.getValue(&quot;setName(&apos;lilei&apos;)&quot;, oc, oc.getRoot());
+    String name = (String) Ognl.getValue(&quot;getName()&quot;, oc, oc.getRoot());
+    String name2 = (String)Ognl.getValue(&quot;#user1.setName(&apos;lucy&apos;),#user1.getName()&quot;, oc, oc.getRoot());
+    调用静态方法（static）
+    String name = (String) Ognl.getValue(&quot;@cn.itheima.a_ognl.HahaUtils@echo(&apos;hello 强勇!&apos;)&quot;, oc, oc.getRoot());//@完整类名
+    //Double pi = (Double) Ognl.getValue(&quot;@java.lang.Math@PI&quot;, oc, oc.getRoot());
+    Double pi = (Double) Ognl.getValue(&quot;@@PI&quot;, oc, oc.getRoot());
+    创建对象(List,Map)
+    Integer size = (Integer) Ognl.getValue(&quot;{&apos;tom&apos;,&apos;jerry&apos;,&apos;jack&apos;,&apos;rose&apos;}.size()&quot;, oc, oc.getRoot());
+    String name = (String) Ognl.getValue(&quot;{&apos;tom&apos;,&apos;jerry&apos;,&apos;jack&apos;,&apos;rose&apos;}[0]&quot;, oc, oc.getRoot());//tom
+    String name2 = (String) Ognl.getValue(&quot;{&apos;tom&apos;,&apos;jerry&apos;,&apos;jack&apos;,&apos;rose&apos;}.get(1)&quot;, oc, oc.getRoot());//jerry
+    Integer size2 = (Integer) Ognl.getValue(&quot;#{&apos;name&apos;:&apos;tom&apos;,&apos;age&apos;:18}.size()&quot;, oc, oc.getRoot());
+    String name3  = (String) Ognl.getValue(&quot;#{&apos;name&apos;:&apos;tom&apos;,&apos;age&apos;:18}[&apos;name&apos;]&quot;, oc, oc.getRoot());
+    Integer age  = (Integer) Ognl.getValue(&quot;#{&apos;name&apos;:&apos;tom&apos;,&apos;age&apos;:18}.get(&apos;age&apos;)&quot;, oc, oc.getRoot());
+</code></pre><h2 id="OGNL与Struts2的结合"><a href="#OGNL与Struts2的结合" class="headerlink" title="OGNL与Struts2的结合"></a>OGNL与Struts2的结合</h2><pre><code>结合原理：参数被封装好放进root中的Action
+ValueStack中的两部分，其实是一个接口
+补充：root放置的是被访问的当前Aciton，而Action可以通过三种方式自动获得已封装好的参数，由于本来其是继承了Arraylist，有因为其push 和pop 方法就变成了栈结构
+栈原理            
+栈是由ArrayList模拟的
+栈中的两个方法的实现
+访问栈中属性的特点.由上到下
+查看值栈中两部分内容
+(使用DEBUG标签)&lt;s:debug&gt;&lt;/s:debug&gt;
+Root默认情况下,栈中放置当前访问的Action对象
+ContextContext部分就是ActionContext数据中心
+</code></pre><h2 id="struts2与ognl结合体现"><a href="#struts2与ognl结合体现" class="headerlink" title="struts2与ognl结合体现"></a>struts2与ognl结合体现</h2><pre><code>参数接收root中参数的接收与访问
+        接收表单数据
+        自定义对象接受表单提交参数
+        由连接器prepare完成,后来被模型驱动替代
+    实现preparable接口，然后覆盖prepare方法，体现了赋值前将对象压入栈顶
+    /*@Override
+    public void prepare() throws Exception {
+    //压入栈顶
+    //1获得值栈
+    ValueStack vs = ActionContext.getContext().getValueStack();
+    //2将u压入栈顶
+    vs.push(u);
+    }*/
+
+
+    常用，由拦截器modeldriver完成
+    接收和设置Action数据
+    很少利用root存数据，
+    一般只用来获取表单数据
+    将数据obj放入值栈ValueStack中的Root：ActionContext.getContext().getValueStack().push(obj);
+    从值栈ValueStack中的Root将数据obj取出：ActionContext.getContext().getValueStack().pop();
+    从值栈ValueStack中的Root将数据找到（Cust_name可用ognl表达式代替）
+    Object findValue = ActionContext.getContext().getValueStack().findValue(&quot;Cust_name&quot;);
+    从值栈ValueStack中的Root将数据修改（Cust_name可用ognl表达式代替）
+    ActionContext.getContext().getValueStack().setParameter(&quot;Cust_name&quot;, &quot;name&quot;);
+    ActionContext中参数存取
+    如何获得值栈对象,值栈对象与ActionContext对象是互相引用的，
+    获得ActionContext数据中心:  ActionContext.getContext();
+        获得值栈：ActionContext.getContext().getValueStack();
+    存取取值栈内容
+        通过键值对key和value将数据放入值栈ValueStack中的Context：ActionContext.getContext().put(key, value);
+        通过键名找到值栈ValueStack中的对象Object object = ActionContext.getContext().get(&quot;name&quot;);
+        可以通过EL表达式${}从值栈中的Context取数据
+    配置文件中
+        语法:${ognl表达式}，将数据传递到结果那边，不过一般都是在域中传递，不常用
+        可以通过EL表达式${}从值栈中的Context取数据
+    扩展:request对象的getAttribute方法，
+    同时也是ognl表达式获得参数的方法
+            查找顺序
+</code></pre><h2 id="自定义拦截器"><a href="#自定义拦截器" class="headerlink" title="自定义拦截器"></a>自定义拦截器</h2><h3 id="拦截器创建"><a href="#拦截器创建" class="headerlink" title="拦截器创建"></a>拦截器创建</h3><h4 id="public-class-MyInterceptor-implements-Interceptor-并实现其三个方法"><a href="#public-class-MyInterceptor-implements-Interceptor-并实现其三个方法" class="headerlink" title="public class MyInterceptor implements Interceptor {}并实现其三个方法"></a>public class MyInterceptor implements Interceptor {}并实现其三个方法</h4><h4 id="帮我们空实现了init-和-destory方法-我们如果不需要实现这两个方法-就可以只实现intercept方法"><a href="#帮我们空实现了init-和-destory方法-我们如果不需要实现这两个方法-就可以只实现intercept方法" class="headerlink" title="//帮我们空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法"></a>//帮我们空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法</h4><pre><code>public class MyInterceptor2 extends AbstractInterceptor {}
+</code></pre><h4 id="继承-MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法"><a href="#继承-MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法" class="headerlink" title="//继承:MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法"></a>//继承:MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法</h4><pre><code>//功能: 定制拦截器拦截的方法.  定制哪些方法需要拦截.、哪些方法不需要拦截
+public class MyInterceptor3 extends MethodFilterInterceptor{}
+覆写doIntercept(ActionInvocation invocation)
+</code></pre><h3 id="拦截器生命周期-随项目的启动而创建-随项目关闭而销毁"><a href="#拦截器生命周期-随项目的启动而创建-随项目关闭而销毁" class="headerlink" title="拦截器生命周期:随项目的启动而创建,随项目关闭而销毁"></a>拦截器生命周期:随项目的启动而创建,随项目关闭而销毁</h3><h3 id="拦截器api"><a href="#拦截器api" class="headerlink" title="拦截器api"></a>拦截器api</h3><pre><code>放行+前后处理:
+//前处理
+invocation。invoke();
+//后处理
+不放行,直接跳转到一个结果页面
+return &quot;success&quot;;            
+不执行后续的拦截器以及Action,直接交给Result处理结果.进行页面跳转
+</code></pre><h2 id="拦截器配置在struts-xml中配置，在default中可以找到相应的默认配置"><a href="#拦截器配置在struts-xml中配置，在default中可以找到相应的默认配置" class="headerlink" title="拦截器配置在struts.xml中配置，在default中可以找到相应的默认配置"></a>拦截器配置在struts.xml中配置，在default中可以找到相应的默认配置</h2><h3 id="注册拦截器"><a href="#注册拦截器" class="headerlink" title="注册拦截器"></a>注册拦截器</h3><pre><code>&lt;interceptor name=&quot;myInter3&quot; class=&quot;cn.itcast.a_interceptor.MyInterceptor3&quot;&gt;&lt;/interceptor&gt;
+</code></pre><h3 id="配置拦截器栈"><a href="#配置拦截器栈" class="headerlink" title="配置拦截器栈"></a>配置拦截器栈</h3><pre><code>&lt;interceptor-stack name=&quot;myStack&quot;&gt;
+    &lt;!-- 自定义拦截器引入(建议放在20个拦截器之前) --&gt;
+    &lt;interceptor-ref name=&quot;myInter3&quot;&gt;&lt;/interceptor-ref&gt;
+    &lt;!-- 引用默认的拦截器栈(20个) --&gt;
+    &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
+    &lt;/interceptor-stack&gt;
+</code></pre><h3 id="指定包中默认拦截器栈"><a href="#指定包中默认拦截器栈" class="headerlink" title="指定包中默认拦截器栈"></a>指定包中默认拦截器栈</h3><pre><code>&lt;default-interceptor-ref name=&quot;myStack&quot;&gt;&lt;/default-interceptor-ref&gt;
+</code></pre><h3 id="如何定制拦截方法"><a href="#如何定制拦截方法" class="headerlink" title="如何定制拦截方法"></a>如何定制拦截方法</h3><pre><code>&lt;interceptor-stack name=&quot;myStack&quot;&gt;
+    &lt;!-- 自定义拦截器引入(建议放在20个拦截器之前) --&gt;
+    &lt;interceptor-ref name=&quot;myInter3&quot;&gt;
+    &lt;!-- 指定哪些方法不拦截
+     &lt;param name=&quot;excludeMethods&quot;&gt;add,delete&lt;/param&gt; --&gt;
+     &lt;!-- 指定哪些方法需要拦截 --&gt;
+     &lt;param name=&quot;includeMethods&quot;&gt;add,delete&lt;/param&gt;
+    &lt;/interceptor-ref&gt;
+    &lt;!-- 引用默认的拦截器栈(20个) --&gt;
+    &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
+    &lt;/interceptor-stack&gt;
+</code></pre><h3 id="Action指定拦截器"><a href="#Action指定拦截器" class="headerlink" title="Action指定拦截器"></a>Action指定拦截器</h3><pre><code>&lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.itcast.interceptor.Demo1Action&quot; method=&quot;{1}&quot; &gt;
+    &lt;!-- 为Action单独指定走哪个拦截器(栈) 
+    &lt;interceptor-ref name=&quot;myStack&quot;&gt;&lt;/interceptor-ref&gt;--&gt;
+    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot; &gt;/index.jsp&lt;/result&gt;
+    &lt;/action&gt;
+</code></pre><h3 id="全局结果集"><a href="#全局结果集" class="headerlink" title="全局结果集"></a>全局结果集</h3><pre><code class="bash">&lt;global-result&gt;
+    &lt;result name=<span class="string">""</span> <span class="built_in">type</span>=<span class="string">"redirect"</span>&gt;/login.jsp&lt;/result&gt;
+    &lt;/global-result&gt;
+            &lt;global-exception-mappings&gt;
+        &lt;exception-mapping result=<span class="string">"error"</span> exception=<span class="string">"java.lang.RuntimeException"</span>&gt;&lt;/exception-mapping&gt;
+        &lt;/global-exception-mappings&gt;
+</code></pre>
+<h2 id="struts2标签-了解"><a href="#struts2标签-了解" class="headerlink" title="struts2标签(了解)"></a>struts2标签(了解)</h2><h3 id="控制标签"><a href="#控制标签" class="headerlink" title="控制标签"></a>控制标签</h3><h4 id="遍历标签-iterator"><a href="#遍历标签-iterator" class="headerlink" title="遍历标签 iterator"></a>遍历标签 iterator</h4><pre><code>&lt;s:iterator value=&quot;#list&quot; &gt;
+        &lt;s:property /&gt;&lt;br&gt;
+    &lt;/s:iterator&gt;
+    &lt;s:iterator value=&quot;#list&quot; var=&quot;name&quot; &gt;
+        &lt;s:property value=&quot;#name&quot; /&gt;&lt;br&gt;
+    &lt;/s:iterator&gt;
+    &lt;s:iterator begin=&quot;1&quot; end=&quot;100&quot; step=&quot;1&quot;  &gt;
+        &lt;s:property /&gt;|
+    &lt;/s:iterator&gt;
+</code></pre><h4 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a>if标签</h4><pre><code>&lt;s:if test=&quot;#list.size()==4&quot;&gt;
+        list长度为4!
+    &lt;/s:if&gt;
+    &lt;s:elseif test=&quot;#list.size()==3&quot;&gt;
+        list长度为3!
+    &lt;/s:elseif&gt;
+    &lt;s:else&gt;
+        list不3不4!
+    &lt;/s:else&gt;
+    判断boolean值不要自己用==true判断
+</code></pre><h4 id="数据标签"><a href="#数据标签" class="headerlink" title="数据标签"></a>数据标签</h4><pre><code>&lt;!--property 配合ognl表达式页面取值,Action没有返回数据时没有值--&gt;&lt;hr&gt;
+    &lt;s:property value=&quot;#list.size()&quot; /&gt;
+    &lt;s:property value=&quot;#session.user.name&quot; /&gt;
+</code></pre><h4 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h4><pre><code>&lt;!-- 好处1: 内置了一套样式.  - 好处2: 自动回显,根据栈中的属性  --&gt;
+    &lt;!-- theme:指定表单的主题，就是表单的style，xhtml:默认，simple:没有主题--&gt;
+    &lt;s:form action=&quot;Demo3Action&quot; namespace=&quot;/&quot; theme=&quot;xhtml&quot; &gt;
+    &lt;s:textfield name=&quot;name&quot; label=&quot;用户名&quot;  &gt;&lt;/s:textfield&gt;
+    &lt;s:password name=&quot;password&quot; label=&quot;密码&quot; &gt;&lt;/s:password&gt;
+    &lt;s:radio list=&quot;{&apos;男&apos;,&apos;女&apos;}&quot; name=&quot;gender&quot; label=&quot;性别&quot; &gt;&lt;/s:radio&gt;
+    &lt;s:radio list=&quot;#{1:&apos;男&apos;,0:&apos;女&apos;}&quot; name=&quot;gender&quot; label=&quot;性别&quot; &gt;&lt;/s:radio&gt;
+    &lt;s:checkboxlist list=&quot;#{2:&apos;抽烟&apos;,1:&apos;喝酒&apos;,0:&apos;烫头&apos;}&quot; name=&quot;habits&quot; label=&quot;爱好&quot; &gt;
+    &lt;/s:checkboxlist&gt;
+    &lt;s:select list=&quot;#{2:&apos;大专&apos;,1:&apos;本科&apos;,0:&apos;硕士&apos;}&quot; 
+    headerKey=&quot;&quot; headerValue=&quot;---请选择---&quot; name=&quot;edu&quot; label=&quot;学历&quot; &gt;
+    &lt;/s:select&gt;
+    &lt;s:file name=&quot;photo&quot; label=&quot;近照&quot; &gt;&lt;/s:file&gt;
+    &lt;s:textarea name=&quot;desc&quot; label=&quot;个人简介&quot; &gt;&lt;/s:textarea&gt;
+    &lt;s:submit value=&quot;提交&quot; &gt;&lt;/s:submit&gt;
+    &lt;/s:form&gt;
+</code></pre><h3 id="非表单标签"><a href="#非表单标签" class="headerlink" title="非表单标签"></a>非表单标签</h3><pre><code>在action中添加错误信息
+    取出错误信息&lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre></div><div class="tags"><a href="/tags/struts2/">struts2</a></div><div class="post-nav"><a class="pre" href="/2018/05/11/spring/">spring</a><a class="next" href="/2018/05/11/hibernate/">hibernate</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
