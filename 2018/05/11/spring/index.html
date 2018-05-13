@@ -9,17 +9,17 @@
     spring-core-4.2.4.RELEASE.jar
     spring-expression-4.2.4.RELEASE.jar
     com.springsource.org.apache.commons.logging-1.1.1.jar
-</code></pre><h3 id="创建一个对象，set-get方法"><a href="#创建一个对象，set-get方法" class="headerlink" title="创建一个对象，set/get方法"></a>创建一个对象，set/get方法</h3><h3 id="在（src下）applicationContext-xml中注册对象"><a href="#在（src下）applicationContext-xml中注册对象" class="headerlink" title="在（src下）applicationContext.xml中注册对象"></a>在（src下）applicationContext.xml中注册对象</h3><pre><code>&lt;bean name=&quot;&quot; class=&quot;&quot;/&gt;
-</code></pre><h4 id="导入约束（比较难，看视频好）"><a href="#导入约束（比较难，看视频好）" class="headerlink" title="导入约束（比较难，看视频好）"></a>导入约束（比较难，看视频好）</h4><h3 id="代码测试路径相对src"><a href="#代码测试路径相对src" class="headerlink" title="代码测试路径相对src"></a>代码测试路径相对src</h3><pre><code>@Test
+</code></pre><h3 id="创建一个对象，set-get方法"><a href="#创建一个对象，set-get方法" class="headerlink" title="创建一个对象，set/get方法"></a>创建一个对象，set/get方法</h3><h3 id="在src下的applicationContext-xml中注册对象"><a href="#在src下的applicationContext-xml中注册对象" class="headerlink" title="在src下的applicationContext.xml中注册对象"></a>在src下的applicationContext.xml中注册对象</h3><pre><code>&lt;bean name=&quot;&quot; class=&quot;&quot;/&gt;
+</code></pre><h4 id="导入约束beans约束"><a href="#导入约束beans约束" class="headerlink" title="导入约束beans约束"></a>导入约束beans约束</h4><h3 id="代码测试（applicationContext-xml路径相对src）"><a href="#代码测试（applicationContext-xml路径相对src）" class="headerlink" title="代码测试（applicationContext.xml路径相对src）"></a>代码测试（applicationContext.xml路径相对src）</h3><pre><code>@Test
     public void fun(){
-    ApplicationContext ac =new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+    ApplicationContext ac = 
+    new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
     User u = ac.getBean(&quot;user&quot;);
     }
-</code></pre><h2 id="spring概念"><a href="#spring概念" class="headerlink" title="spring概念"></a>spring概念</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><pre><code>ioc:Inverse Of Control 反转控制
-    Spring帮我们完成对象的创建和依赖关系的注入
-    反转控制就是反转了对象的创建，将自己创建反转给程序
-    di：dependency Injection 依赖注入
-    注入方式：set方法注入、构造方法注入、字段注入
+</code></pre><h2 id="spring概念"><a href="#spring概念" class="headerlink" title="spring概念"></a>spring概念</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><h4 id="ioc-Inverse-Of-Control-反转控制"><a href="#ioc-Inverse-Of-Control-反转控制" class="headerlink" title="ioc:Inverse Of Control 反转控制"></a>ioc:Inverse Of Control 反转控制</h4><pre><code>以前创建对象和依赖关系由自己创建和注入
+Spring帮我们完成对象的创建和依赖关系的注入
+    反转控制就是反转了对象的创建，将自己创建反转给spring
+</code></pre><h4 id="di：dependency-Injection-依赖注入"><a href="#di：dependency-Injection-依赖注入" class="headerlink" title="di：dependency Injection 依赖注入"></a>di：dependency Injection 依赖注入</h4><pre><code>注入方式：set方法注入、构造方法注入、字段注入
     注入类型：值类型注入（8大基本数据类型）
     引用类型注入 将依赖对象注入
 </code></pre><h3 id="applicationContext-amp-BeanFactory"><a href="#applicationContext-amp-BeanFactory" class="headerlink" title="applicationContext&amp;BeanFactory"></a>applicationContext&amp;BeanFactory</h3><h4 id="BeanFactory接口"><a href="#BeanFactory接口" class="headerlink" title="BeanFactory接口"></a>BeanFactory接口</h4><pre><code>spring原始接口.针对原始接口的实现类功能较为单一
@@ -27,103 +27,94 @@
 </code></pre><h4 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h4><pre><code>每次容器启动时就会创建容器中配置的所有对象.并提供更多功能
     从类路径下加载配置文件:ClassPathXmlApplicationContext
     从硬盘绝对路径下加载配置文件:FileSystemXmlApplicationContext(&quot;d:/xxx/yyy/xxx&quot;)
-    结论:web开发中,使用applicationContext. 在资源匮乏的环境可以使用BeanFactory.
-</code></pre><h2 id="spring配置详解applicationContext-xml"><a href="#spring配置详解applicationContext-xml" class="headerlink" title="spring配置详解applicationContext.xml"></a>spring配置详解applicationContext.xml</h2><h3 id="Bean元素"><a href="#Bean元素" class="headerlink" title="Bean元素"></a>Bean元素</h3><pre><code>&lt;!-- 将User对象交给spring容器管理 --&gt;
-    &lt;!-- Bean元素:使用该元素描述需要spring容器管理的对象
+</code></pre><h4 id="结论-web开发中-使用applicationContext-在资源匮乏的环境可以使用BeanFactory"><a href="#结论-web开发中-使用applicationContext-在资源匮乏的环境可以使用BeanFactory" class="headerlink" title="结论:web开发中,使用applicationContext. 在资源匮乏的环境可以使用BeanFactory."></a>结论:web开发中,使用applicationContext. 在资源匮乏的环境可以使用BeanFactory.</h4><h2 id="applicationContext-xml配置详解"><a href="#applicationContext-xml配置详解" class="headerlink" title="applicationContext.xml配置详解"></a>applicationContext.xml配置详解</h2><h3 id="Bean元素：描述需要spring容器管理的对象"><a href="#Bean元素：描述需要spring容器管理的对象" class="headerlink" title="Bean元素：描述需要spring容器管理的对象"></a>Bean元素：描述需要spring容器管理的对象</h3><pre><code>&lt;!-- 将User对象交给spring容器管理 --&gt;
     class属性:被管理对象的完整类名.
-    name属性:给被管理的对象起个名字.获得对象时根据该名称获得对象.可重复.可用特殊字符（推荐）
+    name属性:命名被管理的对象.获得对象时根据该名称获得对象.可重复.可用特殊字符（推荐）
     id属性: 与name属性一模一样. 名称不可重复.不能使用特殊字符.
-    &lt;bean  name=&quot;user&quot; class=&quot;cn.itcast.bean.User&quot; &gt;&lt;/bean&gt;
-</code></pre><h3 id="Bean元素进阶"><a href="#Bean元素进阶" class="headerlink" title="Bean元素进阶"></a>Bean元素进阶</h3><h4 id="scope属性"><a href="#scope属性" class="headerlink" title="scope属性"></a>scope属性</h4><pre><code>singleton(默认值):单例对象.被标识为单例的对象在spring容器中只会存在一个实例
+    &lt;bean  name=&quot;user&quot; class=&quot;cn.bean.User&quot; &gt;&lt;/bean&gt;
+</code></pre><h3 id="Bean元素进阶"><a href="#Bean元素进阶" class="headerlink" title="Bean元素进阶"></a>Bean元素进阶</h3><h4 id="scope属性-整合struts2时-ActionBean必须配置为多例的"><a href="#scope属性-整合struts2时-ActionBean必须配置为多例的" class="headerlink" title="scope属性(整合struts2时,ActionBean必须配置为多例的)"></a>scope属性(整合struts2时,ActionBean必须配置为多例的)</h4><pre><code>singleton(默认值):单例对象.被标识为单例的对象在spring容器中只会存在一个实例
     prototype:多例原型.被标识为多例的对象,每次再获得才会创建.每次创建都是新的对象.
-    整合struts2时,ActionBean必须配置为多例的.
     request:web环境下.对象与request生命周期一致.
     session:web环境下,对象与session生命周期一致.
-</code></pre><h4 id="生命周期属性需要在相应的类中实现其方法"><a href="#生命周期属性需要在相应的类中实现其方法" class="headerlink" title="生命周期属性需要在相应的类中实现其方法"></a>生命周期属性需要在相应的类中实现其方法</h4><pre><code>配置生命周期初始化方法.spring会在对象创建之后立即调用.init-method
+</code></pre><h4 id="生命周期属性-需要在相应的类中实现其方法"><a href="#生命周期属性-需要在相应的类中实现其方法" class="headerlink" title="生命周期属性(需要在相应的类中实现其方法)"></a>生命周期属性(需要在相应的类中实现其方法)</h4><pre><code>配置生命周期初始化方法.spring会在对象创建之后立即调用.init-method
     配置生命周期的销毁方法.spring容器在关闭并销毁所有容器中的对象之前调用.destory-method
     &lt;bean name=&quot;user&quot; class=&quot;cn.junye.hello.User&quot; init-method=&quot;init&quot; 
     destroy-method=&quot;destroy&quot;&gt;&lt;/bean&gt;
-</code></pre><h2 id="spring创建对象的方式"><a href="#spring创建对象的方式" class="headerlink" title="spring创建对象的方式"></a>spring创建对象的方式</h2><h3 id="空参构造方式"><a href="#空参构造方式" class="headerlink" title="空参构造方式"></a>空参构造方式</h3><pre><code>&lt;bean name=&quot;Junye&quot; class=&quot;cn.junye.hello.Junye&quot;&gt;&lt;/bean&gt;
+</code></pre><h2 id="spring创建对象的方式"><a href="#spring创建对象的方式" class="headerlink" title="spring创建对象的方式"></a>spring创建对象的方式</h2><h3 id="空参构造方式"><a href="#空参构造方式" class="headerlink" title="空参构造方式"></a>空参构造方式</h3><pre><code>&lt;bean name=&quot;junye&quot; class=&quot;cn.junye.hello.Junye&quot;&gt;&lt;/bean&gt;
 </code></pre><h3 id="静态工厂-了解-不需创建即可用类名调用静态方法"><a href="#静态工厂-了解-不需创建即可用类名调用静态方法" class="headerlink" title="静态工厂(了解)不需创建即可用类名调用静态方法"></a>静态工厂(了解)不需创建即可用类名调用静态方法</h3><pre><code>public class UserFactory{
     public static User createUser(){
-        System.out.println(&quot;j静态工厂创建User&quot;);
+        System.out.println(&quot;静态工厂创建User&quot;);
         return new User();
         }
     }
     &lt;bean name=&quot;userFactory&quot; class=&quot;cn.junye.hello.UserFactory&quot;
     factory-method=&quot;createUser&quot;&gt;&lt;/bean&gt;
-</code></pre><h3 id="实例工厂-了解"><a href="#实例工厂-了解" class="headerlink" title="实例工厂(了解)"></a>实例工厂(了解)</h3><pre><code>public  User createUser2(){
+</code></pre><h3 id="实例工厂-了解"><a href="#实例工厂-了解" class="headerlink" title="实例工厂(了解)"></a>实例工厂(了解)</h3><pre><code>public  User fun(){
         System.out.println(&quot;实例工厂创建User&quot;);
         return new User();    
     }
     &lt;!-- 调用UserFactory对象的createUser2方法创建名为user3的对象.放入容器--&gt;
-    &lt;bean  name=&quot;user3&quot; factory-bean=&quot;userFactory&quot;factory-method=&quot;createUser2&quot;&gt;&lt;/bean&gt;
-    &lt;bean  name=&quot;userFactory&quot; class=&quot;cn.itcast.b_create.UserFactory&quot; &lt;/bean&gt;
-</code></pre><h3 id="spring的分模块配置"><a href="#spring的分模块配置" class="headerlink" title="spring的分模块配置"></a>spring的分模块配置</h3><pre><code>&lt;!-- 导入其他spring配置文件 --&gt;
-    &lt;import resource=&quot;cn/itcast/b_create/applicationContext.xml&quot;/&gt;
-</code></pre><h2 id="spring属性注入：都要在属性值下面生成set方法"><a href="#spring属性注入：都要在属性值下面生成set方法" class="headerlink" title="spring属性注入：都要在属性值下面生成set方法"></a>spring属性注入：都要在属性值下面生成set方法</h2><h3 id="set方法注入"><a href="#set方法注入" class="headerlink" title="set方法注入"></a>set方法注入</h3><pre><code>&lt;!-- set方式注入: --&gt;
-    &lt;bean  name=&quot;user&quot; class=&quot;cn.itcast.bean.User&quot; &gt;
+    &lt;bean  name=&quot;user3&quot; factory-bean=&quot;userFactory&quot; factory-method=&quot;fun&quot;&gt;&lt;/bean&gt;
+    &lt;bean  name=&quot;userFactory&quot; class=&quot;cn.b_create.UserFactory&quot; &lt;/bean&gt;
+</code></pre><h3 id="spring的分模块配置-导入其他spring配置文件"><a href="#spring的分模块配置-导入其他spring配置文件" class="headerlink" title="spring的分模块配置(导入其他spring配置文件)"></a>spring的分模块配置(导入其他spring配置文件)</h3><pre><code>&lt;import resource=&quot;cn/b_create/applicationContext.xml&quot;/&gt;
+</code></pre><h2 id="spring属性注入：都要在属性值下面生成set方法"><a href="#spring属性注入：都要在属性值下面生成set方法" class="headerlink" title="spring属性注入：都要在属性值下面生成set方法"></a>spring属性注入：都要在属性值下面生成set方法</h2><h3 id="set方法注入"><a href="#set方法注入" class="headerlink" title="set方法注入"></a>set方法注入</h3><pre><code>&lt;bean  name=&quot;user&quot; class=&quot;cn.itcast.bean.User&quot; &gt;
     &lt;!--值类型注入: 为User对象中名为name的属性注入tom作为值 --&gt;
     &lt;property name=&quot;name&quot; value=&quot;tom&quot; &gt;&lt;/property&gt;
-    &lt;property name=&quot;age&quot;  value=&quot;18&quot; &gt;&lt;/property&gt;
     &lt;!-- 引用类型注入: 为car属性注入下方配置的car对象 --&gt;
     &lt;property name=&quot;car&quot;  ref=&quot;car&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
     &lt;!-- 将car对象配置到容器中 --&gt;
     &lt;bean name=&quot;car&quot; class=&quot;cn.itcast.bean.Car&quot; &gt;
     &lt;property name=&quot;name&quot; value=&quot;兰博基尼&quot; &gt;&lt;/property&gt;
-    &lt;property name=&quot;color&quot; value=&quot;黄色&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
-</code></pre><h3 id="构造函数注入"><a href="#构造函数注入" class="headerlink" title="构造函数注入"></a>构造函数注入</h3><pre><code>&lt;!-- 构造函数注入 --&gt;
-    &lt;bean name=&quot;user2&quot; class=&quot;cn.itcast.bean.User&quot; &gt;
+</code></pre><h3 id="构造函数注入"><a href="#构造函数注入" class="headerlink" title="构造函数注入"></a>构造函数注入</h3><pre><code>&lt;bean name=&quot;user2&quot; class=&quot;cn.itcast.bean.User&quot; &gt;
     &lt;!-- name属性: 构造函数的参数名  index属性: 
     构造函数的参数索引 type属性: 构造函数的参数类型--&gt;
     &lt;constructor-arg name=&quot;name&quot; index=&quot;0&quot; type=&quot;java.lang.Integer&quot;
     value=&quot;999&quot;  &gt;&lt;/constructor-arg&gt;
-    &lt;constructor-arg name=&quot;car&quot; ref=&quot;car&quot; index=&quot;1&quot; &gt;&lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;car&quot; index=&quot;1&quot; ref=&quot;car&quot;&gt;&lt;/constructor-arg&gt;
     &lt;/bean&gt;
 </code></pre><h3 id="p名称空间注入"><a href="#p名称空间注入" class="headerlink" title="p名称空间注入"></a>p名称空间注入</h3><pre><code>&lt;!-- p名称空间注入, 走set方法
     1.导入P名称空间  xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
     2.使用p:属性完成注入
     |-值类型: p:属性名=&quot;值&quot;
     |-对象类型: p:属性名-ref=&quot;bean名称&quot;--&gt;
-    &lt;bean  name=&quot;user3&quot; class=&quot;cn.itcast.bean.User&quot; p:name=&quot;jack&quot; 
+    &lt;bean  name=&quot;user3&quot; class=&quot;cn.bean.User&quot; p:name=&quot;jack&quot; 
     p:age=&quot;20&quot; p:car-ref=&quot;car&quot;  &gt;&lt;/bean&gt;
     spel注入（就是引用其他bean的注入值注入方式）
-        &lt;!-- spel注入: spring Expression Language sping表达式语言--&gt;
-    &lt;bean  name=&quot;user4&quot; class=&quot;cn.itcast.bean.User&quot; &gt;
+    &lt;!-- spel注入: spring Expression Language sping表达式语言--&gt;
+    &lt;bean  name=&quot;user4&quot; class=&quot;cn.bean.User&quot; &gt;
     &lt;property name=&quot;name&quot; value=&quot;#{user.name}&quot; &gt;&lt;/property&gt;
     &lt;property name=&quot;age&quot; value=&quot;#{user3.age}&quot; &gt;&lt;/property&gt;
     &lt;property name=&quot;car&quot; ref=&quot;car&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
 </code></pre><h3 id="复杂类型注入"><a href="#复杂类型注入" class="headerlink" title="复杂类型注入"></a>复杂类型注入</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><pre><code>&lt;!--如果数组中只准备类一个值（对象），直接使用value|ref--&gt;
-    &lt;property name=&quot;&quot; value=&quot;&quot;&gt;&lt;/property&gt;
-    &lt;property name=&quot;&quot;&gt;
+    &lt;property name=&quot;arr&quot; value=&quot;tom&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;arr&quot;&gt;
     &lt;array&gt;
-    &lt;value&gt;&lt;/value&gt;
-    &lt;ref bean=&quot;&quot;/&gt;
+    &lt;value&gt;tom&lt;/value&gt;
+    &lt;ref bean=&quot;user&quot;/&gt;
     &lt;array&gt;
     &lt;/property&gt;
 </code></pre><h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><pre><code>&lt;!--如果list中只准备类一个值（对象），直接使用value|ref--&gt;
-    &lt;property name=&quot;&quot; value=&quot;&quot;&gt;&lt;/property&gt;
-    &lt;property name=&quot;&quot;&gt;
+    &lt;property name=&quot;list&quot; value=&quot;jack&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;list&quot;&gt;
     &lt;list&gt;
-    &lt;value&gt;&lt;/value&gt;
-    &lt;ref bean=&quot;&quot;/&gt;
+    &lt;value&gt;jack&lt;/value&gt;
+    &lt;ref bean=&quot;user&quot;/&gt;
     &lt;list&gt;
     &lt;/property&gt;            
-</code></pre><h4 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h4><pre><code>&lt;property name=&quot;&quot;&gt;
+</code></pre><h4 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h4><pre><code>&lt;property name=&quot;prop&quot;&gt;
     &lt;props&gt;
     &lt;prop key=&quot;driverClass&quot;&gt;com.jdbc.mysql.Driver&lt;/prop&gt;
     &lt;props&gt;
     &lt;/property&gt;
-</code></pre><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><pre><code>&lt;property name=&quot;&quot;&gt;
+</code></pre><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><pre><code>&lt;property name=&quot;map&quot;&gt;
     &lt;map&gt;
-    &lt;entry key=&quot;&quot; value=&quot;&quot;&gt;&lt;/entry&gt;
-    &lt;entry key=&quot;&quot; value=&quot;&quot;&gt;&lt;/entry&gt;
+    &lt;entry key=&quot;url&quot; value=&quot;jdbc:mysql:///crm&quot;&gt;&lt;/entry&gt;
     &lt;map&gt;
     &lt;/property&gt;
-</code></pre><h2 id="使用注解配置spring-一定要是空参构造"><a href="#使用注解配置spring-一定要是空参构造" class="headerlink" title="使用注解配置spring(一定要是空参构造)"></a>使用注解配置spring(一定要是空参构造)</h2><h3 id="导包-1"><a href="#导包-1" class="headerlink" title="导包"></a>导包</h3><pre><code>com.springsource.org.apache.log4j-1.2.15.jar
+</code></pre><h2 id="使用注解配置spring-空参构造"><a href="#使用注解配置spring-空参构造" class="headerlink" title="使用注解配置spring(空参构造)"></a>使用注解配置spring(空参构造)</h2><h3 id="导包-1"><a href="#导包-1" class="headerlink" title="导包"></a>导包</h3><pre><code>com.springsource.org.apache.log4j-1.2.15.jar
     spring-beans-4.2.4.RELEASE.jar
     spring-context-4.2.4.RELEASE.jar
     spring-core-4.2.4.RELEASE.jar
@@ -131,25 +122,26 @@
     com.springsource.org.apache.commons.logging-1.1.1.jar
 
     spring-aop-4.2.4.RELEASE.jar
-</code></pre><h4 id="为主配置文件引入新的命名空间-约束-spring-context-4-2-xsd"><a href="#为主配置文件引入新的命名空间-约束-spring-context-4-2-xsd" class="headerlink" title="为主配置文件引入新的命名空间(约束)spring-context-4.2.xsd"></a>为主配置文件引入新的命名空间(约束)spring-context-4.2.xsd</h4><h3 id="开启使用注解代理配置文件applicationContext-xml"><a href="#开启使用注解代理配置文件applicationContext-xml" class="headerlink" title="开启使用注解代理配置文件applicationContext.xml"></a>开启使用注解代理配置文件applicationContext.xml</h3><pre><code>&lt;context:component-scan base-package=&quot;&quot;&gt;&lt;/context&gt;                
+</code></pre><h3 id="导入约束spring-context-4-2-xsd"><a href="#导入约束spring-context-4-2-xsd" class="headerlink" title="导入约束spring-context-4.2.xsd"></a>导入约束spring-context-4.2.xsd</h3><h3 id="配置applicationContext-xml开启使用注解代理"><a href="#配置applicationContext-xml开启使用注解代理" class="headerlink" title="配置applicationContext.xml开启使用注解代理"></a>配置applicationContext.xml开启使用注解代理</h3><pre><code>指定扫描该包及子孙包下所有类中的注解
+    &lt;context:component-scan base-package=&quot;&quot;&gt;&lt;/context&gt;                
 </code></pre><h3 id="在类中使用注解完成配置"><a href="#在类中使用注解完成配置" class="headerlink" title="在类中使用注解完成配置"></a>在类中使用注解完成配置</h3><h4 id="将对象注册到容器四个注解没区别，唯一区分就是分层，推荐使用最后三个"><a href="#将对象注册到容器四个注解没区别，唯一区分就是分层，推荐使用最后三个" class="headerlink" title="将对象注册到容器四个注解没区别，唯一区分就是分层，推荐使用最后三个"></a>将对象注册到容器四个注解没区别，唯一区分就是分层，推荐使用最后三个</h4><pre><code>@component(&quot;user&quot;)
-    @Service(&quot;user&quot;)
-    @Controller(&quot;user&quot;)
-    @Repository(&quot;user&quot;)
-</code></pre><h4 id="修改对象的作用范围-struts中的Action"><a href="#修改对象的作用范围-struts中的Action" class="headerlink" title="修改对象的作用范围(struts中的Action)"></a>修改对象的作用范围(struts中的Action)</h4><pre><code>@Scope(scopeName=&quot;prototype&quot;)    
+    @Controller(&quot;user&quot;)//web层
+    @Service(&quot;user&quot;)//service层
+    @Repository(&quot;user&quot;)//dao层
+</code></pre><h4 id="修改对象的作用范围-struts中的Action是多例的才线程安全，单例不安全"><a href="#修改对象的作用范围-struts中的Action是多例的才线程安全，单例不安全" class="headerlink" title="修改对象的作用范围(struts中的Action是多例的才线程安全，单例不安全)"></a>修改对象的作用范围(struts中的Action是多例的才线程安全，单例不安全)</h4><pre><code>@Scope(scopeName=&quot;prototype&quot;)    
 </code></pre><h3 id="值类型注入"><a href="#值类型注入" class="headerlink" title="值类型注入"></a>值类型注入</h3><pre><code>@Value(&quot;tom&quot;)//通过反射的Field赋值,破坏了封装性
-private String name;
-通过set方法赋值,推荐使用.
-@Value(&quot;tom&quot;)
-public void setName(String name){
-    this.name=name;
-}
+    private String name;
+    通过set方法赋值,推荐使用.
+    @Value(&quot;tom&quot;)
+    public void setName(String name){
+        this.name=name;
+    }
 </code></pre><h3 id="引用类型注入"><a href="#引用类型注入" class="headerlink" title="引用类型注入"></a>引用类型注入</h3><pre><code>@Autowired//自动装配
-//如果匹配多个类型一致的对象，将无法选择注入那个对象
-@Qualifier(&quot;car2&quot;)告诉spring容器自动装配那个名称的对象
-private Car car;
-@Resource(name=&quot;car&quot;)手动注入，指定注入那个对象
-private Car car;
+    //如果匹配多个类型一致的对象，将无法选择注入那个对象
+    @Qualifier(&quot;car2&quot;)告诉spring容器自动装配那个名称的对象
+    private Car car;
+    @Resource(name=&quot;car&quot;)手动注入，指定注入那个对象
+    private Car car;
 </code></pre><h3 id="初始化-销毁方法"><a href="#初始化-销毁方法" class="headerlink" title="初始化|销毁方法"></a>初始化|销毁方法</h3><pre><code>@PostConstruct//在对象被创建后调用。init-method
     public voud init(){
     }
@@ -166,16 +158,18 @@ private Car car;
 
     spring-test-4.2.4.RELEASE.jar
 </code></pre><h3 id="配置注解"><a href="#配置注解" class="headerlink" title="配置注解"></a>配置注解</h3><pre><code>@RunWith(SpringJUnit4ClassRunner.class)        
-    @ContextConfiguration(&quot;classpath:application.xml&quot;)
+    @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
     public class Demo{
     @Resource(name=&quot;user&quot;)
     private User u;
     }
-</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h2 id="spring中的aop（用于增强方法）动态代理"><a href="#spring中的aop（用于增强方法）动态代理" class="headerlink" title="spring中的aop（用于增强方法）动态代理"></a>spring中的aop（用于增强方法）动态代理</h2><h3 id="spring实现aop的原理"><a href="#spring实现aop的原理" class="headerlink" title="spring实现aop的原理"></a>spring实现aop的原理</h3><pre><code>动态代理(优先):三层架构中有接口的原因之一
-    被代理对象必须要实现接口,才能产生代理对象.
+</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>@Test
+    public void fun1(){
+    System.out.println(&quot;测试&quot;);
+    }
+</code></pre><h2 id="spring中的aop（用于增强方法）动态代理"><a href="#spring中的aop（用于增强方法）动态代理" class="headerlink" title="spring中的aop（用于增强方法）动态代理"></a>spring中的aop（用于增强方法）动态代理</h2><h3 id="spring实现aop的原理"><a href="#spring实现aop的原理" class="headerlink" title="spring实现aop的原理"></a>spring实现aop的原理</h3><h4 id="动态代理-优先-三层架构中有接口的原因之一"><a href="#动态代理-优先-三层架构中有接口的原因之一" class="headerlink" title="动态代理(优先):三层架构中有接口的原因之一"></a>动态代理(优先):三层架构中有接口的原因之一</h4><pre><code>被代理对象必须要实现接口,才能产生代理对象.
     如果没有接口将不能使用动态代理技术
-    cglib代理(没有接口)
-    第三方代理技术,cglib代理.可以对任何类生成代理.
+</code></pre><h4 id="cglib代理-没有接口"><a href="#cglib代理-没有接口" class="headerlink" title="cglib代理(没有接口)"></a>cglib代理(没有接口)</h4><pre><code>第三方代理技术,cglib代理.可以对任何类生成代理.
     代理的原理是对目标对象进行继承代理. 如果目标对象被final修饰.
     那么该类无法被cglib代理.
 </code></pre><h3 id="aop名词"><a href="#aop名词" class="headerlink" title="aop名词"></a>aop名词</h3><pre><code>Joinpoint(连接点)：目标对象中，所有可以增强的方法
@@ -185,8 +179,7 @@ private Car car;
     Weaving(织入)：将通知应用到切入点的过程
     Proxy(代理)：将通知织入到目标对象之后，形成代理对象
     aspect：切入点+通知
-    spring中的aop演示
-</code></pre><h2 id="aop：xml配置"><a href="#aop：xml配置" class="headerlink" title="aop：xml配置"></a>aop：xml配置</h2><h3 id="导包4-2-2-2（并导入aop约束）"><a href="#导包4-2-2-2（并导入aop约束）" class="headerlink" title="导包4+2+2+2（并导入aop约束）"></a>导包4+2+2+2（并导入aop约束）</h3><pre><code>com.springsource.org.apache.log4j-1.2.15.jar
+</code></pre><h2 id="aop：xml配置"><a href="#aop：xml配置" class="headerlink" title="aop：xml配置"></a>aop：xml配置</h2><h3 id="导包-3"><a href="#导包-3" class="headerlink" title="导包"></a>导包</h3><pre><code>com.springsource.org.apache.log4j-1.2.15.jar
     spring-beans-4.2.4.RELEASE.jar
     spring-context-4.2.4.RELEASE.jar
     spring-core-4.2.4.RELEASE.jar
@@ -198,24 +191,43 @@ private Car car;
 
     com.springsource.org.aopalliance-1.0.0.jar
     com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar
-</code></pre><h3 id="目标对象-接口实现关系"><a href="#目标对象-接口实现关系" class="headerlink" title="目标对象(接口实现关系)"></a>目标对象(接口实现关系)</h3><pre><code>public class ServiceImpl implements Service    {
-        @override
-        public void save(){
-            System.out.println(&quot;保存用户&quot;);
-        }
-    }            
-</code></pre><h3 id="准备通知"><a href="#准备通知" class="headerlink" title="准备通知"></a>准备通知</h3><pre><code>public class Myadvice{
+</code></pre><h3 id="导入aop约束"><a href="#导入aop约束" class="headerlink" title="导入aop约束"></a>导入aop约束</h3><h3 id="目标对象-接口实现关系"><a href="#目标对象-接口实现关系" class="headerlink" title="目标对象(接口实现关系)"></a>目标对象(接口实现关系)</h3><pre><code>public class UserServiceImpl implements UserService {
+    @Override
+    public void save() {
+    System.out.println(&quot;保存用户!&quot;);
+    }
+    }        
+</code></pre><h3 id="准备通知类"><a href="#准备通知类" class="headerlink" title="准备通知类"></a>准备通知类</h3><pre><code>public class MyAdvice {
+    //前置通知:目标方法运行之前调用
     public void before(){
-        System.out.println(&quot;前置通知&quot;);
+    System.out.println(&quot;这是前置通知!!&quot;);
     }
-    public Object around(ProceedingJointPonit pjp) throws Throwable{
-        Object proceed=pjp.proceed();
-
+    //环绕通知:在目标方法之前和之后都调用
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+    System.out.println(&quot;这是环绕通知之前的部分!!&quot;);
+    Object proceed = pjp.proceed();//调用目标方法
+    System.out.println(&quot;这是环绕通知之后的部分!!&quot;);
+    return proceed;
     }
-
-}                
-</code></pre><h3 id="配置进行织入-将通知织入目标对象中"><a href="#配置进行织入-将通知织入目标对象中" class="headerlink" title="配置进行织入,将通知织入目标对象中"></a>配置进行织入,将通知织入目标对象中</h3><pre><code>&lt;aop:config&gt;&lt;执行顺序为上面那个&gt;
-    &lt;aop:pointcut expression=&quot;execution(* cn.itcast.service.*ServiceImpl.*(..))&quot; id=&quot;pc&quot;/&gt;
+    //后置通知:在目标方法运行之后调用(如果出现异常不会调用)
+    public void afterReturning(){
+    System.out.println(&quot;这是后置通知(如果出现异常不会调用)!!&quot;);
+    }
+    //后置通知:在目标方法运行之后调用(无论是否出现 异常都会调用)
+    public void after(){
+    System.out.println(&quot;这是后置通知(出现异常也会调用)!!&quot;);
+    }
+    //异常通知:如果出现异常,就会调用
+    public void afterException(){
+    System.out.println(&quot;出事啦!出现异常了!!&quot;);
+    }
+    }                                
+</code></pre><h3 id="配置applicationContext-xml-将通知织入目标对象中"><a href="#配置applicationContext-xml-将通知织入目标对象中" class="headerlink" title="配置applicationContext.xml,将通知织入目标对象中"></a>配置applicationContext.xml,将通知织入目标对象中</h3><pre><code>&lt;!-- 1.配置目标对象 --&gt;
+    &lt;bean name=&quot;userService&quot; class=&quot;cn.itcast.service.UserServiceImpl&quot; &gt;&lt;/bean&gt;
+    &lt;!-- 2.配置通知对象 --&gt;
+    &lt;bean name=&quot;myAdvice&quot; class=&quot;cn.itcast.d_springaop.MyAdvice&quot; &gt;&lt;/bean&gt;
+    &lt;aop:config&gt;&lt;执行顺序为下面那个&gt;
+    &lt;aop:pointcut expression=&quot;execution(* cn.service.*ServiceImpl.*(..))&quot; id=&quot;pc&quot;/&gt;
     &lt;aop:aspect ref=&quot;myAdvice&quot; &gt;
     &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;pc&quot; /&gt;
     &lt;aop:around method=&quot;around&quot; pointcut-ref=&quot;pc&quot; /&gt;
@@ -224,8 +236,7 @@ private Car car;
     &lt;aop:after-throwing method=&quot;afterException&quot; pointcut-ref=&quot;pc&quot;/&gt;
     &lt;/aop:aspect&gt;
     &lt;/aop:config&gt;
-    &lt;!-- 配置切入点 ，配置要被切的方法
-    public void cn.itcast.service.UserServiceImpl.save() 
+</code></pre><h4 id="配置切入点-，配置要被切的方法通常在service层"><a href="#配置切入点-，配置要被切的方法通常在service层" class="headerlink" title="配置切入点 ，配置要被切的方法通常在service层"></a>配置切入点 ，配置要被切的方法通常在service层</h4><pre><code>public void cn.itcast.service.UserServiceImpl.save() 
     void cn.itcast.service.UserServiceImpl.save()
     * cn.itcast.service.UserServiceImpl.save()
     * cn.itcast.service.UserServiceImpl.*()
@@ -236,16 +247,15 @@ private Car car;
     @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
     public class Demo {
         @Resource(name=&quot;myAop&quot;)
-        private MyAop us;注意这个是一个接口！
+        private MyAop us;接口
         @Test
         public void fun1(){
             us.save();
         }
 
     }
-</code></pre><h2 id="aop-注解配置-了解"><a href="#aop-注解配置-了解" class="headerlink" title="aop(注解配置)了解"></a>aop(注解配置)了解</h2><h3 id="导包-一样"><a href="#导包-一样" class="headerlink" title="导包(一样)"></a>导包(一样)</h3><pre><code>开启使用注解完成织入
-        &lt;aop:aspectj-autoproxy&gt;&lt;/aop:aspectj-autoproxy&gt;
-</code></pre><h3 id="准备目标对象-一样"><a href="#准备目标对象-一样" class="headerlink" title="准备目标对象(一样)"></a>准备目标对象(一样)</h3><h3 id="准备通知-一样"><a href="#准备通知-一样" class="headerlink" title="准备通知(一样)"></a>准备通知(一样)</h3><h3 id="配置进行织入-将通知织入目标对象中-1"><a href="#配置进行织入-将通知织入目标对象中-1" class="headerlink" title="配置进行织入,将通知织入目标对象中"></a>配置进行织入,将通知织入目标对象中</h3><pre><code>//通知类
+</code></pre><h2 id="aop-注解配置-了解"><a href="#aop-注解配置-了解" class="headerlink" title="aop(注解配置)了解"></a>aop(注解配置)了解</h2><h3 id="导包-一样"><a href="#导包-一样" class="headerlink" title="导包(一样)"></a>导包(一样)</h3><h3 id="开启使用注解完成织入"><a href="#开启使用注解完成织入" class="headerlink" title="开启使用注解完成织入"></a>开启使用注解完成织入</h3><pre><code>&lt;aop:aspectj-autoproxy&gt;&lt;/aop:aspectj-autoproxy&gt;
+</code></pre><h3 id="准备目标对象-一样"><a href="#准备目标对象-一样" class="headerlink" title="准备目标对象(一样)"></a>准备目标对象(一样)</h3><h3 id="准备通知-一样"><a href="#准备通知-一样" class="headerlink" title="准备通知(一样)"></a>准备通知(一样)</h3><h3 id="配置进行织入-将通知织入目标对象中"><a href="#配置进行织入-将通知织入目标对象中" class="headerlink" title="配置进行织入,将通知织入目标对象中"></a>配置进行织入,将通知织入目标对象中</h3><pre><code>//通知类
     @Aspect
     //表示该类是一个通知类
     public class MyAdvice {
@@ -280,13 +290,13 @@ private Car car;
     public void after(){
         System.out.println(&quot;这是后置通知(出现异常也会调用)!!&quot;);
     }
-@before（“Myadvice.pc指寻找Myadvice的pc方法上面的pointcut注释”，与pc这个方法内容无关）
+@before（Myadvice.pc()指寻找Myadvice的pc方法的pointcut注释，与pc这个方法内容无关）
 </code></pre><p>目标接口、目标对象、通知对象、接口多态缺一不可</p>
 <h2 id="spring整合JDBC"><a href="#spring整合JDBC" class="headerlink" title="spring整合JDBC"></a>spring整合JDBC</h2><pre><code>spring提供了很多模板整合Dao技术
 </code></pre><img src="/2018/05/11/spring/dao.png" title="dao">            
 <pre><code>spring中提供了一个可以操作数据库的对象.对象封装了jdbc技术.
     JDBCTemplate =&gt; JDBC模板对象与DBUtils中的QueryRunner非常相似.
-</code></pre><h3 id="导包-3"><a href="#导包-3" class="headerlink" title="导包"></a>导包</h3><pre><code>com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar
+</code></pre><h3 id="导包-4"><a href="#导包-4" class="headerlink" title="导包"></a>导包</h3><pre><code>com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar
     com.springsource.org.apache.commons.logging-1.1.1.jar
     com.springsource.org.apache.log4j-1.2.15.jar
     mysql-connector-java-5.1.7-bin.jar
@@ -298,7 +308,7 @@ private Car car;
     spring-jdbc-4.2.4.RELEASE.jar
     spring-test-4.2.4.RELEASE.jar
     spring-tx-4.2.4.RELEASE.jar
-</code></pre><h3 id="准备数据库"><a href="#准备数据库" class="headerlink" title="准备数据库"></a>准备数据库</h3><h4 id="Dao实现类通过private-JdbcTemplate-jt和set方法操作数据库"><a href="#Dao实现类通过private-JdbcTemplate-jt和set方法操作数据库" class="headerlink" title="Dao实现类通过private JdbcTemplate jt和set方法操作数据库"></a>Dao实现类通过private JdbcTemplate jt和set方法操作数据库</h4><h4 id="application-xml的配置"><a href="#application-xml的配置" class="headerlink" title="application.xml的配置"></a>application.xml的配置</h4><pre><code>JdbcTemplate依赖dataSource，UserDao依赖JdbcTemplate
+</code></pre><h3 id="准备数据库"><a href="#准备数据库" class="headerlink" title="准备数据库"></a>准备数据库</h3><h4 id="①Dao实现类通过定义private-JdbcTemplate-jt和set方法操作数据库"><a href="#①Dao实现类通过定义private-JdbcTemplate-jt和set方法操作数据库" class="headerlink" title="①Dao实现类通过定义private JdbcTemplate jt和set方法操作数据库"></a>①Dao实现类通过定义private JdbcTemplate jt和set方法操作数据库</h4><h4 id="application-xml的配置"><a href="#application-xml的配置" class="headerlink" title="application.xml的配置"></a>application.xml的配置</h4><pre><code>JdbcTemplate依赖dataSource，UserDao依赖JdbcTemplate
     &lt;context:property-placeholder location=&quot;classpath:db.properties&quot;  /&gt;
     &lt;bean name=&quot;dataSource&quot; 
     class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot; &gt;
@@ -316,7 +326,7 @@ private Car car;
     &lt;bean name=&quot;userDao&quot; class=&quot;cn.itcast.a_jdbctemplate.UserDaoImpl&quot; &gt;
     &lt;property name=&quot;jt&quot; ref=&quot;jdbcTemplate&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
-</code></pre><h4 id="Dao实现类继承jdbcDaoSupport通过super-getJdbcTemplate-操作数据库"><a href="#Dao实现类继承jdbcDaoSupport通过super-getJdbcTemplate-操作数据库" class="headerlink" title="Dao实现类继承jdbcDaoSupport通过super.getJdbcTemplate()操作数据库"></a>Dao实现类继承jdbcDaoSupport通过super.getJdbcTemplate()操作数据库</h4><pre><code>public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
+</code></pre><h4 id="②Dao实现类继承jdbcDaoSupport通过super-getJdbcTemplate-操作数据库"><a href="#②Dao实现类继承jdbcDaoSupport通过super-getJdbcTemplate-操作数据库" class="headerlink" title="②Dao实现类继承jdbcDaoSupport通过super.getJdbcTemplate()操作数据库"></a>②Dao实现类继承jdbcDaoSupport通过super.getJdbcTemplate()操作数据库</h4><pre><code>public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
     @Override
     public void save(User u) {
         String sql = &quot;insert into t_user values(null,?) &quot;;
@@ -377,18 +387,18 @@ private Car car;
     &lt;bean name=&quot;userDao&quot; class=&quot;cn.itcast.a_jdbctemplate.UserDaoImpl&quot; &gt;
     &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
-</code></pre><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><h2 id="spring：aop事务"><a href="#spring：aop事务" class="headerlink" title="spring：aop事务"></a>spring：aop事务</h2><h3 id="事务-事务特性-acid"><a href="#事务-事务特性-acid" class="headerlink" title="事务:事务特性:acid"></a>事务:事务特性:acid</h3><h4 id="事务并发问题-脏读-不可重复读-幻读"><a href="#事务并发问题-脏读-不可重复读-幻读" class="headerlink" title="事务并发问题:脏读\不可重复读\幻读"></a>事务并发问题:脏读\不可重复读\幻读</h4><h4 id="事务的隔离级别1-读未提交2-读已提交4-可重复读8-串行化"><a href="#事务的隔离级别1-读未提交2-读已提交4-可重复读8-串行化" class="headerlink" title="事务的隔离级别1 读未提交2 读已提交4 可重复读8 串行化"></a>事务的隔离级别1 读未提交2 读已提交4 可重复读8 串行化</h4><h4 id="spring封装了事务管理代码"><a href="#spring封装了事务管理代码" class="headerlink" title="spring封装了事务管理代码"></a>spring封装了事务管理代码</h4><pre><code>事务操作：打开事务、提交事务、回滚事务
+</code></pre><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><h2 id="spring：aop事务"><a href="#spring：aop事务" class="headerlink" title="spring：aop事务"></a>spring：aop事务</h2><h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><h4 id="事务特性-acid"><a href="#事务特性-acid" class="headerlink" title="事务特性:acid"></a>事务特性:acid</h4><h4 id="事务并发问题-脏读-不可重复读-幻读"><a href="#事务并发问题-脏读-不可重复读-幻读" class="headerlink" title="事务并发问题:脏读\不可重复读\幻读"></a>事务并发问题:脏读\不可重复读\幻读</h4><h4 id="事务的隔离级别1-读未提交2-读已提交4-可重复读8-串行化"><a href="#事务的隔离级别1-读未提交2-读已提交4-可重复读8-串行化" class="headerlink" title="事务的隔离级别1 读未提交2 读已提交4 可重复读8 串行化"></a>事务的隔离级别1 读未提交2 读已提交4 可重复读8 串行化</h4><h4 id="spring封装了事务管理代码"><a href="#spring封装了事务管理代码" class="headerlink" title="spring封装了事务管理代码"></a>spring封装了事务管理代码</h4><pre><code>事务操作：打开事务、提交事务、回滚事务
 </code></pre><h4 id="事务操作对象：因为在不同平台-操作事务的代码各不相同-spring提供接口"><a href="#事务操作对象：因为在不同平台-操作事务的代码各不相同-spring提供接口" class="headerlink" title="事务操作对象：因为在不同平台,操作事务的代码各不相同.spring提供接口"></a>事务操作对象：因为在不同平台,操作事务的代码各不相同.spring提供接口</h4><pre><code>PlatformTransactionManager 接口
     DataSourceTransactionManager
     HibernateTransitionmanager
     注意:在spring中玩事务管理.最为核心的对象就是TransactionManager对象
-</code></pre><h3 id="spring管理事务的属性"><a href="#spring管理事务的属性" class="headerlink" title="spring管理事务的属性"></a>spring管理事务的属性</h3><h4 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h4><pre><code>1 读未提交
+</code></pre><h3 id="spring管理事务的属性"><a href="#spring管理事务的属性" class="headerlink" title="spring管理事务的属性"></a>spring管理事务的属性</h3><h4 id="事务的隔离级别isolation"><a href="#事务的隔离级别isolation" class="headerlink" title="事务的隔离级别isolation"></a>事务的隔离级别isolation</h4><pre><code>1 读未提交
     2 读已提交
     4 可重复读
     8 串行化
-</code></pre><h4 id="是否只读"><a href="#是否只读" class="headerlink" title="是否只读"></a>是否只读</h4><pre><code>true 只读
+</code></pre><h4 id="是否只读readOnly"><a href="#是否只读readOnly" class="headerlink" title="是否只读readOnly"></a>是否只读readOnly</h4><pre><code>true 只读
     false 可操作
-</code></pre><h4 id="事务的传播行为：service方法调用另外一个service方法的时候"><a href="#事务的传播行为：service方法调用另外一个service方法的时候" class="headerlink" title="事务的传播行为：service方法调用另外一个service方法的时候"></a>事务的传播行为：service方法调用另外一个service方法的时候</h4><pre><code>PROPAGION_XXX:事务的传播行为
+</code></pre><h4 id="事务的传播行为propagation：service方法调用另外一个service方法的时候"><a href="#事务的传播行为propagation：service方法调用另外一个service方法的时候" class="headerlink" title="事务的传播行为propagation：service方法调用另外一个service方法的时候"></a>事务的传播行为propagation：service方法调用另外一个service方法的时候</h4><pre><code>PROPAGION_XXX:事务的传播行为
     保证同一个事务中
     PROPAGATION_REQUIRED支持当前事务，如果不存在就新建一个(默认)！！！
     PROPAGATION_SUPPORTS支持当前事务，如果不存在，就不使用事务
@@ -432,17 +442,18 @@ private Car car;
 </code></pre><h5 id="配置将通知织入目标"><a href="#配置将通知织入目标" class="headerlink" title="配置将通知织入目标"></a>配置将通知织入目标</h5><pre><code>&lt;aop:config&gt;
     &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut=&quot;execution(* cn.service.*.*(..))&quot; /&gt;
     &lt;/aop:config&gt;
-</code></pre><h4 id="注解配置-aop"><a href="#注解配置-aop" class="headerlink" title="注解配置(aop)"></a>注解配置(aop)</h4><h5 id="导包（一样）"><a href="#导包（一样）" class="headerlink" title="导包（一样）"></a>导包（一样）</h5><h5 id="导入新的约束-tx-1"><a href="#导入新的约束-tx-1" class="headerlink" title="导入新的约束(tx)"></a>导入新的约束(tx)</h5><pre><code>beans: 最基本
-    context:读取properties配置
-    aop:配置aop
-    tx:配置事务通知
-</code></pre><h5 id="将核心事务管理器配置到spring容器-1"><a href="#将核心事务管理器配置到spring容器-1" class="headerlink" title="将核心事务管理器配置到spring容器"></a>将核心事务管理器配置到spring容器</h5><pre><code>&lt;bean name=&quot;transactionManager&quot; 
-    class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot; &gt;
-    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; &gt;&lt;/property&gt;
-    &lt;/bean&gt;
-</code></pre><h5 id="开启注解管理事务"><a href="#开启注解管理事务" class="headerlink" title="开启注解管理事务"></a>开启注解管理事务</h5><pre><code>&lt;tx:annotation-driven/&gt;
+    或者
+    &lt;!-- 配置织入 --&gt;
+    &lt;aop:config  &gt;
+    &lt;!-- 配置切点表达式 --&gt;
+    &lt;aop:pointcut expression=&quot;execution(* cn.itcast.service.*ServiceImpl.*(..))&quot;
+    id=&quot;txPc&quot;/&gt;
+    &lt;!-- 配置切面 : 通知+切点 advice-ref:通知的名称pointcut-ref:切点的名称--&gt;
+    &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;txPc&quot; /&gt;
+    &lt;/aop:config&gt;
+</code></pre><h4 id="注解配置-aop"><a href="#注解配置-aop" class="headerlink" title="注解配置(aop)"></a>注解配置(aop)</h4><h5 id="导包（一样）"><a href="#导包（一样）" class="headerlink" title="导包（一样）"></a>导包（一样）</h5><h5 id="导入新的约束-tx-一样"><a href="#导入新的约束-tx-一样" class="headerlink" title="导入新的约束(tx)(一样)"></a>导入新的约束(tx)(一样)</h5><h5 id="将核心事务管理器配置到spring容器-一样"><a href="#将核心事务管理器配置到spring容器-一样" class="headerlink" title="将核心事务管理器配置到spring容器(一样)"></a>将核心事务管理器配置到spring容器(一样)</h5><h5 id="开启注解管理事务"><a href="#开启注解管理事务" class="headerlink" title="开启注解管理事务"></a>开启注解管理事务</h5><pre><code>&lt;tx:annotation-driven/&gt;
 </code></pre><h5 id="在类或方法上面配置注解"><a href="#在类或方法上面配置注解" class="headerlink" title="在类或方法上面配置注解"></a>在类或方法上面配置注解</h5><pre><code>@Transactional(isolation=Isolation.REPEATABLE_READ,
-propagation=Propagation.REQUIRED,readOnly=true)                    
+    propagation=Propagation.REQUIRED,readOnly=true)                    
 </code></pre><h2 id="SSH整合"><a href="#SSH整合" class="headerlink" title="SSH整合"></a>SSH整合</h2><pre><code>三大框架架构(整合原理)
 </code></pre><img src="/2018/05/11/spring/SSH整合.png" title="SSH整合">        
 <h3 id="导包-41个"><a href="#导包-41个" class="headerlink" title="导包(41个)"></a>导包(41个)</h3><h3 id="单独配置spring容器"><a href="#单独配置spring容器" class="headerlink" title="单独配置spring容器"></a>单独配置spring容器</h3><h4 id="创建配置文件applicationContext-xml-并导入约束-4个-beans-context-aop-tx"><a href="#创建配置文件applicationContext-xml-并导入约束-4个-beans-context-aop-tx" class="headerlink" title="创建配置文件applicationContext.xml,并导入约束(4个)beans|context|aop|tx"></a>创建配置文件applicationContext.xml,并导入约束(4个)beans|context|aop|tx</h4><pre><code class="bash">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;
@@ -463,7 +474,9 @@ propagation=Propagation.REQUIRED,readOnly=true)
 </code></pre>
 <h4 id="配置spring随项目启动-web-xml"><a href="#配置spring随项目启动-web-xml" class="headerlink" title="配置spring随项目启动(web.xml)"></a>配置spring随项目启动(web.xml)</h4><pre><code>&lt;!-- 让spring随web启动而创建的监听器 --&gt;
     &lt;listener&gt;
-    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+    &lt;listener-class&gt;
+    org.springframework.web.context.ContextLoaderListener
+    &lt;/listener-class&gt;
     &lt;/listener&gt;
     &lt;!-- 配置spring配置文件位置参数 --&gt;
     &lt;context-param&gt;
@@ -483,7 +496,8 @@ propagation=Propagation.REQUIRED,readOnly=true)
     &lt;/struts&gt;                
 </code></pre><h4 id="配置struts2核心过滤器到web-xml"><a href="#配置struts2核心过滤器到web-xml" class="headerlink" title="配置struts2核心过滤器到web.xml"></a>配置struts2核心过滤器到web.xml</h4><pre><code>&lt;filter&gt;
     &lt;filter-name&gt;struts2&lt;/filter-name&gt;
-    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+    &lt;filter-class&gt;
+    org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
     &lt;/filter-class&gt;
     &lt;/filter&gt;
     &lt;filter-mapping&gt;
@@ -494,20 +508,19 @@ propagation=Propagation.REQUIRED,readOnly=true)
     &lt;filter-name&gt;struts2&lt;/filter-name&gt;
     &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;            
-</code></pre><h3 id="struts2与spring整合"><a href="#struts2与spring整合" class="headerlink" title="struts2与spring整合"></a>struts2与spring整合</h3><h4 id="导包-4"><a href="#导包-4" class="headerlink" title="导包"></a>导包</h4><h4 id="struts-xml配置常量"><a href="#struts-xml配置常量" class="headerlink" title="struts.xml配置常量"></a>struts.xml配置常量</h4><pre><code>常量配置位置/org/apache/struts2-core-2.3.24.jar/default.properties
-    &lt;!-- struts.objectFactory = spring    将action的创建交给spring容器    
-    struts.objectFactory.spring.autoWire = name spring负责装配Action依赖属性(默认开启)--&gt;
+</code></pre><h3 id="struts2与spring整合"><a href="#struts2与spring整合" class="headerlink" title="struts2与spring整合"></a>struts2与spring整合</h3><h4 id="导包-5"><a href="#导包-5" class="headerlink" title="导包"></a>导包</h4><h4 id="struts-xml配置常量"><a href="#struts-xml配置常量" class="headerlink" title="struts.xml配置常量"></a>struts.xml配置常量</h4><pre><code>常量配置位置/org/apache/struts2-core-2.3.24.jar/default.properties
+    ①struts.objectFactory = spring    将action的创建交给spring容器    
+    ②struts.objectFactory.spring.autoWire = name spring负责装配Action依赖属性(已开)
     &lt;constant name=&quot;struts.objectFactory&quot; value=&quot;spring&quot;&gt;&lt;/constant&gt;
 </code></pre><h4 id="整合方案1-struts2自己创建action-spring负责组装依赖属性"><a href="#整合方案1-struts2自己创建action-spring负责组装依赖属性" class="headerlink" title="整合方案1:struts2自己创建action,spring负责组装依赖属性"></a>整合方案1:struts2自己创建action,spring负责组装依赖属性</h4><pre><code>&lt;!-- 整合方案1:class属性上仍然配置action的完整类名
     struts2仍然创建action,由spring负责组装Action中的依赖属性 --&gt;
     &lt;action name=&quot;UserAction_*&quot; class=&quot;com.junye.action.UserAction&quot; method=&quot;{1}&quot; &gt;
     &lt;result name=&quot;toHome&quot; type=&quot;redirect&quot; &gt;/index.htm&lt;/result&gt;
     &lt;/action&gt;
-    applicationContext.xml不用配置action！
+    applicationContext.xml不用配置action！但要配置依赖属性
     不推荐理由:最好由spring完整管理action的生命周期.spring中功能才应用到Action上.
 </code></pre><h4 id="整合方案2-spring负责创建action以及组装"><a href="#整合方案2-spring负责创建action以及组装" class="headerlink" title="整合方案2:spring负责创建action以及组装."></a>整合方案2:spring负责创建action以及组装.</h4><pre><code>&lt;!-- 整合方案2:class属性上填写spring中action对象的BeanName
-     完全由spring管理action生命周期,包括Action的创建
-     注意:需要手动组装依赖属性--&gt;
+     完全由spring管理action生命周期,包括Action的创建 注意:需要手动组装依赖属性
     struts.xml，Action中的属性不组装则为null
     &lt;action name=&quot;UserAction_*&quot; class=&quot;userAction&quot; method=&quot;{1}&quot; &gt;
         &lt;result name=&quot;toHome&quot; type=&quot;redirect&quot; &gt;/index.htm&lt;/result&gt;
@@ -515,7 +528,7 @@ propagation=Propagation.REQUIRED,readOnly=true)
     &lt;struts&gt;
     配置applicationContext.xml
     &lt;!-- 注意:Action对象作用范围一定是多例的.这样才符合struts2架构 --&gt;
-    &lt;bean name=&quot;userAction&quot; class=&quot;cn.itcast.web.action.UserAction&quot; scope=&quot;prototype&quot; &gt;
+    &lt;bean name=&quot;userAction&quot; class=&quot;cn.action.UserAction&quot; scope=&quot;prototype&quot; &gt;
     &lt;property name=&quot;userService&quot; ref=&quot;userService&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;        
 </code></pre><h3 id="单独配置hibernate"><a href="#单独配置hibernate" class="headerlink" title="单独配置hibernate"></a>单独配置hibernate</h3><h4 id="导入实体类-amp-orm元数据"><a href="#导入实体类-amp-orm元数据" class="headerlink" title="导入实体类&amp;orm元数据"></a>导入实体类&amp;orm元数据</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -555,7 +568,8 @@ propagation=Propagation.REQUIRED,readOnly=true)
     &quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;
     &lt;hibernate-configuration&gt;
     &lt;session-factory&gt;    
-    &lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver
+    &lt;/property&gt;
     &lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///mydb&lt;/property&gt;
     &lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;
     &lt;property name=&quot;hibernate.connection.password&quot;&gt;1105128664&lt;/property&gt;
@@ -564,7 +578,8 @@ propagation=Propagation.REQUIRED,readOnly=true)
     &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
     &lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;
     &lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;
-    &lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update/create/create-drop/validate&lt;/property&gt;
+    &lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update/create/create-drop/validate
+    &lt;/property&gt;
     &lt;property name=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/property&gt;
     &lt;mapping  resource=&quot;com/junye/pojo/Customer.hbm.xml&quot; /&gt;
     &lt;/session-factory&gt;
@@ -639,24 +654,24 @@ propagation=Propagation.REQUIRED,readOnly=true)
 </code></pre><h4 id="配置applicationContext-xml，为dao注入sessionFactory"><a href="#配置applicationContext-xml，为dao注入sessionFactory" class="headerlink" title="配置applicationContext.xml，为dao注入sessionFactory"></a>配置applicationContext.xml，为dao注入sessionFactory</h4><pre><code>&lt;bean name=&quot;userDao&quot; class=&quot;cn.itcast.dao.impl.UserDaoImpl&quot; &gt;
     &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
-</code></pre><h3 id="spring的aop事务"><a href="#spring的aop事务" class="headerlink" title="spring的aop事务"></a>spring的aop事务</h3><h4 id="配置事务管理器-xml和注解都要配置"><a href="#配置事务管理器-xml和注解都要配置" class="headerlink" title="配置事务管理器(xml和注解都要配置)"></a>配置事务管理器(xml和注解都要配置)</h4><pre><code>&lt;bean name=&quot;transactionManager&quot; 
+</code></pre><h3 id="spring中hibernate的aop事务"><a href="#spring中hibernate的aop事务" class="headerlink" title="spring中hibernate的aop事务"></a>spring中hibernate的aop事务</h3><h4 id="配置事务管理器-xml和注解都要配置"><a href="#配置事务管理器-xml和注解都要配置" class="headerlink" title="配置事务管理器(xml和注解都要配置)"></a>配置事务管理器(xml和注解都要配置)</h4><pre><code>&lt;bean name=&quot;transactionManager&quot; 
     class=&quot;org.springframework.orm.hibernate5.HibernateTransactionManager&quot; &gt;
     &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; &gt;&lt;/property&gt;
     &lt;/bean&gt;
-</code></pre><h4 id="xml配置aop事务"><a href="#xml配置aop事务" class="headerlink" title="xml配置aop事务"></a>xml配置aop事务</h4><h5 id="配置通知"><a href="#配置通知" class="headerlink" title="配置通知"></a>配置通知</h5><pre><code> &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot; &gt;
+</code></pre><h4 id="①xml配置aop事务"><a href="#①xml配置aop事务" class="headerlink" title="①xml配置aop事务"></a>①xml配置aop事务</h4><h5 id="配置通知"><a href="#配置通知" class="headerlink" title="配置通知"></a>配置通知</h5><pre><code>&lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot; &gt;
     &lt;tx:attributes&gt;
-        &lt;tx:method name=&quot;save*&quot; isolation=&quot;REPEATABLE_READ&quot; 
-        propagation=&quot;REQUIRED&quot; read-only=&quot;false&quot; /&gt;
+    &lt;tx:method name=&quot;save*&quot; isolation=&quot;REPEATABLE_READ&quot; 
+    propagation=&quot;REQUIRED&quot; read-only=&quot;false&quot; /&gt;
     &lt;/tx:attributes&gt;
-&lt;/tx:advice&gt;     
+    &lt;/tx:advice&gt;     
 </code></pre><h4 id="配置将通知织入目标对象，配置切点，配置切面"><a href="#配置将通知织入目标对象，配置切点，配置切面" class="headerlink" title="配置将通知织入目标对象，配置切点，配置切面"></a>配置将通知织入目标对象，配置切点，配置切面</h4><pre><code>&lt;aop:config&gt;
     &lt;aop:pointcut 
     expression=&quot;execution(* com.serviceimpl.*ServiceImpl.*(..))&quot; id=&quot;txPc&quot;/&gt;
     &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;txPc&quot; /&gt;
     &lt;/aop:config&gt; 
-</code></pre><h4 id="注解配置aop事务"><a href="#注解配置aop事务" class="headerlink" title="注解配置aop事务"></a>注解配置aop事务</h4><h4 id="开启注解事务"><a href="#开启注解事务" class="headerlink" title="开启注解事务"></a>开启注解事务</h4><pre><code>&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; /&gt;    
+</code></pre><h4 id="②注解配置aop事务"><a href="#②注解配置aop事务" class="headerlink" title="②注解配置aop事务"></a>②注解配置aop事务</h4><h4 id="开启注解事务"><a href="#开启注解事务" class="headerlink" title="开启注解事务"></a>开启注解事务</h4><pre><code>&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; /&gt;    
 </code></pre><h4 id="Service类、方法中使用注解"><a href="#Service类、方法中使用注解" class="headerlink" title="Service类、方法中使用注解"></a>Service类、方法中使用注解</h4><pre><code>@Transactional(isolation=Isolation.REPEATABLE_READ,
-propagation=Propagation.REQUIRED,readOnly=false)                    
+    propagation=Propagation.REQUIRED,readOnly=false)                    
 </code></pre><h3 id="扩大session作用范围"><a href="#扩大session作用范围" class="headerlink" title="扩大session作用范围"></a>扩大session作用范围</h3><pre><code>为了避免使用懒加载时出现no-session问题.需要扩大session的作用范围
     注意: 任何filter一定要在struts的filter之前调用，在struts2过滤器前面
     配置web.xml
@@ -669,4 +684,4 @@ propagation=Propagation.REQUIRED,readOnly=false)
     &lt;filter-name&gt;openSessionInView&lt;/filter-name&gt;
     &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
     &lt;/filter-mapping&gt;        
-</code></pre></div><div class="tags"><a href="/tags/spring/">spring</a></div><div class="post-nav"><a class="next" href="/2018/05/11/struts2/">struts2</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/spring/">spring</a></div><div class="post-nav"><a class="next" href="/2018/05/11/struts2/">struts2</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

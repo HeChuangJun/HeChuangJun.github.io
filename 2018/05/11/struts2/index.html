@@ -49,7 +49,7 @@
     &lt;include file=&quot;cn/junye/b_dynamic/struts.xml&quot;&gt;&lt;/include&gt;
     &lt;/struts&gt;
 </code></pre><h2 id="strust-xml配置详解"><a href="#strust-xml配置详解" class="headerlink" title="strust.xml配置详解"></a>strust.xml配置详解</h2><h3 id="struts2常量配置"><a href="#struts2常量配置" class="headerlink" title="struts2常量配置"></a>struts2常量配置</h3><h4 id="struts2默认常量配置位置"><a href="#struts2默认常量配置位置" class="headerlink" title="struts2默认常量配置位置"></a>struts2默认常量配置位置</h4><pre><code>App Libraries--struts2-core-2.3.24.jar--
-    org.apache.struts2--struts-default.xml                
+    org.apache.struts2-default.properties;            
 </code></pre><h4 id="修改struts2常量配置-方式先后也是加载顺序-后加载覆盖"><a href="#修改struts2常量配置-方式先后也是加载顺序-后加载覆盖" class="headerlink" title="修改struts2常量配置(方式先后也是加载顺序)后加载覆盖"></a>修改struts2常量配置(方式先后也是加载顺序)后加载覆盖</h4><h5 id="方式1-src-struts-xml（只用这个）"><a href="#方式1-src-struts-xml（只用这个）" class="headerlink" title="方式1:src/struts.xml（只用这个）"></a>方式1:src/struts.xml（只用这个）</h5><pre><code>&lt;constant name=&quot;struts.i18n.encoding&quot; value=&quot;UTF8&quot;&gt;&lt;/constant&gt;
 </code></pre><h5 id="方式2-在src下创建struts-properties："><a href="#方式2-在src下创建struts-properties：" class="headerlink" title="方式2:在src下创建struts.properties："></a>方式2:在src下创建struts.properties：</h5><pre><code>struts.i18n.encoding=UTF8
 </code></pre><h5 id="方式3-在项目的web-xml中"><a href="#方式3-在项目的web-xml中" class="headerlink" title="方式3:在项目的web.xml中"></a>方式3:在项目的web.xml中</h5><pre><code>&lt;context-param&gt;
@@ -274,22 +274,19 @@
     }*/
 </code></pre><h3 id="获得ValueStack和ActionContext的方法"><a href="#获得ValueStack和ActionContext的方法" class="headerlink" title="获得ValueStack和ActionContext的方法"></a>获得ValueStack和ActionContext的方法</h3><pre><code>获得ActionContext数据中心:  ActionContext.getContext();
     获得值栈：ActionContext.getContext().getValueStack();
-    接收和设置Action数据
-    很少利用root存数据，
-    一般只用来获取表单数据
-    将数据obj放入值栈ValueStack中的Root：ActionContext.getContext().getValueStack().push(obj);
-    从值栈ValueStack中的Root将数据obj取出：ActionContext.getContext().getValueStack().pop();
-    从值栈ValueStack中的Root将数据找到（Cust_name可用ognl表达式代替）
-    Object findValue = ActionContext.getContext().getValueStack().findValue(&quot;Cust_name&quot;);
-    从值栈ValueStack中的Root将数据修改（Cust_name可用ognl表达式代替）
-    ActionContext.getContext().getValueStack().setParameter(&quot;Cust_name&quot;, &quot;name&quot;);
-    ActionContext中参数存取
-    如何获得值栈对象,值栈对象与ActionContext对象是互相引用的，
-
-    存取取值栈内容
-        通过键值对key和value将数据放入值栈ValueStack中的Context：ActionContext.getContext().put(key, value);
-        通过键名找到值栈ValueStack中的对象Object object = ActionContext.getContext().get(&quot;name&quot;);
-        可以通过EL表达式${}从值栈中的Context取数据
+</code></pre><h3 id="ValueStack的API（少用）常用来接收表单数据，很少往这root数据"><a href="#ValueStack的API（少用）常用来接收表单数据，很少往这root数据" class="headerlink" title="ValueStack的API（少用）常用来接收表单数据，很少往这root数据"></a>ValueStack的API（少用）常用来接收表单数据，很少往这root数据</h3><pre><code>将数据obj放入值栈ValueStack中的Root：
+    ActionContext.getContext().getValueStack().push(obj);
+    从值栈ValueStack中的Root将数据obj取出：
+    ActionContext.getContext().getValueStack().pop();
+    从值栈ValueStack中的Root将数据找到（name可用ognl表达式代替）
+    Object findValue = ActionContext.getContext().getValueStack().findValue(&quot;name&quot;);
+    从值栈ValueStack中的Root将数据修改（name可用ognl表达式代替）
+    ActionContext.getContext().getValueStac k().setParameter(&quot;name&quot;, &quot;name&quot;);
+    通过键值对key和value将数据放入值栈ValueStack中的Context：
+    ActionContext.getContext().put(key, value);
+    通过键名找到值栈ValueStack中的对象
+    Object object = ActionContext.getContext().get(&quot;name&quot;);
+    可以通过EL表达式${}从值栈中的Context取数据
 </code></pre><h3 id="配置文件中"><a href="#配置文件中" class="headerlink" title="配置文件中"></a>配置文件中</h3><pre><code>语法:${ognl表达式}，将数据传递到结果那边，不过一般都是在域中传递，不常用
     可以通过EL表达式${}从值栈中的Context取数据
 </code></pre><h3 id="扩展-request对象的getAttribute方法"><a href="#扩展-request对象的getAttribute方法" class="headerlink" title="扩展:request对象的getAttribute方法"></a>扩展:request对象的getAttribute方法</h3><pre><code>同时也是ognl表达式获得参数的方法（查找顺序）
@@ -297,26 +294,29 @@
     原生request域
     查找valueStack的Root部分（栈）
     查找valueStack的context部分（ActionContext）
-</code></pre><h2 id="自定义拦截器"><a href="#自定义拦截器" class="headerlink" title="自定义拦截器"></a>自定义拦截器</h2><h3 id="拦截器创建"><a href="#拦截器创建" class="headerlink" title="拦截器创建"></a>拦截器创建</h3><h4 id="public-class-MyInterceptor-implements-Interceptor-并实现其三个方法"><a href="#public-class-MyInterceptor-implements-Interceptor-并实现其三个方法" class="headerlink" title="public class MyInterceptor implements Interceptor {}并实现其三个方法"></a>public class MyInterceptor implements Interceptor {}并实现其三个方法</h4><h4 id="帮我们空实现了init-和-destory方法-我们如果不需要实现这两个方法-就可以只实现intercept方法"><a href="#帮我们空实现了init-和-destory方法-我们如果不需要实现这两个方法-就可以只实现intercept方法" class="headerlink" title="//帮我们空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法"></a>//帮我们空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法</h4><pre><code>public class MyInterceptor2 extends AbstractInterceptor {}
-</code></pre><h4 id="继承-MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法"><a href="#继承-MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法" class="headerlink" title="//继承:MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法"></a>//继承:MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法</h4><pre><code>//功能: 定制拦截器拦截的方法.  定制哪些方法需要拦截.、哪些方法不需要拦截
-public class MyInterceptor3 extends MethodFilterInterceptor{}
-覆写doIntercept(ActionInvocation invocation)
-</code></pre><h3 id="拦截器生命周期-随项目的启动而创建-随项目关闭而销毁"><a href="#拦截器生命周期-随项目的启动而创建-随项目关闭而销毁" class="headerlink" title="拦截器生命周期:随项目的启动而创建,随项目关闭而销毁"></a>拦截器生命周期:随项目的启动而创建,随项目关闭而销毁</h3><h3 id="拦截器api"><a href="#拦截器api" class="headerlink" title="拦截器api"></a>拦截器api</h3><pre><code>放行+前后处理:
-//前处理
-invocation。invoke();
-//后处理
-不放行,直接跳转到一个结果页面
-return &quot;success&quot;;            
-不执行后续的拦截器以及Action,直接交给Result处理结果.进行页面跳转
-</code></pre><h2 id="拦截器配置在struts-xml中配置，在default中可以找到相应的默认配置"><a href="#拦截器配置在struts-xml中配置，在default中可以找到相应的默认配置" class="headerlink" title="拦截器配置在struts.xml中配置，在default中可以找到相应的默认配置"></a>拦截器配置在struts.xml中配置，在default中可以找到相应的默认配置</h2><h3 id="注册拦截器"><a href="#注册拦截器" class="headerlink" title="注册拦截器"></a>注册拦截器</h3><pre><code>&lt;interceptor name=&quot;myInter3&quot; class=&quot;cn.itcast.a_interceptor.MyInterceptor3&quot;&gt;&lt;/interceptor&gt;
+</code></pre><h2 id="自定义拦截器"><a href="#自定义拦截器" class="headerlink" title="自定义拦截器"></a>自定义拦截器</h2><h3 id="拦截器创建"><a href="#拦截器创建" class="headerlink" title="拦截器创建"></a>拦截器创建</h3><h4 id="实现Interceptor接口并实现其三个方法"><a href="#实现Interceptor接口并实现其三个方法" class="headerlink" title="实现Interceptor接口并实现其三个方法"></a>实现Interceptor接口并实现其三个方法</h4><h4 id="继承AbstractInterceptor"><a href="#继承AbstractInterceptor" class="headerlink" title="继承AbstractInterceptor"></a>继承AbstractInterceptor</h4><pre><code>空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法
+    public class MyInterceptor2 extends AbstractInterceptor {}
+</code></pre><h4 id="继承MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法"><a href="#继承MethodFilterInterceptor-方法过滤拦截器并复写doIntercept方法" class="headerlink" title="继承MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法"></a>继承MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法</h4><pre><code>//功能: 定制拦截器拦截的方法.  定制哪些方法需要拦截.、哪些方法不需要拦截
+    public class MyInterceptor3 extends MethodFilterInterceptor{}
+    覆写
+</code></pre><h3 id="拦截器生命周期-随项目的启动而创建-随项目关闭而销毁"><a href="#拦截器生命周期-随项目的启动而创建-随项目关闭而销毁" class="headerlink" title="拦截器生命周期:随项目的启动而创建,随项目关闭而销毁"></a>拦截器生命周期:随项目的启动而创建,随项目关闭而销毁</h3><h3 id="拦截器api"><a href="#拦截器api" class="headerlink" title="拦截器api"></a>拦截器api</h3><pre><code>doIntercept(ActionInvocation invocation){
+    放行+前后处理:
+    //前处理
+    invocation.invoke();
+    //后处理
+    不放行,直接跳转到一个结果页面
+    return &quot;success&quot;;    
+    }
+    不执行后续的拦截器以及Action,直接交给Result处理结果.进行页面跳转
+</code></pre><h2 id="配置struts-xml，在default-properties中可以找到相应的默认配置"><a href="#配置struts-xml，在default-properties中可以找到相应的默认配置" class="headerlink" title="配置struts.xml，在default.properties中可以找到相应的默认配置"></a>配置struts.xml，在default.properties中可以找到相应的默认配置</h2><h3 id="注册拦截器"><a href="#注册拦截器" class="headerlink" title="注册拦截器"></a>注册拦截器</h3><pre><code>&lt;interceptor name=&quot;&quot; class=&quot;&quot;&gt;&lt;/interceptor&gt;
 </code></pre><h3 id="配置拦截器栈"><a href="#配置拦截器栈" class="headerlink" title="配置拦截器栈"></a>配置拦截器栈</h3><pre><code>&lt;interceptor-stack name=&quot;myStack&quot;&gt;
     &lt;!-- 自定义拦截器引入(建议放在20个拦截器之前) --&gt;
-    &lt;interceptor-ref name=&quot;myInter3&quot;&gt;&lt;/interceptor-ref&gt;
+    &lt;interceptor-ref name=&quot;&quot;&gt;&lt;/interceptor-ref&gt;
     &lt;!-- 引用默认的拦截器栈(20个) --&gt;
     &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
     &lt;/interceptor-stack&gt;
 </code></pre><h3 id="指定包中默认拦截器栈"><a href="#指定包中默认拦截器栈" class="headerlink" title="指定包中默认拦截器栈"></a>指定包中默认拦截器栈</h3><pre><code>&lt;default-interceptor-ref name=&quot;myStack&quot;&gt;&lt;/default-interceptor-ref&gt;
-</code></pre><h3 id="如何定制拦截方法"><a href="#如何定制拦截方法" class="headerlink" title="如何定制拦截方法"></a>如何定制拦截方法</h3><pre><code>&lt;interceptor-stack name=&quot;myStack&quot;&gt;
+</code></pre><h3 id="定制拦截方法"><a href="#定制拦截方法" class="headerlink" title="定制拦截方法"></a>定制拦截方法</h3><pre><code>&lt;interceptor-stack name=&quot;myStack&quot;&gt;
     &lt;!-- 自定义拦截器引入(建议放在20个拦截器之前) --&gt;
     &lt;interceptor-ref name=&quot;myInter3&quot;&gt;
     &lt;!-- 指定哪些方法不拦截
@@ -327,38 +327,38 @@ return &quot;success&quot;;
     &lt;!-- 引用默认的拦截器栈(20个) --&gt;
     &lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
     &lt;/interceptor-stack&gt;
-</code></pre><h3 id="Action指定拦截器"><a href="#Action指定拦截器" class="headerlink" title="Action指定拦截器"></a>Action指定拦截器</h3><pre><code>&lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.itcast.interceptor.Demo1Action&quot; method=&quot;{1}&quot; &gt;
+</code></pre><h3 id="Action指定拦截器"><a href="#Action指定拦截器" class="headerlink" title="Action指定拦截器"></a>Action指定拦截器</h3><pre><code>&lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.interceptor.Demo1Action&quot; method=&quot;{1}&quot; &gt;
     &lt;!-- 为Action单独指定走哪个拦截器(栈) 
     &lt;interceptor-ref name=&quot;myStack&quot;&gt;&lt;/interceptor-ref&gt;--&gt;
     &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot; &gt;/index.jsp&lt;/result&gt;
     &lt;/action&gt;
-</code></pre><h3 id="全局结果集"><a href="#全局结果集" class="headerlink" title="全局结果集"></a>全局结果集</h3><pre><code class="bash">&lt;global-result&gt;
-    &lt;result name=<span class="string">""</span> <span class="built_in">type</span>=<span class="string">"redirect"</span>&gt;/login.jsp&lt;/result&gt;
+</code></pre><h3 id="全局结果集"><a href="#全局结果集" class="headerlink" title="全局结果集"></a>全局结果集</h3><pre><code>&lt;global-result&gt;
+    &lt;result name=&quot;&quot; type=&quot;redirect&quot;&gt;/login.jsp&lt;/result&gt;
     &lt;/global-result&gt;
-            &lt;global-exception-mappings&gt;
-        &lt;exception-mapping result=<span class="string">"error"</span> exception=<span class="string">"java.lang.RuntimeException"</span>&gt;&lt;/exception-mapping&gt;
-        &lt;/global-exception-mappings&gt;
-</code></pre>
-<h2 id="struts2标签-了解"><a href="#struts2标签-了解" class="headerlink" title="struts2标签(了解)"></a>struts2标签(了解)</h2><h3 id="控制标签"><a href="#控制标签" class="headerlink" title="控制标签"></a>控制标签</h3><h4 id="遍历标签-iterator"><a href="#遍历标签-iterator" class="headerlink" title="遍历标签 iterator"></a>遍历标签 iterator</h4><pre><code>&lt;s:iterator value=&quot;#list&quot; &gt;
-        &lt;s:property /&gt;&lt;br&gt;
+    &lt;global-exception-mappings&gt;
+    &lt;exception-mapping result=&quot;error&quot; exception=&quot;java.lang.RuntimeException&quot;&gt;
+    &lt;/exception-mapping&gt;
+    &lt;/global-exception-mappings&gt;
+</code></pre><h2 id="struts2标签-了解"><a href="#struts2标签-了解" class="headerlink" title="struts2标签(了解)"></a>struts2标签(了解)</h2><h3 id="控制标签"><a href="#控制标签" class="headerlink" title="控制标签"></a>控制标签</h3><h4 id="遍历标签-iterator"><a href="#遍历标签-iterator" class="headerlink" title="遍历标签 iterator"></a>遍历标签 iterator</h4><pre><code>&lt;s:iterator value=&quot;#list&quot; &gt;
+    &lt;s:property /&gt;&lt;br&gt;
     &lt;/s:iterator&gt;
     &lt;s:iterator value=&quot;#list&quot; var=&quot;name&quot; &gt;
-        &lt;s:property value=&quot;#name&quot; /&gt;&lt;br&gt;
+    &lt;s:property value=&quot;#name&quot; /&gt;&lt;br&gt;
     &lt;/s:iterator&gt;
     &lt;s:iterator begin=&quot;1&quot; end=&quot;100&quot; step=&quot;1&quot;  &gt;
-        &lt;s:property /&gt;|
+    &lt;s:property /&gt;
     &lt;/s:iterator&gt;
 </code></pre><h4 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a>if标签</h4><pre><code>&lt;s:if test=&quot;#list.size()==4&quot;&gt;
-        list长度为4!
+    list长度为4!
     &lt;/s:if&gt;
     &lt;s:elseif test=&quot;#list.size()==3&quot;&gt;
-        list长度为3!
+    list长度为3!
     &lt;/s:elseif&gt;
     &lt;s:else&gt;
-        list不3不4!
+    list不3不4!
     &lt;/s:else&gt;
     判断boolean值不要自己用==true判断
-</code></pre><h4 id="数据标签"><a href="#数据标签" class="headerlink" title="数据标签"></a>数据标签</h4><pre><code>&lt;!--property 配合ognl表达式页面取值,Action没有返回数据时没有值--&gt;&lt;hr&gt;
+</code></pre><h4 id="数据标签"><a href="#数据标签" class="headerlink" title="数据标签"></a>数据标签</h4><pre><code>&lt;!--property 配合ognl表达式页面取值,Action没有返回数据时没有值--&gt;
     &lt;s:property value=&quot;#list.size()&quot; /&gt;
     &lt;s:property value=&quot;#session.user.name&quot; /&gt;
 </code></pre><h4 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h4><pre><code>&lt;!-- 好处1: 内置了一套样式.  - 好处2: 自动回显,根据栈中的属性  --&gt;
@@ -377,6 +377,7 @@ return &quot;success&quot;;
     &lt;s:textarea name=&quot;desc&quot; label=&quot;个人简介&quot; &gt;&lt;/s:textarea&gt;
     &lt;s:submit value=&quot;提交&quot; &gt;&lt;/s:submit&gt;
     &lt;/s:form&gt;
-</code></pre><h3 id="非表单标签"><a href="#非表单标签" class="headerlink" title="非表单标签"></a>非表单标签</h3><pre><code>在action中添加错误信息
-    取出错误信息&lt;s:debug&gt;&lt;/s:debug&gt;
-</code></pre></div><div class="tags"><a href="/tags/struts2/">struts2</a></div><div class="post-nav"><a class="pre" href="/2018/05/11/spring/">spring</a><a class="next" href="/2018/05/11/hibernate/">hibernate</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre><h3 id="非表单标签"><a href="#非表单标签" class="headerlink" title="非表单标签"></a>非表单标签</h3><pre><code>在action中添加错误信息this.addActionError(&quot;你错了&quot;);
+    取出错误信息&lt;s:actionerror&gt;
+        &lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre></div><div class="tags"><a href="/tags/struts2/">struts2</a></div><div class="post-nav"><a class="pre" href="/2018/05/11/spring/">spring</a><a class="next" href="/2018/05/11/hibernate/">hibernate</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
