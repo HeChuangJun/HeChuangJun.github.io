@@ -1,69 +1,112 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>Jsp | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Jsp</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Jsp</h1><div class="post-meta">May 10, 2018<span> | </span><span class="category"><a href="/categories/JavaEE/">JavaEE</a></span></div><div class="post-content"><p>jsp/el/jstl<br><a id="more"></a></p>
 <h1 id="jsp-el-jstl"><a href="#jsp-el-jstl" class="headerlink" title="jsp/el/jstl"></a>jsp/el/jstl</h1><h2 id="jsp"><a href="#jsp" class="headerlink" title="jsp"></a>jsp</h2><pre><code>建立在Servlet规范上的动态网页开发
     产生原因:html页面输出太麻烦
+</code></pre><h3 id="jsp运行原理"><a href="#jsp运行原理" class="headerlink" title="jsp运行原理"></a>jsp运行原理</h3><pre><code>本质就是servlet，第一次被访问的时候被web容器翻译成servlet再执行
+    helloServlet.jsp→helloServlet_jsp.java源文件→helloServlet_jsp.class字节码文件
+    被翻译后的servlet在Tomcat的work目录中可以找到
+    F:\Tomcat\apache-tomcat-7.0.52\work\Catalina\localhost\WEB17\org\apache\jsp
+    jsp继承了HttpJspBase，HttpJspBase类又继承了HttpServlet，故jsp就是servlet    
 </code></pre><h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre><code>&lt;%java代码%&gt;JSPScriptlets：被翻译到Servlet中的service方法的局部变量。
-    调用完则释放内存空间，与输出内容有关的用
-    &lt;%=java变量或表达式%&gt;JSP表达式：被翻译成servlet类中service方法内部out.print()，直接输出
+    调用完则释放内存空间，与输出内容有关的用（常用）
+    &lt;%=java变量/表达式%&gt;JSP表达式：被翻译成servlet中service方法内部out.print()输出
     &lt;%!java代码%&gt;JSP声明语句会被翻译成servlet类的成员的内容，
     定义的是成员方法/变量，静态方法/变量,对整个jsp页面有效
 </code></pre><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><pre><code>Html注释：&lt;!--注释内容--&gt;--可见范围jsp源码、翻译后的servlet、页面显示html源码
     java注释：//单行注释/*多行注释*/--可见范围jsp源码翻译后的servlet
     jsp注释：&lt;%--注释内容--%&gt;-----可见范围jsp源码可见
-</code></pre><h3 id="指令-指导jsp翻译和运行的命令"><a href="#指令-指导jsp翻译和运行的命令" class="headerlink" title="指令:指导jsp翻译和运行的命令"></a>指令:指导jsp翻译和运行的命令</h3><h4 id="lt-page-language-”java”-contentType-”text-html-charset-UTF-8”pageEncoding-”UTF-8”-gt"><a href="#lt-page-language-”java”-contentType-”text-html-charset-UTF-8”pageEncoding-”UTF-8”-gt" class="headerlink" title="&lt;%@page language=”java” contentType=”text/html;charset=UTF-8”pageEncoding=”UTF-8”% &gt;"></a>&lt;%@page language=”java” contentType=”text/html;charset=UTF-8”pageEncoding=”UTF-8”% &gt;</h4><pre><code>属性
+</code></pre><h3 id="指令-指导jsp翻译和运行的命令"><a href="#指令-指导jsp翻译和运行的命令" class="headerlink" title="指令:指导jsp翻译和运行的命令"></a>指令:指导jsp翻译和运行的命令</h3><h4 id="lt-page-language-”java”-contentType-”text-html-charset-UTF-8”pageEncoding-”UTF-8”-gt"><a href="#lt-page-language-”java”-contentType-”text-html-charset-UTF-8”pageEncoding-”UTF-8”-gt" class="headerlink" title="&lt;%@page language=”java” contentType=”text/html;charset=UTF-8”pageEncoding=”UTF-8”%&gt;"></a>&lt;%@page language=”java” contentType=”text/html;charset=UTF-8”pageEncoding=”UTF-8”%&gt;</h4><pre><code>属性（属性最多，根据不同属性指导整个页面特性）
     language：jsp脚本中可以嵌入的语言种类
     pageEncoding：当前jsp文件的本身编码---内部可以包含contentType
     contentType：response.setContentType(text/html;charset=UTF-8)
-    session：是否jsp在翻译时自动创建session
-    session=&quot;true&quot;
-    import：导入java的包 可多次，其他职能一次
-    &lt;%@page import=&quot;java.util.*&quot;%&gt;
+    session：是否jsp在翻译时自动创建sessionsession=&quot;true&quot;
+    import：导入java的包 可多次，其他职能一次&lt;%@page import=&quot;java.util.*&quot;%&gt;
     errorPage：当当前页面出错后跳转到哪个页面
-    isErrorPage：当前页面是一个处理错误的页面
-    isErrorPage=&quot;true&quot;
-    （属性最多，根据不同属性指导整个页面特性）
+    isErrorPage：当前页面是一个处理错误的页面isErrorPage=&quot;true&quot;
 </code></pre><h4 id="lt-taglib-uri-”标签库地址”-prefix-”前缀”-gt-使用：-lt-前缀-xxx-gt"><a href="#lt-taglib-uri-”标签库地址”-prefix-”前缀”-gt-使用：-lt-前缀-xxx-gt" class="headerlink" title="&lt;%@taglib uri=”标签库地址” prefix=”前缀”%&gt;    使用：&lt;前缀:xxx&gt;"></a>&lt;%@taglib uri=”标签库地址” prefix=”前缀”%&gt;    使用：&lt;前缀:xxx&gt;</h4><pre><code>在jsp页面中引入标签库（jstl标签库、struts2标签库）
-</code></pre><h4 id="lt-include-file-”被包含的文件地址，相对于webcontent地址”-gt-include（静态包含）"><a href="#lt-include-file-”被包含的文件地址，相对于webcontent地址”-gt-include（静态包含）" class="headerlink" title="&lt;%@include file=”被包含的文件地址，相对于webcontent地址”%&gt;    include（静态包含）"></a>&lt;%@include file=”被包含的文件地址，相对于webcontent地址”%&gt;    include（静态包含）</h4><h3 id="9大内置对象（笔试）"><a href="#9大内置对象（笔试）" class="headerlink" title="9大内置对象（笔试）"></a>9大内置对象（笔试）</h3><pre><code>jsp被翻译成servlet之后，service方法中有9个对象定义并初始化完毕，jsp脚本中可以直接使用
-    request
-    response
-    config
-    session
-    application
-    out
-    exception
-    page
-</code></pre><h4 id="pageContext"><a href="#pageContext" class="headerlink" title="pageContext"></a>pageContext</h4><pre><code>pageContext:指当前页面转换后的Servlet类的实例、jsp页面的上下文对象
-    获得其他8大隐式对象例如： pageContext.getRequest()
-    域对象,向指定的其他域中存取数据
+</code></pre><h4 id="lt-include-file-”被包含的文件地址，相对于webcontent地址”-gt-include（静态包含）"><a href="#lt-include-file-”被包含的文件地址，相对于webcontent地址”-gt-include（静态包含）" class="headerlink" title="&lt;%@include file=”被包含的文件地址，相对于webcontent地址”%&gt;    include（静态包含）"></a>&lt;%@include file=”被包含的文件地址，相对于webcontent地址”%&gt;    include（静态包含）</h4><h3 id="9大内置对象（笔试）"><a href="#9大内置对象（笔试）" class="headerlink" title="9大内置对象（笔试）"></a>9大内置对象（笔试）</h3><pre><code>jsp被翻译成servlet后，service方法中有9个对象定义并初始化完毕，jsp脚本可直接使用
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">对象名称</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">request</td>
+<td style="text-align:center">HttpRequest</td>
+<td style="text-align:center">得到用户请求信息</td>
+</tr>
+<tr>
+<td style="text-align:center">response</td>
+<td style="text-align:center">HttPResponse</td>
+<td style="text-align:center">服务器向客户端回应信息</td>
+</tr>
+<tr>
+<td style="text-align:center">config</td>
+<td style="text-align:center">ServletConfig</td>
+<td style="text-align:center">服务器配置，可以取得初始化参数</td>
+</tr>
+<tr>
+<td style="text-align:center">session</td>
+<td style="text-align:center">HttpSession</td>
+<td style="text-align:center">保存用户信息</td>
+</tr>
+<tr>
+<td style="text-align:center">application</td>
+<td style="text-align:center">ServletContext</td>
+<td style="text-align:center">所有用户的共享信息</td>
+</tr>
+<tr>
+<td style="text-align:center">page</td>
+<td style="text-align:center">Object</td>
+<td style="text-align:center">指当前页面转换后的Servlet类的实例</td>
+</tr>
+<tr>
+<td style="text-align:center">pageContext</td>
+<td style="text-align:center">PageContext</td>
+<td style="text-align:center">Jsp的页面容器</td>
+</tr>
+<tr>
+<td style="text-align:center">exception</td>
+<td style="text-align:center">Throwable</td>
+<td style="text-align:center">表示jsp页面所发生的异常，在错误页面中才起作用</td>
+</tr>
+<tr>
+<td style="text-align:center">out</td>
+<td style="text-align:center">JspWriter</td>
+<td style="text-align:center">用于页面输出</td>
+</tr>
+</tbody>
+</table>
+<p>所有对象都可以存取数据request.setAttribute(“age”, 30);</p>
+<h4 id="pageContext"><a href="#pageContext" class="headerlink" title="pageContext"></a>pageContext</h4><pre><code>pageContext:指当前页面转换后的Servlet类的实例、jsp页面的上下文对象
+    ①获得其他8大隐式对象例如： pageContext.getRequest()
+    ②域对象,本身或向指定的其他域中存取数据
+    setAttribute(String name,Object obj)
     setAttribute(String name,Object obj,int scope)
+    getAttribute(String name)
     getAttribute(String name,int scope)
     removeAttrbute(String name)
     removeAttrbute(String name,int scope)
-    findAttribute(String name)
+    scope格式：如pageContext.PAGE_SCOPE
+</code></pre><img src="/2018/05/10/Jsp/jsp四个范围.JPG" title="jsp四个范围.JPG">        
+<pre><code>③findAttribute(String name)
     依次从page域，request域，session域，application域中获取属性，
     在某个域中获取后将不在向后寻找，都没有则返回null
-    本身:pageContext.setAttribute(&quot;name&quot;, &quot;sunba&quot;);
-</code></pre><h4 id="out-用于页面输出out的类型：JspWriter"><a href="#out-用于页面输出out的类型：JspWriter" class="headerlink" title="out:用于页面输出out的类型：JspWriter"></a>out:用于页面输出out的类型：JspWriter</h4><pre><code>out作用就是想客户端输出内容----out.write()
-    out缓冲区默认8kb 可以在page属性中配置buffer=“0kb” 代表关闭out缓冲区 
-    内容直接写到respons缓冲区，没有则先将response.getWriter（）.write（“xx”），
-    先打出来，然后再打out.write的，其他内容按顺序输出
-</code></pre><h4 id="四大作用域"><a href="#四大作用域" class="headerlink" title="四大作用域"></a>四大作用域</h4><pre><code>page域：当前jsp页面范围
-    request域：一次请求
-    session域：一次会话
-    application域：整个web应用
-    获得修改指定作用域的数据
-    例：pageContext.setAttrbute(&quot;name&quot;,&quot;pvalue&quot;)
-    例：pageContext.getAttrbute(&quot;name&quot;)
-    所有对象都可以存取数据request.setAttribute(&quot;age&quot;, 30);？？？？
-</code></pre><h3 id="jsp标签-动作"><a href="#jsp标签-动作" class="headerlink" title="jsp标签/动作"></a>jsp标签/动作</h3><pre><code>&lt;jsp:include page=&quot;&quot; flush=“true/false”/&gt; 动态包含,先编译被包含的页面,然后编译包含页面
+</code></pre><h4 id="out-用于页面输出out的类型：JspWriter"><a href="#out-用于页面输出out的类型：JspWriter" class="headerlink" title="out:用于页面输出out的类型：JspWriter"></a>out:用于页面输出out的类型：JspWriter</h4><pre><code>out作用就是向客户端输出内容out.write()先放到JspWriter缓冲区中(默认8kb)
+    若在page属性中配置buffer=“0kb” 代表关闭out缓冲区 此时内容直接写到respons缓冲区
+    没有则先将response.getWriter().write(&quot;a&quot;)，先打出来，
+    然后再打out.write的，其他内容按顺序输出
+</code></pre><h3 id="jsp标签-动作"><a href="#jsp标签-动作" class="headerlink" title="jsp标签/动作"></a>jsp标签/动作</h3><pre><code>&lt;jsp:include page=&quot;&quot; flush=“true/false”/&gt; 
+    动态包含,先编译被包含的页面,然后编译包含页面
     flush是否将输出内容刷新到客户端，默认false
     请求转发：&lt;jsp:forward page=&quot;要转发的资源相对于webcontent地址&quot;&gt;&lt;/jsp:forward&gt;
     静/动态包含区别：静态包含翻译后合在一起，动态包含用include方法将两个页面包在一起
-</code></pre><h3 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h3><pre><code>本质就是servlet，第一次被访问的时候被web容器翻译成servlet再执行
-    访问helloServlet.jsp-&gt;helloServlet_jsp.java源文件-&gt;helloServlet_jsp.class字节码文件
-    P被翻译后的servlet在Tomcat的work目录中可以找到
-    F:\Tomcat\apache-tomcat-7.0.52\work\Catalina\localhost\WEB17\org\apache\jsp
-    查看*.jsp文jsp继承了HttpJspBase，该类又继承了HttpServlet，故jsp就是servlet        
-</code></pre><h3 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h3><pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+</code></pre><img src="/2018/05/10/Jsp/动静态包含特点.png" title="动静态包含特点.png">
+<h3 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h3><pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; 
+    pageEncoding=&quot;UTF-8&quot;%&gt;
     &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; 
     &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
     &lt;html&gt;
@@ -81,7 +124,8 @@
     获得session域中的值：${sessionScope.key};
     获得application域中的值：${applicationScope.key};
     寻找全域的值
-    从四个域中获得某个值$(key);字符串、数组、list、map&lt;string,string&gt;、map&lt;String,javaBean&gt;
+    从四个域中获得某个值$(key);
+    字符串、数组、list、map&lt;string,string&gt;、map&lt;String,javaBean&gt;
     依次从page域，request域，session域，application域中获取属性，
     在某个域中获取后将不在向后寻找，如果都没有则返回null
 </code></pre><h3 id="11个内置对象"><a href="#11个内置对象" class="headerlink" title="11个内置对象"></a>11个内置对象</h3><pre><code>pageScope,requestScope,sessionScope,applicationScope ---- 获取JSP中域中的数据
@@ -90,8 +134,11 @@
     initParam- 获取全局初始化参数
     cookie- WEB开发中cookie
     pageContext- WEB开发中的pageContext.
-    使用${内置对象.key}            
-</code></pre><h3 id="执行表达式"><a href="#执行表达式" class="headerlink" title="执行表达式"></a>执行表达式</h3><pre><code>pageContext获得其他八大对象${pageContext.request.contextPath}
+    使用${内置对象.key}
+    []用于有下标的数据(数组，list集合)用于有属性的数据(map,对象)
+    如果属性名中包含特殊的字符必须用[]
+    注意当key中有-或者空格则要这样表示，如${header[&quot;User-Agent&quot;] }
+</code></pre><h3 id="执行表达式"><a href="#执行表达式" class="headerlink" title="执行表达式${}"></a>执行表达式${}</h3><pre><code>pageContext获得其他八大对象${pageContext.request}
     $(pageContext.request.contextPath)/XXX
     相当于&lt;%=pageContext.getRequest().getContextPath%&gt;获得WEB应用的名称
     &lt;!-- el可以执行表达式运算 --&gt;
@@ -101,72 +148,68 @@
     ${empty list}
 </code></pre><h2 id="jstl（JSP-Standard-Tag-Library"><a href="#jstl（JSP-Standard-Tag-Library" class="headerlink" title="jstl（JSP Standard Tag Library)"></a>jstl（JSP Standard Tag Library)</h2><pre><code>JSP标准标签库，可以嵌入在jsp页面中使用标签的形式完成业务逻辑等功能。
     jstl出现的目的同el一样也是要提到jsp页面中的脚本代码            
-</code></pre><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre><code>①导入jar包jstl.jar和standard.jar
-    jstl.jar文件包含JSTL规范中定义的接口和相关类
+</code></pre><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="①导入jar包jstl-jar和standard-jar"><a href="#①导入jar包jstl-jar和standard-jar" class="headerlink" title="①导入jar包jstl.jar和standard.jar"></a>①导入jar包jstl.jar和standard.jar</h4><pre><code>jstl.jar文件包含JSTL规范中定义的接口和相关类
     standard.jar文件包含用于实现JSTL的.class文件以及JSTL中5个标签库描述符文件（TLD）
-    ②引入&lt;%@taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot;prefix=&quot;c&quot;%&gt;
-    &lt;c:forEach begin=&quot;0&quot;end=&quot;5&quot;var=&quot;i&quot; step=“2”&gt;${i}&lt;br/&gt;&lt;/c:forEach&gt;
-    &lt;c:forEach items=&quot;将要迭代的对象&quot; var=&quot;每一个对象的值&quot; 【varStatus=&quot;&quot;】&gt;
-    获得各种数据结构的值
-    &lt;c:forEach items=&quot;${strList }&quot; var=&quot;str&quot;&gt;${str }&lt;br/&gt;&lt;/c:forEach&gt;    
-    &lt;c:forEach items=&quot;${userList}&quot; var=&quot;user&quot;&gt;
-        user的name：${user.name }------user的password：${user.password }&lt;br/&gt;
+</code></pre><h4 id="②引入-lt-taglib-uri-”http-java-sun-com-jsp-jstl-core-quot-prefix-quot-c-quot-gt"><a href="#②引入-lt-taglib-uri-”http-java-sun-com-jsp-jstl-core-quot-prefix-quot-c-quot-gt" class="headerlink" title="②引入&lt;%@taglib uri=”http://java.sun.com/jsp/jstl/core&quot;prefix=&quot;c&quot;%&gt;"></a>②引入&lt;%@taglib uri=”<a href="http://java.sun.com/jsp/jstl/core&quot;prefix=&quot;c&quot;%&gt;" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/core&quot;prefix=&quot;c&quot;%&gt;</a></h4><h4 id="lt-c-forEach-begin-”0”end-”5”var-”i”-step-“2”-gt-i-lt-c-forEach-gt"><a href="#lt-c-forEach-begin-”0”end-”5”var-”i”-step-“2”-gt-i-lt-c-forEach-gt" class="headerlink" title="&lt;c:forEach begin=”0”end=”5”var=”i” step=“2”&gt;${i}&lt;/c:forEach&gt;"></a>&lt;c:forEach begin=”0”end=”5”var=”i” step=“2”&gt;${i}&lt;/c:forEach&gt;</h4><h4 id="lt-c-forEach-items-”将要迭代的对象”-var-”每一个对象的值”-varStatus-””-gt"><a href="#lt-c-forEach-items-”将要迭代的对象”-var-”每一个对象的值”-varStatus-””-gt" class="headerlink" title="&lt;c:forEach items=”将要迭代的对象” var=”每一个对象的值” [varStatus=””]&gt;"></a>&lt;c:forEach items=”将要迭代的对象” var=”每一个对象的值” [varStatus=””]&gt;</h4><h5 id="获得普通list的值"><a href="#获得普通list的值" class="headerlink" title="获得普通list的值"></a>获得普通list的值</h5><pre><code>&lt;c:forEach items=&quot;${strList }&quot; var=&quot;str&quot;&gt;${str }&lt;/c:forEach&gt;
+</code></pre><h5 id="获得list对象的值"><a href="#获得list对象的值" class="headerlink" title="获得list对象的值"></a>获得list对象的值</h5><pre><code>&lt;c:forEach items=&quot;${userList}&quot; var=&quot;user&quot;&gt;
+    user的name：${user.name }-user的password：${user.password }&lt;br/&gt;
     &lt;/c:forEach&gt;
-    &lt;c:forEach items=&quot;${strMap }&quot; var=&quot;entry&quot;&gt;
-        ${entry.key }====${entry.value }&lt;br/&gt;
-    &lt;/c:forEach&gt;    
-    &lt;c:forEach items=&quot;${userMap }&quot; var=&quot;entry&quot;&gt;
-        ${entry.key }:${entry.value.name }--${entry.value.password }&lt;br/&gt;
+</code></pre><h5 id="获得普通map的值"><a href="#获得普通map的值" class="headerlink" title="获得普通map的值"></a>获得普通map的值</h5><pre><code>&lt;c:forEach items=&quot;${strMap }&quot; var=&quot;entry&quot;&gt;
+    ${entry.key }==${entry.value }&lt;br/&gt;
     &lt;/c:forEach&gt;
-    &lt;c:if test=&quot;&quot;&gt;test设置判断条件
-</code></pre><h2 id="listener"><a href="#listener" class="headerlink" title="listener"></a>listener</h2><pre><code>监听某个对象的的状态变化的组件，当被监听对象发生改变时，立即调用相应的方法处理
+</code></pre><h5 id="获得map对象的值"><a href="#获得map对象的值" class="headerlink" title="获得map对象的值"></a>获得map对象的值</h5><pre><code>&lt;c:forEach items=&quot;${userMap }&quot; var=&quot;entry&quot;&gt;
+    ${entry.key }:${entry.value.name }--${entry.value.password }&lt;br/&gt;
+    &lt;/c:forEach&gt;
+</code></pre><h4 id="lt-c-if-test-””-gt-test设置判断条件"><a href="#lt-c-if-test-””-gt-test设置判断条件" class="headerlink" title="&lt;c:if test=””&gt;test设置判断条件"></a>&lt;c:if test=””&gt;test设置判断条件</h4><h2 id="listener"><a href="#listener" class="headerlink" title="listener"></a>listener</h2><pre><code>监听某个对象的的状态变化的组件，当被监听对象发生改变时，立即调用相应的方法处理
     事件源：被监听的对象  ----- 三个域对象 request  session  servletContext
-    监听器：监听事件源对象  事件源对象的状态的变化都会触发监听器 ---- 6+2
+    监听器：监听事件源对象  事件源对象的状态的变化都会触发监听器：6+2
     注册监听器：将监听器与事件源进行绑定
-    响应行为：监听器监听到事件源的状态变化时 所涉及的功能代码 ---- 程序员编写代    码
+    响应行为：监听器监听到事件源的状态变化时 所涉及的功能代码：程序员编写代码
     事件：事件源行为
 </code></pre><h3 id="域对象属性的方法"><a href="#域对象属性的方法" class="headerlink" title="域对象属性的方法"></a>域对象属性的方法</h3><pre><code>setAttribute(name,value)--- 触发添加、修改属性的监听器的方法   
     getAttribute(name)
     removeAttribute(name)  --- 触发删除属性的监听器的方法 
-</code></pre><h4 id="3个与域对象创建与销毁"><a href="#3个与域对象创建与销毁" class="headerlink" title="3个与域对象创建与销毁"></a>3个与域对象创建与销毁</h4><h5 id="ServletContextListener"><a href="#ServletContextListener" class="headerlink" title="ServletContextListener"></a>ServletContextListener</h5><pre><code>①初始化：对象、数据、加载数据库驱动，连接池的初始化
+</code></pre><h3 id="3个与域对象创建与销毁有关的listener"><a href="#3个与域对象创建与销毁有关的listener" class="headerlink" title="3个与域对象创建与销毁有关的listener"></a>3个与域对象创建与销毁有关的listener</h3><pre><code>getSource()就是获得被监听的对象  是通用的方法
+</code></pre><h4 id="ServletContextListener"><a href="#ServletContextListener" class="headerlink" title="ServletContextListener"></a>ServletContextListener</h4><pre><code>①初始化：对象、数据、加载数据库驱动，连接池的初始化
     ②加载一些初始化的配置文件 --- spring的配置文件
     ③任务调度----定时器----Timer/TimerTask
     ServletContext的生命周期
     何时创建：服务器启动创建
     何时销毁：服务器关闭销毁
-    任务调度
-</code></pre><h5 id="HttpSessionListener"><a href="#HttpSessionListener" class="headerlink" title="HttpSessionListener"></a>HttpSessionListener</h5><pre><code>HttpSession对象的生命周期
+    contextInitialized、contextDestroyed
+</code></pre><h4 id="HttpSessionListener"><a href="#HttpSessionListener" class="headerlink" title="HttpSessionListener"></a>HttpSessionListener</h4><pre><code>HttpSession对象的生命周期
     何时创建：第一次调用request.getSession时创建
     何时销毁：服务器关闭销毁  session过期  手动销毁
-    sessionCreated、sessionDestroyed    
-</code></pre><h5 id="ServletRequestListener"><a href="#ServletRequestListener" class="headerlink" title="ServletRequestListener"></a>ServletRequestListener</h5><pre><code>ServletRequest的生命周期
+    sessionCreated、sessionDestroyed
+</code></pre><h4 id="ServletRequestListener"><a href="#ServletRequestListener" class="headerlink" title="ServletRequestListener"></a>ServletRequestListener</h4><pre><code>ServletRequest的生命周期
     创建：每一次请求都会创建request
     销毁：请求结束
     requestDestroyed、requestInitialized
-</code></pre><h5 id="3个与域对象的属性变化有关"><a href="#3个与域对象的属性变化有关" class="headerlink" title="3个与域对象的属性变化有关"></a>3个与域对象的属性变化有关</h5><pre><code>若是改属性的话，只能获得之前被改的值，而不是改好的值
+</code></pre><h4 id="3个与域对象的属性变化有关的listener"><a href="#3个与域对象的属性变化有关的listener" class="headerlink" title="3个与域对象的属性变化有关的listener"></a>3个与域对象的属性变化有关的listener</h4><pre><code>若是改属性的话，只能获得之前被改的值，而不是改好的值
     ServletContextAttributeLIstener
     HttpSessionAttributeListener
     ServletRequestAttributeListener
 </code></pre><h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><pre><code>①编写监听器类去实现监听器接口
-    ②覆盖监听器的方法ContextInitialized和contextDestroyed
+    ②覆盖监听器的方法
     ③在web.xml中进行配置---注册  
     &lt;listener&gt;&lt;listener-class&gt;XXXXListener&lt;/listener-class&gt;&lt;/listener&gt;
-</code></pre><h2 id="2个与session域中存储对象相关"><a href="#2个与session域中存储对象相关" class="headerlink" title="2个与session域中存储对象相关"></a>2个与session域中存储对象相关</h2><h3 id="绑定与解绑HttpSessionBindingListener-给对象使用）"><a href="#绑定与解绑HttpSessionBindingListener-给对象使用）" class="headerlink" title="绑定与解绑HttpSessionBindingListener(给对象使用）"></a>绑定与解绑HttpSessionBindingListener(给对象使用）</h3><pre><code>绑定状态：就一个对象被放到session域中(setAttrbute())
+</code></pre><h3 id="2个与session域中存储对象相关"><a href="#2个与session域中存储对象相关" class="headerlink" title="2个与session域中存储对象相关"></a>2个与session域中存储对象相关</h3><h4 id="绑定与解绑HttpSessionBindingListener-给对象使用）"><a href="#绑定与解绑HttpSessionBindingListener-给对象使用）" class="headerlink" title="绑定与解绑HttpSessionBindingListener(给对象使用）"></a>绑定与解绑HttpSessionBindingListener(给对象使用）</h4><pre><code>绑定状态：就一个对象被放到session域中(setAttrbute())
     解绑状态：就是这个对象从session域中移除了remove
     ①被绑对象javaBean实现HttpSessionBindingListener接口，不需web.xml注册
     ②实现接口的所有方法
-</code></pre><h3 id="钝化与活化HttpSessionActivationListener"><a href="#钝化与活化HttpSessionActivationListener" class="headerlink" title="钝化与活化HttpSessionActivationListener"></a>钝化与活化HttpSessionActivationListener</h3><pre><code>钝化状态：将session内存中的对象持久化（序列化）到磁盘（作用重要）服务器关闭
+</code></pre><h4 id="钝化与活化HttpSessionActivationListener"><a href="#钝化与活化HttpSessionActivationListener" class="headerlink" title="钝化与活化HttpSessionActivationListener"></a>钝化与活化HttpSessionActivationListener</h4><pre><code>钝化状态：将session内存中的对象持久化（序列化）到磁盘（作用重要）服务器关闭
     活化状态：就是将磁盘上的对象再次恢复到session内存中
     ①javaBean实现HttpSessionActivationListener,Serializable并覆盖重写所有方法
     ②在META-INF创建context.xml文件
     &lt;Context&gt;
-    maxIdleSwap:session中的对象多少分钟不使用就钝化，
-    directory:钝化后的对象的文件写到磁盘的哪个目录下，
-    配置钝化的对象文件在work/catalina/localhost/钝化文件名  test--&gt;
-    &lt;Manager className=&quot;org.apache.catalina.session.PersistentManager&quot; maxIdleSwap=&quot;1&quot;&gt;
+    &lt;Manager className=&quot;org.apache.catalina.session.PersistentManager&quot; 
+    maxIdleSwap=&quot;1&quot;&gt;
     &lt;Store className=&quot;org.apache.catalina.session.FileStore&quot; directory=&quot;test&quot; /&gt;
     &lt;/Manager&gt;
     &lt;/Context&gt;
+    maxIdleSwap:session中的对象多少分钟不使用就钝化，
+    directory:钝化后的对象的文件写到磁盘的哪个目录下，
+    配置钝化的对象文件在work/catalina/localhost/钝化文件名  test--&gt;
 </code></pre><h3 id="即将要被绑定到session中的对象有几种状态"><a href="#即将要被绑定到session中的对象有几种状态" class="headerlink" title="即将要被绑定到session中的对象有几种状态"></a>即将要被绑定到session中的对象有几种状态</h3><pre><code>绑定状态：就一个对象被放到session域中
     解绑状态：就是这个对象从session域中移除了
     钝化状态：是将session内存中的对象持久化（序列化）到磁盘
@@ -192,42 +235,45 @@
     } , new Date(), 24*60*60*1000);
 </code></pre><h2 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h2><pre><code>邮件的客户端：可以只安装在电脑上的也可以是网页形式的
     邮件服务器：起到邮件的接受与推送的作用
-</code></pre><h3 id="协议-就是数据传输的约束"><a href="#协议-就是数据传输的约束" class="headerlink" title="协议(就是数据传输的约束)"></a>协议(就是数据传输的约束)</h3><pre><code>接受邮件的协议：
-    POP3（邮局协议，定义了邮件客户端软件与POP3服务器通讯规则）IMAP 端口号110
+</code></pre><h3 id="协议-数据传输的约束"><a href="#协议-数据传输的约束" class="headerlink" title="协议(数据传输的约束)"></a>协议(数据传输的约束)</h3><pre><code>接受邮件的协议：
+    POP3（邮局协议，邮件客户端软件与POP3服务器通讯规则）IMAP 端口号110
     发送邮件的协议：
-    SMTP（简单邮件传输协议）:邮件客户端软件与SMTP服务及两台SMTP服务器之间的通讯规则，端口号25
-    使用导入jar包mail.jar
-</code></pre><h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><pre><code>filter是对客户端访问资源的过滤，符合条件放行，不符合条件不放行，
+    SMTP（邮件协议）:邮件客户端软件与SMTP服务及两台SMTP服务器之间的通讯规则，端口号25
+</code></pre><h3 id="邮件服务器的地址"><a href="#邮件服务器的地址" class="headerlink" title="邮件服务器的地址"></a>邮件服务器的地址</h3><pre><code>POP3服务器:pop.126.com
+    SMTP服务器:smtp.126.com
+    IMAP服务器:imap.126.com
+</code></pre><h4 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h4><pre><code>导包mail.jar
+    使用封装好的方法
+</code></pre><h4 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h4><img src="/2018/05/10/Jsp/mail.JPG" title="mail.JPG">
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><pre><code>filter是对客户端访问资源的过滤，符合条件放行，不符合条件不放行，
     并且可以对目标资源访问前后进行逻辑处理，运行在服务器端的程序，
     先于与之相关的Servlet或jsp前运行，对请求资源过滤的功能,可以处理请求和响应
-    ①编写一个过滤器的类实现Filter接口
-    ②实现接口中尚未实现的方法(着重实现doFilter方法)
-        ①init(Filterconfig)：filter对象初始化方法 filter对象创建时执行，与服务器启动相近，
-        config代表该Filter对象的配置信息的对象，内部封装是该filter的配置信息。servletconfig
-        //获得web.xml中filter 的名称&lt;filter-name&gt;QuickFilter1&lt;/filter-name&gt;
-        System.out.println(filterConfig.getFilterName());
-        System.out.println(filterConfig.getInitParameter(&quot;aaa&quot;));//获得filter初始化参数
-        System.out.println(filterConfig.getInitParameterNames());
-        filterConfig.getServletContext();    //获得servletContext
-        ②doFilter(ServletRequest,ServletResponse,FilterChain)：
-        filter执行过滤的核心方法，若资源在已经被配置到这个filter进行过滤的话，
-        则每次访问这个资源都会执行该方法
-        FilterChain：过滤器链对象，放行请求chain.doFilter(request, response);
-        ③destory()：filter销毁方法 当filter对象销毁时执行该方法，关闭服务器时
-    ③在web.xml中进行配置(配置要对哪些资源进行过滤)（filter-mapping在前面的先执行）
-        &lt;filter&gt;
-        &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
-        &lt;filter-class&gt;com.ithiema.web.filter.EncodingFilter&lt;/filter-class&gt;
-        &lt;/filter&gt;
-        &lt;filter-mapping&gt;
-        &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
-        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-        &lt;/filter-mapping&gt;
-        url-pattern配置①完全匹配 /sertvle1②目录匹配 /aaa/bbb/*③扩展名匹配*.abc  *.jsp
+</code></pre><h3 id="使用-3"><a href="#使用-3" class="headerlink" title="使用"></a>使用</h3><h4 id="①编写一个过滤器的类实现Filter接口"><a href="#①编写一个过滤器的类实现Filter接口" class="headerlink" title="①编写一个过滤器的类实现Filter接口"></a>①编写一个过滤器的类实现Filter接口</h4><h4 id="②实现接口中尚未实现的方法-着重实现doFilter方法"><a href="#②实现接口中尚未实现的方法-着重实现doFilter方法" class="headerlink" title="②实现接口中尚未实现的方法(着重实现doFilter方法)"></a>②实现接口中尚未实现的方法(着重实现doFilter方法)</h4><pre><code>①init(Filterconfig)：filter对象初始化方法 filter对象创建时执行，与服务器启动相近，
+    config代表该Filter对象的配置信息的对象，内部封装是该filter的配置信息。servletconfig
+    //获得web.xml中filter 的名称&lt;filter-name&gt;QuickFilter1&lt;/filter-name&gt;
+    System.out.println(filterConfig.getFilterName());
+    System.out.println(filterConfig.getInitParameter(&quot;aaa&quot;));//获得filter初始化参数
+    System.out.println(filterConfig.getInitParameterNames());
+    filterConfig.getServletContext();    //获得servletContext
+    ②doFilter(ServletRequest,ServletResponse,FilterChain)：
+    filter执行过滤的核心方法，若资源在已经被配置到这个filter进行过滤的话，
+    则每次访问这个资源都会执行该方法
+    FilterChain：过滤器链对象，放行请求chain.doFilter(request, response);
+    ③destory()：filter销毁方法 当filter对象销毁时执行该方法，关闭服务器时
+</code></pre><h4 id="③在web-xml中进行配置-配置要对哪些资源进行过滤-（filter-mapping在前面的先执行）"><a href="#③在web-xml中进行配置-配置要对哪些资源进行过滤-（filter-mapping在前面的先执行）" class="headerlink" title="③在web.xml中进行配置(配置要对哪些资源进行过滤)（filter-mapping在前面的先执行）"></a>③在web.xml中进行配置(配置要对哪些资源进行过滤)（filter-mapping在前面的先执行）</h4><pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.ithiema.web.filter.EncodingFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+    &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+    url-pattern配置①完全匹配 /sertvle1②目录匹配 /aaa/bbb/*③扩展名匹配*.abc  *.jsp
     注意：url-pattern可以使用servlet-name替代，也可以混用
 </code></pre><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><pre><code>①公共代码的提取
     ②对request和response中的方法进行增强(装饰者模式/动态代理)
     ③进行权限控制
-</code></pre><h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><pre><code>①服务器启动时就创建该filter对象，每次访问被拦截目标资源，过滤器的doFilter方法就会执行
+    ④自动登录，解决全局乱码，屏蔽非法文字，响应数据压缩
+</code></pre><h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><pre><code>①服务器启动时就创建该filter对象，每次访问被拦截目标资源，过滤器doFilter方法执行
     ②服务器关闭时filter销毁        
-</code></pre></div><div class="tags"><a href="/tags/Jsp/">Jsp</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/linux/">linux</a><a class="next" href="/2018/05/10/http协议/">http协议</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/Jsp/">Jsp</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/linux/">linux</a><a class="next" href="/2018/05/10/http协议/">http协议</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/http协议/">http协议</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
