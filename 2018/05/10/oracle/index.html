@@ -4,22 +4,26 @@
     [where condition(s)]
     [group by column(s)]
     [having condition(s)] 
-    [order by colum|number|alias|expression [asc|desc] [nulls first|nulls last](s)};
-</code></pre><h4 id="select-distinct作用与后面所有的列，所有列相同的才会去掉"><a href="#select-distinct作用与后面所有的列，所有列相同的才会去掉" class="headerlink" title="select:distinct作用与后面所有的列，所有列相同的才会去掉"></a>select:distinct作用与后面所有的列，所有列相同的才会去掉</h4><pre><code>alias有特殊符号或者关键字(数字汉字)就要加双引号(pl/sql就不用)，单引号表示日期和字符
+    [order by column|number|alias|expression 
+    [asc|desc] [nulls first|nulls last](s)];
+</code></pre><h4 id="select"><a href="#select" class="headerlink" title="select:"></a>select:</h4><pre><code>distinct作用与后面所有的列，所有列相同的才会去掉
+    alias有特殊符号或者关键字(数字汉字)就要加双引号(pl/sql就不用)，单引号表示日期和字符
     select * from emp;
     select empno,ename,job,mgr,hiredate,sal,comm,deptno from emp;
-    select empno as &quot;员工号&quot;,ename,sal &quot;月 薪&quot;,sal*12,comm,sal*12+nvl(comm,0) from emp
+    select empno as &quot;员工号&quot;,ename,sal &quot;月 薪&quot;,
+    sal*12,comm,sal*12+nvl(comm,0) from emp
     select distinct deptno from emp;
     select distinct deptno,job from emp;
     select ename,sal*12 from emp;
     select ename,sal*12 income,sal*12+comm from emp;
 </code></pre><h4 id="condition"><a href="#condition" class="headerlink" title="condition"></a>condition</h4><pre><code>where 中的字母是区分大小写，日期格式必须与数据库一致，默认DD-MON-RR\mysql不区分大小写
-    比较运算符
-    =、&lt;&gt;（！=）、&gt;、&gt;=、&lt;=、&lt;、between and （闭区间，小到大、日期也行）
+    比较运算符=、&lt;&gt;（！=）、&gt;、&gt;=、&lt;=、&lt;、between and （闭区间，小到大、日期也行）
     in（set集合）、not in（set集合）、is null、is not null、like（%、_、日期、\escape）
     lib
     转意字符\紧跟后面的一个按本身，不按特殊字符、   
     select *from emp where ename like &apos;%\_%&apos; escape &apos;\&apos;；
+    逻辑运算符
+    and（两个考虑between and）、or （多个or考虑in）、not（不大于：not（sal&gt;1500））
     例子
     select * from emp where sal between 1500 and 3000
     select * from emp where sal &gt;1500 and sal&lt;3000
@@ -41,9 +45,6 @@
     select * from emp where empno like &apos;%M%&apos;
     select last_name, hire_date from employees where hire_date like &apos;% -94&apos;
     select * from emp where ename like &apos;____&apos;
-    逻辑运算符
-    and（两个考虑between and）、or （多个or考虑in）、not（不大于：not（sal&gt;1500））
-    例子
     select * from emp where comm is not null or sal&gt;1500;
     select * from emp where comm is not null and sal&gt;1500;
     select * from emp where comm is not null and not(sal&gt;1500);
@@ -97,10 +98,8 @@
     SQL&gt; 没有group by
     oracle的支持报表功能，break on null，相同的不显示，不同部门号，以deptno为标志，
     分组后隔行显示break on deptno skip 2、select可以通过集合运算相加减
-</code></pre><h2 id="函数：简化操作"><a href="#函数：简化操作" class="headerlink" title="函数：简化操作"></a>函数：简化操作</h2><h3 id="单行函数"><a href="#单行函数" class="headerlink" title="单行函数"></a>单行函数</h3><h4 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h4><pre><code>大小写控制函数
-    select lower(&apos;HELLO&apos;) ,upper(&apos;hello&apos;),initcap(&apos;hello&apos;) from dual (伪表)
-    字符控制函数
-    select concat(&apos;hello&apos;,&apos;World&apos;) from dual(伪表)
+</code></pre><h2 id="函数：简化操作"><a href="#函数：简化操作" class="headerlink" title="函数：简化操作"></a>函数：简化操作</h2><h3 id="单行函数"><a href="#单行函数" class="headerlink" title="单行函数"></a>单行函数</h3><h4 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h4><h5 id="大小写控制函数"><a href="#大小写控制函数" class="headerlink" title="大小写控制函数"></a>大小写控制函数</h5><pre><code>select lower(&apos;HELLO&apos;) ,upper(&apos;hello&apos;),initcap(&apos;hello&apos;) from dual (伪表)
+</code></pre><h5 id="字符控制函数"><a href="#字符控制函数" class="headerlink" title="字符控制函数"></a>字符控制函数</h5><pre><code>select concat(&apos;hello&apos;,&apos;World&apos;) from dual(伪表)
     select &apos;编号是&apos;  || empno  || &apos;的雇员,姓名是&apos;||ename from emp;
     select substr(&apos;Hello World&apos;,4) 子串 from dual;lo World  
     select substr(&apos;Hello World&apos;,4,3) 子串 from dual;lo 
@@ -111,7 +110,7 @@
     select instr(&apos;Hello World&apos;,&apos;ll&apos;) 位置 from dual;3
     select lpad(&apos;a&apos;,1,&apos;*&apos;) 左,rpad(&apos;abcd&apos;,1,&apos;*&apos;) 右 from dual;*a a* 左右填充
     select trim(&apos;H&apos; from &apos;Hello WorldH&apos;) from dual;ello World 去掉前后指定的字符
-    select wm_concat(ename) nameslist from emp group by deptno;  10 CLARK,KING,MILLER
+    select wm_concat(ename) nameslist from emp group by deptno;  10 CLARK,KING
 </code></pre><h4 id="数值函数"><a href="#数值函数" class="headerlink" title="数值函数"></a>数值函数</h4><pre><code>select round(45.926,2) 一,round(45.926,1) 二,round(45.926,0) 三,
     round(45.926,-1) 四,round(45.926,-2) 五 from dual;
     45.93       45.9         46         50          0   
@@ -132,19 +131,25 @@
     每个星期一自动备份表中的数据 1、分布式数据库，物理上不在一起，逻辑一起的数据库
     2、触发器 快照拷贝数据
     round、trunc
+    假设SYSDATE=‘25-JUL-95’
+    round(SYSDATE,&apos;MONTH&apos;)→01-AUG-95
+    round(SYSDATE,&apos;YEAR&apos;)→01-JAN-96
+    trunc(SYSDATE,&apos;MONTH&apos;)→01-JUL-95
+    trunc(SYSDATE,&apos;YEAR&apos;)→01-JAN-95
     select months_between(sysdate,hiredate),add_months(sysdate,53) ,
     next_day(sysdate,&apos;sunday&apos;) ,last_day(sysdate) from emp;计算工龄
 </code></pre><h4 id="转换函数"><a href="#转换函数" class="headerlink" title="转换函数"></a>转换函数</h4><pre><code>隐式oracle自动:select * from emp where deptno=10;
     显式:日期转换格式to_char（date，’格式‘）&apos;yyyy-mm-dd&apos;、&apos;fmyyyy-mm-dd&apos;去掉09的0
     可以用来分别取出年、月、日
-    dy返回前英文前三个，day全英文，m没反应，d个位数，h没反应，hh12，hh24
-    select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&quot;今天是&quot;day&apos;) from dual;今天是星期四  
-    数字转换格式to_char（number，’格式‘）可以分别取出各个位置的位数        
+</code></pre><img src="/2018/05/10/oracle/oracle转换函数.png" title="oracle转换函数.png">
+<pre><code>select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&quot;今天是&quot;day&apos;) from dual;  
+    数字转换格式to_char（number，’格式‘）可以分别取出各个位置的位数    
+    L本地货币符号，.小数点，千位符$美元符0零9数字
     select to_char(sal,&apos;L9,999.99&apos;) from emp;￥800.00     
     字符转换为数字to_number(char[,&apos;格式&apos;])
     字符转换成日期to_date(char[,&apos;格式&apos;&apos;])
 </code></pre><h4 id="通用函数-适用于任何数据类型包括null"><a href="#通用函数-适用于任何数据类型包括null" class="headerlink" title="通用函数:适用于任何数据类型包括null"></a>通用函数:适用于任何数据类型包括null</h4><pre><code>nvl（e1,e2）、nvl2（a,b,c）、nullif（a,b）、coalesce（e1,e2）
-    nvl2的非null为b，nulll为c nullif两个表达式相同返回null，否则返回a
+    nvl2的非null为b，null为c nullif两个表达式相同返回null，否则返回a
     select sal*12+nvl2(comm,comm,0) from emp;
     select nullif(&apos;abc&apos;,&apos;abc&apos;) 值 from dual;    
     select comm,sal,coalesce(comm,sal) &quot;第一个不为null的值&quot; from emp;
@@ -202,7 +207,8 @@
     select * from emp where deptno in 
     (select deptno from dept where dname=&apos;SALES&apos; or dname=&apos;ACCOUNTING&apos;);
 </code></pre><h4 id="相关子查询-将主查询中的值-作为参数传递给子查询"><a href="#相关子查询-将主查询中的值-作为参数传递给子查询" class="headerlink" title="相关子查询:将主查询中的值 作为参数传递给子查询"></a>相关子查询:将主查询中的值 作为参数传递给子查询</h4><pre><code>select empno,ename,sal,(select avg(sal) from emp where deptno=e.deptno) 
-    avgsal  from emp e  where sal &gt; (select avg(sal) from emp where deptno=e.deptno);
+    avgsal from emp e where sal &gt; 
+    (select avg(sal) from emp where deptno=e.deptno);
 </code></pre><h4 id="单行子查询-单行操作符（-、-lt-gt-（！-）、-gt-、-gt-、-lt-、-lt-）"><a href="#单行子查询-单行操作符（-、-lt-gt-（！-）、-gt-、-gt-、-lt-、-lt-）" class="headerlink" title="单行子查询:单行操作符（=、&lt;&gt;（！=）、&gt;、&gt;=、&lt;=、&lt;）"></a>单行子查询:单行操作符（=、&lt;&gt;（！=）、&gt;、&gt;=、&lt;=、&lt;）</h4><h3 id="集合运算-union、intersect交集、minus差集"><a href="#集合运算-union、intersect交集、minus差集" class="headerlink" title="集合运算:union、intersect交集、minus差集"></a>集合运算:union、intersect交集、minus差集</h3><pre><code>查询10和20号部门的员工
     select * from emp where deptno=10 or deptno=20;
     select * from emp where deptno in (10,20);
@@ -228,14 +234,10 @@
      where rownum &lt;=8
     )
     where r &gt;=5;
-</code></pre><h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><pre><code>等值连接
-    多表查询，至少有n-1个连接条件才能去掉笛卡尔集
-    select e.empno,e.ename,e.sal,d.dname from emp e,dept d  where e.deptno=d.deptno;
-    不等值连接:注意这种联系
-    select e.empno,e.ename,e.sal,s.grade from emp e,
+</code></pre><h3 id="多表查询：至少有n-1个连接条件才能去掉笛卡尔集"><a href="#多表查询：至少有n-1个连接条件才能去掉笛卡尔集" class="headerlink" title="多表查询：至少有n-1个连接条件才能去掉笛卡尔集"></a>多表查询：至少有n-1个连接条件才能去掉笛卡尔集</h3><h4 id="笛卡尔集：查出两张表的乘积"><a href="#笛卡尔集：查出两张表的乘积" class="headerlink" title="笛卡尔集：查出两张表的乘积"></a>笛卡尔集：查出两张表的乘积</h4><h4 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h4><pre><code>select e.empno,e.ename,d.dname from emp e,dept d  where e.deptno=d.deptno;
+</code></pre><h4 id="不等值连接-注意这种联系"><a href="#不等值连接-注意这种联系" class="headerlink" title="不等值连接:注意这种联系"></a>不等值连接:注意这种联系</h4><pre><code>select e.empno,e.ename,e.sal,s.grade from emp e,
     salgrade s where e.sal between s.losal  and s.hisal;
-    外连接
-    左外连接right join 、(+)
+</code></pre><h4 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h4><pre><code>左外连接right join 、(+)
     当where e.deptno=d.deptno不成立的时候，等号左边的表任然被包含在最后的结果中
     右外连接right join 、(+)
     当where e.deptno=d.deptno不成立的时候，等号右边的表任然被包含在最后的结果中
@@ -246,18 +248,18 @@
      where e.deptno(+)=d.deptno
      group by d.deptno,d.dname;
 </code></pre><h3 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h3><pre><code>通过表的别名，将同一张表视为多张表、自连接不适合操作大表
-    select e.ename 员工姓名,b.ename 老板姓名  from emp e,emp b where e.mgr=b.empno;    
-</code></pre><h3 id="笛卡尔集：查出两张表的乘积"><a href="#笛卡尔集：查出两张表的乘积" class="headerlink" title="笛卡尔集：查出两张表的乘积"></a>笛卡尔集：查出两张表的乘积</h3><h3 id="层次查询-上层的员工等于下层的老板，从哪个节点开始遍历树"><a href="#层次查询-上层的员工等于下层的老板，从哪个节点开始遍历树" class="headerlink" title="层次查询:上层的员工等于下层的老板，从哪个节点开始遍历树"></a>层次查询:上层的员工等于下层的老板，从哪个节点开始遍历树</h3><pre><code>select level,empno,ename,mgr  from emp connect by prior empno=mgr
+    select e.ename 员工,b.ename 老板 from emp e,emp b where e.mgr=b.empno;
+</code></pre><h3 id="层次查询-上层的员工等于下层的老板，从哪个节点开始遍历树"><a href="#层次查询-上层的员工等于下层的老板，从哪个节点开始遍历树" class="headerlink" title="层次查询:上层的员工等于下层的老板，从哪个节点开始遍历树"></a>层次查询:上层的员工等于下层的老板，从哪个节点开始遍历树</h3><pre><code>select level,empno,ename,mgr  from emp connect by prior empno=mgr
     start with mgr is null  order by 1;
-</code></pre><h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><pre><code>如果集合中含有null，不能使用not in相当于and 连接 表达式中的null为false使结果永远为null；
+</code></pre><img src="/2018/05/10/oracle/层次查询.png" title="层次查询.png">        
+<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><pre><code>无效的，未指定的，内容不存在的，未知的或不可预知的值、并不是空格或者0
+    如果集合中含有null，不能使用not in相当于and 连接 表达式中null为false使结果永远为null
     但可以使用in相当于or 连接 表达式中含null不影响结果
     select * from emp where deptno in (10,20,null)
-    无效的，未指定的，内容不存在的，未知的或不可预知的值、并不是空格或者0
     空值永远不等于null，判断null 用is null 或is not null 不要用列名=null
-    null的排序：null值最大
-    nulls First和 null last 调节显示位置        
-    包含null的表达式都为null(注意求和的时候显示null值，
-    要用nvl函数nvl（a,b）解决 )，sum（null）、+null
+    null的排序：null值最大:nulls First和 null last 调节显示位置        
+    包含null的表达式都为null
+    (注意求和的时候显示null值，要用nvl函数nvl（a,b）解决 )，sum（null）、+null
     组函数会自动滤空；可以嵌套滤空函数来屏蔽他的滤空功能；select count(*), 
     count(nvl(comm,0)) from emp;
 </code></pre><h2 id="其他语句"><a href="#其他语句" class="headerlink" title="其他语句"></a>其他语句</h2><pre><code>将查询语句保存在文件中 spool d:\基本查询.txt spool off
@@ -290,27 +292,25 @@
     ④尽量使用多表查询、不要子查询
     ⑤尽量不要使用集合运算
 </code></pre><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><pre><code>可以回滚，oracle自动开启事务，必须提交了数据库才会更新，而mysql手动
-    commit提交
-    rollback回滚
-    起始标志: 事务中的第一条DML语句 ，相当于DML+commit
-    结束标志：提交： 显式  commit  隐式： 正常退出 DDL DCL
-         回滚： 显式 rollback   隐式： 非正常退出 掉电  宕机
+    commit提交\rollback回滚
+    起始标志: 事务中的第一条DML语句,相当于DML+commit
+    结束标志：
+    提交： 显式commit        隐式正常退出 DDL DCL
+    回滚： 显式rollback   隐式：非正常退出 掉电  宕机
     set transaction read only;
     数据提交后不一定会保存下来，可能有临时表
     事务的保存点
     中间不能提交事务
         rollback to savepoint a;
         savepoint a
-    隔离级别            
+</code></pre><h2 id="oracle隔离级别"><a href="#oracle隔离级别" class="headerlink" title="oracle隔离级别"></a>oracle隔离级别</h2><pre><code>oracle支持read commit（默认）、serializable、read only
 </code></pre><h2 id="数据库对象"><a href="#数据库对象" class="headerlink" title="数据库对象"></a>数据库对象</h2><h3 id="表"><a href="#表" class="headerlink" title="表"></a>表</h3><pre><code>标准表（自己创建的表）
     索引表
     临时表
         手动创建 create global temporary table  ****
         自动创建：排序
         特点：当事务或者会话结束的时候，表中的数据自动删除*/
-    表
-    创建表
-    create table [schema.]tablename (column datatype[default expr][，..]);
+</code></pre><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><pre><code>create table [schema.]tablename (column datatype[default expr][，..]);
     约束
     create table student(
     sid number constraint student_pk primary key,
@@ -942,4 +942,4 @@ end;
     call.registOutputSteam
     [[oralcestatement]call].getxxx
 in\out 参数不用重复定义
-</code></pre></div><div class="tags"><a href="/tags/oracle/">oracle</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/redis/">redis</a><a class="next" href="/2018/05/10/mysql/">mysql</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/oracle/">oracle</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/redis/">redis</a><a class="next" href="/2018/05/10/mysql/">mysql</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

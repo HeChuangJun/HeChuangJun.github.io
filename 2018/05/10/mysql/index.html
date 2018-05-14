@@ -1,43 +1,49 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>mysql | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql</h1><div class="post-meta">May 10, 2018<span> | </span><span class="category"><a href="/categories/数据库/">数据库</a></span></div><div class="post-content"><p>mysql<br><a id="more"></a></p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>mysql | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql</h1><div class="post-meta">May 10, 2018<span> | </span><span class="category"><a href="/categories/mysql/">mysql</a></span></div><div class="post-content"><p>mysql<br><a id="more"></a></p>
 <h2 id="MySQL5-7"><a href="#MySQL5-7" class="headerlink" title="MySQL5.7"></a>MySQL5.7</h2><pre><code>数据库：文件系统、将数据按照指定格式储存起来，通过sql语句进行增删改查操作
     数据库管理系统DBMS用于操作和管理数据库的大型软件
 </code></pre><h2 id="mysql服务-amp-登录"><a href="#mysql服务-amp-登录" class="headerlink" title="mysql服务&amp;登录"></a>mysql服务&amp;登录</h2><pre><code>启动net start mysql57(数据库名)
     停止net stop mysql57(数据库名)
     登录 mysql -u 用户名 -p；
     我的电脑→管理和应用程序→服务
-</code></pre><h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="增"><a href="#增" class="headerlink" title="增"></a>增</h3><pre><code>create database 数据库名 [character set 字符集（gbk、utf8）] [collate 校对规则];
+</code></pre><h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="增"><a href="#增" class="headerlink" title="增"></a>增</h3><pre><code>create database 数据库名 [character set 字符集(gbk、utf8)] [collate 校对规则];
     查字符集对应的及默认校对规则：show character set；
-    查看MySQL编码 SHOW VARIABLES LIKE &apos;char%&apos;;
-    show variables；查询字符集
-</code></pre><h3 id="删：drop-database-数据库名"><a href="#删：drop-database-数据库名" class="headerlink" title="删：drop database 数据库名;"></a>删：drop database 数据库名;</h3><h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><pre><code>①create database 新数据库名;
-    ②rename table 旧数据库名.表名 to 新数据库名.表名,旧数据库名.表名 to 新数据库名.表名...；
+    查看MySQL编码:SHOW VARIABLES LIKE &apos;char%&apos;;
+    查询字符集:show variables
+</code></pre><h3 id="删"><a href="#删" class="headerlink" title="删"></a>删</h3><pre><code>drop database 数据库名;
+</code></pre><h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><pre><code>①create database 新数据库名;
+    ②rename table 旧库名.表名 to 新库名.表名,旧库名.表名 to 新库名.表名...；
     ③drop database 旧数据库名;
 </code></pre><h3 id="查"><a href="#查" class="headerlink" title="查"></a>查</h3><pre><code>查看所有数据库：show databases;
     查看当前操作的数据库：select database();
     查看创建数据库的详细说明（编码）:show create database 数据库名;
-</code></pre><h3 id="用：使用数据库：use-数据库名"><a href="#用：使用数据库：use-数据库名" class="headerlink" title="用：使用数据库：use 数据库名;"></a>用：使用数据库：use 数据库名;</h3><h2 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h2><h3 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h3><pre><code>create table 表名(列名1 类型（长度）[约束](s))[character 字符集 collate 校对规则；];
-</code></pre><h3 id="约束："><a href="#约束：" class="headerlink" title="约束："></a>约束：</h3><pre><code>primary key 一张表只有一个，唯一非空
+</code></pre><h3 id="用"><a href="#用" class="headerlink" title="用"></a>用</h3><pre><code>使用数据库：use 数据库名;
+</code></pre><h2 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h2><h3 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h3><pre><code>create table 表名(列名1 类型(长度)[约束](s))[character 字符集 collate 校对规则]
+</code></pre><h4 id="约束："><a href="#约束：" class="headerlink" title="约束："></a>约束：</h4><pre><code>primary key 一张表只有一个，唯一非空
     not null 非空 auto_increament,从1开始，自增，必须主键、类型必须int
-    unique 唯一、可多个null、一表多unique、check、foreign key
-                数据类型
-</code></pre><h3 id="删"><a href="#删" class="headerlink" title="删"></a>删</h3><pre><code>drop table 表名;
+    unique 唯一、可多个null、unique、check、foreign key
+</code></pre><h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><img src="/2018/05/10/mysql/数据类型1.png" title="数据类型1.png">
+<img src="/2018/05/10/mysql/数据类型2.png" title="数据类型2.png">                    
+<h3 id="删-1"><a href="#删-1" class="headerlink" title="删"></a>删</h3><pre><code>drop table 表名;
     truncate table 表名; （两者区别）
 </code></pre><h3 id="改-1"><a href="#改-1" class="headerlink" title="改"></a>改</h3><pre><code>rename table 旧表名 to 新表名；
     alter table 表名 character set 字符集；
 </code></pre><h3 id="查-1"><a href="#查-1" class="headerlink" title="查"></a>查</h3><pre><code>查看数据库的表：show tables;
     查看当前表的字符集：show create table 表名;
-    注意
-        同一个数据库中不能有相同的表名；先选择数据库才能进行表操作
-</code></pre><h2 id="列操作"><a href="#列操作" class="headerlink" title="列操作"></a>列操作</h2><h3 id="增-alter-table-表名-add-字段名-类型（长度）-约束"><a href="#增-alter-table-表名-add-字段名-类型（长度）-约束" class="headerlink" title="增:alter table 表名 add 字段名 类型（长度）[约束];"></a>增:alter table 表名 add 字段名 类型（长度）[约束];</h3><h3 id="删-alter-table-表名-drop-列名"><a href="#删-alter-table-表名-drop-列名" class="headerlink" title="删:alter table 表名 drop 列名;"></a>删:alter table 表名 drop 列名;</h3><h3 id="改-2"><a href="#改-2" class="headerlink" title="改"></a>改</h3><pre><code>改类型（长度）[约束]alter table 表名 modify [column]字段名 类型(长度)[约束]
-    改列名类型(长度)[约束]alter table 表名 change [column] 旧列名 新列名 类型(长度)[约束]
-</code></pre><h3 id="查-查看表结构（列）：desc-表名"><a href="#查-查看表结构（列）：desc-表名" class="headerlink" title="查:查看表结构（列）：desc 表名;"></a>查:查看表结构（列）：desc 表名;</h3><h2 id="记录（数据）操作"><a href="#记录（数据）操作" class="headerlink" title="记录（数据）操作"></a>记录（数据）操作</h2><h3 id="增-2"><a href="#增-2" class="headerlink" title="增"></a>增</h3><pre><code>insert into 表名（列名1，列名2，列名3...）values（值1，值2，值3）；
+    同一个数据库中不能有相同的表名；先选择数据库才能进行表操作
+</code></pre><h2 id="列操作"><a href="#列操作" class="headerlink" title="列操作"></a>列操作</h2><h3 id="增-2"><a href="#增-2" class="headerlink" title="增"></a>增</h3><pre><code>alter table 表名 add 字段名 类型（长度）[约束];
+</code></pre><h3 id="删-2"><a href="#删-2" class="headerlink" title="删"></a>删</h3><pre><code>alter table 表名 drop 列名;
+</code></pre><h3 id="改-2"><a href="#改-2" class="headerlink" title="改"></a>改</h3><pre><code>改类型(长度)[约束]alter table 表名 modify [column]字段名 类型(长度)[约束]
+    改整个列alter table 表名 change [column] 旧列名 新列名 类型(长度)[约束]
+</code></pre><h3 id="查-2"><a href="#查-2" class="headerlink" title="查"></a>查</h3><pre><code>查看表结构（列）：desc 表名;
+</code></pre><h2 id="记录（数据）操作"><a href="#记录（数据）操作" class="headerlink" title="记录（数据）操作"></a>记录（数据）操作</h2><h3 id="增-3"><a href="#增-3" class="headerlink" title="增"></a>增</h3><pre><code>insert into 表名（列名1，列名2，列名3...）values（值1，值2，值3）；
     insert into 表名（值1，值2，值3）；
     个数、类型、长度、顺序与前面对应、字符串和日期单引号
-</code></pre><h3 id="删-detele-from-表名-where-条件"><a href="#删-detele-from-表名-where-条件" class="headerlink" title="删:detele from 表名 where 条件"></a>删:detele from 表名 where 条件</h3><h3 id="改-3"><a href="#改-3" class="headerlink" title="改"></a>改</h3><pre><code>将字段名全部修改：update 表名 set 字段名=值,字段名=值,字段名=值；→1=1
+</code></pre><h3 id="删-3"><a href="#删-3" class="headerlink" title="删"></a>删</h3><pre><code>detele from 表名 where 条件
+</code></pre><h3 id="改-3"><a href="#改-3" class="headerlink" title="改"></a>改</h3><pre><code>将字段名全部修改：update 表名 set 字段名=值,字段名=值,字段名=值；→1=1
     将部分字段名修改：update 表名 set 字段名=值,字段名=值,字段名=值 where 字段名=值;
     个数、类型、长度、顺序与前面对应、字符串和日期单引号
 </code></pre><h2 id="查询总结"><a href="#查询总结" class="headerlink" title="查询总结"></a>查询总结</h2><pre><code>查询思路，先思考要查的字段，再想从哪几个表中查到，然后分析条件
-</code></pre><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><h4 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h4><pre><code>select [distinct] *| 列名，列名 from 表名 [where条件]
+</code></pre><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><h4 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h4><pre><code>select [distinct] *|列名 别名(s) from 表名 [where条件]
     select * from 表名;
     select * from 表名 [as] 别名；
     select 列名，列名 from  表名;
@@ -54,6 +60,7 @@
     is null（没有）/is not null（有）、and（和、或）、
     or （还有）、not既不是又不是
 </code></pre><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><pre><code>select 字段名 from 表名 order by 字段名 asc/desc;(升序/降序)
+    多个字段时，相同的按第二个字段排，依次类推
 </code></pre><h4 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h4><pre><code>select sum(字段名) from 表名;
     select avg(字段名) from 表名；
     select count（*） from 表名;不统计null的值
@@ -64,7 +71,8 @@
     分组后带有条件只能使用having order by 它必须放到最后面
 </code></pre><h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><pre><code>select * from product limit a,b;
     a=（第几页-1）*b]是起始的位置，b是每页需要显示的条目数
-</code></pre><h4 id="查询记录：select-…-from-表-where-条件-group-by-having-条件-order-by-…"><a href="#查询记录：select-…-from-表-where-条件-group-by-having-条件-order-by-…" class="headerlink" title="查询记录：select … from 表 where 条件 group by .. having 条件 order by …;"></a>查询记录：select … from 表 where 条件 group by .. having 条件 order by …;</h4><h4 id="case…when判断函数"><a href="#case…when判断函数" class="headerlink" title="case…when判断函数"></a>case…when判断函数</h4><pre><code>SELECT
+</code></pre><h4 id="查询记录"><a href="#查询记录" class="headerlink" title="查询记录"></a>查询记录</h4><pre><code>select ... from 表 where 条件 group by .. having 条件 order by ...;
+</code></pre><h4 id="case…when判断函数"><a href="#case…when判断函数" class="headerlink" title="case…when判断函数"></a>case…when判断函数</h4><pre><code>SELECT
     name as 姓名,
     MAX(
         CASE 
@@ -87,8 +95,7 @@
          when  fenshu&lt;80 then &apos;合格&apos;（else &apos;合格&apos;）
          end  [as] fenshu
     from t_grade
-</code></pre><h3 id="语句执行先后"><a href="#语句执行先后" class="headerlink" title="语句执行先后"></a>语句执行先后</h3><pre><code>聚合函数在WHERE之后执行 在WHERE判断条件里加入聚合函数是做不到的。
-    SQL的执行顺序：
+</code></pre><h3 id="sql语句执行先后"><a href="#sql语句执行先后" class="headerlink" title="sql语句执行先后"></a>sql语句执行先后</h3><pre><code>聚合函数在WHERE之后执行 在WHERE判断条件里加入聚合函数是做不到的
     –第一步：执行FROM
     –第二步：WHERE条件过滤
     –第三步：GROUP BY分组
@@ -96,10 +103,10 @@
     –第五步：HAVING条件过滤
     –第六步：执行ORDER BY 排序
 </code></pre><h3 id="多表操作"><a href="#多表操作" class="headerlink" title="多表操作"></a>多表操作</h3><pre><code>从表外键是对主表主键的引用、从表外键类型必须与主表主键类型一样
-    从表不能添加（更新），主表中不存在的数据。主表不能删除（更新），从表中已经使用的数据
+    从表不能添加(更新)，主表中不存在的数据。主表不能删除（更新），从表中已经使用的数据
 </code></pre><h4 id="增外键（外键名以-fk结尾）"><a href="#增外键（外键名以-fk结尾）" class="headerlink" title="增外键（外键名以_fk结尾）"></a>增外键（外键名以_fk结尾）</h4><pre><code>alter table 从表 add [constraint 外键名] 
     foreign key (从表外键字段名） references 主表 （主表主键）;
-</code></pre><h4 id="删外键：alter-table-从表-drop-foreign-key-外键名称"><a href="#删外键：alter-table-从表-drop-foreign-key-外键名称" class="headerlink" title="删外键：alter table 从表 drop foreign key 外键名称;"></a>删外键：alter table 从表 drop foreign key 外键名称;</h4><pre><code>目的：保证数据完整性
+</code></pre><h4 id="删外键"><a href="#删外键" class="headerlink" title="删外键"></a>删外键</h4><pre><code>alter table 从表 drop foreign key 外键名称;
 </code></pre><h4 id="表与表的关系"><a href="#表与表的关系" class="headerlink" title="表与表的关系"></a>表与表的关系</h4><pre><code>一对一：可以创建成一张表
     一对多：部门与员工、客户和订单、分类和商品
             从表（多）创建字段以作为外键指向主表（一）的主键
@@ -115,25 +122,21 @@
     ==左外连接select * from B left outer join A on 条件
     先根据A和B的左右画图，然后看left或者right确定结果是公共集加上左边或者右边
     两个表的话能显示含null的字段，要一个表的全部字段而拎一个表个别字段的时候使用
-</code></pre><h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><pre><code>子查询select *from 表名 where 字段名=（select where 字段名=值）;
+</code></pre><h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><pre><code>select * from 表名 where 字段名=（select where 字段名=值）;
 </code></pre><h4 id="删除主表中与从表有关联关系的数据"><a href="#删除主表中与从表有关联关系的数据" class="headerlink" title="删除主表中与从表有关联关系的数据"></a>删除主表中与从表有关联关系的数据</h4><pre><code>①解除主从表的约束关系
-    ②先删除从表中与主表有关系的数据
-    [先把p003和P004的数据删除了，再删除分类表中c002的数据。]，再删除主表中的数据
+    ②先删除从表中与主表有关系的数据，再删除主表中的数据
 </code></pre><h2 id="sql分类：结构化查询语言，关系型数据库语言国际标准"><a href="#sql分类：结构化查询语言，关系型数据库语言国际标准" class="headerlink" title="sql分类：结构化查询语言，关系型数据库语言国际标准"></a>sql分类：结构化查询语言，关系型数据库语言国际标准</h2><h3 id="DML数据库操作语言：insert、delete、update"><a href="#DML数据库操作语言：insert、delete、update" class="headerlink" title="DML数据库操作语言：insert、delete、update"></a>DML数据库操作语言：insert、delete、update</h3><h3 id="DDL数据库定义语言：create、alter、drop等"><a href="#DDL数据库定义语言：create、alter、drop等" class="headerlink" title="DDL数据库定义语言：create、alter、drop等"></a>DDL数据库定义语言：create、alter、drop等</h3><h3 id="DQL数据库查询语言"><a href="#DQL数据库查询语言" class="headerlink" title="DQL数据库查询语言"></a>DQL数据库查询语言</h3><pre><code>单表查询
     多表查询
     子查询
         子查询的结果是单行单列 
         多行单列的子查询
         多行多列的子查询
-</code></pre><h3 id="DCL数据库控制语言-grant等"><a href="#DCL数据库控制语言-grant等" class="headerlink" title="DCL数据库控制语言 grant等"></a>DCL数据库控制语言 grant等</h3><h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><pre><code>JDBC是sun提供的访问数据库的接口/规范（API）由工具类和接口组成，是接口如JDBC.sql.Drirver
+</code></pre><h3 id="DCL数据库控制语言-grant等"><a href="#DCL数据库控制语言-grant等" class="headerlink" title="DCL数据库控制语言 grant等"></a>DCL数据库控制语言 grant等</h3><h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><pre><code>sun提供的访问数据库的接口/规范（API）由工具类和接口组成，是接口如JDBC.sql.Drirver
     驱动是数据库厂商对接口的实现，用来连接自己的数据库
     mysql数据库驱动包是mysql-connector-java-5.1.39-bin.jar
-</code></pre><h3 id="原生JDBC"><a href="#原生JDBC" class="headerlink" title="原生JDBC"></a>原生JDBC</h3><h4 id="JDBC普通开发模板"><a href="#JDBC普通开发模板" class="headerlink" title="JDBC普通开发模板"></a>JDBC普通开发模板</h4><pre><code>①导包：在lib文件下复制粘贴mysql-connector-java-5.1.39-bin.jar。选中，add to build Path
-    ②注册驱动：Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
-    DirverManger.regisetDirver(new com.mysql.jdbc.Dirver());(不推荐)
+</code></pre><h3 id="原生JDBC"><a href="#原生JDBC" class="headerlink" title="原生JDBC"></a>原生JDBC</h3><h4 id="JDBC普通开发模板"><a href="#JDBC普通开发模板" class="headerlink" title="JDBC普通开发模板"></a>JDBC普通开发模板</h4><h5 id="①导包：mysql-connector-java-5-1-39-bin-jar"><a href="#①导包：mysql-connector-java-5-1-39-bin-jar" class="headerlink" title="①导包：mysql-connector-java-5.1.39-bin.jar"></a>①导包：mysql-connector-java-5.1.39-bin.jar</h5><h5 id="②注册驱动：Class-forName-“com-mysql-jdbc-Driver”"><a href="#②注册驱动：Class-forName-“com-mysql-jdbc-Driver”" class="headerlink" title="②注册驱动：Class.forName(“com.mysql.jdbc.Driver”);"></a>②注册驱动：Class.forName(“com.mysql.jdbc.Driver”);</h5><pre><code>DirverManger.regisetDirver(new com.mysql.jdbc.Dirver());(不推荐)
     驱动注册两次，不利于维护（依赖mysql驱动jar包）
-    ③获得连接
-    connection conn= DirverManger.getConnection
+</code></pre><h5 id="③获得连接"><a href="#③获得连接" class="headerlink" title="③获得连接"></a>③获得连接</h5><pre><code>connection conn= DirverManger.getConnection
     (&quot;jdbc:mysql://localhost:3306/数据库名&quot;，“用户名”，“密码”)；
     在url中提供参数：jdbc:mysql://localhost:3306/web08?
     useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF8
@@ -150,19 +153,17 @@
             或者boolean execute()
             true再getResultSet()获得查询结果
             false再int getUpdateCount()获得影响行数
-    ④预处理对象
-    String sql = “？？？”;
-        PreparedStatement pstmt = con.prepareStatement(sql);statement的子接口
-        pstmt.setString(1, “S_1001”);
-        pstmt.setXxx(index,value);
-        ResultSet rs = pstmt.executeQuery();select语句
-        int executeUpdate()执行insert update detele
-        boolean execute()执行select
+</code></pre><h5 id="④预处理对象"><a href="#④预处理对象" class="headerlink" title="④预处理对象"></a>④预处理对象</h5><pre><code>String sql = “？？？”;
+    PreparedStatement pstmt = con.prepareStatement(sql);statement的子接口
+    pstmt.setString(1, “S_1001”);
+    pstmt.setXxx(index,value);
+</code></pre><h5 id="⑤读取结果集"><a href="#⑤读取结果集" class="headerlink" title="⑤读取结果集"></a>⑤读取结果集</h5><pre><code>ResultSet rs = pstmt.executeQuery();select语句
+    int executeUpdate()执行insert update detele
+    boolean execute()执行select
 </code></pre><h3 id="sql攻击"><a href="#sql攻击" class="headerlink" title="sql攻击"></a>sql攻击</h3><pre><code>login(&quot;a&apos; or &apos;a&apos;=&apos;a&quot;, &quot;a&apos; or &apos;a&apos;=&apos;a&quot;);
-    防止①过滤用户输入的数据中是否包含非法字符；
+</code></pre><h4 id="防止方法"><a href="#防止方法" class="headerlink" title="防止方法"></a>防止方法</h4><pre><code>①过滤用户输入的数据中是否包含非法字符；
     ②分步校验！先使用用户名来查询用户，如果查找到了，再比较密码；
-    ③使用PreparedStatement。
-    好处：（同一模板）复用性强、效率高、可读性高、防止sql攻击
+    ③使用PreparedStatement（同一模板）复用性强、效率高、可读性高、防止sql攻击
     ⑥根据结果集再查
     while(rs.next()){//把光标移动到第一行
         Object getObject(int col)//列数从第一行开始，获取结果集数据
@@ -176,13 +177,11 @@
         stmt.close();
         con.close();
         关闭的顺序是先得到的后关闭，后得到的先关闭。
-        加载properties文件的方式
-</code></pre><h3 id="ResourceBundle对象"><a href="#ResourceBundle对象" class="headerlink" title="ResourceBundle对象"></a>ResourceBundle对象</h3><pre><code>①在src在创建properties配置文件名为db.properties，内容是Key=value
+</code></pre><h3 id="加载properties文件"><a href="#加载properties文件" class="headerlink" title="加载properties文件"></a>加载properties文件</h3><h4 id="ResourceBundle对象"><a href="#ResourceBundle对象" class="headerlink" title="ResourceBundle对象"></a>ResourceBundle对象</h4><pre><code>①在src在创建properties配置文件名为db.properties，内容是Key=value
     主要放置driver、url、User、 password四个必要参数
     ResourceBundle bundle = ResourceBundle.getBundle(&quot;db&quot;);
     driver = bundle.getString(&quot;driver&quot;);
-</code></pre><h3 id="加载properties文件的方式"><a href="#加载properties文件的方式" class="headerlink" title="加载properties文件的方式"></a>加载properties文件的方式</h3><pre><code>Properties对象
-    ①在src在创建properties配置文件名为db.properties，内容是Key=value
+</code></pre><h4 id="Properties对象"><a href="#Properties对象" class="headerlink" title="Properties对象"></a>Properties对象</h4><pre><code>①在src在创建properties配置文件名为db.properties，内容是Key=value
     主要放置driver、url、User、 password四个必要参数
     加载src下的配置文件
     ClassLoader classLoader =JDBCUtils_V3.class.getClassLoader()
@@ -195,11 +194,9 @@
     Properties props = new Properties();
     props.load(is);
     driver = props.getProperty(&quot;driver&quot;);
-</code></pre><h2 id="连接池：管理连接-获取和归还连接于连接池（Apache-Common成员）"><a href="#连接池：管理连接-获取和归还连接于连接池（Apache-Common成员）" class="headerlink" title="连接池：管理连接-获取和归还连接于连接池（Apache Common成员）"></a>连接池：管理连接-获取和归还连接于连接池（Apache Common成员）</h2><pre><code>由于建立数据库连接是一个非常耗时耗资源的行为，所以通过连接池预先同数据库建立一些连接，
+</code></pre><h2 id="连接池：管理数据库连接（Apache-Common成员）"><a href="#连接池：管理数据库连接（Apache-Common成员）" class="headerlink" title="连接池：管理数据库连接（Apache Common成员）"></a>连接池：管理数据库连接（Apache Common成员）</h2><pre><code>由于建立数据库连接是一个非常耗时耗资源的行为，所以通过连接池预先同数据库建立一些连接，
     放在内存中，应用程序需要建立数据库连接时直接到连接池中申请一个就行，用完后再放回去
-</code></pre><h3 id="C3P0连接池"><a href="#C3P0连接池" class="headerlink" title="C3P0连接池"></a>C3P0连接池</h3><pre><code>①导入jar包c3p0-0.9.1.2.jar和mysql-connector-java-5.1.39-bin.jar
-    ②在src目录下创建c3p0-config.xml并配置        
-    &lt;default-config&gt;
+</code></pre><h3 id="C3P0连接池"><a href="#C3P0连接池" class="headerlink" title="C3P0连接池"></a>C3P0连接池</h3><h4 id="①导入jar包c3p0-0-9-1-2-jar和mysql-connector-java-5-1-39-bin-jar"><a href="#①导入jar包c3p0-0-9-1-2-jar和mysql-connector-java-5-1-39-bin-jar" class="headerlink" title="①导入jar包c3p0-0.9.1.2.jar和mysql-connector-java-5.1.39-bin.jar"></a>①导入jar包c3p0-0.9.1.2.jar和mysql-connector-java-5.1.39-bin.jar</h4><h4 id="②在src目录下创建c3p0-config-xml并配置"><a href="#②在src目录下创建c3p0-config-xml并配置" class="headerlink" title="②在src目录下创建c3p0-config.xml并配置"></a>②在src目录下创建c3p0-config.xml并配置</h4><pre><code>&lt;default-config&gt;
     &lt;property name=&quot;driverClass&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;
     &lt;property name=&quot;jdbcUrl&quot;&gt;jdbc:mysql:///mydb&lt;/property&gt;
     &lt;property name=&quot;user&quot;&gt;root&lt;/property&gt;
@@ -213,145 +210,133 @@
     &lt;property name=&quot;user&quot;&gt;root&lt;/property&gt;
     &lt;property name=&quot;password&quot;&gt;1105128664&lt;/property&gt;
     &lt;/named-config&gt;
-    ③编写工具类
-    private static ComboPooledDataSource dataSource = new ComboPooledDataSource(&quot;a&quot;);
-</code></pre><h3 id="DBCP连接池"><a href="#DBCP连接池" class="headerlink" title="DBCP连接池"></a>DBCP连接池</h3><pre><code>①导入jar:commons-dbcp-1.4.jar、commons-pool-1.5.6.jar、
-    mysql-connector-java-5.1.39-bin.jar
-    ②创建配置文件*.properties，src目录下
-    driver=com.mysql.jdbc.Driver
+</code></pre><h4 id="③编写工具类"><a href="#③编写工具类" class="headerlink" title="③编写工具类"></a>③编写工具类</h4><pre><code>private static ComboPooledDataSource dataSource 
+    = new ComboPooledDataSource(&quot;a&quot;);
+</code></pre><h3 id="DBCP连接池"><a href="#DBCP连接池" class="headerlink" title="DBCP连接池"></a>DBCP连接池</h3><h4 id="①导包-commons-dbcp-1-4-jar、commons-pool-1-5-6-jar、mysql-connector-java-5-1-39-bin-jar"><a href="#①导包-commons-dbcp-1-4-jar、commons-pool-1-5-6-jar、mysql-connector-java-5-1-39-bin-jar" class="headerlink" title="①导包:commons-dbcp-1.4.jar、commons-pool-1.5.6.jar、mysql-connector-java-5.1.39-bin.jar"></a>①导包:commons-dbcp-1.4.jar、commons-pool-1.5.6.jar、mysql-connector-java-5.1.39-bin.jar</h4><h4 id="②创建配置文件-properties，src目录下"><a href="#②创建配置文件-properties，src目录下" class="headerlink" title="②创建配置文件*.properties，src目录下"></a>②创建配置文件*.properties，src目录下</h4><pre><code>driver=com.mysql.jdbc.Driver
     url=jdbc:mysql://localhost:3306/mydb?useSSl=false
     &amp;useUnicode=true&amp;characterEncoding=utf8
     username=root
     password=root
-    ③编写工具类
-    InputStream is = DBCPUtils.class.getClassLoader().
+</code></pre><h4 id="③编写工具类-1"><a href="#③编写工具类-1" class="headerlink" title="③编写工具类"></a>③编写工具类</h4><pre><code>InputStream is = DBCPUtils.class.getClassLoader().
     getResourceAsStream(&quot;db.properties&quot;);
     Properties props = new Properties();
     props.load(is);
     dataSource = BasicDataSourceFactory.createDataSource(props);
-</code></pre><h3 id="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"><a href="#DBUtils：JDBC的简单开发工具包、简化了JDBC操作" class="headerlink" title="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"></a>DBUtils：JDBC的简单开发工具包、简化了JDBC操作</h3><pre><code>JavaBean类，用于封装数据，domain，封装成ResultSetHandler里面的BeanListHandler
-    一定要实现接口java.io.Serializable
+</code></pre><h3 id="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"><a href="#DBUtils：JDBC的简单开发工具包、简化了JDBC操作" class="headerlink" title="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"></a>DBUtils：JDBC的简单开发工具包、简化了JDBC操作</h3><h4 id="JavaBean类，用于封装数据，domain，封装成ResultSetHandler里面的BeanListHandler"><a href="#JavaBean类，用于封装数据，domain，封装成ResultSetHandler里面的BeanListHandler" class="headerlink" title="JavaBean类，用于封装数据，domain，封装成ResultSetHandler里面的BeanListHandler"></a>JavaBean类，用于封装数据，domain，封装成ResultSetHandler里面的BeanListHandler</h4><pre><code>实现接口java.io.Serializable
     需要private 类型字 段名；
     提供setter/getter方法
     提供无参构造
     核心类QueryRunner(DataSource ds)连接数据库
-</code></pre><h4 id="①导入commons-dbutils-1-6-jar"><a href="#①导入commons-dbutils-1-6-jar" class="headerlink" title="①导入commons-dbutils-1.6.jar"></a>①导入commons-dbutils-1.6.jar</h4><h4 id="update（SQL，Object-，params）增、删、改"><a href="#update（SQL，Object-，params）增、删、改" class="headerlink" title="update（SQL，Object..，params）增、删、改"></a>update（SQL，Object..，params）增、删、改</h4><h4 id="增-3"><a href="#增-3" class="headerlink" title="增"></a>增</h4><pre><code>public void insert(){
-    try {
-    //获取一个用来执行SQL语句的对象   
+</code></pre><h4 id="①导入commons-dbutils-1-6-jar"><a href="#①导入commons-dbutils-1-6-jar" class="headerlink" title="①导入commons-dbutils-1.6.jar"></a>①导入commons-dbutils-1.6.jar</h4><h4 id="update（SQL，Object-，params）增、删、改"><a href="#update（SQL，Object-，params）增、删、改" class="headerlink" title="update（SQL，Object..，params）增、删、改"></a>update（SQL，Object..，params）增、删、改</h4><h4 id="增-4"><a href="#增-4" class="headerlink" title="增"></a>增</h4><pre><code>public void insert(){
+    try { 
     QueryRunner    QueryRunner qr = new QueryRunner();
             String sql = &quot;INSERT INTO zhangwu(name,money,parent) VALUES(?,?,?)&quot;;
             Object[] params = {&quot;股票收入&quot;, 5500, &quot;收入&quot;};
             Connection conn = JDBCUtils.getConnection();
-            int line = qr.update(conn,sql,params);// 用来完成表数据的增加、删除、更新操作
+            int line = qr.update(conn,sql,params);// 完成数据增、删、更新操作
             System.out.println(&quot;line = &quot; + line);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-</code></pre><h4 id="删-1"><a href="#删-1" class="headerlink" title="删"></a>删</h4><pre><code>public void delete(){
+</code></pre><h4 id="删-4"><a href="#删-4" class="headerlink" title="删"></a>删</h4><pre><code>public void delete(){
     try {
-        //创建一个QueryRunner对象，用来完成SQL语句的执行
         QueryRunner qr = new QueryRunner();
-        //执行SQL语句
         String sql = &quot;DELETE FROM zhangwu WHERE name = ?&quot;;
         Object[] params = {&quot;股票收入&quot;};
         Connection conn = JDBCUtils.getConnection();
         int line = qr.update(conn, sql, params);
-        //结果集的处理
         System.out.println(&quot;line=&quot;+line);
-
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
     }
 </code></pre><h4 id="改-4"><a href="#改-4" class="headerlink" title="改"></a>改</h4><pre><code>public void update(){
     try {
-        //创建一个QueryRunner对象，用来完成SQL语句的执行
         QueryRunner qr = new QueryRunner();
-        //执行SQL语句
         String sql = &quot;UPDATE zhangwu SET money = money+1000 WHERE name=?&quot;;
         Object[] params = {&quot;股票收入&quot;};
         Connection conn = JDBCUtils.getConnection();
         int line = qr.update(conn, sql, params);
-        //结果集的处理
         System.out.println(&quot;line=&quot;+line);
 
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
     }
-</code></pre><h4 id="query（sql，ResultSetHandlerrsh-Object-params）查"><a href="#query（sql，ResultSetHandlerrsh-Object-params）查" class="headerlink" title="query（sql，ResultSetHandlerrsh,Object..params）查"></a>query（sql，ResultSetHandler<t>rsh,Object..params）查</t></h4><pre><code>ColumnListHandler：将结果集中指定的列的字段值，封装到一个List集合中
-    public class ColumnListHandlerDemo {
+</code></pre><h4 id="query（sql，ResultSetHandlerrsh-Object-params）查"><a href="#query（sql，ResultSetHandlerrsh-Object-params）查" class="headerlink" title="query（sql，ResultSetHandlerrsh,Object..params）查"></a>query（sql，ResultSetHandler<t>rsh,Object..params）查</t></h4><h5 id="ColumnListHandler：将结果集中指定的列的字段值，封装到一个List集合中"><a href="#ColumnListHandler：将结果集中指定的列的字段值，封装到一个List集合中" class="headerlink" title="ColumnListHandler：将结果集中指定的列的字段值，封装到一个List集合中"></a>ColumnListHandler：将结果集中指定的列的字段值，封装到一个List集合中</h5><pre><code>public class ColumnListHandlerDemo {
     @Test
     public void method(){
     try {
-        QueryRunner qr = new QueryRunner();
-        String sql = &quot;SELECT name FROM zhangwu WHERE money&gt;?&quot;;
-        Object[] params = {2000};
-        Connection conn = JDBCUtils.getConnection();
-        List&lt;String&gt; list = qr.query(conn, sql, new ColumnListHandler&lt;String&gt;(), params);
-        for (String str : list) {
-            System.out.println(str);
-        }
-        conn.close();
+    QueryRunner qr = new QueryRunner();
+    String sql = &quot;SELECT name FROM zhangwu WHERE money&gt;?&quot;;
+    Object[] params = {2000};
+    Connection conn = JDBCUtils.getConnection();
+    List&lt;String&gt; list = qr.query(conn, sql, new ColumnListHandler&lt;String&gt;(), params)
+    for (String str : list) {
+    System.out.println(str);
+    }
+    conn.close();
     } catch (SQLException e) {
-        e.printStackTrace();
+    e.printStackTrace();
     }
     }
     }
-    ScalarHandler：它是用于单数据。例如select count(*) from 表操作。
-    public class ScalarHandlerDemo {
-        @Test
-        public void method(){
-            try {
-                //获取QueryRunner对象
-                QueryRunner qr = new QueryRunner();
-                //执行SQL语句
-                String sql = &quot;SELECT MAX(money) FROM zhangwu&quot;;
-                Object[] params = {};
-                Connection conn = JDBCUtils.getConnection();
-                Double max = qr.query(conn, sql, new ScalarHandler&lt;Double&gt;(), params);
-                //结果集的处理
-                System.out.println(&quot;max=&quot; + max);
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        }
-</code></pre><h2 id="事务：一件事情有n个组成单元-要不这n个组成单元同时成功-要不n个单元就同时失败"><a href="#事务：一件事情有n个组成单元-要不这n个组成单元同时成功-要不n个单元就同时失败" class="headerlink" title="事务：一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败"></a>事务：一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败</h2><pre><code>保证一个事务中多次操作要么全部成功，要么全部失败
+</code></pre><h5 id="ScalarHandler：它是用于单数据。例如select-count-from-表操作。"><a href="#ScalarHandler：它是用于单数据。例如select-count-from-表操作。" class="headerlink" title="ScalarHandler：它是用于单数据。例如select count(*) from 表操作。"></a>ScalarHandler：它是用于单数据。例如select count(*) from 表操作。</h5><pre><code>public class ScalarHandlerDemo {
+    @Test
+    public void method(){
+    try {
+    //获取QueryRunner对象
+    QueryRunner qr = new QueryRunner();
+    //执行SQL语句
+    String sql = &quot;SELECT MAX(money) FROM zhangwu&quot;;
+    Object[] params = {};
+    Connection conn = JDBCUtils.getConnection();
+    Double max = qr.query(conn, sql, new ScalarHandler&lt;Double&gt;(), params);
+    //结果集的处理
+    System.out.println(&quot;max=&quot; + max);
+    conn.close();
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }
+    }
+    }
+</code></pre><h2 id="事务："><a href="#事务：" class="headerlink" title="事务："></a>事务：</h2><pre><code>一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败
+    保证一个事务中多次操作要么全部成功，要么全部失败
 </code></pre><h3 id="mysql事务"><a href="#mysql事务" class="headerlink" title="mysql事务"></a>mysql事务</h3><h4 id="默认的事务"><a href="#默认的事务" class="headerlink" title="默认的事务"></a>默认的事务</h4><pre><code>一条sql语句就是一个事务 默认就开启事务并提交事务
 </code></pre><h4 id="手动事务："><a href="#手动事务：" class="headerlink" title="手动事务："></a>手动事务：</h4><pre><code>显示的开启一个事务：start transaction
-    事务提交：commit从开启事务到事务提交，中间所有的sql都认为有效\真正的更新数据库
-    事务的回滚：rollback 从开启事务到事务回滚，中间所有的sql操作都认为无效数据库没有被更新
-</code></pre><h4 id="JDBC事务"><a href="#JDBC事务" class="headerlink" title="JDBC事务"></a>JDBC事务</h4><pre><code>默认是自动事务：
-    执行sql语句：executeUpdate()  ---- 每执行一次executeUpdate方法 代表事务自动提交
-    通过jdbc的API手动事务：
-    开启事务：conn.setAutoComnmit(false);
+    事务提交：commit从开启事务到事务提交，中间所有的sql都认为有效\真正更新数据库
+    事务回滚：rollback从开启事务到事务回滚，中间所有的sql操作都认为无效数据库被更新
+</code></pre><h3 id="JDBC事务"><a href="#JDBC事务" class="headerlink" title="JDBC事务"></a>JDBC事务</h3><h4 id="默认是自动事务："><a href="#默认是自动事务：" class="headerlink" title="默认是自动事务："></a>默认是自动事务：</h4><pre><code>执行sql语句：executeUpdate()  ---- 每执行一次executeUpdate方法 代表事务自动提交
+</code></pre><h4 id="通过jdbc的API手动事务："><a href="#通过jdbc的API手动事务：" class="headerlink" title="通过jdbc的API手动事务："></a>通过jdbc的API手动事务：</h4><pre><code>开启事务：conn.setAutoComnmit(false);
     提交事务：conn.commit();
     回滚事务：conn.rollback();
     控制事务的connnection必须是同一个
     执行sql的connection与开启事务的connnection必须是同一个才能对事务进行控制
-</code></pre><h4 id="DBUtils事务"><a href="#DBUtils事务" class="headerlink" title="DBUtils事务"></a>DBUtils事务</h4><h3 id="ThreadLocal：实现的是通过线程绑定的方式传递参数"><a href="#ThreadLocal：实现的是通过线程绑定的方式传递参数" class="headerlink" title="ThreadLocal：实现的是通过线程绑定的方式传递参数"></a>ThreadLocal：实现的是通过线程绑定的方式传递参数</h3><h2 id="事务特性"><a href="#事务特性" class="headerlink" title="事务特性"></a>事务特性</h2><h3 id="原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。"><a href="#原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。" class="headerlink" title="原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。"></a>原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</h3><h3 id="隔离性（Isolation）指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，"><a href="#隔离性（Isolation）指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，" class="headerlink" title="隔离性（Isolation）指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，"></a>隔离性（Isolation）指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，</h3><pre><code>多个并发事务之间数据要相互隔离。
-</code></pre><h3 id="一致性（Consistency）一个事务中，事务前后数据的完整性必须保持一致。"><a href="#一致性（Consistency）一个事务中，事务前后数据的完整性必须保持一致。" class="headerlink" title="一致性（Consistency）一个事务中，事务前后数据的完整性必须保持一致。"></a>一致性（Consistency）一个事务中，事务前后数据的完整性必须保持一致。</h3><h3 id="持久性（Durability）事务一旦被提交，它对数据库中数据的改变就是永久性的，"><a href="#持久性（Durability）事务一旦被提交，它对数据库中数据的改变就是永久性的，" class="headerlink" title="持久性（Durability）事务一旦被提交，它对数据库中数据的改变就是永久性的，"></a>持久性（Durability）事务一旦被提交，它对数据库中数据的改变就是永久性的，</h3><pre><code>接下来即使数据库发生故障也不应该对其有任何影响。
+</code></pre><h4 id="DBUtils事务"><a href="#DBUtils事务" class="headerlink" title="DBUtils事务"></a>DBUtils事务</h4><pre><code>conn.setAutoComnmit(false)开启事务
+dbutils.commitAndClose(conn);提交并关闭连接
+dbutils.rollbackAndClose(conn);回滚并关闭连接
+</code></pre><h3 id="ThreadLocal：实现的是通过线程绑定的方式传递参数"><a href="#ThreadLocal：实现的是通过线程绑定的方式传递参数" class="headerlink" title="ThreadLocal：实现的是通过线程绑定的方式传递参数"></a>ThreadLocal：实现的是通过线程绑定的方式传递参数</h3><h2 id="事务特性"><a href="#事务特性" class="headerlink" title="事务特性"></a>事务特性</h2><h3 id="原子性（Atomicity）："><a href="#原子性（Atomicity）：" class="headerlink" title="原子性（Atomicity）："></a>原子性（Atomicity）：</h3><pre><code>事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。
+</code></pre><h3 id="隔离性（Isolation）"><a href="#隔离性（Isolation）" class="headerlink" title="隔离性（Isolation）"></a>隔离性（Isolation）</h3><pre><code>指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，
+    多个并发事务之间数据要相互隔离。
+</code></pre><h3 id="一致性（Consistency）"><a href="#一致性（Consistency）" class="headerlink" title="一致性（Consistency）"></a>一致性（Consistency）</h3><pre><code>一个事务中，事务前后数据的完整性必须保持一致。
+</code></pre><h3 id="持久性（Durability）"><a href="#持久性（Durability）" class="headerlink" title="持久性（Durability）"></a>持久性（Durability）</h3><pre><code>事务一旦被提交，它对数据库中数据的改变就是永久性的，
+    接下来即使数据库发生故障也不应该对其有任何影响。
 </code></pre><h2 id="并发访问问题"><a href="#并发访问问题" class="headerlink" title="并发访问问题"></a>并发访问问题</h2><pre><code>如果不考虑隔离性，事务存在三种并发访问问题。
     脏读：B事务读取到了A事务尚未提交的数据-要求B事务要读取A事务提交的数据
     不可重复读：一个事务中 两次读取的数据的内容不一致-unpdate
     幻读/虚读：一个事务中 两次读取的数据的数量不一致-insert、delete
-        事务的隔离级别
-            read uncommitted : 读取尚未提交的数据 ：哪个问题都不能解决
-            read committed：读取已经提交的数据 ：可以解决脏读 ---- oracle默认的
-            repeatable read：重读读取：可以解决脏读 和 不可重复读 ---mysql默认的
-            serializable：串行化：可以解决 脏读 不可重复读 和 虚读---相当于锁表
-            查看mysql数据库默认的隔离级别：select @@tx_isolation
-            设置mysql的隔离级别：set session transaction isolation level 设置事务隔离级别
-            隔离级别的性能：
-                read uncommitted&gt;read committed&gt;repeatable read&gt;serialazable 
-            安全性：
-                read uncommitted&lt;read committed&lt;repeatable read&lt;serialazable
-</code></pre><h3 id="中文乱码插入数据中文乱码解决set-列名-gbk"><a href="#中文乱码插入数据中文乱码解决set-列名-gbk" class="headerlink" title="中文乱码插入数据中文乱码解决set 列名 gbk;"></a>中文乱码插入数据中文乱码解决set 列名 gbk;</h3><h3 id="说说delete与truncate的区别？"><a href="#说说delete与truncate的区别？" class="headerlink" title="说说delete与truncate的区别？"></a>说说delete与truncate的区别？</h3><pre><code>delete删除的时候是一条一条的删除记录，它配合事务，可以将删除的数据找回。
+</code></pre><h3 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><pre><code>read uncommitted : 读取尚未提交的数据 ：哪个问题都不能解决
+    read committed：读取已经提交的数据 ：可以解决脏读 ---- oracle默认的
+    repeatable read：重读读取：可以解决脏读 和 不可重复读 ---mysql默认的
+    serializable：串行化：可以解决 脏读 不可重复读 和 虚读---相当于锁表
+    隔离级别的性能：
+    read uncommitted&gt;read committed&gt;repeatable read&gt;serialazable 
+    安全性：
+    read uncommitted&lt;read committed&lt;repeatable read&lt;serialazable
+</code></pre><h4 id="查看mysql数据库默认的隔离级别：select-tx-isolation"><a href="#查看mysql数据库默认的隔离级别：select-tx-isolation" class="headerlink" title="查看mysql数据库默认的隔离级别：select @@tx_isolation"></a>查看mysql数据库默认的隔离级别：select @@tx_isolation</h4><h4 id="设置mysql的隔离级别：set-session-transaction-isolation-level-设置事务隔离级别"><a href="#设置mysql的隔离级别：set-session-transaction-isolation-level-设置事务隔离级别" class="headerlink" title="设置mysql的隔离级别：set session transaction isolation level 设置事务隔离级别"></a>设置mysql的隔离级别：set session transaction isolation level 设置事务隔离级别</h4><h3 id="中文乱码插入数据中文乱码解决set-列名-gbk"><a href="#中文乱码插入数据中文乱码解决set-列名-gbk" class="headerlink" title="中文乱码插入数据中文乱码解决set 列名 gbk;"></a>中文乱码插入数据中文乱码解决set 列名 gbk;</h3><h3 id="说说delete与truncate的区别？"><a href="#说说delete与truncate的区别？" class="headerlink" title="说说delete与truncate的区别？"></a>说说delete与truncate的区别？</h3><pre><code>delete删除的时候是一条一条的删除记录，它配合事务，可以将删除的数据找回。
     主键不重置，如果设置了auto_increment记录数
     truncate删除，它是将整个表摧毁，然后再创建一张一模一样的表。
     它删除的数据无法找回。主键重置
 </code></pre><h3 id="连接符-连接字符串"><a href="#连接符-连接字符串" class="headerlink" title="连接符:连接字符串"></a>连接符:连接字符串</h3><pre><code>select concat(id,&apos;的学号&apos;，cardno,&apos;的卡号&apos;) from card;
-</code></pre><h3 id="mysql：source导入脚本"><a href="#mysql：source导入脚本" class="headerlink" title="mysql：source导入脚本"></a>mysql：source导入脚本</h3></div><div class="tags"><a href="/tags/mysql/">mysql</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/oracle/">oracle</a><a class="next" href="/2018/05/10/linux/">linux</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre><h3 id="mysql：source导入脚本"><a href="#mysql：source导入脚本" class="headerlink" title="mysql：source导入脚本"></a>mysql：source导入脚本</h3></div><div class="tags"><a href="/tags/mysql/">mysql</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/oracle/">oracle</a><a class="next" href="/2018/05/10/linux/">linux</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
