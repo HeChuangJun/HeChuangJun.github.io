@@ -64,8 +64,8 @@
     void flush()刷新此输出流并强制写出所有输出字节
     void write(byte[] b)将b.length个字节从指定的byte数组写入此输出流
     void write(byte[] b,int off,int len)
-</code></pre><h3 id="FileOutputStream类"><a href="#FileOutputStream类" class="headerlink" title="FileOutputStream类"></a>FileOutputStream类</h3><pre><code>FlieOutputStream(File file)创建指定Flie对象表示文件中写入数据的输出流（文件存在则覆盖）
-    FlieOutputStream(String name)创建指向具有指定名称文件中写入数据的输出流（文件存在则覆盖）
+</code></pre><h3 id="FileOutputStream类"><a href="#FileOutputStream类" class="headerlink" title="FileOutputStream类"></a>FileOutputStream类</h3><pre><code>FlieOutputStream(File file)创建Flie对象表示文件中写入数据的输出流（文件存在则覆盖）
+    FlieOutputStream(String name)创建指向指定名称文件中写入数据的输出流(文件存在则覆盖)
     FileOutputStream(File file,boolean append)，true在文件末尾继续添加，“\r\n”换行
     FlieOutputStream(String name,boolean append),true就表示可以在文件末尾继续添加
 </code></pre><h4 id="BufferedOutputStream-OutputStream-out-字节缓冲输出流提高了IO的读写速度"><a href="#BufferedOutputStream-OutputStream-out-字节缓冲输出流提高了IO的读写速度" class="headerlink" title="BufferedOutputStream(OutputStream out)字节缓冲输出流提高了IO的读写速度"></a>BufferedOutputStream(OutputStream out)字节缓冲输出流提高了IO的读写速度</h4><h4 id="PrintStream字节打印流"><a href="#PrintStream字节打印流" class="headerlink" title="PrintStream字节打印流"></a>PrintStream字节打印流</h4><pre><code>public PrintStream(OutputStream out, boolean autoFlush)//开启文件自动刷新
@@ -110,11 +110,11 @@
     写入字符串的某一部分void write(String str,int off,int len)
     写入字符数组void write(char[] cbuf)
     写入字符数组的某一部分abstract void write(char[] cbuf,int off,int len)
-</code></pre><h3 id="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"><a href="#OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节" class="headerlink" title="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"></a>OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节</h3><pre><code>OutputStreamWriter(OutputStream in Charset cs)创建使用给定字符集的编码对象
+</code></pre><h3 id="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"><a href="#OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节" class="headerlink" title="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"></a>OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节</h3><pre><code>OutputStreamWriter(OutputStream out Charset cs)创建使用给定字符集的编码对象
 </code></pre><h4 id="FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小"><a href="#FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小" class="headerlink" title="FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小"></a>FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小</h4><pre><code>FileWriter(File file)根据File对象构造一个FileWriter对象(覆盖)
     FileWriter(String FileName)根据文件名创建FileWriter对象
-    FileWriter(File file,boolean append)根据File对象构造一个FileWriter对象(true继续写)
-    FileWriter(String FileName，boolean append)根据文件名创建FileWriter对象(true继续写)
+    FileWriter(File file,boolean append)File对象构造FileWriter对象(true继续写)
+    FileWriter(String FileName,boolean append)文件名创建FileWriter对象(true继续写)
 </code></pre><h3 id="BufferedWriter字符缓冲输出流，提高了IO读写速度"><a href="#BufferedWriter字符缓冲输出流，提高了IO读写速度" class="headerlink" title="BufferedWriter字符缓冲输出流，提高了IO读写速度"></a>BufferedWriter字符缓冲输出流，提高了IO读写速度</h3><pre><code>BufferedWriter(Writer out)使用默认大小输出缓冲区,传入Writer实现类如FileWriter
     void newLine()根据当前的系统，写入一个换行符
 </code></pre><h3 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h3><pre><code>PrintWriter(Writer out, boolean autoFlush)//开启文件自动刷新
@@ -127,9 +127,9 @@
 </code></pre><h4 id="FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小"><a href="#FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小" class="headerlink" title="FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小"></a>FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小</h4><pre><code>FileReader(File file)从file对象创建一个新的FileReader
     FileReader(String fileName)从读取数据的文件名创建一个新的FileReader
 </code></pre><h3 id="BufferedReader字符缓冲输入类，提高了IO读写速度"><a href="#BufferedReader字符缓冲输入类，提高了IO读写速度" class="headerlink" title="BufferedReader字符缓冲输入类，提高了IO读写速度"></a>BufferedReader字符缓冲输入类，提高了IO读写速度</h3><pre><code>BufferedReader(Reader in) 默认大小输入缓冲区，传入Reader的实现类如FileReader即可
-    String readLine() 返回文本行内容字符串，不包含任何行终止符，到达流的末尾则返回null
+    String readLine() 返回文本行内容字符串，不包含任何行终止符，到达流的末尾返回null
 </code></pre><h3 id="字符流与字节流转换原理"><a href="#字符流与字节流转换原理" class="headerlink" title="字符流与字节流转换原理"></a>字符流与字节流转换原理</h3><pre><code>OutputStreamWriter流对象，它到底如何把字符转成字节输出的呢？
-    因为OutputStreamWriter流中维护自己的缓冲区，调用write方法时，会到指定的码表中进行查询，
+    因为OutputStreamWriter流中维护自己的缓冲区，调用write方法时，会到指定码表中进行查询
     把查到的字符编码值转成字节数存放到OutputStreamWriter缓冲区中。然后再调用刷新功能，
     或者关闭流，或者缓冲区存满后把缓冲区中的字节数据使用字节流写到指定的文件中
 </code></pre><h3 id="flush-和close-的区别？"><a href="#flush-和close-的区别？" class="headerlink" title="flush()和close()的区别？"></a>flush()和close()的区别？</h3><pre><code>flush():将流中的缓冲区缓冲的数据刷新到目的地中，刷新后，流还可以继续使用。
@@ -143,7 +143,8 @@
     所以它对多国语言支持性比较好！
     如果是音频文件、图片、歌曲，就用字节流好点
     如果是关系到中文（文本）的，用字符流好点
-</code></pre><h2 id="递归：当前方法内调用自己的这种现象"><a href="#递归：当前方法内调用自己的这种现象" class="headerlink" title="递归：当前方法内调用自己的这种现象"></a>递归：当前方法内调用自己的这种现象</h2><h3 id="直接递归：方法自身调用自己"><a href="#直接递归：方法自身调用自己" class="headerlink" title="直接递归：方法自身调用自己"></a>直接递归：方法自身调用自己</h3><pre><code>public void methodA(){
+</code></pre><h2 id="递归：当前方法内调用自己的这种现象"><a href="#递归：当前方法内调用自己的这种现象" class="headerlink" title="递归：当前方法内调用自己的这种现象"></a>递归：当前方法内调用自己的这种现象</h2><pre><code>递归一定要有条件限定，保证递归能够停止下来，递归次数不能太多。否则会发生栈内存溢出
+</code></pre><h3 id="直接递归：方法自身调用自己"><a href="#直接递归：方法自身调用自己" class="headerlink" title="直接递归：方法自身调用自己"></a>直接递归：方法自身调用自己</h3><pre><code>public void methodA(){
     methodA();
     }
 </code></pre><h3 id="间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。"><a href="#间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。" class="headerlink" title="间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。"></a>间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。</h3><pre><code>public void metohdB(){
@@ -152,7 +153,7 @@
     public void methodC(){
     methodB();
     }
-递归一定要有条件限定，保证递归能够停止下来，且递归次数不能太多。否则会发生栈内存溢出
+
     计算1-n之间的和，使用递归完成
     public class DiGuiDemo {
         public static void main(String[] args) {
@@ -172,23 +173,24 @@
 </code></pre><h2 id="Properties类（非静态）"><a href="#Properties类（非静态）" class="headerlink" title="Properties类（非静态）"></a>Properties类（非静态）</h2><pre><code>Properties 类表示了一个持久的属性集。Properties可保存在流中或从流中加载
     ①Hashtable的子类，map集合中的方法都可以用
     ②该集合没有泛型。键值都是字符串
-    ③可以持久化的属性集。键值可以存储到集合或持久化的设备上。键值的来源也可以是持久化的设备
-        void load(InputStream in)把指定流所对应的文件中的数据读取并保存到Propertie集合中
-        void load(Reader)按面向行的格式从输入字符流中读取属性列表（键和元素对）
-        void store(OutputStream out,String commonts)commonts代表对描述信息，无实际意义
-        void store(Writer writer,String comments);与load(Reader)方法对应
-        Object setProperty(String key, String value)调用 Hashtable 的方法 put。
-        String getProperty(String key)用指定的键在此属性列表中搜索属性
-        Set&lt;String&gt; stringPropertyNames()返回此属性列表中的键集，
+    ③持久化的属性集。键值可以存储到集合或持久化的设备上。键值的来源也可以是持久化的设备
+    void load(InputStream in)把指定流所对应的文件中的数据读取并保存到Propertie集合中
+    void load(Reader)按面向行的格式从输入字符流中读取属性列表（键和元素对）
+    void store(OutputStream out,String commonts)commonts代表对描述信息，无实际意义
+    void store(Writer writer,String comments);与load(Reader)方法对应
+    Object setProperty(String key, String value)调用 Hashtable 的方法 put。
+    String getProperty(String key)用指定的键在此属性列表中搜索属性
+    Set&lt;String&gt; stringPropertyNames()返回此属性列表中的键集，
 </code></pre><h2 id="commons-IO"><a href="#commons-IO" class="headerlink" title="commons-IO"></a>commons-IO</h2><pre><code>加入classpath的第三方jar包内的class文件才能在项目中使用
     创建lib文件夹、将commons-io.jar拷贝到lib文件夹→Build Path
 </code></pre><h3 id="FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题"><a href="#FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题" class="headerlink" title="FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题"></a>FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题</h3><pre><code>static String getName()：获取文件名
-    static String getExtension(String path)：获取文件的扩展名
-    static boolean isExtension(String fileName,String ext)：判断fileName是否是ext后缀名
-</code></pre><h3 id="FileUtils"><a href="#FileUtils" class="headerlink" title="FileUtils"></a>FileUtils</h3><pre><code>static void    copyDirectoryToDirectory(File srcDir,File destDir)文件夹复制
-    static void    copyFile(File srcFile,File destFile)文件复制
-    static String readFileToString(File file)读取文件内容，并返回一个String
-    static void    writeStringToFile(File file，String content)将content写入到file中
+    static String getExtension(String path)获取文件的扩展名
+    static boolean isExtension(String fileName,String ext)
+    判断fileName是否是ext后缀名
+</code></pre><h3 id="FileUtils（static）"><a href="#FileUtils（static）" class="headerlink" title="FileUtils（static）"></a>FileUtils（static）</h3><pre><code>void copyDirectoryToDirectory(File srcDir,File destDir)文件夹复制
+    void copyFile(File srcFile,File destFile)文件复制
+    String readFileToString(File file)读取文件内容，并返回一个String
+    void writeStringToFile(File file，String content)将content写入到file中
 </code></pre><h2 id="文件复制"><a href="#文件复制" class="headerlink" title="文件复制"></a>文件复制</h2><h3 id="采用高效的流，一个多个字节的方式赋值"><a href="#采用高效的流，一个多个字节的方式赋值" class="headerlink" title="采用高效的流，一个多个字节的方式赋值"></a>采用高效的流，一个多个字节的方式赋值</h3><pre><code>BufferedInputStream in = new BufferedInputStream(new FileInputStream(src));
     BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(dest));
     byte[] buffer = new byte[1024];
@@ -214,4 +216,4 @@
     out.newLine();
     out.close();
     in.close();
-</code></pre></div><div class="tags"><a href="/tags/IO/">IO</a></div><div class="post-nav"><a class="pre" href="/2018/05/06/多线程/">多线程</a><a class="next" href="/2018/05/04/集合框架/">集合框架</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Jsp/">Jsp</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/IO/">IO</a></div><div class="post-nav"><a class="pre" href="/2018/05/06/多线程/">多线程</a><a class="next" href="/2018/05/04/集合框架/">集合框架</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
