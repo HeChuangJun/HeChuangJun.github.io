@@ -311,8 +311,8 @@
         自动创建：排序
         特点：当事务或者会话结束的时候，表中的数据自动删除*/
 </code></pre><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><pre><code>create table [schema.]tablename (column datatype[default expr][，..]);
-    约束
-    create table student(
+</code></pre><h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><img src="/2018/05/10/oracle/数据库数据类型.png" title="数据库数据类型.png">
+<h5 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h5><pre><code>create table student(
     sid number constraint student_pk primary key,
     sname varchar2(20) constraint student_name_notnull not null,
     gender varchar2(2) constraint student_gender check (gender in (&apos;男&apos;,&apos;女&apos;)),
@@ -320,158 +320,127 @@
                         constraint student_email_notnull not null,
     deptno number constraint student_fk references dept(deptno) on delete set null);
     主键是有唯一性质，唯一有索引性质，故查主键即查索引，速度最快
-    含有外键的叫主表
+    外键一定是主表的主键
+    删表时一定先删字表再删主表，如果直接删主表会出现由于约束无法删除的问题
+    删除主表的数据可以先删除子表的关联数据，再删主表数据
+    也可以使用级联删除在外键建约束时加上on delete casacade
     数据完整性表示约束，约束级别，表级别约束（联合主键），列级约束                
-    子查询创建表
+</code></pre><h4 id="子查询创建表"><a href="#子查询创建表" class="headerlink" title="子查询创建表"></a>子查询创建表</h4><pre><code>create table xxx[(column,column)] as subquery
     create table emp20  as select * from emp where deptno=20;
     create table empinfo  as  select e.empno,e.ename,e.sal,e.sal*12 annsal,
     d.dname  from emp e,dept d  where e.deptno=d.deptno;创建表并导入数据
     create table emp10 as select * from emp where 1=2;只创建结构
-    create table test1 (tid number,tname varchar2(20));
-    删除表
-    drop table 表名;表已删除。没有真正删除，到回收站 
-        查看回收站
-            show recyclebin;
-        清空回收站
-            purge recyclebin;
-        删除表后不进入回收站
-            drop table purge
-        找回在回收站中的表
-            select * from &quot;BIN$384BF4yOT+aAlXzC7eLPIA==$0&quot;
-        管理员没有回收站
-    闪回删除 ---&gt; 回收站
-    flashback table TESTSAVEPOINT to before drop;
-    修改表
-
-    rowid 行地址（伪列）
-        select rowid,empno,ename,sal from emp;
-        ROWID   EMPNO ENAME  SAL  AAAMfPAAEAAAAAgAAA 7369 SMITH 800    
-        select * from emp where rowid=&apos;AAAMfPAAEAAAAAgAAJ&apos;;
-    重命名表
-        rename test1 to test2;
-    列
-        增加新列
-            alter table test1 add photo blob;
-        删除列
-            alter table test1 drop column photo;
-        修改列
-            alter table test1 modify tname varchar2(40);
-        重命名列
-            alter table test1 rename column tname to username;
-    数据
-    insert into emp(empno,ename,sal,deptno) values(1001,&apos;Tom_AB&apos;,3000,10);
+</code></pre><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre><code>drop table 表名;表已删除。没有真正删除，到回收站 
+</code></pre><h5 id="查看回收站-管理员没有回收站"><a href="#查看回收站-管理员没有回收站" class="headerlink" title="查看回收站(管理员没有回收站)"></a>查看回收站(管理员没有回收站)</h5><pre><code>show recyclebin;
+</code></pre><h5 id="清空回收站"><a href="#清空回收站" class="headerlink" title="清空回收站"></a>清空回收站</h5><pre><code>purge recyclebin;
+</code></pre><h5 id="删除表后不进入回收站"><a href="#删除表后不进入回收站" class="headerlink" title="删除表后不进入回收站"></a>删除表后不进入回收站</h5><pre><code>drop table purge
+</code></pre><h5 id="找回在回收站中的表"><a href="#找回在回收站中的表" class="headerlink" title="找回在回收站中的表"></a>找回在回收站中的表</h5><pre><code>select * from &quot;BIN$384BF4yOT+aAlXzC7eLPIA==$0&quot;
+</code></pre><h5 id="闪回删除-—-gt-回收站"><a href="#闪回删除-—-gt-回收站" class="headerlink" title="闪回删除 —&gt; 回收站"></a>闪回删除 —&gt; 回收站</h5><pre><code>flashback table TESTSAVEPOINT to before drop;
+</code></pre><h5 id="rowid-行地址（伪列）"><a href="#rowid-行地址（伪列）" class="headerlink" title="rowid 行地址（伪列）"></a>rowid 行地址（伪列）</h5><pre><code>select rowid,empno,ename,sal from emp;
+    ROWID   EMPNO ENAME  SAL  
+    AAAMfPAAEAAAAAgAAA 7369 SMITH 800    
+    select * from emp where rowid=&apos;AAAMfPAAEAAAAAgAAJ&apos;;
+</code></pre><h4 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h4><h5 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h5><pre><code>rename test1 to test2;
+</code></pre><h5 id="增加新列"><a href="#增加新列" class="headerlink" title="增加新列"></a>增加新列</h5><pre><code>alter table test1 add column 列名1 类型[约束](s);
+</code></pre><h5 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h5><pre><code>alter table test1 drop column 列名1;
+</code></pre><h5 id="修改列"><a href="#修改列" class="headerlink" title="修改列"></a>修改列</h5><pre><code>alter table test1 modify 列名1 类型[约束];
+</code></pre><h5 id="重命名列"><a href="#重命名列" class="headerlink" title="重命名列"></a>重命名列</h5><pre><code>alter table test1 rename column 列名 to 列名;
+</code></pre><h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><h4 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h4><pre><code>insert into emp(empno,ename,sal,deptno) values(1001,&apos;Tom_AB&apos;,3000,10);
     insert into emp values(1001,&apos;Tom_AB&apos;,3000,10);字段顺序个数必须相同，没有则置null
     一次插入多条记录,一次性将emp中，所有10号部门的员工插入到emp10中，不必写values
     insert into emp10 select * from emp where deptno=10;
-    海量插入数据：效率比那个高  1、数据泵（PLSQL程序）   
-    dbms_datapump(程序包) 2、SQL*Loader数据加载工具 3、外部表
+    海量插入数据：效率高  1、数据泵（PLSQL程序） dbms_datapump(程序包) 
+    2、SQL*Loader数据加载工具 3、外部表
+</code></pre><h4 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h4><pre><code>update 表名 set 列名=值(s) where condition(s)
     更新与mysql一样，子查询增删改查都能用、数据完整性指约束
-
-    删
-    delete和truncate的区别1、delete逐条删除DML  (可以回滚) ；
+</code></pre><h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><pre><code>delete from 表名 where condition(s)
+</code></pre><h5 id="delete和truncate的区别"><a href="#delete和truncate的区别" class="headerlink" title="delete和truncate的区别"></a>delete和truncate的区别</h5><pre><code>delete逐条删除DML  (可以回滚) ；
     truncate先摧毁表 再重建DDL（不可以回滚）     
-    delete不会释放空间 truncate会
-    delete会产生碎片（就是，删除的位置不继续存放新数据，
+    delete不会释放空间 
+    truncate会释放空间
+    delete会产生碎片（删除的位置不继续存放新数据，
     而是占着位置使数据不能连续起来，影响查询效率，
     去除碎片：1\alter table&lt;表名&gt; move 
-    2\数据导出和导入exp imp exdp impdp） truncate不会
-    delete可以闪回(flashback)  truncate不可以，绝大多数操作可以撤销，
-    即使提交了  flashback其实是一种恢复
+    2\数据导出和导入exp imp exdp impdp） 
+    truncate不会产生碎片
+    delete可以闪回(flashback)  truncate不可以，
+    绝大多数操作可以撤销即使提交了  flashback其实是一种恢复
     delete from testdelete 块，在mysql 中truncate和delete相反
-    （非常非常非常重要）undo数据（还原数据）oracle的强大与闪回有关
+    （重要）undo数据（还原数据）oracle的强大与闪回有关
     drop table testdelete purge;完全删除表，不进入回收站
     truncate table testdelete 慢
-
-    视图grant create view to scott 后就行
-        视图中没有数据，视图能简化查询语句，封装了一条复杂的查询语句，是一个虚表
-        create or replace view empinfoview
-          as
-          select e.empno,e.ename,e.sal,e.sal*12 annsal,d.dname
-          from emp e,dept d
-           where e.deptno=d.deptno
-          with read only;
-        with check option 只能插入与where一样的数据，
-        但最好不要通过视图对表中的数据进行修改，因为会受到很多限制
-        drop view 视图名字
-    序列
-        实质是数组在内存中，提高访问速率、自动增长的列，
-        相当于mysql的increment，默认指针在1，从1开始
-        select myseq.currval from dual;取得序列的下一个内容
-        select myseq.nextval from dual;取得序列的当前内容
-        create sequence myseq;
-        insert into  testseq values(myseq.nextval,&apos;aaa&apos;);
-        序列可能产生裂缝（数据不连续）
-            回滚
-            系统异常
-            多表共用同一个序列
-    索引
-        索引加速数据存取、降低了i/o次数，提高访问性能
-        索引所在的列经常更新就不要建立索引
-        单列索引
-            create index 索引名 on 表名(列名);
-        复合索引    
-        drop index 索引名        
-    同义词(别名)
-        能查询别的用户的表，synonym 为了安全
-        select count(*) from hr.employees;
-        grant select on hr.employees to scott
-        create [public] synonym hremp for hr.employees;
-        grant create synonym to scott
-        drop [public] synonym emp;
-        方便访问其他用户的数据库对象，缩短了对象名字的长度        
-创建表空间    
-创建用户    
-用户赋予权限:connnect角色、resource角色、dba角色，没授权的话登录没有任何权限
-</code></pre><h2 id="oracle概述"><a href="#oracle概述" class="headerlink" title="oracle概述"></a>oracle概述</h2><h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><h4 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h4><pre><code>数据库：oracle数据库是数据的物理存储(一堆文件)，包括数据文件ORA或者DBF、
-控制文件、联机日志、参数文件等、一个操作系统只有一个oracle数据库
-    实例：oracle 数据库读入内存时的映射、oracle数据库可以有多个实例，
+</code></pre><h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><h4 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h4><pre><code>必须有创建视图的权限grant create view to scott 
+    视图中没有数据，视图能简化查询语句，封装了一条复杂的查询语句，是一个虚表
+    create or replace view empinfoview
+    as
+    select e.empno,e.ename,e.sal,e.sal*12 annsal,d.dname
+    from emp e,dept d
+    where e.deptno=d.deptno
+    with read only;
+    |with check option 只能插入与where一样的数据，
+    最好不要通过视图对表中的数据进行修改，因为会受到很多限制
+</code></pre><h4 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h4><pre><code>drop view 视图名
+</code></pre><h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><pre><code>实质是数组在内存中，提高访问速率、自动增长的列，
+    相当于mysql的increment，默认指针在1，从1开始
+    select myseq.currval from dual;取得序列的下一个内容
+    select myseq.nextval from dual;取得序列的当前内容
+</code></pre><h4 id="创建序列"><a href="#创建序列" class="headerlink" title="创建序列"></a>创建序列</h4><pre><code>create sequence myseq;
+    increment by n
+    start with n
+    [maxvalue n|nomaxvlaue]
+    [minvalue n|nominvlaue]
+    [cycle|nocycle]
+    [cache n|nocache]
+    insert into  testseq values(myseq.nextval,&apos;aaa&apos;);
+</code></pre><h4 id="序列可能产生裂缝（数据不连续）"><a href="#序列可能产生裂缝（数据不连续）" class="headerlink" title="序列可能产生裂缝（数据不连续）"></a>序列可能产生裂缝（数据不连续）</h4><pre><code>回滚
+    系统异常
+    多表共用同一个序列
+</code></pre><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><pre><code>索引加速数据存取、降低了i/o次数，提高访问性能
+    索引所在的列经常更新就不要建立索引
+</code></pre><h4 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h4><pre><code>create index 索引名 on 表名(列名);
+</code></pre><h4 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h4><pre><code>create index 索引名 on 表名(列名1,列名2);
+</code></pre><h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><pre><code>drop index 索引名;
+</code></pre><h4 id="索引原理"><a href="#索引原理" class="headerlink" title="索引原理"></a>索引原理</h4><img src="/2018/05/10/oracle/索引原理.png" title="索引原理.png">    
+<h3 id="同义词-别名"><a href="#同义词-别名" class="headerlink" title="同义词(别名)"></a>同义词(别名)</h3><pre><code>能查询别的用户的表，synonym 为了安全
+    select count(*) from hr.employees;
+    grant select on hr.employees to scott
+    create [public] synonym hremp for hr.employees;
+    grant create synonym to scott
+    drop [public] synonym emp;
+    方便访问其他用户的数据库对象，缩短了对象名字的长度        
+</code></pre><h3 id="表空间"><a href="#表空间" class="headerlink" title="表空间"></a>表空间</h3><pre><code>create tablespace 表空间名
+    datafile &apos;c:\xxx.dbf&apos;
+    size 100m
+    autoextend on
+    next 10m
+</code></pre><h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><pre><code>create user 用户名
+    identified by 密码
+    default tablespace 表空间名
+</code></pre><h4 id="用户赋予权限"><a href="#用户赋予权限" class="headerlink" title="用户赋予权限"></a>用户赋予权限</h4><pre><code>grant 角色 to 用户
+    connnect角色、resource角色、dba角色，
+    没授权的话登录没有任何权限
+</code></pre><h2 id="oracle概述"><a href="#oracle概述" class="headerlink" title="oracle概述"></a>oracle概述</h2><h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><img src="/2018/05/10/oracle/集群.png" title="集群.png">    
+<h3 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h3><h4 id="数据库："><a href="#数据库：" class="headerlink" title="数据库："></a>数据库：</h4><pre><code>oracle数据库是数据的物理存储(一堆文件)，包括数据文件ORA或者DBF、
+    控制文件、联机日志、参数文件等。一个操作系统只有一个oracle数据库
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>oracle 数据库读入内存时的映射、oracle数据库可以有多个实例，
     但建议一个数据库只有一个实例，实例用于操作数据库
-    数据文件：数据库的物理存储单位，数据存储在表空间的一个或多个数据文件中、
-    一个数据文件只属于一个表空间，一个表空间包括多个数据文件、删除数据文件，只能删除表空间
-    表空间由同一磁盘上的一个或多个文件组成，一个数据库有多个表空间，每个数据库至少有一个表空间，
-    用户：实例下建立的，不同实例中可以建相同名字的用户，
+</code></pre><h4 id="数据文件"><a href="#数据文件" class="headerlink" title="数据文件"></a>数据文件</h4><pre><code>数据库的物理存储单位，数据存储在表空间的一个或多个数据文件中、
+</code></pre><h4 id="表空间-1"><a href="#表空间-1" class="headerlink" title="表空间"></a>表空间</h4><pre><code>一个数据文件只属于一个表空间，一个表空间包括多个数据文件、删除数据文件，只能删除表空间
+    表空间由同一磁盘上的一个或多个文件组成，一个数据库有多个表空间，
+    每个数据库至少有一个表空间
+</code></pre><h4 id="用户："><a href="#用户：" class="headerlink" title="用户："></a>用户：</h4><pre><code>实例下建立的，不同实例中可以建相同名字的用户，
     数据的操作CRUD由用户来执行，表空间把表数据放到一个或者多个数据文件中，
     因为不同的用户可以在同一个表空间建立同一个名字的表。
-    原理图    
-    自己的理解：数据库与实例对应，一个数据库可以有多个实例，表空间与数据文件对应，
-    一个表空间里面有多个数据文件，表空间与用户关联用户（两者同级），每个用户对应的表都是不同的，
-    但也可以同名，可以通过授权的方式实现相互访问
+</code></pre><h4 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h4><img src="/2018/05/10/oracle/体系结构.png" title="体系结构.png">
+<pre><code>自己的理解：数据库与实例对应，一个数据库可以有多个实例，表空间与数据文件对应，
+    一个表空间里面有多个数据文件，表空间与用户关联用户（两者同级），
+    每个用户对应的表都是不同的，但也可以同名，可以通过授权的方式实现相互访问
 </code></pre><h2 id="SQL的类型"><a href="#SQL的类型" class="headerlink" title="SQL的类型"></a>SQL的类型</h2><pre><code>DML（Data Manipulation Language 数据操作语言）: select insert update delete
     DDL(Data Definition Language 数据定义语言): 
     create table,alter table,truncate table,drop table
     create/drop view,sequnece,index,synonym(同义词)
     DCL(Data Control Language 数据控制语言): grant(授权) revoke(撤销权限)
-</code></pre><h2 id="经典练习-amp-面试"><a href="#经典练习-amp-面试" class="headerlink" title="经典练习&amp;面试"></a>经典练习&amp;面试</h2><pre><code>select rownum,empno,ename,sal  from (select * from emp order by sal desc) 
-where rownum&lt;=3;
-    select e.empno,e.ename,e.sal,d.avgsal  from emp e,(select deptno,avg(sal) avgsal 
-    from emp group by deptno) d where e.deptno=d.deptno and e.sal&gt;d.avgsal;
-        select empno,ename,sal,(select avg(sal) from emp where deptno=e.deptno) avgsal  
-        from emp e  where sal &gt; (select avg(sal) from emp where deptno=e.deptno);
-    select count(*) Total,
-     sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1980&apos;,1,0)) &quot;1980&quot;,
-      sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1981&apos;,1,0)) &quot;1981&quot;,
-      sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1982&apos;,1,0)) &quot;1982&quot;,
-       sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1987&apos;,1,0)) &quot;1987&quot;
-     from emp;
-
-                select a.id,a.name,a.money,decode(a.id-1,0,null,b.money) money1
-    from test1 a,(select id,money from test1) b
-    where a.id=b.id
-                select id,name,money,(select money from test1 where id=t.id-1)montey1
-    from test1 t
-                select a.id,a.name,a.money,b.money
-    from test1 a left join (select id,money from test1) b
-    on a.id=b.id+1 order by id
-
-                select ci_id,wm_concat(stu_name)from (select c.ci_id ,s.stu_name 
-    from pm_ci c,pm_stu s
-    where instr(c.stu_ids,s.stu_id)&gt;0)
-    group by ci_id
-                select c.ci_id,wm_concat(s.stu_name)
-    from pm_ci c,pm_stu s
-    where instr(c.stu_ids,s.stu_id)&gt;0
-    group by c.ci_id
-</code></pre><h2 id="PL-SQL-面向过程的编程语言，对sql语言的扩展，结合sql语言的扩展"><a href="#PL-SQL-面向过程的编程语言，对sql语言的扩展，结合sql语言的扩展" class="headerlink" title="PL/SQL:面向过程的编程语言，对sql语言的扩展，结合sql语言的扩展"></a>PL/SQL:面向过程的编程语言，对sql语言的扩展，结合sql语言的扩展</h2><pre><code>速率比原生sql高
+</code></pre><h2 id="PL-SQL"><a href="#PL-SQL" class="headerlink" title="PL/SQL"></a>PL/SQL</h2><pre><code>面向过程的编程语言，对sql语言的扩展，结合sql语言的扩展，速率比原生sql高
 </code></pre><h3 id="PL-SQL语法"><a href="#PL-SQL语法" class="headerlink" title="PL/SQL语法"></a>PL/SQL语法</h3><pre><code>declare 
     说明部分（变量说明，光标说明，例外说明）
     begin
@@ -480,35 +449,45 @@ where rownum&lt;=3;
     例外处理语句
     End
     /
-</code></pre><h3 id="变量的定义-只能指向一个特定的值"><a href="#变量的定义-只能指向一个特定的值" class="headerlink" title="变量的定义:只能指向一个特定的值"></a>变量的定义:只能指向一个特定的值</h3><pre><code>记录表的引用,表名%rowtype
-数组，每个值是表中的每一列，获得某一列就 .列名
-引用表的某一列，表名.列名%type
-变量的赋值 变量名 ：= 值;
-select 一定要定义变量接收
+</code></pre><h3 id="变量的定义"><a href="#变量的定义" class="headerlink" title="变量的定义:"></a>变量的定义:</h3><pre><code>(char varchar2 date number boolean long)
+    var1 char(15);变量名，数据类型和长度分号结束说明语句
+    married boolean := true;
+    psal number(7,2);
+    my_name emp.ename%type;
+    引用型变量：my_name的类型与emp表中的ename列的类型一样，引用一列
+    emp_rec emp%rowtype;
+    记录型变量;记录整个表的引用
+    数组，每个值是表中的每一列，获得某一列就 .列名
+    变量的赋值 变量名 ：= 值;
+    select后一定要定义into变量接收
 </code></pre><h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><pre><code>if 条件 then 语句; 
-end if;
-if 条件 then 语句;
-else 语句2;
-end if;
-if 条件 then 语句1；
-elsif 条件 then 语句2;
-else 语句3;
-end if；
+    end if;
+
+    if 条件 then 语句;
+    else 语句2;
+    end if;
+
+    if 条件 then 语句1；
+    elsif 条件 then 语句2;
+    else 语句3;
+    end if；
 </code></pre><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><pre><code>while 条件
-loop
-语句;
-条件调节语句；
-end loop;
-for i in 1..3
-loop
-语句；
-end loop；
-loop
-exit [when 条件]
-语句;
-条件调节语句；
-end loop;
-找出退出条件是关键，一般是notfound和题目条件
+    loop
+    语句;
+    条件调节语句；
+    end loop;
+
+    for i in 1..3
+    loop
+    语句；
+    end loop；
+
+    loop
+    exit [when 条件]
+    语句;
+    条件调节语句；
+    end loop;
+    找出退出条件是关键，一般是notfound和题目条件
 </code></pre><h3 id="游标（光标cursor）"><a href="#游标（光标cursor）" class="headerlink" title="游标（光标cursor）"></a>游标（光标cursor）</h3><pre><code>declare 
     定义游标：cursor 游标名 [(参数名 数据类型；参数名 数据类型..)] is 语句;
     定义接收游标的变量：变量名 数据类型；大多数为引用型变量，使用了函数后为一般类型
@@ -522,9 +501,11 @@ end loop;
     关闭循环：end loop；
     关闭游标： close 游标名；
     end;
+
     光标的属性： %isopen   %rowcount(影响的行数)%found    %notfound
     有参数的游标抓取不用写参数
-</code></pre><h3 id="异常：系统异常不用主动raise-异常名"><a href="#异常：系统异常不用主动raise-异常名" class="headerlink" title="异常：系统异常不用主动raise 异常名"></a>异常：系统异常不用主动raise 异常名</h3><pre><code>declare
+</code></pre><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><h4 id="系统异常不用主动raise-异常名"><a href="#系统异常不用主动raise-异常名" class="headerlink" title="系统异常不用主动raise 异常名"></a>系统异常不用主动raise 异常名</h4><img src="/2018/05/10/oracle/系统异常.png" title="系统异常.png">
+<h4 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h4><pre><code>declare
     异常名 Exception；
     begin
         raise 异常名；
@@ -533,29 +514,49 @@ end loop;
         when others then 语句；
     end;
     进程：pmon进程(proccesss monitor)自动finally关闭
-</code></pre><h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><pre><code>create [or replace] PROCEDURE 过程名 [（参数名 in/out 数据类型）]
+</code></pre><h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><pre><code>create [or replace] PROCEDURE 过程名 [（参数名 in/out 数据类型）]
     is/as 定义变量
     begin plsql子程序体;
     End 过程名;
-            调用
-    declare 
+</code></pre><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><pre><code>declare 
         输入参数 数据类型；
         输出参数 数据类型；
     begin 
          过程名（输入参数名=&gt;值，输出参数名=值）
         commit；
     end；
-</code></pre><h3 id="存储函数"><a href="#存储函数" class="headerlink" title="存储函数"></a>存储函数</h3><pre><code>create or replace function 函数名（参数名in/out 数据类型..）return 数据类型
+</code></pre><h3 id="存储函数"><a href="#存储函数" class="headerlink" title="存储函数"></a>存储函数</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><pre><code>create or replace function 函数名(参数名in/out 数据类型..)return 数据类型
     is 
     [结果变量 数据类型；]
     begin 
       return（结果变量）;
     end 函数名;
-    存储函数与存储过程的区别就是函数可以有返回值，而过程没有返回值，
-    但过程和函数都可以通过指定一个或多个输出参数，可以利用out参数在过程和函数中实现返多个值
-</code></pre><h3 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h3><pre><code>与表关联，存储的pl/sql程序，每当特定语句执行，触发定义触发器中定义的语法
-    审计就是日志
-    /*
+</code></pre><h3 id="存储函数与存储过程的区别"><a href="#存储函数与存储过程的区别" class="headerlink" title="存储函数与存储过程的区别"></a>存储函数与存储过程的区别</h3><pre><code>函数可以有返回值，而过程没有返回值，
+    但过程和函数都可以通过指定一个或多个输出参数，
+    可以利用out参数在过程和函数中实现返多个值
+</code></pre><h3 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h3><pre><code>查询没有触发器
+    与表关联，存储的pl/sql程序，每当特定语句执行，触发定义触发器中定义的语法
+</code></pre><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><pre><code>create [or replace ] trigger 触发器名
+        before|after
+        delete|insert|update[of 列名]
+        on 表名
+        [for each row [when(条件)]]有这条语句就是行级触发器
+    declare
+    plsql语句
+    begin
+    plsql 块
+    end 触发器名;
+</code></pre><h3 id="触发器的分类"><a href="#触发器的分类" class="headerlink" title="触发器的分类"></a>触发器的分类</h3><pre><code>触发器要判断行级还是语句级，面试题
+语句级触发器：
+    在指定的操作语句操作之前或之后执行，不管这条语句影响了多少行
+    行级触发器：
+    触发语句作用与每条记录都被触发在行级触发器中使用old和new伪记录变量识别值的状态
+</code></pre><img src="/2018/05/10/oracle/针对行级触发器的语句.png" title="针对行级触发器的语句.png">        
+<h3 id="触发器的用途"><a href="#触发器的用途" class="headerlink" title="触发器的用途"></a>触发器的用途</h3><pre><code>数据确认
+    安全性检查
+    审计（日志），跟踪表上的数据操作
+    数据的备份和同步
+</code></pre><h4 id="安全性检查"><a href="#安全性检查" class="headerlink" title="安全性检查"></a>安全性检查</h4><pre><code>/*
     实施复杂的安全性检查
     禁止在非工作时间 插入新员工
     1、周末:  to_char(sysdate,&apos;day&apos;) in (&apos;星期六&apos;,&apos;星期日&apos;)
@@ -573,8 +574,7 @@ end loop;
     end securityemp;
     /
     /*
-    数据的确认
-    涨后的薪水不能少于涨前的薪水
+</code></pre><h4 id="数据的确认"><a href="#数据的确认" class="headerlink" title="数据的确认"></a>数据的确认</h4><pre><code>涨后的薪水不能少于涨前的薪水
     */
     create or replace trigger checksalary
     before update
@@ -586,221 +586,52 @@ end loop;
         end if;
     end checksalary;
     /
-    触发器要判断行级还是语句级，面试题
-    create [or replace ] trigger 触发器名
-        before|after
-        delete|insert|update[of 列名]
-        on 表名
-        [for each row [when(条件)]]有这条语句就是行级触发器
-    declare
-     plsql语句
-    begin
-    plsql 块
-    end 触发器名;
-    针对行级触发器的语句
-    查询没有触发器
 </code></pre><h3 id="其他语句-1"><a href="#其他语句-1" class="headerlink" title="其他语句"></a>其他语句</h3><pre><code>--接受键盘输入变量num：是一个地址值，在该地址上保存了输入的值
-accept num prompt &apos;请输入一个数字&apos;;
-declare 
---定义变量保存输入 的数字pnum number := &amp;num;
-使用别的工具才行
-控制台输出dbms_output.put_line();
-raise application_errror(-20001,‘不能在非法时间内插入数据’)
-desc dbms_output 表示简化程序包的结构，简化查看帮助文档
+    accept num prompt &apos;请输入一个数字&apos;;
+    declare 
+    --定义变量保存输入 的数字pnum number := &amp;num;
+    使用别的工具才行
+    控制台输出dbms_output.put_line();
+    raise application_errror(-20001,‘不能在非法时间内插入数据’)
+    desc dbms_output 表示简化程序包的结构，简化查看帮助文档
 </code></pre><h3 id="包：在out参数中使用光标，解决了输出参数太多的问题"><a href="#包：在out参数中使用光标，解决了输出参数太多的问题" class="headerlink" title="包：在out参数中使用光标，解决了输出参数太多的问题"></a>包：在out参数中使用光标，解决了输出参数太多的问题</h3><pre><code>--2、查询某个部门中的所有员工信息 ----&gt; 返回的是集合
-create or replace package mypackage is
-   type empcursor is ref cursor;
-   procedure queryEmpList(dno in number,empList out empcursor);
-   end mypackage;
-   /
-create or replace package body mypackage is
-   procedure queryEmpList(dno in number,empList out empcursor)
-   as
-   begin
-      open empList for select * from emp where deptno=dno;
-   end;
-end mypackage;
+    create or replace package mypackage is
+    type empcursor is ref cursor;
+    procedure queryEmpList(dno in number,empList out empcursor);
+    end mypackage;
     /
-    练习
-
-    /*
-    1、SQL语句
-    select to_char(hiredate,&apos;yyyy&apos;) from emp;
-    ---&gt; 集合 ---&gt; 光标 ---&gt; 循环---&gt; 退出: notfound
-
-    2、变量：（*）初始值  （*）最终如何得到
-    每年入职的人数
-    count80 number := 0;
-    count81 number := 0;
-    count82 number := 0;
-    count87 number := 0;
-    */
-declare 
-   --定义光标
-   cursor cemp is select to_char(hiredate,&apos;yyyy&apos;) from emp;
-   phiredate varchar2(4);
-
-   --每年入职的人数
-  count80 number := 0;
-  count81 number := 0;
-  count82 number := 0;
-  count87 number := 0;
-begin
-  --打开光标
-  open cemp;
-  loop
-    --取一个员工的入职年份
-    fetch cemp into phiredate;
-    exit when cemp%notfound;
-
-    --判断年份是哪一年
-    if phiredate = &apos;1980&apos; then count80:=count80+1;
-       elsif phiredate = &apos;1981&apos; then count81:=count81+1;
-       elsif phiredate = &apos;1982&apos; then count82:=count82+1;
-       else count87:=count87+1;
-     end if;
-  end loop;
-
-  --关闭光标
-  close cemp;
-
-  --输出
-  dbms_output.put_line(&apos;Total:&apos;||(count80+count81+count82+count87));
-  dbms_output.put_line(&apos;1980:&apos;|| count80);
-  dbms_output.put_line(&apos;1981:&apos;|| count81);
-  dbms_output.put_line(&apos;1982:&apos;|| count82);
-  dbms_output.put_line(&apos;1987:&apos;|| count87);
-end;
-/
-
-            /*
-1、SQL语句
-selet empno,sal from emp order by sal;
----&gt; 光标  ---&gt; 循环  ---&gt; 退出：1. 总额&gt;5w   2. notfound
-
-2、变量：（*）初始值  （*）最终如何得到
-涨工资的人数: countEmp number := 0;
-涨后的工资总额：salTotal number;
-(1)select sum(sal) into salTotal from emp;
-(2)涨后=涨前 + sal *0.1
-
-练习： 人数：8    总额:50205.325
-*/
-declare
-    cursor cemp is select empno,sal from emp order by sal;
-    pempno emp.empno%type;
-    psal   emp.sal%type;
-
-    countEmp number := 0;
-    salTotal number;
-begin
-    select sum(sal) into salTotal from emp;
-
-    open cemp;
-    loop
-         exit when salTotal &gt; 50000;
-         fetch cemp into pempno,psal;
-         exit when cemp%notfound;
-
-         update emp set sal=sal*1.1 where empno=pempno;
-         countEmp := countEmp +1;
-         salTotal := salTotal + psal * 0.1;
-
-    end loop;
-    close cemp;
-
-    commit;
-    dbms_output.put_line(&apos;人数：&apos;||countEmp||&apos;    总额:&apos;||salTotal);
-end;
-/
-
-                /*
-    1、SQL语句
-    部门：select deptno from dept; ---&gt; 光标
-    部门中员工的薪水: select sal from emp where deptno=?? ---&gt; 带参数的光标
-
-    2、变量：（*）初始值  （*）最终如何得到
-    每个段的人数
-    count1 number; count2 number; count3 number;
-    部门的工资总额
-    salTotal number := 0;
-    (1)select sum(sal) into salTotal  from emp where deptno=??
-    (2)累加
-    */
-    declare
-      cursor cdept is select deptno from dept;
-      pdeptno dept.deptno%type;
-
-      cursor cemp(dno number) is select sal from emp where deptno=dno;
-      psal emp.sal%type;
-
-      count1 number; count2 number; count3 number;
-      salTotal number := 0;
+    create or replace package body mypackage is
+    procedure queryEmpList(dno in number,empList out empcursor)
+    as
     begin
-      open cdept;
-      loop
-           fetch cdept into pdeptno;
-           exit when cdept%notfound;
-
-           count1:=0; count2:=0; count3:=0;
-           select sum(sal) into salTotal  from emp where deptno=pdeptno;
-
-           open cemp(pdeptno);
-           loop
-                fetch cemp into psal;
-                exit when cemp%notfound;
-
-                if psal &lt; 3000 then count1:=count1+1;
-                   elsif psal &gt;=3000 and psal&lt;6000 then count2:=count2+1;
-                   else count3:=count3+1;
-                end if;
-           end loop;
-           close cemp;
-
-           insert into msg values(pdeptno,count1,count2,count3,nvl(saltotal,0));
-
-      end loop;
-      close cdept;
-
-      commit;
-      dbms_output.put_line(&apos;完成&apos;);
+    open empList for select * from emp where deptno=dno;
     end;
+    end mypackage;
     /
+</code></pre><h2 id="Java程序调用存储过程、存储函数、包、包体"><a href="#Java程序调用存储过程、存储函数、包、包体" class="headerlink" title="Java程序调用存储过程、存储函数、包、包体"></a>Java程序调用存储过程、存储函数、包、包体</h2><h3 id="导入ojdbc14-jar"><a href="#导入ojdbc14-jar" class="headerlink" title="导入ojdbc14.jar"></a>导入ojdbc14.jar</h3><h3 id="声明包、包体、存储过程、存储函数"><a href="#声明包、包体、存储过程、存储函数" class="headerlink" title="声明包、包体、存储过程、存储函数"></a>声明包、包体、存储过程、存储函数</h3><h3 id="jdbcutils"><a href="#jdbcutils" class="headerlink" title="jdbcutils"></a>jdbcutils</h3><pre><code>package demo;
+    public class JDBCUtils {
+    private static String driver = &quot;oracle.jdbc.OracleDriver&quot;;
+    private static String url = &quot;jdbc:oracle:thin:@192.168.137.129:1521/orcl&quot;;
+    private static String user = &quot;scott&quot;;
+    private static String password = &quot;tiger&quot;;
+    static{
+        //DriverManager.registerDriver(driver)
+        try {
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+    public static Connection getConnection(){
+        try {
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-
-                declare 
-      --定义光标
-      cursor cemp is select empno,job from emp;
-      pempno emp.empno%type;
-      pjob   emp.job%type;
-    begin
-      rollback;  
-
-      --打开光标
-      open cemp;  
-      loop
-           --取一个员工
-           fetch cemp into pempno,pjob;
-           exit when cemp%notfound;
-
-           --判断职位
-           if pjob = &apos;PRESIDENT&apos; then update emp set sal=sal+1000 where empno=pempno;
-              elsif pjob = &apos;MANAGER&apos; then update emp set sal=sal+800 where empno=pempno;
-              else update emp set sal=sal+400 where empno=pempno;
-           end if;
-
-      end loop;
-      --关闭光标
-      close cemp;
-
-      --提交  ----&gt; why?: 事务 ACID,oracle读已提交
-      commit;
-
-      dbms_output.put_line(&apos;完成&apos;);
-    end;
-    /
-</code></pre><h2 id="Java程序调用存储过程、存储函数、包、包体"><a href="#Java程序调用存储过程、存储函数、包、包体" class="headerlink" title="Java程序调用存储过程、存储函数、包、包体"></a>Java程序调用存储过程、存储函数、包、包体</h2><p>###导入ojdbc14.jar<br>    声明包、包体、存储过程、存储函数<br>    jdbcutils<br>        package demo;<br>        public class JDBCUtils {<br>        private static String driver = “oracle.jdbc.OracleDriver”;<br>        private static String url = “jdbc:oracle:thin:@192.168.137.129:1521/orcl”;<br>        private static String user = “scott”;<br>        private static String password = “tiger”;<br>        static{<br>            //DriverManager.registerDriver(driver)<br>            try {<br>                Class.forName(driver);<br>            } catch (ClassNotFoundException e) {<br>                throw new ExceptionInInitializerError(e);<br>            }<br>        }<br>        public static Connection getConnection(){<br>            try {<br>                return DriverManager.getConnection(url, user, password);<br>            } catch (SQLException e) {<br>                e.printStackTrace();<br>            }<br>            return null;<br>        }</p>
-<pre><code>    public static void release(Connection conn,Statement st,ResultSet rs){
+    public static void release(Connection conn,Statement st,ResultSet rs){
         if(rs != null){
             try {
                 rs.close();
@@ -830,8 +661,7 @@ end;
         }
     }
     }
-    调用存储函数
-    public void testFunction(){
+</code></pre><h3 id="调用存储函数"><a href="#调用存储函数" class="headerlink" title="调用存储函数"></a>调用存储函数</h3><pre><code>public void testFunction(){
     //{?= call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]}
     String sql = &quot;{?=call queryEmpIncome(?)}&quot;;
     Connection conn = null;
@@ -861,8 +691,7 @@ end;
            return psal*12+nvl(pcomm,0);
     end queryEmpIncome;
     /
-    调用存储过程
-    @Test
+</code></pre><h3 id="调用存储过程"><a href="#调用存储过程" class="headerlink" title="调用存储过程"></a>调用存储过程</h3><pre><code>@Test
     public void testProcedure(){
         //{call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]}
         String sql = &quot;{call queryEmpInformation(?,?,?,?)}&quot;;
@@ -897,8 +726,7 @@ end;
            dbms_output.put_line(&apos;涨前:&apos;||psal||&apos;   涨后：&apos;||(psal+100));
     end raiseSalary;
     /
-    调用包及包体中的过程
-            public void testCursor(){
+</code></pre><h3 id="调用包及包体中的过程"><a href="#调用包及包体中的过程" class="headerlink" title="调用包及包体中的过程"></a>调用包及包体中的过程</h3><pre><code>public void testCursor(){
     String sql = &quot;{call mypackage.QUERYEMPLIST(?,?)}&quot;;
     Connection conn = null;
     CallableStatement call = null;
@@ -935,11 +763,10 @@ end;
            end;
     end mypackage;
     /
-主要步骤
-    编写sql
+</code></pre><h3 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h3><pre><code>编写sql
     conn.preparecall(sql)
     call.setXXX
     call.registOutputSteam
     [[oralcestatement]call].getxxx
-in\out 参数不用重复定义
-</code></pre></div><div class="tags"><a href="/tags/oracle/">oracle</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/redis/">redis</a><a class="next" href="/2018/05/10/mysql/">mysql</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+    in\out 参数不用重复定义
+</code></pre></div><div class="tags"><a href="/tags/oracle/">oracle</a></div><div class="post-nav"><a class="pre" href="/2018/05/10/redis/">redis</a><a class="next" href="/2018/05/10/mysql/">mysql</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/boostrap/">boostrap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/ajax/">ajax</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/css/">css</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/jquery/">jquery</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/javascript/">javascript</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/html/">html</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

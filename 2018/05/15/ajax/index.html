@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>ajax | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">ajax</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">ajax</h1><div class="post-meta">May 15, 2018<span> | </span><span class="category"><a href="/categories/ajax/">ajax</a></span></div><div class="post-content"><p>ajax异步的JavaScript和XML<br><a id="more"></a></p>
+<h2 id="ajax（重点）"><a href="#ajax（重点）" class="headerlink" title="ajax（重点）"></a>ajax（重点）</h2><h3 id="同步-amp-异步"><a href="#同步-amp-异步" class="headerlink" title="同步&amp;异步"></a>同步&amp;异步</h3><pre><code>同步现象：客户端发送请求到服务器端，当服务器返回响应之前，
+    客户端都处于等待卡死状态
+    异步现象：客户端发送请求到服务器端，无论服务器是否返回响应，
+    客户端都可以随意做其他事情，不会被卡死
+</code></pre><h3 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h3><pre><code>页面发起请求，会将请求发送给浏览器内核中的Ajax引擎，
+    Ajax引擎会提交请求到服务器端，在这段时间里，客户端可以任意进行任意操作，
+    直到服务器端将数据返回给Ajax引擎后，会触发你设置的事件，
+    从而执行自定义的js逻辑代码完成某种页面功能。
+    所用异步访问都是ajax引擎  AJAX即Asynchronous JavaScript And XML
+    不需要刷新网页就能对网页某部分进行更新，且不影响本来页面的加载
+</code></pre><h3 id="js原生ajax-通过本地浏览器中的ajax引擎-了解"><a href="#js原生ajax-通过本地浏览器中的ajax引擎-了解" class="headerlink" title="js原生ajax-通过本地浏览器中的ajax引擎(了解)"></a>js原生ajax-通过本地浏览器中的ajax引擎(了解)</h3><pre><code>1）创建Ajax引擎对象
+    var xmlhttp= new XML HttpRequest();
+    2）为Ajax引擎对象绑定监听（监听服务器已将数据响应给引擎）
+    xmlhttp.onreadystatechange=function(){
+    if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200){
+    var res=xmlhttp.responseText;
+    alert(res);
+    }
+    }
+    3）绑定提交地址
+    xmlhttp.open(&quot;GET&quot;,&quot;$(pageContext.request.contextPath)/Ajax&quot;,true)
+    4）发送请求
+    xmlhttp.send();
+    如果是post提交，在发送请求之前设置一个头
+    xmlhttp.setRequestHeader
+    (&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);
+    只能谷歌或火狐浏览器使用
+    XMLHttp对象浏览器兼容
+</code></pre><h3 id="jquery的ajax"><a href="#jquery的ajax" class="headerlink" title="jquery的ajax"></a>jquery的ajax</h3><pre><code>$.post(url,data,function,type);
+    $.get(url,data,function,type);
+    $.ajax({})
+    $.ajax({
+    url:&quot;/WEB22/ajaxServlet2&quot;,
+    async:true,//是否异步，默认是true代表异步
+    type:&quot;POST&quot;,//请求方式，POST/GET 
+    data:{&quot;name&quot;:&quot;lucy&quot;,&quot;age&quot;:18},
+    //发给servlet的请求对象(发到服务器的参数)建议json格式
+    success:function(data){//成功响应执行的函数，对应的类型是function类型
+    alert(data.name);//data,从servlet发过来的数据对象
+    },
+    error:function(){
+    alert(&quot;请求失败&quot;);
+    },
+    dataType:&quot;json&quot;//服务器端返回的数据类型，常用text和json
+    });
+</code></pre><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><pre><code>url：代表请求的服务器端地址
+    data：代表请求服务器端的数据（可以是key=value形式也可以是json格式）
+    callback：表示服务器端成功响应所触发的函数（只有正常成功返回才执行）
+    一般都是写funtion（data）{},其中data就是相应回来的json格式对象
+    type：表示服务器端返回的数据类型（jquery会根据指定的类型自动类型转换）
+    常用的返回类型：text、json、html等
+</code></pre><h3 id="服务器获得ajax的参数"><a href="#服务器获得ajax的参数" class="headerlink" title="服务器获得ajax的参数"></a>服务器获得ajax的参数</h3><pre><code>request.setCharacterEncoding(&quot;UTF-8&quot;);post提交方式
+    String name = request.getParameter(&quot;name&quot;);
+</code></pre><h3 id="服务器返回ajax字符串"><a href="#服务器返回ajax字符串" class="headerlink" title="服务器返回ajax字符串"></a>服务器返回ajax字符串</h3><pre><code>response.setContentType(&quot;text/html;charset=UTF-8&quot;);    
+    response.getWriter().write(&quot;{\&quot;name\&quot;:\&quot;汤姆\&quot;,\&quot;age\&quot;:21}&quot;); 
+    \”转义字符转成”
+</code></pre><h3 id="json格式"><a href="#json格式" class="headerlink" title="json格式"></a>json格式</h3><h4 id="对象格式：-“key1”-obj-”key2”-obj-”key3”-obj…"><a href="#对象格式：-“key1”-obj-”key2”-obj-”key3”-obj…" class="headerlink" title="对象格式：{“key1”:obj,”key2”:obj,”key3”:obj…}"></a>对象格式：{“key1”:obj,”key2”:obj,”key3”:obj…}</h4><pre><code>json的key是字符串  jaon的value是Object，没有双引号表示变量
+    user对象 json数据格式{&quot;username&quot;:&quot;zhangsan&quot;,&quot;age&quot;:28,&quot;password&quot;:&quot;123&quot;}
+    List&lt;Product&gt; 用json数据格式：[{&quot;pid&quot;:&quot;10&quot;,&quot;pname&quot;:&quot;小米4C&quot;},{},{}]
+</code></pre><h4 id="数组-集合格式：-obj-obj-obj…"><a href="#数组-集合格式：-obj-obj-obj…" class="headerlink" title="数组/集合格式：[obj,obj,obj…]"></a>数组/集合格式：[obj,obj,obj…]</h4><pre><code>对象格式和数组格式可以互相嵌套
+    json的解析：json是js的原生内容，也就意味着js可以直接取出json对象中的数据
+    语言无关的数据交换的格式，轻量级的数据交换格式
+    可以使用ajax进行前后台数据交换，移动端与服务端的数据交换
+</code></pre><h4 id="json转换插件"><a href="#json转换插件" class="headerlink" title="json转换插件"></a>json转换插件</h4><pre><code>①jsonlib②fastjson：阿里巴巴（性能最好）
+    ③Gson：google  导入gson-2.2.4.jar，
+    使用：Gson gson=new Gson();
+    String json=gson.toJson(categroyList);
+    response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+    response.getWriter().write(json);
+    将java的对象或集合转成json形式字符串
+    通过java的一些工具，直接将java对象或集合转换成json字符串。
+</code></pre><h5 id="json-lib"><a href="#json-lib" class="headerlink" title="json-lib"></a>json-lib</h5><h6 id="导入jar包"><a href="#导入jar包" class="headerlink" title="导入jar包"></a>导入jar包</h6><pre><code>commons-beanutils-1.8.3.jar
+    commons-collection-3.2.1.jar
+    commons-lang-2.6.jar
+    commons-logging-1.1.1.jar
+    ezmorph-1.0.6.jar
+    json-lib-2.4-jsdk15.jar
+</code></pre><h6 id="API"><a href="#API" class="headerlink" title="API"></a>API</h6><pre><code>JSONObject java对象(java对象、javaBean、Map)与json数据转换工具类
+    JSONArray，java集合（list、Array）与JSON数据 转换工具类
+    static fromObject（..）静态方法，将java对象转换成jsonlib对象
+    toString()将jsonlib对象转换成json字符串
+    先判断要转换的对象确定使用对象，然后常用对象。
+    fromObject(被转化的对象).toString()
+</code></pre></div><div class="tags"><a href="/tags/ajax/">ajax</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/boostrap/">boostrap</a><a class="next" href="/2018/05/15/css/">css</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/boostrap/">boostrap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/ajax/">ajax</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/css/">css</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/jquery/">jquery</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/javascript/">javascript</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/html/">html</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/struts2/">struts2</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
