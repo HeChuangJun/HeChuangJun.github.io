@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>mybatis | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mybatis</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mybatis</h1><div class="post-meta">May 15, 2018<span> | </span><span class="category"><a href="/categories/mybatis/">mybatis</a></span></div><div class="post-content"><p>mybatis<br><a id="more"></a></p>
-<h2 id="Mybatis框架"><a href="#Mybatis框架" class="headerlink" title="Mybatis框架"></a>Mybatis框架</h2><h3 id="1-Mybatis介绍"><a href="#1-Mybatis介绍" class="headerlink" title="1.Mybatis介绍"></a>1.Mybatis介绍</h3><pre><code>MyBatis本是apache的一个开源项目iBatis, 
+<h2 id="Mybatis框架"><a href="#Mybatis框架" class="headerlink" title="Mybatis框架"></a>Mybatis框架</h2><h3 id="Mybatis介绍"><a href="#Mybatis介绍" class="headerlink" title="Mybatis介绍"></a>Mybatis介绍</h3><pre><code>MyBatis本是apache的一个开源项目iBatis, 
     2010年这个项目由apache software foundation 迁移到了google code，
     并且改名为MyBatis 。2013年11月迁移到Github
     MyBatis是优秀的持久层框架，对jdbc的操作数据库的过程进行封装
@@ -10,7 +10,7 @@
     各种statement（statement、preparedStatemnt、CallableStatement）配置起来
     并通过java对象和statement中的sql进行映射生成最终执行的sql语句，
     最后由mybatis框架执行sql并将结果映射成java对象并返回
-</code></pre><h3 id="2-使用jdbc编程问题总结"><a href="#2-使用jdbc编程问题总结" class="headerlink" title="2.使用jdbc编程问题总结"></a>2.使用jdbc编程问题总结</h3><pre><code>1、数据库连接创建、释放频繁造成系统资源浪费，从而影响系统性能。
+</code></pre><h3 id="使用jdbc编程问题总结"><a href="#使用jdbc编程问题总结" class="headerlink" title="使用jdbc编程问题总结"></a>使用jdbc编程问题总结</h3><pre><code>1、数据库连接创建、释放频繁造成系统资源浪费，从而影响系统性能。
     如果使用数据库连接池可解决此问题。
     2、Sql语句在代码中硬编码，造成代码不易维护，实际应用中sql变化的可能较大，
     sql变动需要改变java代码。
@@ -18,20 +18,43 @@
     因为sql语句的where条件不一定，修改sql还要修改代码，系统不易维护
     4、对结果集解析存在硬编码（查询列名），sql变化导致解析代码变化，
     系统不易维护，如果能将数据库记录封装成pojo对象解析比较方便
-</code></pre><h3 id="3-Mybatis架构"><a href="#3-Mybatis架构" class="headerlink" title="3.Mybatis架构"></a>3.Mybatis架构</h3><img src="/2018/05/15/mybatis/mybatis.png" title="mybatis.png">
+</code></pre><h3 id="Mybatis架构"><a href="#Mybatis架构" class="headerlink" title="Mybatis架构"></a>Mybatis架构</h3><img src="/2018/05/15/mybatis/mybatis.png" title="mybatis.png">
 <h4 id="1、mybatis配置"><a href="#1、mybatis配置" class="headerlink" title="1、mybatis配置"></a>1、mybatis配置</h4><pre><code>SqlMapConfig.xml（mybatis的全局配置文件）配置了mybatis的运行环境等信息
     mapper.xml（sql映射文件）配置sql语句。要在SqlMapConfig.xml中加载
 </code></pre><h4 id="2、通过mybatis环境等配置信息构造SqlSessionFactory（会话工厂）"><a href="#2、通过mybatis环境等配置信息构造SqlSessionFactory（会话工厂）" class="headerlink" title="2、通过mybatis环境等配置信息构造SqlSessionFactory（会话工厂）"></a>2、通过mybatis环境等配置信息构造SqlSessionFactory（会话工厂）</h4><h4 id="3、由会话工厂创建sqlSession（会话），操作数据库需要通过sqlSession进行"><a href="#3、由会话工厂创建sqlSession（会话），操作数据库需要通过sqlSession进行" class="headerlink" title="3、由会话工厂创建sqlSession（会话），操作数据库需要通过sqlSession进行"></a>3、由会话工厂创建sqlSession（会话），操作数据库需要通过sqlSession进行</h4><h4 id="4、mybatis底层自定义了Executor执行器接口操作数据库"><a href="#4、mybatis底层自定义了Executor执行器接口操作数据库" class="headerlink" title="4、mybatis底层自定义了Executor执行器接口操作数据库"></a>4、mybatis底层自定义了Executor执行器接口操作数据库</h4><pre><code>Executor接口有两个实现，一个是基本执行器、一个是缓存执行器
 </code></pre><h4 id="5、Mapped-Statement也是mybatis一个底层封装对象，"><a href="#5、Mapped-Statement也是mybatis一个底层封装对象，" class="headerlink" title="5、Mapped Statement也是mybatis一个底层封装对象，"></a>5、Mapped Statement也是mybatis一个底层封装对象，</h4><pre><code>它包装了mybatis配置信息及sql映射信息等。
     mapper.xml文件中一个sql对应一个Mapped
     Statement对象，sql的id即是Mapped statement的id
-</code></pre><h4 id="6、Mapped-Statement对sql执行输入参数进行定义，"><a href="#6、Mapped-Statement对sql执行输入参数进行定义，" class="headerlink" title="6、Mapped Statement对sql执行输入参数进行定义，"></a>6、Mapped Statement对sql执行输入参数进行定义，</h4><pre><code>包括HashMap、基本类型、pojo，
+</code></pre><h4 id="6、Mapped-Statement"><a href="#6、Mapped-Statement" class="headerlink" title="6、Mapped Statement"></a>6、Mapped Statement</h4><pre><code>对sql执行输入参数进行定义，包括HashMap、基本类型、pojo，
     Executor通过MappedStatement在执行sql前将输入的java对象映射至sql中，
     输入参数映射就是jdbc编程中对preparedStatement设置参数。
-</code></pre><h4 id="7、MappedStatement对sql执行输出结果进行定义，"><a href="#7、MappedStatement对sql执行输出结果进行定义，" class="headerlink" title="7、MappedStatement对sql执行输出结果进行定义，"></a>7、MappedStatement对sql执行输出结果进行定义，</h4><pre><code>包括HashMap、基本类型、pojo，
+</code></pre><h4 id="7、MappedStatement"><a href="#7、MappedStatement" class="headerlink" title="7、MappedStatement"></a>7、MappedStatement</h4><pre><code>对sql执行输出结果进行定义，包括HashMap、基本类型、pojo，
     Executor通过MappedStatement在执行sql后将输出结果映射至java对象中
     输出结果映射过程相当于jdbc编程中对结果的解析处理过程。
-</code></pre><h3 id="4-Mybatis入门程序"><a href="#4-Mybatis入门程序" class="headerlink" title="4.Mybatis入门程序"></a>4.Mybatis入门程序</h3><h4 id="4-1-mybatis下载"><a href="#4-1-mybatis下载" class="headerlink" title="4.1.mybatis下载"></a>4.1.mybatis下载</h4><pre><code>mybaits的代码由github.com管理
+</code></pre><h4 id="SqlSession的使用范围"><a href="#SqlSession的使用范围" class="headerlink" title="SqlSession的使用范围"></a>SqlSession的使用范围</h4><pre><code>SqlSession中封装了对数据库的操作，如：查询、插入、更新、删除等。
+    SqlSession通过SqlSessionFactory创建。
+    SqlSessionFactory是通过SqlSessionFactoryBuilder进行创建。
+</code></pre><h4 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h4><pre><code>SqlSessionFactoryBuilder用于创建SqlSessionFacoty，
+    SqlSessionFacoty一旦创建完成就不需要SqlSessionFactoryBuilder了，
+    因为SqlSession是通过SqlSessionFactory创建的。
+    所以可以将SqlSessionFactoryBuilder当成一个工具类使用，
+    最佳使用范围是方法范围即方法体内局部变量。
+</code></pre><h4 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h4><pre><code>SqlSessionFactory是一个接口，接口中定义了openSession的不同重载方法，
+    SqlSessionFactory的最佳使用范围是整个应用运行期间，一旦创建后可以重复使用，
+    通常以单例模式管理SqlSessionFactory。
+</code></pre><h4 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h4><pre><code>SqlSession是一个面向用户的接口，sqlSession中定义了数据库操作方法。
+    每个线程都应该有它自己的SqlSession实例。SqlSession的实例不能共享使用，
+    它也是线程不安全的。因此最佳的范围是请求或方法范围。
+    绝对不能将SqlSession实例的引用放在一个类的静态字段或实例字段中。
+    打开一个 SqlSession；使用完毕就要关闭它。通常把这个关闭操作放到 
+    finally 块中以确保每次都能执行关闭。如下：
+    SqlSession session = sqlSessionFactory.openSession();
+    try {
+    // do work
+    } finally {
+    session.close();
+    }
+</code></pre><h3 id="Mybatis入门程序"><a href="#Mybatis入门程序" class="headerlink" title="Mybatis入门程序"></a>Mybatis入门程序</h3><h4 id="mybatis下载"><a href="#mybatis下载" class="headerlink" title="mybatis下载"></a>mybatis下载</h4><pre><code>mybaits的代码由github.com管理
     下载地址：https://github.com/mybatis/mybatis-3/releases
 </code></pre><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="创建java工程mybatis-first"><a href="#创建java工程mybatis-first" class="headerlink" title="创建java工程mybatis-first"></a>创建java工程mybatis-first</h4><h4 id="加入jar包"><a href="#加入jar包" class="headerlink" title="加入jar包"></a>加入jar包</h4><pre><code>commons-logging-1.1.1.jar
     javassist-3.17.1-GA.jar
@@ -42,24 +65,14 @@
     slf4j-log4j12-1.7.5.jar
     asm-3.3.1.jar
     cglib-2.2.2.jar
-</code></pre><h4 id="在src下创建log4j-properties："><a href="#在src下创建log4j-properties：" class="headerlink" title="在src下创建log4j.properties："></a>在src下创建log4j.properties：</h4><pre><code># Global logging configuration
+</code></pre><h4 id="在src下创建log4j-properties"><a href="#在src下创建log4j-properties" class="headerlink" title="在src下创建log4j.properties"></a>在src下创建log4j.properties</h4><pre><code># Global logging configuration
     log4j.rootLogger=DEBUG, stdout
     # Console output...
     log4j.appender.stdout=org.apache.log4j.ConsoleAppender
     log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
     log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
     mybatis默认使用log4j作为输出日志信息。
-</code></pre><h4 id="创建pojo类生成set、get方法并创建对应的表"><a href="#创建pojo类生成set、get方法并创建对应的表" class="headerlink" title="创建pojo类生成set、get方法并创建对应的表"></a>创建pojo类生成set、get方法并创建对应的表</h4><h4 id="创建sql映射文件"><a href="#创建sql映射文件" class="headerlink" title="创建sql映射文件"></a>创建sql映射文件</h4><pre><code>在src下的sqlmap目录下创建sql映射文件User.xml：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE mapper
-    PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-    &lt;!-- namespace：命名空间，用于隔离sql --&gt;
-    &lt;mapper namespace=&quot;test&quot;&gt;
-    &lt;/mapper&gt;
-    mybatis框架需要加载Mapper.xml映射文件
-    将users.xml添加在SqlMapConfig.xml
-</code></pre><h4 id="在src下创建SqlMapConfig-xml，如下："><a href="#在src下创建SqlMapConfig-xml，如下：" class="headerlink" title="在src下创建SqlMapConfig.xml，如下："></a>在src下创建SqlMapConfig.xml，如下：</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+</code></pre><h4 id="在src下创建SqlMapConfig-xml"><a href="#在src下创建SqlMapConfig-xml" class="headerlink" title="在src下创建SqlMapConfig.xml"></a>在src下创建SqlMapConfig.xml</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE configuration
     PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
@@ -85,23 +98,73 @@
     &lt;/environments&gt;
     &lt;/configuration&gt;
     SqlMapConfig.xml是mybatis核心配置文件，内容为数据源、事务管理
-</code></pre><h3 id="实现根据id查询用户（传入基本值）"><a href="#实现根据id查询用户（传入基本值）" class="headerlink" title="实现根据id查询用户（传入基本值）"></a>实现根据id查询用户（传入基本值）</h3><h4 id="在user-xml中添加select标签，编写sql："><a href="#在user-xml中添加select标签，编写sql：" class="headerlink" title="在user.xml中添加select标签，编写sql："></a>在user.xml中添加select标签，编写sql：</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+</code></pre><h4 id="创建pojo类生成set、get方法并创建对应的表"><a href="#创建pojo类生成set、get方法并创建对应的表" class="headerlink" title="创建pojo类生成set、get方法并创建对应的表"></a>创建pojo类生成set、get方法并创建对应的表</h4><h4 id="在src下的sqlmap目录下创建sql映射文件User-xml"><a href="#在src下的sqlmap目录下创建sql映射文件User-xml" class="headerlink" title="在src下的sqlmap目录下创建sql映射文件User.xml"></a>在src下的sqlmap目录下创建sql映射文件User.xml</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-    &lt;!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 --&gt;
+</code></pre><h4 id="实现根据id查询用户（传入基本值）"><a href="#实现根据id查询用户（传入基本值）" class="headerlink" title="实现根据id查询用户（传入基本值）"></a>实现根据id查询用户（传入基本值）</h4><pre><code>&lt;!-- namespace：命名空间，用于隔离sql --&gt;
     &lt;mapper namespace=&quot;test&quot;&gt;
     &lt;!-- id:statement的id 或者叫做sql的id--&gt;
     &lt;!-- parameterType:声明输入参数的类型 --&gt;
     &lt;!-- resultType:声明输出结果的类型，应该填写pojo的全路径 --&gt;
     &lt;!-- #{}：输入参数的占位符，相当于jdbc的？ --&gt;
     &lt;select id=&quot;queryUserById&quot; parameterType=&quot;int&quot;
-    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
+    resultType=&quot;cn.mybatis.pojo.User&quot;&gt;
     SELECT * FROM `user` WHERE id  = #{id}
     &lt;/select&gt;
+</code></pre><h4 id="①方式一：实现根据用户名模糊查询用户"><a href="#①方式一：实现根据用户名模糊查询用户" class="headerlink" title="①方式一：实现根据用户名模糊查询用户"></a>①方式一：实现根据用户名模糊查询用户</h4><pre><code>&lt;!-- 如果返回多个结果，mybatis会自动把返回的结果放在list容器中 --&gt;
+    &lt;!-- resultType的配置和返回一个结果的配置一样 --&gt;
+    &lt;select id=&quot;queryUserByUsername1&quot; parameterType=&quot;string&quot;
+    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
+    SELECT * FROM `user` WHERE username LIKE #{username}
+    &lt;/select&gt;
+</code></pre><h4 id="②方式二：实现根据用户名模糊查询用户"><a href="#②方式二：实现根据用户名模糊查询用户" class="headerlink" title="②方式二：实现根据用户名模糊查询用户"></a>②方式二：实现根据用户名模糊查询用户</h4><pre><code>&lt;!-- 如果传入的参数是简单数据类型，${}里面必须写value --&gt;
+    &lt;select id=&quot;queryUserByUsername2&quot; parameterType=&quot;string&quot;
+    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
+    SELECT * FROM `user` WHERE username LIKE &apos;%${value}%&apos;
+    &lt;/select&gt;
+</code></pre><h4 id="实现添加用户-传入对象"><a href="#实现添加用户-传入对象" class="headerlink" title="实现添加用户(传入对象)"></a>实现添加用户(传入对象)</h4><pre><code>&lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
+    INSERT INTO `user`
+    (username,birthday,sex,address) VALUES
+    (#{username},#{birthday},#{sex},#{address})
+    &lt;/insert&gt;    
+</code></pre><h4 id="mysql自增主键返回"><a href="#mysql自增主键返回" class="headerlink" title="mysql自增主键返回"></a>mysql自增主键返回</h4><pre><code>&lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.mybatis.pojo.User&quot;&gt;
+    &lt;!-- selectKey 标签实现主键返回 --&gt;
+    &lt;!-- keyColumn:主键对应的表中的哪一列 --&gt;
+    &lt;!-- keyProperty：主键对应的pojo中的哪一个属性 --&gt;
+    &lt;!-- order：设置在执行insert语句前执行查询id的sql，
+    在执行insert语句之后执行查询id的sql --&gt;
+    &lt;!-- resultType：设置返回的id的类型 --&gt;
+    &lt;selectKey keyColumn=&quot;id&quot; keyProperty=&quot;id&quot; order=&quot;AFTER&quot;
+    resultType=&quot;int&quot;&gt;
+    SELECT LAST_INSERT_ID()
+    &lt;/selectKey&gt;
+    INSERT INTO `user`
+    (username,birthday,sex,address) VALUES
+    (#{username},#{birthday},#{sex},#{address})
+    &lt;/insert&gt;
+    LAST_INSERT_ID():是mysql的函数，返回auto_increment自增列新记录id值
+</code></pre><h4 id="mysql-uuid实现主键返回"><a href="#mysql-uuid实现主键返回" class="headerlink" title="mysql uuid实现主键返回"></a>mysql uuid实现主键返回</h4><pre><code>&lt;selectKey keyColumn=&quot;id&quot; keyProperty=&quot;id&quot; order=&quot;BEFORE&quot;
+    resultType=&quot;string&quot;&gt;
+    SELECT LAST_INSERT_ID()
+    &lt;/selectKey&gt;
+    INSERT INTO `user`
+    (username,birthday,sex,address) VALUES
+    (#{username},#{birthday},#{sex},#{address})
+    &lt;/insert&gt;
+    注意这里使用的order是“BEFORE”    
+</code></pre><h4 id="修改用户（传入对象）"><a href="#修改用户（传入对象）" class="headerlink" title="修改用户（传入对象）"></a>修改用户（传入对象）</h4><pre><code>&lt;update id=&quot;updateUserById&quot; parameterType=&quot;cn.mybatis.pojo.User&quot;&gt;
+    UPDATE `user` SET
+    username = #{username} WHERE id = #{id}
+    &lt;/update&gt;        
+</code></pre><h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><pre><code>&lt;delete id=&quot;deleteUserById&quot; parameterType=&quot;int&quot;&gt;
+    delete from user where
+    id=#{id}
+    &lt;/delete&gt;    
     &lt;/mapper&gt;
-</code></pre><h4 id="测试程序："><a href="#测试程序：" class="headerlink" title="测试程序："></a>测试程序：</h4><pre><code>测试程序步骤：
-    1. 创建SqlSessionFactoryBuilder对象
+    mybatis框架需要加载Mapper.xml映射文件
+    将user.xml添加在SqlMapConfig.xml
+</code></pre><h4 id="测试程序："><a href="#测试程序：" class="headerlink" title="测试程序："></a>测试程序：</h4><pre><code>1. 创建SqlSessionFactoryBuilder对象
     2. 加载SqlMapConfig.xml配置文件
     3. 创建SqlSessionFactory对象
     4. 创建SqlSession对象
@@ -125,15 +188,6 @@
     Object user = sqlSession.selectOne(&quot;queryUserById&quot;, 1);
     sqlSession.close();
     }
-    }
-</code></pre><h3 id="实现根据用户名模糊查询用户"><a href="#实现根据用户名模糊查询用户" class="headerlink" title="实现根据用户名模糊查询用户"></a>实现根据用户名模糊查询用户</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><pre><code>在User.xml配置文件中添加如下内容：
-    &lt;!-- 如果返回多个结果，mybatis会自动把返回的结果放在list容器中 --&gt;
-    &lt;!-- resultType的配置和返回一个结果的配置一样 --&gt;
-    &lt;select id=&quot;queryUserByUsername1&quot; parameterType=&quot;string&quot;
-    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    SELECT * FROM `user` WHERE username LIKE #{username}
-    &lt;/select&gt;
-</code></pre><h6 id="测试程序"><a href="#测试程序" class="headerlink" title="测试程序"></a>测试程序</h6><pre><code>MybatisTest中添加测试方法如下：
     @Test
     public void testQueryUserByUsername1() throws Exception {
     SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -144,13 +198,6 @@
     }
     sqlSession.close();
     }
-</code></pre><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><pre><code>在User.xml配置文件中添加如下内容：
-    &lt;!-- 如果传入的参数是简单数据类型，${}里面必须写value --&gt;
-    &lt;select id=&quot;queryUserByUsername2&quot; parameterType=&quot;string&quot;
-    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    SELECT * FROM `user` WHERE username LIKE &apos;%${value}%&apos;
-    &lt;/select&gt;
-</code></pre><h5 id="测试程序：-1"><a href="#测试程序：-1" class="headerlink" title="测试程序："></a>测试程序：</h5><pre><code>MybatisTest中添加测试方法如下：
     @Test
     public void testQueryUserByUsername2() throws Exception {
     SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -160,6 +207,40 @@
     System.out.println(user);
     }
     sqlSession.close();
+    }    
+    @Test
+    public void testSaveUser() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    User user = new User();
+    user.setUsername(&quot;张飞&quot;);
+    user.setSex(&quot;1&quot;);
+    user.setBirthday(new Date());
+    user.setAddress(&quot;蜀国&quot;);
+    sqlSession.insert(&quot;saveUser&quot;, user);
+    System.out.println(user);
+    sqlSession.commit();
+    sqlSession.close();
+    }
+    @Test
+    public void testUpdateUserById() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    User user = new User();
+    user.setId(26);
+    user.setUsername(&quot;关羽&quot;);
+    user.setSex(&quot;1&quot;);
+    user.setBirthday(new Date());
+    user.setAddress(&quot;蜀国&quot;);
+    sqlSession.update(&quot;updateUserById&quot;, user);
+    sqlSession.commit();
+    sqlSession.close();
+    }
+    @Test
+    public void testDeleteUserById() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    sqlSession.delete(&quot;deleteUserById&quot;, 48);
+    sqlSession.commit();
+    sqlSession.close();
+    }
     }
 </code></pre><h3 id="（常用）和"><a href="#（常用）和" class="headerlink" title="#{}（常用）和${}"></a>#{}（常用）和${}</h3><pre><code>#{}表示一个占位符号，通过#{}可以实现preparedStatement向占位符中设置值，
     自动进行java类型和jdbc类型转换。#{}可以有效防止sql注入
@@ -175,83 +256,6 @@
     如果有多条数据，则分别进行映射，并把对象放到容器List中
 </code></pre><h3 id="selectOne和selectList-没有mapper动态代理的时候"><a href="#selectOne和selectList-没有mapper动态代理的时候" class="headerlink" title="selectOne和selectList(没有mapper动态代理的时候)"></a>selectOne和selectList(没有mapper动态代理的时候)</h3><pre><code>selectOne查询一条记录，如果使用selectOne查询多条记录则抛出异常：
     selectList可以查询一条或多条记录。
-</code></pre><h3 id="实现添加用户-传入对象"><a href="#实现添加用户-传入对象" class="headerlink" title="实现添加用户(传入对象)"></a>实现添加用户(传入对象)</h3><h4 id="在User-xml配置文件中添加如下内容："><a href="#在User-xml配置文件中添加如下内容：" class="headerlink" title="在User.xml配置文件中添加如下内容："></a>在User.xml配置文件中添加如下内容：</h4><pre><code>&lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    INSERT INTO `user`
-    (username,birthday,sex,address) VALUES
-    (#{username},#{birthday},#{sex},#{address})
-    &lt;/insert&gt;
-</code></pre><h4 id="测试程序-1"><a href="#测试程序-1" class="headerlink" title="测试程序"></a>测试程序</h4><pre><code>MybatisTest中添加测试方法如下：
-    @Test
-    public void testSaveUser() {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    User user = new User();
-    user.setUsername(&quot;张飞&quot;);
-    user.setSex(&quot;1&quot;);
-    user.setBirthday(new Date());
-    user.setAddress(&quot;蜀国&quot;);
-    sqlSession.insert(&quot;saveUser&quot;, user);
-    System.out.println(user);
-    sqlSession.commit();
-    sqlSession.close();
-    }
-</code></pre><h3 id="mysql自增主键返回"><a href="#mysql自增主键返回" class="headerlink" title="mysql自增主键返回"></a>mysql自增主键返回</h3><pre><code>通过修改User.xml映射文件，可以将mysql自增主键返回：
-    如下添加selectKey 标签
-    &lt;!-- 保存用户 --&gt;
-    &lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    &lt;!-- selectKey 标签实现主键返回 --&gt;
-    &lt;!-- keyColumn:主键对应的表中的哪一列 --&gt;
-    &lt;!-- keyProperty：主键对应的pojo中的哪一个属性 --&gt;
-    &lt;!-- order：设置在执行insert语句前执行查询id的sql，
-    在执行insert语句之后执行查询id的sql --&gt;
-    &lt;!-- resultType：设置返回的id的类型 --&gt;
-    &lt;selectKey keyColumn=&quot;id&quot; keyProperty=&quot;id&quot; order=&quot;AFTER&quot;
-    resultType=&quot;int&quot;&gt;
-    SELECT LAST_INSERT_ID()
-    &lt;/selectKey&gt;
-    INSERT INTO `user`
-    (username,birthday,sex,address) VALUES
-    (#{username},#{birthday},#{sex},#{address})
-    &lt;/insert&gt;
-    LAST_INSERT_ID():是mysql的函数，返回auto_increment自增列新记录id值。
-</code></pre><h3 id="Mysql-uuid实现主键返回"><a href="#Mysql-uuid实现主键返回" class="headerlink" title="Mysql uuid实现主键返回"></a>Mysql uuid实现主键返回</h3><pre><code>需要增加通过select uuid()得到uuid值
-    &lt;selectKey keyColumn=&quot;id&quot; keyProperty=&quot;id&quot; order=&quot;BEFORE&quot;
-    resultType=&quot;string&quot;&gt;
-    SELECT LAST_INSERT_ID()
-    &lt;/selectKey&gt;
-    INSERT INTO `user`
-    (username,birthday,sex,address) VALUES
-    (#{username},#{birthday},#{sex},#{address})
-    &lt;/insert&gt;
-    注意这里使用的order是“BEFORE”
-</code></pre><h3 id="修改用户（传入对象）"><a href="#修改用户（传入对象）" class="headerlink" title="修改用户（传入对象）"></a>修改用户（传入对象）</h3><h4 id="在User-xml配置文件中添加如下内容：-1"><a href="#在User-xml配置文件中添加如下内容：-1" class="headerlink" title="在User.xml配置文件中添加如下内容："></a>在User.xml配置文件中添加如下内容：</h4><pre><code>&lt;update id=&quot;updateUserById&quot; parameterType=&quot;cn.mybatis.pojo.User&quot;&gt;
-    UPDATE `user` SET
-    username = #{username} WHERE id = #{id}
-    &lt;/update&gt;
-</code></pre><h4 id="测试程序-2"><a href="#测试程序-2" class="headerlink" title="测试程序"></a>测试程序</h4><pre><code>MybatisTest中添加测试方法如下：
-    @Test
-    public void testUpdateUserById() {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    User user = new User();
-    user.setId(26);
-    user.setUsername(&quot;关羽&quot;);
-    user.setSex(&quot;1&quot;);
-    user.setBirthday(new Date());
-    user.setAddress(&quot;蜀国&quot;);
-    sqlSession.update(&quot;updateUserById&quot;, user);
-    sqlSession.commit();
-    sqlSession.close();
-    }
-</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><h4 id="在User-xml配置文件中添加如下内容：-2"><a href="#在User-xml配置文件中添加如下内容：-2" class="headerlink" title="在User.xml配置文件中添加如下内容："></a>在User.xml配置文件中添加如下内容：</h4><pre><code>&lt;delete id=&quot;deleteUserById&quot; parameterType=&quot;int&quot;&gt;
-    delete from user where
-    id=#{id}
-    &lt;/delete&gt;
-</code></pre><h4 id="测试程序：-2"><a href="#测试程序：-2" class="headerlink" title="测试程序："></a>测试程序：</h4><pre><code>MybatisTest中添加测试方法如下：
-    public void testDeleteUserById() {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    sqlSession.delete(&quot;deleteUserById&quot;, 48);
-    sqlSession.commit();
-    sqlSession.close();
-    }
 </code></pre><h3 id="Mybatis解决jdbc编程的问题"><a href="#Mybatis解决jdbc编程的问题" class="headerlink" title="Mybatis解决jdbc编程的问题"></a>Mybatis解决jdbc编程的问题</h3><pre><code>1、数据库连接创建、释放频繁造成系统资源浪费从而影响系统性能，
     如果使用数据库连接池可解决此问题。
     解决：在SqlMapConfig.xml中配置数据连接池，使用连接池管理数据库链接。
@@ -285,62 +289,10 @@
     扩展性良好的软件架构都是好架构，所以框架只有适合才是最好。 
 </code></pre><h3 id="Dao开发方法"><a href="#Dao开发方法" class="headerlink" title="Dao开发方法"></a>Dao开发方法</h3><pre><code>MyBatis开发Dao，分为原始Dao开发方法和Mapper动态代理开发方法
     无论哪种方法，都要往dao注入sqlsessionFactory
-</code></pre><h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><pre><code>使用MyBatis开发DAO实现以下的功能：
-    根据用户id查询一个用户信息
-    根据用户名称模糊查询用户信息列表
-    添加用户信息
-</code></pre><h4 id="SqlSession的使用范围"><a href="#SqlSession的使用范围" class="headerlink" title="SqlSession的使用范围"></a>SqlSession的使用范围</h4><pre><code>SqlSession中封装了对数据库的操作，如：查询、插入、更新、删除等。
-    SqlSession通过SqlSessionFactory创建。
-    SqlSessionFactory是通过SqlSessionFactoryBuilder进行创建。
-</code></pre><h4 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h4><pre><code>SqlSessionFactoryBuilder用于创建SqlSessionFacoty，
-    SqlSessionFacoty一旦创建完成就不需要SqlSessionFactoryBuilder了，
-    因为SqlSession是通过SqlSessionFactory创建的。
-    所以可以将SqlSessionFactoryBuilder当成一个工具类使用，
-    最佳使用范围是方法范围即方法体内局部变量。
-</code></pre><h4 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h4><pre><code>SqlSessionFactory是一个接口，接口中定义了openSession的不同重载方法，
-    SqlSessionFactory的最佳使用范围是整个应用运行期间，一旦创建后可以重复使用，
-    通常以单例模式管理SqlSessionFactory。
-</code></pre><h4 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h4><pre><code>SqlSession是一个面向用户的接口，sqlSession中定义了数据库操作方法。
-    每个线程都应该有它自己的SqlSession实例。SqlSession的实例不能共享使用，
-    它也是线程不安全的。因此最佳的范围是请求或方法范围。
-    绝对不能将SqlSession实例的引用放在一个类的静态字段或实例字段中。
-    打开一个 SqlSession；使用完毕就要关闭它。通常把这个关闭操作放到 
-    finally 块中以确保每次都能执行关闭。如下：
-    SqlSession session = sqlSessionFactory.openSession();
-    try {
-    // do work
-    } finally {
-    session.close();
-    }
 </code></pre><h3 id="原始Dao开发方式"><a href="#原始Dao开发方式" class="headerlink" title="原始Dao开发方式"></a>原始Dao开发方式</h3><pre><code>原始Dao开发方法需要程序员编写Dao接口和Dao实现类。
-</code></pre><h4 id="映射文件"><a href="#映射文件" class="headerlink" title="映射文件"></a>映射文件</h4><pre><code>编写映射文件如下：（也可以使用入门程序完成的映射文件）
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE mapper
-    PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-    &lt;!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 --&gt;
-    &lt;mapper namespace=&quot;test&quot;&gt;
-    &lt;select id=&quot;queryUserById&quot; parameterType=&quot;int&quot;
-    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    select * from user where id = #{id}
-    &lt;/select&gt;
-    &lt;select id=&quot;queryUserByUsername&quot; parameterType=&quot;string&quot;
-    resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    select * from user where username like &apos;%${value}%&apos;
-    &lt;/select&gt;
-    &lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    &lt;selectKey keyProperty=&quot;id&quot; keyColumn=&quot;id&quot; order=&quot;AFTER&quot;
-    resultType=&quot;int&quot;&gt;
-    SELECT LAST_INSERT_ID()
-    &lt;/selectKey&gt;
-    insert into user(username,birthday,sex,address)
-    values(#{username},#{birthday},#{sex},#{address})
-    &lt;/insert&gt;
-    &lt;/mapper&gt;
-</code></pre><h4 id="Dao接口"><a href="#Dao接口" class="headerlink" title="Dao接口"></a>Dao接口</h4><pre><code>public interface UserDao {
+</code></pre><h4 id="映射文件UserMapper-xml-不变-和SqlMapConfig-xml文件-一样"><a href="#映射文件UserMapper-xml-不变-和SqlMapConfig-xml文件-一样" class="headerlink" title="映射文件UserMapper.xml(不变)和SqlMapConfig.xml文件(一样)"></a>映射文件UserMapper.xml(不变)和SqlMapConfig.xml文件(一样)</h4><h4 id="Dao接口"><a href="#Dao接口" class="headerlink" title="Dao接口"></a>Dao接口</h4><pre><code>public interface UserDao {
     User queryUserById(int id);
     List&lt;User&gt; queryUserByUsername(String username);
-    void saveUser(User user);
     }
 </code></pre><h4 id="Dao实现类"><a href="#Dao实现类" class="headerlink" title="Dao实现类"></a>Dao实现类</h4><pre><code>public class UserDaoImpl implements UserDao {
     private SqlSessionFactory sqlSessionFactory;
@@ -352,39 +304,18 @@
 
     @Override
     public User queryUserById(int id) {
-    // 创建SqlSession
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 执行查询逻辑
     User user = sqlSession.selectOne(&quot;queryUserById&quot;, id);
-    // 释放资源
     sqlSession.close();
-
     return user;
     }
 
     @Override
     public List&lt;User&gt; queryUserByUsername(String name) {
-    // 创建SqlSession
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-
-    // 执行查询逻辑
     List&lt;User&gt; list = sqlSession.selectList(&quot;queryUserByUsername&quot;, name);
-    // 释放资源
     sqlSession.close();
     return list;
-    }
-
-    @Override
-    public void saveUser(User user) {
-    // 创建SqlSession
-    SqlSession sqlSession = this.sqlSessionFactory.openSession();
-
-    // 执行保存逻辑
-    sqlSession.insert(&quot;saveUser&quot;, user);
-    // 提交事务
-    sqlSession.commit();
-    // 释放资源
-    sqlSession.close();
     }
     }
 </code></pre><h4 id="Dao测试"><a href="#Dao测试" class="headerlink" title="Dao测试"></a>Dao测试</h4><pre><code>创建一个JUnit的测试类，对UserDao进行测试，测试代码如下：
@@ -393,52 +324,27 @@
 
     @Before
     public void init() throws Exception {
-    // 创建SqlSessionFactoryBuilder
     SqlSessionFactoryBuilder sqlSessionFactoryBuilder = 
     new SqlSessionFactoryBuilder();
-    // 加载SqlMapConfig.xml配置文件
     InputStream inputStream = 
     Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
-    // 创建SqlsessionFactory
     this.sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
     }
 
     @Test
     public void testQueryUserById() {
-    // 创建DAO
     UserDao userDao = new UserDaoImpl(this.sqlSessionFactory);
-    // 执行查询
     User user = userDao.queryUserById(1);
     System.out.println(user);
     }
 
     @Test
     public void testQueryUserByUsername() {
-    // 创建DAO
-
     UserDao userDao = new UserDaoImpl(this.sqlSessionFactory);
-    // 执行查询
     List&lt;User&gt; list = userDao.queryUserByUsername(&quot;张&quot;);
     for (User user : list) {
     System.out.println(user);
     }
-    }
-
-    @Test
-    public void testSaveUser() {
-    // 创建DAO
-    UserDao userDao = new UserDaoImpl(this.sqlSessionFactory);
-
-    // 创建保存对象
-    User user = new User();
-    user.setUsername(&quot;刘备&quot;);
-    user.setBirthday(new Date());
-    user.setSex(&quot;1&quot;);
-    user.setAddress(&quot;蜀国&quot;);
-    // 执行保存
-    userDao.saveUser(user);
-
-    System.out.println(user);
     }
     }
 </code></pre><h4 id="原始Dao开发存在问题"><a href="#原始Dao开发存在问题" class="headerlink" title="原始Dao开发存在问题"></a>原始Dao开发存在问题</h4><pre><code>Dao方法体存在重复代码：通过SqlSessionFactory创建SqlSession，
@@ -450,10 +356,11 @@
     代理对象的方法体同上边Dao接口实现类方法。
 </code></pre><h4 id="Mapper接口开发需要遵循以下规范："><a href="#Mapper接口开发需要遵循以下规范：" class="headerlink" title="Mapper接口开发需要遵循以下规范："></a>Mapper接口开发需要遵循以下规范：</h4><pre><code>1、Mapper.xml文件中的namespace与mapper接口的完整类名相同。
     2、Mapper接口方法名和Mapper.xml中定义的每个statement的id相同 
-    3、Mapper接口方法的输入参数类型和mapper.xml中定义的每个sql 的parameterType的类型相同
-    4、Mapper接口方法的输出参数类型和mapper.xml中定义的每个sql的resultType的类型相同
-</code></pre><h4 id="Mapper-xml-映射文件"><a href="#Mapper-xml-映射文件" class="headerlink" title="Mapper.xml(映射文件)"></a>Mapper.xml(映射文件)</h4><pre><code>UserMapper.xml配置文件内容：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+    3、Mapper接口方法的输入参数类型和mapper.xml中
+    定义的每个sql 的parameterType的类型相同
+    4、Mapper接口方法的输出参数类型和mapper.xml中
+    定义的每个sql的resultType的类型相同
+</code></pre><h4 id="Mapper-xml-映射文件-必须满足规范"><a href="#Mapper-xml-映射文件-必须满足规范" class="headerlink" title="Mapper.xml(映射文件)必须满足规范"></a>Mapper.xml(映射文件)必须满足规范</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
@@ -469,95 +376,44 @@
     resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
     select * from user where id = #{id}
     &lt;/select&gt;
+
+    &lt;!-- 根据用户名查询用户 --&gt;
     &lt;select id=&quot;queryUserByUsername&quot; parameterType=&quot;string&quot;
     resultType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
     select * from user where username like &apos;%${value}%&apos;
     &lt;/select&gt;
-    &lt;insert id=&quot;saveUser&quot; parameterType=&quot;cn.itcast.mybatis.pojo.User&quot;&gt;
-    &lt;selectKey keyProperty=&quot;id&quot; keyColumn=&quot;id&quot; order=&quot;AFTER&quot;
-    resultType=&quot;int&quot;&gt;
-    select last_insert_id()
-    &lt;/selectKey&gt;
-    insert into user(username,birthday,sex,address) values
-    (#{username},#{birthday},#{sex},#{address});
-    &lt;/insert&gt;
     &lt;/mapper&gt;
 </code></pre><h4 id="UserMapper-接口文件"><a href="#UserMapper-接口文件" class="headerlink" title="UserMapper(接口文件)"></a>UserMapper(接口文件)</h4><pre><code>public interface UserMapper {
     User queryUserById(int id);
-
     List&lt;User&gt; queryUserByUsername(String username);
-
-    void saveUser(User user);
     }
-</code></pre><h4 id="加载UserMapper-xml文件"><a href="#加载UserMapper-xml文件" class="headerlink" title="加载UserMapper.xml文件"></a>加载UserMapper.xml文件</h4><pre><code>修改SqlMapConfig.xml文件，添加以下所示的内容：
-    &lt;!-- 加载映射文件 --&gt;
-    &lt;mappers&gt;
-    &lt;mapper resource=&quot;sqlmap/User.xml&quot; /&gt;
-    &lt;mapper resource=&quot;mapper/UserMapper.xml&quot; /&gt;
-    &lt;/mappers&gt;
-</code></pre><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code>public class UserMapperTest {
+</code></pre><h4 id="SqlMapConfig-xml文件-一样"><a href="#SqlMapConfig-xml文件-一样" class="headerlink" title="SqlMapConfig.xml文件(一样)"></a>SqlMapConfig.xml文件(一样)</h4><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code>public class UserMapperTest {
     private SqlSessionFactory sqlSessionFactory;
     @Before
     public void init() throws Exception {
-    // 创建SqlSessionFactoryBuilder
     SqlSessionFactoryBuilder sqlSessionFactoryBuilder = 
     new SqlSessionFactoryBuilder();
-    // 加载SqlMapConfig.xml配置文件
     InputStream inputStream = 
     Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
-    // 创建SqlsessionFactory
     this.sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
     }
     @Test
     public void testQueryUserById() {
-    // 获取sqlSession，和spring整合后由spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 从sqlSession中获取Mapper接口的代理对象
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    // 执行查询方法
     User user = userMapper.queryUserById(1);
     System.out.println(user);
-    // 和spring整合后由spring管理
     sqlSession.close();
     }
 
     @Test
     public void testQueryUserByUsername() {
-    // 获取sqlSession，和spring整合后由spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-
-    // 从sqlSession中获取Mapper接口的代理对象
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    // 执行查询方法
     List&lt;User&gt; list = userMapper.queryUserByUsername(&quot;张&quot;);
     for (User user : list) {
     System.out.println(user);
     }
-
-    // 和spring整合后由spring管理
-    sqlSession.close();
-    }
-
-    @Test
-    public void testSaveUser() {
-    // 获取sqlSession，和spring整合后由spring管理
-    SqlSession sqlSession = this.sqlSessionFactory.openSession();
-
-    // 从sqlSession中获取Mapper接口的代理对象
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    // 创建保存对象
-    User user = new User();
-    user.setUsername(&quot;刘备&quot;);
-    user.setBirthday(new Date());
-    user.setSex(&quot;1&quot;);
-    user.setAddress(&quot;蜀国&quot;);
-    // 执行查询方法
-    userMapper.saveUser(user);
-    System.out.println(user);
-
-
-    // 和spring整合后由spring管理
-    sqlSession.commit();
     sqlSession.close();
     }
     }
@@ -585,11 +441,7 @@
     jdbc.url=jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8
     jdbc.username=root
     jdbc.password=root
-    SqlMapConfig.xml引用如下：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE configuration
-    PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+
     &lt;configuration&gt;
     &lt;!-- 是用resource属性加载外部配置文件 --&gt;
     &lt;properties resource=&quot;db.properties&quot;&gt;
@@ -614,11 +466,6 @@
     &lt;/environment&gt;
     &lt;/environments&gt;
 
-    &lt;!-- 加载映射文件 --&gt;
-    &lt;mappers&gt;
-    &lt;mapper resource=&quot;sqlmap/User.xml&quot; /&gt;
-    &lt;mapper resource=&quot;mapper/UserMapper.xml&quot; /&gt;
-    &lt;/mappers&gt;
     &lt;/configuration&gt;
     注意： MyBatis 将按照下面的顺序来加载属性：
     在 properties 元素体内定义的属性首先被读取。 
@@ -629,108 +476,79 @@
 <tr>
 <th style="text-align:center">别名</th>
 <th style="text-align:center">映射的类型</th>
+<th style="text-align:center">别名</th>
+<th style="text-align:center">映射的类型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center">_byte</td>
 <td style="text-align:center">byte</td>
-</tr>
-<tr>
-<td style="text-align:center">_long</td>
-<td style="text-align:center">long</td>
-</tr>
-<tr>
-<td style="text-align:center">_short</td>
-<td style="text-align:center">short</td>
-</tr>
-<tr>
-<td style="text-align:center">_int</td>
-<td style="text-align:center">int</td>
-</tr>
-<tr>
-<td style="text-align:center">_integer</td>
-<td style="text-align:center">int</td>
-</tr>
-<tr>
-<td style="text-align:center">_double</td>
-<td style="text-align:center">double</td>
-</tr>
-<tr>
-<td style="text-align:center">_float</td>
-<td style="text-align:center">float</td>
-</tr>
-<tr>
-<td style="text-align:center">_boolean</td>
-<td style="text-align:center">boolean</td>
-</tr>
-<tr>
-<td style="text-align:center">string</td>
-<td style="text-align:center">String</td>
-</tr>
-<tr>
 <td style="text-align:center">byte</td>
 <td style="text-align:center">Byte</td>
 </tr>
 <tr>
+<td style="text-align:center">_long</td>
+<td style="text-align:center">long</td>
 <td style="text-align:center">long</td>
 <td style="text-align:center">Long</td>
 </tr>
 <tr>
+<td style="text-align:center">_short</td>
+<td style="text-align:center">short</td>
 <td style="text-align:center">short</td>
 <td style="text-align:center">Short</td>
 </tr>
 <tr>
+<td style="text-align:center">_int</td>
+<td style="text-align:center">int</td>
 <td style="text-align:center">int</td>
 <td style="text-align:center">Integer</td>
 </tr>
 <tr>
+<td style="text-align:center">_integer</td>
+<td style="text-align:center">int</td>
 <td style="text-align:center">integer</td>
 <td style="text-align:center">Integer</td>
 </tr>
 <tr>
+<td style="text-align:center">_double</td>
+<td style="text-align:center">double</td>
 <td style="text-align:center">double</td>
 <td style="text-align:center">Double</td>
 </tr>
 <tr>
+<td style="text-align:center">_float</td>
+<td style="text-align:center">float</td>
 <td style="text-align:center">float</td>
 <td style="text-align:center">Float</td>
 </tr>
 <tr>
+<td style="text-align:center">_boolean</td>
+<td style="text-align:center">boolean</td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center">Boolean</td>
 </tr>
 <tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">String</td>
 <td style="text-align:center">date</td>
 <td style="text-align:center">Date</td>
 </tr>
 <tr>
 <td style="text-align:center">decimal</td>
 <td style="text-align:center">BigDecimal</td>
-</tr>
-<tr>
 <td style="text-align:center">bigdecimal</td>
 <td style="text-align:center">BigDecimal</td>
 </tr>
 <tr>
 <td style="text-align:center">map</td>
 <td style="text-align:center">Map</td>
+<td style="text-align:center"></td>
 </tr>
 </tbody>
 </table>
 <h4 id="自定义别名："><a href="#自定义别名：" class="headerlink" title="自定义别名："></a>自定义别名：</h4><pre><code>在SqlMapConfig.xml中配置如下：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE configuration
-    PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
-    &lt;configuration&gt;
-    &lt;!-- 是用resource属性加载外部配置文件 --&gt;
-    &lt;properties resource=&quot;db.properties&quot;&gt;
-    &lt;!-- 在properties内部用property定义属性 --&gt;
-    &lt;property name=&quot;jdbc.username&quot; value=&quot;root123&quot; /&gt;
-    &lt;property name=&quot;jdbc.password&quot; value=&quot;root123&quot; /&gt;
-    &lt;/properties&gt;
-
     &lt;typeAliases&gt;
     &lt;!-- 单个别名定义 --&gt;
     &lt;typeAlias alias=&quot;user&quot; type=&quot;cn.itcast.mybatis.pojo.User&quot; /&gt;
@@ -739,28 +557,6 @@
     &lt;package name=&quot;其它包&quot; /&gt;
     &lt;/typeAliases&gt;
 
-    &lt;!-- 和spring整合后 environments配置将废除 --&gt;
-    &lt;environments default=&quot;development&quot;&gt;
-    &lt;environment id=&quot;development&quot;&gt;
-    &lt;!-- 使用jdbc事务管理 --&gt;
-    &lt;transactionManager type=&quot;JDBC&quot; /&gt;
-    &lt;!-- 数据库连接池 --&gt;
-    &lt;dataSource type=&quot;POOLED&quot;&gt;
-    &lt;property name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot; /&gt;
-    &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot; /&gt;
-    &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
-    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
-    &lt;/dataSource&gt;
-    &lt;/environment&gt;
-    &lt;/environments&gt;
-
-    &lt;!-- 加载映射文件 --&gt;
-    &lt;mappers&gt;
-    &lt;mapper resource=&quot;sqlmap/User.xml&quot; /&gt;
-    &lt;mapper resource=&quot;mapper/UserMapper.xml&quot; /&gt;
-    &lt;/mappers&gt;
-    &lt;/configuration&gt;
-
     在mapper.xml配置文件中，就可以使用设置的别名了
     别名大小写不敏感
     &lt;!-- 根据id查询用户 --&gt;
@@ -768,7 +564,7 @@
     SELECT * FROM `user`
     &lt;/select&gt;
 </code></pre><h3 id="mappers（映射器）加载Mapper-xml配置文件"><a href="#mappers（映射器）加载Mapper-xml配置文件" class="headerlink" title="mappers（映射器）加载Mapper.xml配置文件"></a>mappers（映射器）加载Mapper.xml配置文件</h3><p>Mapper配置的几种方法：</p>
-<h4 id="使用相对于类路径的资源（现在的使用方式）"><a href="#使用相对于类路径的资源（现在的使用方式）" class="headerlink" title="使用相对于类路径的资源（现在的使用方式）"></a>使用相对于类路径的资源（现在的使用方式）</h4><pre><code>&lt;mapper resource=&quot;sqlmap/User.xml&quot; /&gt;
+<h4 id="①使用相对于类路径的资源（现在的使用方式）"><a href="#①使用相对于类路径的资源（现在的使用方式）" class="headerlink" title="①使用相对于类路径的资源（现在的使用方式）"></a>①使用相对于类路径的资源（现在的使用方式）</h4><pre><code>&lt;mapper resource=&quot;sqlmap/User.xml&quot; /&gt;
 </code></pre><h4 id="②使用mapper接口类路径"><a href="#②使用mapper接口类路径" class="headerlink" title="②使用mapper接口类路径"></a>②使用mapper接口类路径</h4><pre><code>&lt;mapper class=&quot;cn.mybatis.mapper.UserMapper&quot;/&gt;
     要求mapper接口名称和mapper映射文件名称相同，且在同一个目录中
 </code></pre><h4 id="③注册指定包下的所有mapper接口"><a href="#③注册指定包下的所有mapper接口" class="headerlink" title="③注册指定包下的所有mapper接口"></a>③注册指定包下的所有mapper接口</h4><pre><code>&lt;package name=&quot;cn.itcast.mybatis.mapper&quot;/&gt;
@@ -777,84 +573,59 @@
     原始dao第一种有用
 </code></pre><h3 id="输入映射和输出映射"><a href="#输入映射和输出映射" class="headerlink" title="输入映射和输出映射"></a>输入映射和输出映射</h3><pre><code>Mapper.xml映射文件中定义了操作数据库的sql，每个sql是一个statement，
     映射文件是mybatis的核心。
-</code></pre><h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><h5 id="parameterType-输入类型"><a href="#parameterType-输入类型" class="headerlink" title="parameterType(输入类型)"></a>parameterType(输入类型)</h5><h5 id="传递简单类型"><a href="#传递简单类型" class="headerlink" title="传递简单类型"></a>传递简单类型</h5><pre><code>使用#{}占位符，或者${}进行sql拼接。
-</code></pre><h5 id="传递pojo对象"><a href="#传递pojo对象" class="headerlink" title="传递pojo对象"></a>传递pojo对象</h5><pre><code>使用ognl表达式解析对象字段的值，#{}或者${}括号中的值为pojo属性名称。
-</code></pre><h5 id="传递pojo包装对象"><a href="#传递pojo包装对象" class="headerlink" title="传递pojo包装对象"></a>传递pojo包装对象</h5><pre><code>开发中通过可以使用pojo传递查询条件。
+</code></pre><h3 id="parameterType-输入类型"><a href="#parameterType-输入类型" class="headerlink" title="parameterType(输入类型)"></a>parameterType(输入类型)</h3><h4 id="传递简单类型"><a href="#传递简单类型" class="headerlink" title="传递简单类型"></a>传递简单类型</h4><pre><code>使用#{}占位符，或者${}进行sql拼接。
+</code></pre><h4 id="传递pojo对象"><a href="#传递pojo对象" class="headerlink" title="传递pojo对象"></a>传递pojo对象</h4><pre><code>使用ognl表达式解析对象字段的值，#{}或者${}括号中的值为pojo属性名称。
+</code></pre><h4 id="传递pojo包装对象"><a href="#传递pojo包装对象" class="headerlink" title="传递pojo包装对象"></a>传递pojo包装对象</h4><pre><code>开发中通过可以使用pojo传递查询条件。
     查询条件可能是综合的查询条件，
     不仅包括用户查询条件还包括其它的查询条件
     （比如查询用户信息的时候，将用户购买商品信息也作为查询条件），
     这时可以使用包装对象传递输入参数。
     包装对象：Pojo类中的一个属性是另外一个pojo。
     需求：根据用户名模糊查询用户信息，查询条件放到QueryVo的user属性中。
-</code></pre><h6 id="编写QueryVo"><a href="#编写QueryVo" class="headerlink" title="编写QueryVo"></a>编写QueryVo</h6><pre><code>public class QueryVo {
-    // 包含其他的pojo
-    private User user;
-
-    public User getUser() {
-    return user;
+</code></pre><h4 id="编写QueryVo"><a href="#编写QueryVo" class="headerlink" title="编写QueryVo"></a>编写QueryVo</h4><pre><code>public class QueryVo {
+    private User user;//get/set。。。
     }
-    public void setUser(User user) {
-    this.user = user;
-    }
-    }
-</code></pre><h6 id="Mapper-xml文件"><a href="#Mapper-xml文件" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h6><pre><code>在UserMapper.xml中配置sql
-    &lt;/select&gt;
+</code></pre><h4 id="Mapper-xml文件"><a href="#Mapper-xml文件" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h4><pre><code>&lt;/select&gt;
     &lt;select id=&quot;queryUserByQueryVo&quot; parameterType=&quot;queryVo&quot;
     resultType=&quot;user&quot;&gt;
     select * from user where username like &apos;%${user.username}%&apos;
     &lt;/select&gt;
-</code></pre><h6 id="Mapper接口"><a href="#Mapper接口" class="headerlink" title="Mapper接口"></a>Mapper接口</h6><pre><code>在UserMapper接口中添加方法，如下图：
-    List&lt;User&gt; queryUserByQueryVo(QueryVo queryVo);
-</code></pre><h6 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h6><pre><code>在UserMapeprTest增加测试方法，如下：
-    @Test
+</code></pre><h4 id="Mapper接口"><a href="#Mapper接口" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;User&gt; queryUserByQueryVo(QueryVo queryVo);
+</code></pre><h4 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
     public void testQueryUserByQueryVo() {
-    // mybatis和spring整合，整合之后，交给spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    // 使用userMapper执行查询，使用包装对象
     QueryVo queryVo = new QueryVo();
-    // 设置user条件
     User user = new User();
     user.setUsername(&quot;张&quot;);
-    // 设置到包装对象中
     queryVo.setUser(user);
 
-    // 执行查询
     List&lt;User&gt; list = userMapper.queryUserByQueryVo(queryVo);
     for (User u : list) {
     System.out.println(u);
     }
 
-    // mybatis和spring整合，整合之后，交给spring管理
     sqlSession.close();
     }
-</code></pre><h3 id="resultType-输出类型"><a href="#resultType-输出类型" class="headerlink" title="resultType(输出类型)"></a>resultType(输出类型)</h3><h4 id="输出简单类型"><a href="#输出简单类型" class="headerlink" title="输出简单类型"></a>输出简单类型</h4><pre><code>在UserMapper.xml中配置sql，如下图：
-    &lt;/select&gt;
+</code></pre><h3 id="resultType-输出类型"><a href="#resultType-输出类型" class="headerlink" title="resultType(输出类型)"></a>resultType(输出类型)</h3><h4 id="输出简单类型"><a href="#输出简单类型" class="headerlink" title="输出简单类型"></a>输出简单类型</h4><h4 id="在UserMapper-xml"><a href="#在UserMapper-xml" class="headerlink" title="在UserMapper.xml"></a>在UserMapper.xml</h4><pre><code>&lt;/select&gt;
     &lt;select id=&quot;queryUserCount&quot; resultType=&quot;int&quot;&gt;
     SELECT count(*) FROM `user`
     &lt;/select&gt;
-</code></pre><h5 id="Mapper接口-1"><a href="#Mapper接口-1" class="headerlink" title="Mapper接口"></a>Mapper接口</h5><pre><code>在UserMapper添加方法，如下图：
-    int queryUserCount();
-</code></pre><h5 id="测试方法-1"><a href="#测试方法-1" class="headerlink" title="测试方法"></a>测试方法</h5><pre><code>在UserMapeprTest增加测试方法，如下：
-    @Test
+</code></pre><h5 id="Mapper接口-1"><a href="#Mapper接口-1" class="headerlink" title="Mapper接口"></a>Mapper接口</h5><pre><code>int queryUserCount();
+</code></pre><h5 id="测试方法-1"><a href="#测试方法-1" class="headerlink" title="测试方法"></a>测试方法</h5><pre><code>@Test
     public void testQueryUserCount() {
-    // mybatis和spring整合，整合之后，交给spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    // 使用userMapper执行查询用户数据条数
     int count = userMapper.queryUserCount();
     System.out.println(count);
 
-    // mybatis和spring整合，整合之后，交给spring管理
     sqlSession.close();
     }
     注意：输出简单类型必须查询出来的结果集有一条记录，
     最终将第一个字段的值转换为输出类型。
-</code></pre><h4 id="输出pojo对象"><a href="#输出pojo对象" class="headerlink" title="输出pojo对象"></a>输出pojo对象</h4><h4 id="输出pojo列表"><a href="#输出pojo列表" class="headerlink" title="输出pojo列表"></a>输出pojo列表</h4><h3 id="resultMap"><a href="#resultMap" class="headerlink" title="resultMap"></a>resultMap</h3><pre><code>resultType可以指定将查询结果映射为pojo，
+</code></pre><h4 id="输出pojo对象"><a href="#输出pojo对象" class="headerlink" title="输出pojo对象"></a>输出pojo对象</h4><h4 id="输出pojo列表"><a href="#输出pojo列表" class="headerlink" title="输出pojo列表"></a>输出pojo列表</h4><h3 id="resultMap-将属性名不一致的对应起来"><a href="#resultMap-将属性名不一致的对应起来" class="headerlink" title="resultMap(将属性名不一致的对应起来)"></a>resultMap(将属性名不一致的对应起来)</h3><pre><code>resultType可以指定将查询结果映射为pojo，
     但需要pojo的属性名和sql查询的列名一致方可映射成功。
     如果sql查询字段名和pojo的属性名不一致，
     可以通过resultMap将字段名和属性名作一个对应关系 
@@ -864,76 +635,16 @@
 </code></pre><h4 id="声明pojo对象"><a href="#声明pojo对象" class="headerlink" title="声明pojo对象"></a>声明pojo对象</h4><pre><code>数据库表
     Order对象：
     public class Order {
-    // 订单id
     private int id;
-    // 用户id
     private Integer userId;
-    // 订单号
     private String number;
-    // 订单创建时间
-    private Date createtime;
-    // 备注
-    private String note;
     get/set。。。
     }
-</code></pre><h4 id="Mapper-xml文件-1"><a href="#Mapper-xml文件-1" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h4><pre><code>创建OrderMapper.xml配置文件，如下：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+</code></pre><h4 id="Mapper-xml文件-1"><a href="#Mapper-xml文件-1" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-    &lt;!-- namespace：命名空间，用于隔离sql，
-    还有一个很重要的作用，Mapper动态代理开发的时候使用，
-    需要指定Mapper的类路径 --&gt;
-    &lt;mapper namespace=&quot;cn.itcast.mybatis.mapper.OrderMapper&quot;&gt;
-    &lt;!-- 查询所有的订单数据 --&gt;
-    &lt;select id=&quot;queryOrderAll&quot; resultType=&quot;order&quot;&gt;
-    SELECT id, user_id,
-    number,
-    createtime, note FROM `order`
-    &lt;/select&gt;
-    &lt;/mapper&gt;
-</code></pre><h4 id="Mapper接口-2"><a href="#Mapper接口-2" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>编写接口如下：
-    public interface OrderMapper {
-    List&lt;Order&gt; queryOrderAll();
-    }
-</code></pre><h4 id="测试方法-2"><a href="#测试方法-2" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>编写测试方法OrderMapperTest如下：
-    public class OrderMapperTest {
-    private SqlSessionFactory sqlSessionFactory;
 
-    @Before
-    public void init() throws Exception {
-    InputStream inputStream = 
-    Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
-    this.sqlSessionFactory = 
-    new SqlSessionFactoryBuilder().build(inputStream);
-    }
-
-    @Test
-    public void testQueryAll() {
-    // 获取sqlSession
-    SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 获取OrderMapper
-    OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-
-    // 执行查询
-    List&lt;Order&gt; list = orderMapper.queryOrderAll();
-    for (Order order : list) {
-    System.out.println(order);
-    }
-    }
-    }
-    发现userId为null
-    解决方案：使用resultMap
-</code></pre><h4 id="使用resultMap"><a href="#使用resultMap" class="headerlink" title="使用resultMap"></a>使用resultMap</h4><pre><code>由于上边的mapper.xml中sql查询列(user_id)和Order类属性(userId)不一致，
-    所以查询结果不能映射到pojo中。
-    需要定义resultMap，
-    把orderResultMap将sql查询列(user_id)和Order类属性(userId)对应起来
-</code></pre><h4 id="改造OrderMapper-xml，如下："><a href="#改造OrderMapper-xml，如下：" class="headerlink" title="改造OrderMapper.xml，如下："></a>改造OrderMapper.xml，如下：</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE mapper
-    PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-    &lt;!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，
-    Mapper动态代理开发的时候使用，需要指定Mapper的类路径 --&gt;
     &lt;mapper namespace=&quot;cn.itcast.mybatis.mapper.OrderMapper&quot;&gt;
     &lt;!-- resultMap最终还是要将结果映射到pojo上，
     type就是指定映射到哪一个pojo --&gt;
@@ -951,49 +662,25 @@
     &lt;result property=&quot;note&quot; column=&quot;note&quot; /&gt;
     &lt;/resultMap&gt;
 
-    &lt;!-- 查询所有的订单数据 --&gt;
     &lt;select id=&quot;queryOrderAll&quot; resultMap=&quot;orderResultMap&quot;&gt;
     SELECT id, user_id,
     number,
     createtime, note FROM `order`
     &lt;/select&gt;
     &lt;/mapper&gt;
-</code></pre><h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><pre><code>通过mybatis提供的各种标签方法实现动态拼接sql。
-</code></pre><h4 id="If标签"><a href="#If标签" class="headerlink" title="If标签"></a>If标签</h4><h5 id="Mapper-xml文件-2"><a href="#Mapper-xml文件-2" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h5><pre><code>UserMapper.xml配置sql，如下：
-    &lt;!-- 根据条件查询用户 --&gt;
-    &lt;select id=&quot;queryUserByWhere&quot; parameterType=&quot;user&quot; resultType=&quot;user&quot;&gt;
-    SELECT id, username, birthday, sex, address FROM `user`
-    WHERE sex = #{sex} AND username LIKE
-    &apos;%${username}%&apos;
-    &lt;/select&gt;
-</code></pre><h4 id="Mapper接口-3"><a href="#Mapper接口-3" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;User&gt; queryUserByWhere(User user);
-</code></pre><h4 id="测试方法-3"><a href="#测试方法-3" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>在UserMapperTest添加测试方法，如下：
-    @Test
-    public void testQueryUserByWhere() {
-    // mybatis和spring整合，整合之后，交给spring管理
+</code></pre><h4 id="Mapper接口-2"><a href="#Mapper接口-2" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;Order&gt; queryOrderAll();
+</code></pre><h4 id="测试方法-2"><a href="#测试方法-2" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
+    public void testQueryAll() {
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+    OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 
-    // 使用userMapper执行根据条件查询用户
-    User user = new User();
-    user.setSex(&quot;1&quot;);
-    user.setUsername(&quot;张&quot;);
-
-    List&lt;User&gt; list = userMapper.queryUserByWhere(user);
-
-    for (User u : list) {
-    System.out.println(u);
+    List&lt;Order&gt; list = orderMapper.queryOrderAll();
+    for (Order order : list) {
+    System.out.println(order);
     }
-
-    // mybatis和spring整合，整合之后，交给spring管理
-    sqlSession.close();
     }
-</code></pre><p>如果注释掉    user.setSex(“1”)，<br>测试结果二很显然不合理。<br>按照之前所学的，要解决这个问题，需要编写多个sql，查询条件越多，需要编写的sql就更多了，显然这样是不靠谱的。</p>
-<p>解决方案，使用动态sql的if标签</p>
-<h4 id="使用if标签"><a href="#使用if标签" class="headerlink" title="使用if标签"></a>使用if标签</h4><pre><code>改造UserMapper.xml，如下：
-    &lt;!-- 根据条件查询用户 --&gt;
-    &lt;select id=&quot;queryUserByWhere&quot; parameterType=&quot;user&quot; resultType=&quot;user&quot;&gt;
+</code></pre><h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><pre><code>通过mybatis提供的各种标签方法实现动态拼接sql。
+</code></pre><h4 id="If标签"><a href="#If标签" class="headerlink" title="If标签"></a>If标签</h4><pre><code>&lt;select id=&quot;queryUserByWhere&quot; parameterType=&quot;user&quot; resultType=&quot;user&quot;&gt;
     SELECT id, username, birthday, sex, address FROM `user`
     WHERE 1=1
     &lt;if test=&quot;sex != null and sex != &apos;&apos;&quot;&gt;
@@ -1005,10 +692,27 @@
     &lt;/if&gt;
     &lt;/select&gt;
     注意字符串类型的数据需要要做不等于空字符串校验。
+</code></pre><h4 id="Mapper接口-3"><a href="#Mapper接口-3" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;User&gt; queryUserByWhere(User user);
+</code></pre><h4 id="测试方法-3"><a href="#测试方法-3" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
+    public void testQueryUserByWhere() {
+    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+    User user = new User();
+    user.setSex(&quot;1&quot;);
+    user.setUsername(&quot;张&quot;);
+
+    List&lt;User&gt; list = userMapper.queryUserByWhere(user);
+
+    for (User u : list) {
+    System.out.println(u);
+    }
+
+    sqlSession.close();
+    }
 </code></pre><h3 id="Where标签"><a href="#Where标签" class="headerlink" title="Where标签"></a>Where标签</h3><pre><code>上面的sql还有where 1=1 这样的语句，很麻烦
     可以使用where标签进行改造,只能处理前面的and，不能处理后置and
     改造UserMapper.xml，如下
-    &lt;!-- 根据条件查询用户 --&gt;
     &lt;select id=&quot;queryUserByWhere&quot; parameterType=&quot;user&quot; resultType=&quot;user&quot;&gt;
     SELECT id, username, birthday, sex, address FROM `user`
     &lt;!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 --&gt;
@@ -1025,7 +729,6 @@
 </code></pre><h4 id="Sql片段"><a href="#Sql片段" class="headerlink" title="Sql片段"></a>Sql片段</h4><pre><code>Sql中可将重复的sql提取出来，使用时用include引用即可，达到sql重用的目的
     把上面例子中的id, username, birthday, sex, address提取出来，
     作为sql片段，
-    &lt;!-- 根据条件查询用户 --&gt;
     &lt;select id=&quot;queryUserByWhere&quot; parameterType=&quot;user&quot; resultType=&quot;user&quot;&gt;
     &lt;!-- SELECT id, username, birthday, sex, address FROM `user` --&gt;
     &lt;!-- 使用include标签加载sql片段；refid是sql片段id --&gt;
@@ -1057,9 +760,7 @@
     Integer[]→ collection=&quot;array&quot;、
     List&lt;Integer&gt;→ collection=&quot;list&quot;
     如果以上两个东西放进类中被包装了，那么用属性名表示
-</code></pre><h4 id="Mapper-xml文件-3"><a href="#Mapper-xml文件-3" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h4><pre><code>UserMapper.xml添加sql，如下：
-    &lt;!-- 根据ids查询用户 --&gt;
-    &lt;select id=&quot;queryUserByIds&quot; parameterType=&quot;queryVo&quot; resultType=&quot;user&quot;&gt;
+</code></pre><h4 id="Mapper-xml文件-2"><a href="#Mapper-xml文件-2" class="headerlink" title="Mapper.xml文件"></a>Mapper.xml文件</h4><pre><code>&lt;select id=&quot;queryUserByIds&quot; parameterType=&quot;queryVo&quot; resultType=&quot;user&quot;&gt;
     SELECT * FROM `user`
     &lt;where&gt;
     &lt;!-- foreach标签，进行遍历 --&gt;
@@ -1074,14 +775,11 @@
     &lt;/foreach&gt;
     &lt;/where&gt;
     &lt;/select&gt;
-</code></pre><h4 id="测试方法如下图："><a href="#测试方法如下图：" class="headerlink" title="测试方法如下图："></a>测试方法如下图：</h4><pre><code>@Test
+</code></pre><h4 id="测试方法-4"><a href="#测试方法-4" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
     public void testQueryUserByIds() {
-    // mybatis和spring整合，整合之后，交给spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    // 使用userMapper执行根据条件查询用户
     QueryVo queryVo = new QueryVo();
     List&lt;Integer&gt; ids = new ArrayList&lt;&gt;();
     ids.add(1);
@@ -1095,23 +793,17 @@
     System.out.println(u);
     }
 
-    // mybatis和spring整合，整合之后，交给spring管理
     sqlSession.close();
     }
-</code></pre><h2 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h2><h3 id="商品订单数据模型"><a href="#商品订单数据模型" class="headerlink" title="商品订单数据模型"></a>商品订单数据模型</h3><pre><code>注意：因为一个订单信息只会是一个人下的订单，
-    所以从查询订单信息出发关联查询用户信息为一对一查询。
-    如果从用户信息出发查询用户下的订单信息则为一对多查询，
-    因为一个用户可以下多个订单。
-</code></pre><h4 id="方法一：使用resultType"><a href="#方法一：使用resultType" class="headerlink" title="方法一：使用resultType"></a>方法一：使用resultType</h4><pre><code>使用resultType，改造订单pojo类，此pojo类中包括了订单信息和用户信息
-这样返回对象的时候，mybatis自动把用户信息也注入进来了
+</code></pre><h2 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h2><h3 id="一对一查询"><a href="#一对一查询" class="headerlink" title="一对一查询"></a>一对一查询</h3><h4 id="方法一：使用resultType"><a href="#方法一：使用resultType" class="headerlink" title="方法一：使用resultType"></a>方法一：使用resultType</h4><pre><code>使用resultType，改造订单pojo类，此pojo类中包括了订单信息和用户信息
+    这样返回对象的时候，mybatis自动把用户信息也注入进来了
 </code></pre><h4 id="改造pojo类"><a href="#改造pojo类" class="headerlink" title="改造pojo类"></a>改造pojo类</h4><pre><code>OrderUser类继承Order类后OrderUser类包括了Order类的所有字段，
-只需要定义用户的信息字段即可
-publlic class OrderUser extends Order{
-    private String username;
-    private String address;
-}
-</code></pre><h4 id="Mapper-xml"><a href="#Mapper-xml" class="headerlink" title="Mapper.xml"></a>Mapper.xml</h4><pre><code>在UserMapper.xml添加sql，如下
-    &lt;!-- 查询订单，同时包含用户数据 --&gt;
+    只需要定义用户的信息字段即可
+    publlic class OrderUser extends Order{
+        private String username;
+        private String address;
+    }
+</code></pre><h4 id="Mapper-xml"><a href="#Mapper-xml" class="headerlink" title="Mapper.xml"></a>Mapper.xml</h4><pre><code>&lt;!-- 查询订单，同时包含用户数据 --&gt;
     &lt;select id=&quot;queryOrderUser&quot; resultType=&quot;orderUser&quot;&gt;
     SELECT
     o.id,
@@ -1126,24 +818,18 @@ publlic class OrderUser extends Order{
     `order` o
     LEFT JOIN `user` u ON o.user_id = u.id
     &lt;/select&gt;
-</code></pre><h4 id="Mapper接口-4"><a href="#Mapper接口-4" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>在UserMapper接口添加方法，如下图：
-List&lt;OrderUser&gt; queryOrderUser();
-</code></pre><h5 id="测试方法："><a href="#测试方法：" class="headerlink" title="测试方法："></a>测试方法：</h5><pre><code>在UserMapperTest添加测试方法，如下：
-    @Test
+</code></pre><h4 id="Mapper接口-4"><a href="#Mapper接口-4" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;OrderUser&gt; queryOrderUser();
+</code></pre><h5 id="测试方法："><a href="#测试方法：" class="headerlink" title="测试方法："></a>测试方法：</h5><pre><code>@Test
     public void testQueryOrderUser() {
-    // mybatis和spring整合，整合之后，交给spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    // 使用userMapper执行根据条件查询用户
     List&lt;OrderUser&gt; list = userMapper.queryOrderUser();
 
     for (OrderUser ou : list) {
     System.out.println(ou);
     }
 
-    // mybatis和spring整合，整合之后，交给spring管理
     sqlSession.close();
     }
 </code></pre><h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><pre><code>定义专门的pojo类作为输出类型，其中定义了sql查询结果集所有的字段。
@@ -1152,10 +838,8 @@ List&lt;OrderUser&gt; queryOrderUser();
 </code></pre><h5 id="改造pojo类-1"><a href="#改造pojo类-1" class="headerlink" title="改造pojo类"></a>改造pojo类</h5><pre><code>在Order类中加入User属性，user属性中用于存储关联查询的用户信息，
     因为订单关联查询用户是一对一关系，
     所以这里使用单个User对象存储关联查询的用户信息。
-    改造Order如下图：
-    private User user;
-</code></pre><h5 id="Mapper-xml-全部映射才有结果，否则null，不关联的话可以省略"><a href="#Mapper-xml-全部映射才有结果，否则null，不关联的话可以省略" class="headerlink" title="Mapper.xml,全部映射才有结果，否则null，不关联的话可以省略"></a>Mapper.xml,全部映射才有结果，否则null，不关联的话可以省略</h5><pre><code>这里resultMap指定orderUserResultMap，如下：
-    &lt;resultMap type=&quot;order&quot; id=&quot;orderUserResultMap&quot;&gt;
+    在Order中添加private User user;并set/get
+</code></pre><h5 id="Mapper-xml-全部映射才有结果，否则null，不关联的话可以省略"><a href="#Mapper-xml-全部映射才有结果，否则null，不关联的话可以省略" class="headerlink" title="Mapper.xml,全部映射才有结果，否则null，不关联的话可以省略"></a>Mapper.xml,全部映射才有结果，否则null，不关联的话可以省略</h5><pre><code>&lt;resultMap type=&quot;order&quot; id=&quot;orderUserResultMap&quot;&gt;
     &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;
     &lt;result property=&quot;userId&quot; column=&quot;user_id&quot; /&gt;
     &lt;result property=&quot;number&quot; column=&quot;number&quot; /&gt;
@@ -1188,29 +872,23 @@ List&lt;OrderUser&gt; queryOrderUser();
     `order` o
     LEFT JOIN `user` u ON o.user_id = u.id
     &lt;/select&gt;
-</code></pre><h4 id="Mapper接口-5"><a href="#Mapper接口-5" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>编写UserMapper如下图：
-List&lt;Order&gt; queryOrderUserResultMap();
-</code></pre><h4 id="测试方法-4"><a href="#测试方法-4" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>在UserMapperTest增加测试方法，如下：
-    @Test
+</code></pre><h4 id="Mapper接口-5"><a href="#Mapper接口-5" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;Order&gt; queryOrderUserResultMap();
+</code></pre><h4 id="测试方法-5"><a href="#测试方法-5" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
     public void testQueryOrderUserResultMap() {
-    // mybatis和spring整合，整合之后，交给spring管理
     SqlSession sqlSession = this.sqlSessionFactory.openSession();
-    // 创建Mapper接口的动态代理对象，整合之后，交给spring管理
     UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    // 使用userMapper执行根据条件查询用户
     List&lt;Order&gt; list = userMapper.queryOrderUserResultMap();
 
     for (Order o : list) {
     System.out.println(o);
     }
 
-    // mybatis和spring整合，整合之后，交给spring管理
     sqlSession.close();
     }
 </code></pre><h3 id="一对多查询"><a href="#一对多查询" class="headerlink" title="一对多查询"></a>一对多查询</h3><pre><code>案例：查询所有用户信息及用户关联的订单信息。
-用户信息和订单信息为一对多关系。
-</code></pre><h4 id="修改pojo类"><a href="#修改pojo类" class="headerlink" title="修改pojo类"></a>修改pojo类</h4><pre><code>在User类中加入List&lt;Order&gt; orders属性
+    用户信息和订单信息为一对多关系。
+</code></pre><h4 id="修改pojo类"><a href="#修改pojo类" class="headerlink" title="修改pojo类"></a>修改pojo类</h4><pre><code>在User类中加入List&lt;Order&gt; orders属性并生成set/get方法
 </code></pre><h4 id="Mapper-xml-1"><a href="#Mapper-xml-1" class="headerlink" title="Mapper.xml"></a>Mapper.xml</h4><pre><code>在UserMapper.xml添加sql，如下：
     &lt;resultMap type=&quot;user&quot; id=&quot;userOrderResultMap&quot;&gt;
     &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;
@@ -1245,30 +923,25 @@ List&lt;Order&gt; queryOrderUserResultMap();
     `user` u
     LEFT JOIN `order` o ON u.id = o.user_id
     &lt;/select&gt;
-</code></pre><h4 id="Mapper接口-6"><a href="#Mapper接口-6" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>编写UserMapper接口，如下图：
-    List&lt;User&gt; queryUserOrder();
-</code></pre><h4 id="测试方法-5"><a href="#测试方法-5" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>在UserMapperTest增加测试方法，如下
-@Test
-public void testQueryUserOrder() {
-// mybatis和spring整合，整合之后，交给spring管理
-SqlSession sqlSession = this.sqlSessionFactory.openSession();
-// 创建Mapper接口的动态代理对象，整合之后，交给spring管理
-UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+</code></pre><h4 id="Mapper接口-6"><a href="#Mapper接口-6" class="headerlink" title="Mapper接口"></a>Mapper接口</h4><pre><code>List&lt;User&gt; queryUserOrder();
+</code></pre><h4 id="测试方法-6"><a href="#测试方法-6" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>@Test
+    public void testQueryUserOrder() {
+    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-// 使用userMapper执行根据条件查询用户
-List&lt;User&gt; list = userMapper.queryUserOrder();
+    List&lt;User&gt; list = userMapper.queryUserOrder();
 
-for (User u : list) {
-System.out.println(u);
-}
+    for (User u : list) {
+    System.out.println(u);
+    }
 
-// mybatis和spring整合，整合之后，交给spring管理
-sqlSession.close();
-}
-</code></pre><h2 id="Mybatis整合spring"><a href="#Mybatis整合spring" class="headerlink" title="Mybatis整合spring"></a>Mybatis整合spring</h2><h3 id="整合思路"><a href="#整合思路" class="headerlink" title="整合思路"></a>整合思路</h3><pre><code>1、SqlSessionFactory对象应该放到spring容器中作为单例存在。
-2、传统dao的开发方式中，应该从spring容器中获得sqlsession对象。自己获得mapper对象
-3、Mapper代理形式中，应该从spring容器中直接获得mapper的代理对象。
-4、数据库的连接以及数据库连接池事务管理都交给spring容器来完成。
+    sqlSession.close();
+    }
+</code></pre><h2 id="Mybatis整合spring"><a href="#Mybatis整合spring" class="headerlink" title="Mybatis整合spring"></a>Mybatis整合spring</h2><h3 id="整合思路"><a href="#整合思路" class="headerlink" title="整合思路"></a>整合思路</h3><pre><code>SqlSessionFactory对象应该放到spring容器中作为单例存在。
+    传统dao的开发方式中，应该从spring容器中获得sqlsession对象。
+    自己获得mapper对象
+    Mapper代理形式中，应该从spring容器中直接获得mapper的代理对象。
+    数据库的连接以及数据库连接池事务管理都交给spring容器来完成。
 </code></pre><h3 id="整合需要的jar包"><a href="#整合需要的jar包" class="headerlink" title="整合需要的jar包"></a>整合需要的jar包</h3><pre><code>spring-core-4.1.3.RELEASE.jar
     spring-expression-4.1.3.RELEASE.jar
     spring-jdbc-4.1.3.RELEASE.jar
@@ -1300,13 +973,7 @@ sqlSession.close();
     spring-beans-4.1.3.RELEASE.jar
     spring-context-4.1.3.RELEASE.jar
     spring-context-support-4.1.3.RELEASE.jar
-</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><h3 id="加入配置文件"><a href="#加入配置文件" class="headerlink" title="加入配置文件"></a>加入配置文件</h3><h4 id="sqlmapConfig-xml"><a href="#sqlmapConfig-xml" class="headerlink" title="sqlmapConfig.xml"></a>sqlmapConfig.xml</h4><pre><code>a)数据库连接及连接池
-    b)事务管理（暂时可以不配置）
-    c)sqlsessionFactory对象，配置到spring容器中
-    d)mapper代理对象或者是dao实现类配置到spring容器中
-    10.3.3.1.SqlMapConfig.xml
-    配置文件是SqlMapConfig.xml，如下：
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><h3 id="sqlmapConfig-xml"><a href="#sqlmapConfig-xml" class="headerlink" title="sqlmapConfig.xml"></a>sqlmapConfig.xml</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE configuration
     PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
@@ -1319,10 +986,9 @@ sqlSession.close();
     &lt;/typeAliases&gt;
 
     &lt;/configuration&gt;
-</code></pre><h4 id="applicationContext-xml"><a href="#applicationContext-xml" class="headerlink" title="applicationContext.xml"></a>applicationContext.xml</h4><pre><code>SqlSessionFactoryBean属于mybatis-spring这个jar包
+</code></pre><h3 id="applicationContext-xml"><a href="#applicationContext-xml" class="headerlink" title="applicationContext.xml"></a>applicationContext.xml</h3><pre><code>SqlSessionFactoryBean属于mybatis-spring这个jar包
     对于spring来说，mybatis是另外一个架构，需要整合jar包。
     整合Mybatis需要的是SqlSessionFactoryBean，位置如下图：
-    applicationContext.xml，配置内容如下
     &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
     &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
     xmlns:context=&quot;http://www.springframework.org/schema/context&quot; 
@@ -1350,49 +1016,38 @@ sqlSession.close();
     &lt;property name=&quot;maxActive&quot; value=&quot;10&quot; /&gt;
     &lt;property name=&quot;maxIdle&quot; value=&quot;5&quot; /&gt;
     &lt;/bean&gt;
+    &lt;!-- 配置SqlSessionFactory --&gt;
     &lt;bean id=&quot;sqlSessionFactory&quot; 
     class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+    &lt;!-- 配置mybatis核心配置文件 --&gt;
     &lt;property name=&quot;configLocation&quot; value=&quot;classpath:SqlMapConfig.xml&quot; /&gt;
+    &lt;!-- 配置数据源 --&gt;
     &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
     &lt;/bean&gt;
     &lt;/beans&gt;
-</code></pre><h4 id="db-properties"><a href="#db-properties" class="headerlink" title="db.properties"></a>db.properties</h4><h4 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h4><h5 id="Dao的开发"><a href="#Dao的开发" class="headerlink" title="Dao的开发"></a>Dao的开发</h5><pre><code>两种dao的实现方式：
-    1、原始dao的开发方式
-    2、使用Mapper代理形式开发方式
-    a)直接配置Mapper代理
-    b)使用扫描包配置Mapper代理
-    需求：
-    1.实现根据用户id查询
-    2.实现根据用户名模糊查询
-    3.添加用户
-</code></pre><h5 id="创建pojo"><a href="#创建pojo" class="headerlink" title="创建pojo"></a>创建pojo</h5><pre><code>public class User {
+</code></pre><h3 id="db-properties"><a href="#db-properties" class="headerlink" title="db.properties"></a>db.properties</h3><h3 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h3><h3 id="Dao的开发"><a href="#Dao的开发" class="headerlink" title="Dao的开发"></a>Dao的开发</h3><pre><code>原始dao的开发方式
+    使用Mapper代理形式开发方式
+</code></pre><h4 id="创建pojo"><a href="#创建pojo" class="headerlink" title="创建pojo"></a>创建pojo</h4><pre><code>public class User {
     private int id;
-    private String username;// 用户姓名
-    private String sex;// 性别
-    private Date birthday;// 生日
-    private String address;// 地址
     get/set。。。
     }
-</code></pre><h5 id="传统dao的开发方式（没用代理、用selectOne）"><a href="#传统dao的开发方式（没用代理、用selectOne）" class="headerlink" title="传统dao的开发方式（没用代理、用selectOne）"></a>传统dao的开发方式（没用代理、用selectOne）</h5><pre><code>原始的DAO开发接口+实现类来完成。
+</code></pre><h4 id="传统dao的开发方式（没用代理、用selectOne）"><a href="#传统dao的开发方式（没用代理、用selectOne）" class="headerlink" title="传统dao的开发方式（没用代理、用selectOne）"></a>传统dao的开发方式（没用代理、用selectOne）</h4><pre><code>原始的DAO开发接口+实现类来完成。
     需要dao实现类需要继承SqlsessionDaoSupport类
-</code></pre><h5 id="实现Mapper-xml"><a href="#实现Mapper-xml" class="headerlink" title="实现Mapper.xml"></a>实现Mapper.xml</h5><pre><code>编写User.xml配置文件，如下：
+</code></pre><h4 id="实现Mapper-xml"><a href="#实现Mapper-xml" class="headerlink" title="实现Mapper.xml"></a>实现Mapper.xml</h4><pre><code>编写User.xml配置文件，如下：
     &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;!DOCTYPE mapper
     PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
     &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
     &lt;mapper namespace=&quot;test&quot;&gt;
-    &lt;!-- 根据用户id查询 --&gt;
     &lt;select id=&quot;queryUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
     select * from user where id = #{id}
     &lt;/select&gt;
 
-    &lt;!-- 根据用户名模糊查询用户 --&gt;
     &lt;select id=&quot;queryUserByUsername&quot; parameterType=&quot;string&quot;
     resultType=&quot;user&quot;&gt;
     select * from user where username like &apos;%${value}%&apos;
     &lt;/select&gt;
 
-    &lt;!-- 添加用户 --&gt;
     &lt;insert id=&quot;saveUser&quot; parameterType=&quot;user&quot;&gt;
     &lt;selectKey keyProperty=&quot;id&quot; keyColumn=&quot;id&quot; order=&quot;AFTER&quot;
     resultType=&quot;int&quot;&gt;
@@ -1405,40 +1060,29 @@ sqlSession.close();
     &lt;/insert&gt;
 
     &lt;/mapper&gt;
-</code></pre><h4 id="加载Mapper-xml"><a href="#加载Mapper-xml" class="headerlink" title="加载Mapper.xml"></a>加载Mapper.xml</h4><pre><code>在SqlMapConfig如下图进行配置:
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;User.xml&quot;&gt;
-    &lt;mappers&gt;
-</code></pre><h5 id="实现UserDao接口"><a href="#实现UserDao接口" class="headerlink" title="实现UserDao接口"></a>实现UserDao接口</h5><pre><code>public interface UserDao {
+</code></pre><h4 id="sqlmapConfig-xml-1"><a href="#sqlmapConfig-xml-1" class="headerlink" title="sqlmapConfig.xml"></a>sqlmapConfig.xml</h4><h5 id="UserDao接口"><a href="#UserDao接口" class="headerlink" title="UserDao接口"></a>UserDao接口</h5><pre><code>public interface UserDao {
     User queryUserById(int id);
     List&lt;User&gt; queryUserByUsername(String username);
     void saveUser(User user);
     }
-</code></pre><h5 id="实现UserDaoImpl实现类"><a href="#实现UserDaoImpl实现类" class="headerlink" title="实现UserDaoImpl实现类"></a>实现UserDaoImpl实现类</h5><pre><code>编写DAO实现类，实现类必须集成SqlSessionDaoSupport
+</code></pre><h5 id="UserDaoImpl实现类"><a href="#UserDaoImpl实现类" class="headerlink" title="UserDaoImpl实现类"></a>UserDaoImpl实现类</h5><pre><code>编写DAO实现类，实现类必须集成SqlSessionDaoSupport
     SqlSessionDaoSupport提供getSqlSession()方法来获取SqlSession
-    public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
+    public class UserDaoImpl extends SqlSessionDaoSupport 
+    implements UserDao {
     @Override
     public User queryUserById(int id) {
-    // 获取SqlSession
     SqlSession sqlSession = super.getSqlSession();
 
-    // 使用SqlSession执行操作
     User user = sqlSession.selectOne(&quot;queryUserById&quot;, id);
-
-    // 不要关闭sqlSession
 
     return user;
     }
 
     @Override
-    public List&lt;User&gt; queryUserByUsername(String username) {
-    // 获取SqlSession
+    public List&lt;User&gt; queryUserByUsername(String name) {
     SqlSession sqlSession = super.getSqlSession();
 
-    // 使用SqlSession执行操作
-    List&lt;User&gt; list = sqlSession.selectList(&quot;queryUserByUsername&quot;, username);
-
-    // 不要关闭sqlSession
+    List&lt;User&gt; list = sqlSession.selectList(&quot;queryUserByUsername&quot;, name);
 
     return list;
     }
@@ -1455,8 +1099,8 @@ sqlSession.close();
     // 不要关闭sqlSession
     }
     }
-</code></pre><h4 id="配置dao"><a href="#配置dao" class="headerlink" title="配置dao"></a>配置dao</h4><pre><code>把dao实现类配置到spring容器中
-</code></pre><h4 id="测试方法-6"><a href="#测试方法-6" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>创建测试方法，可以直接创建测试Junit用例。
+</code></pre><h4 id="配置dao"><a href="#配置dao" class="headerlink" title="配置dao"></a>配置dao</h4><pre><code>把dao实现类配置到spring容器中并注入sqlSessionFactory
+</code></pre><h4 id="测试方法-7"><a href="#测试方法-7" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>创建测试方法，可以直接创建测试Junit用例。
     如下图所示进行创建
     编写测试方法如下：
     public class UserDaoTest {
@@ -1464,12 +1108,12 @@ sqlSession.close();
 
     @Before
     public void setUp() throws Exception {
-    this.context = new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
+    this.context = new 
+    ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
     }
 
     @Test
     public void testQueryUserById() {
-    // 获取userDao
     UserDao userDao = this.context.getBean(UserDao.class);
 
     User user = userDao.queryUserById(1);
@@ -1478,7 +1122,6 @@ sqlSession.close();
 
     @Test
     public void testQueryUserByUsername() {
-    // 获取userDao
     UserDao userDao = this.context.getBean(UserDao.class);
 
     List&lt;User&gt; list = userDao.queryUserByUsername(&quot;张&quot;);
@@ -1489,7 +1132,6 @@ sqlSession.close();
 
     @Test
     public void testSaveUser() {
-    // 获取userDao
     UserDao userDao = this.context.getBean(UserDao.class);
 
     User user = new User();
@@ -1529,30 +1171,34 @@ sqlSession.close();
     (#{username},#{birthday},#{sex},#{address})
     &lt;/insert&gt;
     &lt;/mapper&gt;
-</code></pre><h4 id="实现UserMapper接口"><a href="#实现UserMapper接口" class="headerlink" title="实现UserMapper接口"></a>实现UserMapper接口</h4><pre><code>public interface UserMapper {
+</code></pre><h4 id="UserMapper接口实现类"><a href="#UserMapper接口实现类" class="headerlink" title="UserMapper接口实现类"></a>UserMapper接口实现类</h4><pre><code>public interface UserMapper {
     User queryUserById(int id);
     List&lt;User&gt; queryUserByUsername(String username);
     void saveUser(User user);
     }
-    其实就是配置接口的方式，都默认加载注入接口的同包（不包括子包）下的同接口名的Mapper.xml
-    10.4.3.3.方式一：配置mapper代理
-    （要一个一个注入接口和sqlSessionFactory，mapper默认加载与接口同包下的同名xml文件，
-    文件内容与单独配置时要求一致，要加载其他的sqlMapConfig.xml配置）
+    其实就是配置接口的方式，
+    都默认加载注入接口的同包（不包括子包）下的同接口名的Mapper.xml
+</code></pre><h4 id="方式一：配置mapper代理"><a href="#方式一：配置mapper代理" class="headerlink" title="方式一：配置mapper代理"></a>方式一：配置mapper代理</h4><pre><code>要一个一个注入接口和sqlSessionFactory，
+    mapper默认加载与接口同包下的同名xml文件，
+    文件内容与单独配置时要求一致，要加载其他的sqlMapConfig.xml配置
     在applicationContext.xml添加配置
     MapperFactoryBean也是属于mybatis-spring整合包
     &lt;!-- Mapper代理的方式开发方式一，配置Mapper代理对象 --&gt;
-    &lt;bean id=&quot;userMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
+    &lt;bean id=&quot;userMapper&quot; 
+    class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
     &lt;!-- 配置Mapper接口 --&gt;
-    &lt;property name=&quot;mapperInterface&quot; value=&quot;cn.itcast.mybatis.mapper.UserMapper&quot; /&gt;
+    &lt;property name=&quot;mapperInterface&quot; 
+    value=&quot;cn.mybatis.mapper.UserMapper&quot; /&gt;
     &lt;!-- 配置sqlSessionFactory --&gt;
     &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot; /&gt;
     &lt;/bean&gt;
-</code></pre><h4 id="测试方法-7"><a href="#测试方法-7" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>public class UserMapperTest {
+</code></pre><h4 id="测试方法-8"><a href="#测试方法-8" class="headerlink" title="测试方法"></a>测试方法</h4><pre><code>public class UserMapperTest {
     private ApplicationContext context;
 
     @Before
     public void setUp() throws Exception {
-    this.context = new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
+    this.context = 
+    new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
     }
 
     @Test
@@ -1596,13 +1242,15 @@ sqlSession.close();
     &lt;!-- Mapper代理的方式开发方式二，扫描包方式配置代理 --&gt;
     &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
     &lt;!-- 配置Mapper接口 --&gt;
-    &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.mybatis.mapper&quot; /&gt;
+    &lt;property name=&quot;basePackage&quot; value=&quot;cn.mybatis.mapper&quot; /&gt;
     &lt;/bean&gt;
     每个mapper代理对象的id就是类名，首字母小写
     Spring整合mybatis，原生Dao的时候一定要配置Mapper的位置，
     其他两种都可以不配置mapper，第二种配置MapperFactoryBean的方式，
-    会加载注入的接口和sqlSession，与其配置时注入的接口的包下的同类名Mapper文件，
-    第三种MapperScannerConfigurer扫描包的方式，自动获得spring容器中的sqlsession，
+    会加载注入的接口和sqlSession，
+    与其配置时注入的接口的包下的同类名Mapper文件，
+    第三种MapperScannerConfigurer扫描包的方式，
+    自动获得spring容器中的sqlsession，
     所以不用配置，同时扫描该包下所有接口，
     默认加载其配置时注入的接口的包下的同类名Mapper文件，
     三种方式如果没找到mapper.xml就报错，
@@ -1610,12 +1258,10 @@ sqlSession.close();
     当默认和自己配的文件一样的时候，优先加载默认位置的
 </code></pre><h2 id="Mybatis逆向工程（了解）"><a href="#Mybatis逆向工程（了解）" class="headerlink" title="Mybatis逆向工程（了解）"></a>Mybatis逆向工程（了解）</h2><pre><code>使用官方网站的Mapper自动生成工具mybatis-generator-core-1.3.2
     来生成po类和Mapper映射文件
-</code></pre><h3 id="导入逆向工程"><a href="#导入逆向工程" class="headerlink" title="导入逆向工程"></a>导入逆向工程</h3><pre><code>使用课前资料已有逆向工程，如下图：
-</code></pre><h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><pre><code>在generatorConfig.xml中配置Mapper生成的详细信息，如下图：
-注意修改以下几点:
-1.修改要生成的数据库表
-2.pojo文件所在包路径
-3.Mapper所在的包路径
+</code></pre><h3 id="导入逆向工程"><a href="#导入逆向工程" class="headerlink" title="导入逆向工程"></a>导入逆向工程</h3><h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><pre><code>在generatorConfig.xml中配置Mapper生成的详细信息，
+    1.修改要生成的数据库表
+    2.pojo文件所在包路径
+    3.Mapper所在的包路径
     配置文件如下:
     &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
     &lt;!DOCTYPE generatorConfiguration
@@ -1630,12 +1276,15 @@ sqlSession.close();
     &lt;/commentGenerator&gt;
     &lt;!--数据库连接的信息：驱动类、连接地址、用户名、密码 --&gt;
     &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;
-    connectionURL=&quot;jdbc:mysql://localhost:3306/mybatis&quot; userId=&quot;root&quot; password=&quot;root&quot;&gt;
+    connectionURL=&quot;jdbc:mysql://localhost:3306/mybatis&quot; 
+    userId=&quot;root&quot; password=&quot;root&quot;&gt;
     &lt;/jdbcConnection&gt;
-    &lt;!-- &lt;jdbcConnection driverClass=&quot;oracle.jdbc.OracleDriver&quot; connectionURL=&quot;jdbc:oracle:thin:@127.0.0.1:1521:yycg&quot; 
+    &lt;!-- &lt;jdbcConnection driverClass=&quot;oracle.jdbc.OracleDriver&quot; 
+    connectionURL=&quot;jdbc:oracle:thin:@127.0.0.1:1521:yycg&quot; 
     userId=&quot;yycg&quot; password=&quot;yycg&quot;&gt; &lt;/jdbcConnection&gt; --&gt;
 
-    &lt;!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
+    &lt;!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，
+    为 true时把JDBC DECIMAL 
     和 NUMERIC 类型解析为java.math.BigDecimal --&gt;
     &lt;javaTypeResolver&gt;
     &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;
@@ -1667,12 +1316,13 @@ sqlSession.close();
     &lt;/context&gt;
     &lt;/generatorConfiguration&gt;
 </code></pre><h3 id="生成逆向工程代码"><a href="#生成逆向工程代码" class="headerlink" title="生成逆向工程代码"></a>生成逆向工程代码</h3><pre><code>找到下图所示的java文件，执行工程main主函数,
-    刷新工程，发现代码生成，如下图：
-</code></pre><h4 id="测试逆向工程代码"><a href="#测试逆向工程代码" class="headerlink" title="测试逆向工程代码"></a>测试逆向工程代码</h4><h5 id="复制生成的代码到mybatis-spring工程，如下图"><a href="#复制生成的代码到mybatis-spring工程，如下图" class="headerlink" title="复制生成的代码到mybatis-spring工程，如下图"></a>复制生成的代码到mybatis-spring工程，如下图</h5><h5 id="修改spring配置文件"><a href="#修改spring配置文件" class="headerlink" title="修改spring配置文件"></a>修改spring配置文件</h5><pre><code>在applicationContext.xml修改
+    刷新工程，发现代码生成
+</code></pre><h4 id="测试逆向工程代码"><a href="#测试逆向工程代码" class="headerlink" title="测试逆向工程代码"></a>测试逆向工程代码</h4><pre><code>复制生成的代码到mybatis-spring工程，
+</code></pre><h5 id="修改spring配置文件"><a href="#修改spring配置文件" class="headerlink" title="修改spring配置文件"></a>修改spring配置文件</h5><pre><code>在applicationContext.xml修改
     &lt;!-- Mapper代理的方式开发，扫描包方式配置代理 --&gt;
     &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
     &lt;!-- 配置Mapper接口，如果需要加载多个包，直接写进来，中间用，分隔 --&gt;
-    &lt;!-- &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.mybatis.mapper&quot; /&gt; --&gt;
+    &lt;!--&lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.mybatis.mapper&quot;/&gt; --&gt;
     &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.ssm.mapper&quot; /&gt;
     &lt;/bean&gt;
 </code></pre><h3 id="编写测试方法："><a href="#编写测试方法：" class="headerlink" title="编写测试方法："></a>编写测试方法：</h3><pre><code>public class UserMapperTest {
@@ -1680,7 +1330,8 @@ sqlSession.close();
 
     @Before
     public void setUp() throws Exception {
-    this.context = new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
+    this.context = 
+    new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
     }
 
     @Test
@@ -1725,4 +1376,4 @@ sqlSession.close();
     2.不能在生成的代码上进行扩展，因为如果数据库变更，
     需要重新使用逆向工程生成代码，原来编写的代码就被覆盖了。
     3.一张表会生成4个文件
-</code></pre></div><div class="tags"><a href="/tags/mybatis/">mybatis</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/springmvc/">springmvc</a><a class="next" href="/2018/05/15/boostrap/">boostrap</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/boostrap/">boostrap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/ajax/">ajax</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/css/">css</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/jquery/">jquery</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/javascript/">javascript</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/html/">html</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/mybatis/">mybatis</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/springmvc/">springmvc</a><a class="next" href="/2018/05/15/boostrap/">boostrap</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/boostrap/">boostrap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/ajax/">ajax</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/css/">css</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/jquery/">jquery</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/javascript/">javascript</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/html/">html</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/算法/">算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/正则表达式/">正则表达式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
