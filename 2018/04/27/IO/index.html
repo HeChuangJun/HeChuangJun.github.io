@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>IO | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">IO</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">IO</h1><div class="post-meta">Apr 27, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>IO<br><a id="more"></a></p>
+<h2 id="IO的继承体系"><a href="#IO的继承体系" class="headerlink" title="IO的继承体系"></a>IO的继承体系</h2><img src="/2018/04/27/IO/IO.jpg" title="IO继承图">
+<h2 id="IO概述"><a href="#IO概述" class="headerlink" title="IO概述"></a>IO概述</h2><pre><code>IO就是将内存中的数据持久化存储到持久化设备上，使用的时候从持久化设备上读入内存
+    IO操作:当需要把内存中的数据存储到持久化设备上这个动作称为输出（写）Output操作。
+            当把持久设备上的数据读取到内存中的这个动作称为输入（读）Input操作。
+    IOExcption异常
+</code></pre><h2 id="File类封装了文件或目录-文件夹-用于操作文件或文件夹"><a href="#File类封装了文件或目录-文件夹-用于操作文件或文件夹" class="headerlink" title="File类封装了文件或目录(文件夹)用于操作文件或文件夹"></a>File类封装了文件或目录(文件夹)用于操作文件或文件夹</h2><pre><code>File(String pathname)不存在文件或者文件夹，也可以变成对象
+    File file = new File(e:\\java_code\\day22e\\hello.java);
+
+    创建文件，false同名的文件或文件夹已经存在，创建失败boolean createNewFile()
+    创建单层文件夹，false同名的文件或文件夹已经存在，创建失败boolean mkdir()
+    创建多层文件夹boolean mkdirs() 
+    删除此抽象路径名表示的文件或空目录boolean delete()
+    判断此抽象路径名表示的文件是否为标准文件boolean isFile() 
+    判断此抽象路径名表示的文件是否是目录（文件夹）boolean isDirectory() 
+    获取当前File对象的绝对路径名字符串String getAbsolutePath() 
+    将此抽象路径名转换为一个路径名字符串String getPath()
+    获取当前File对象的文件或目录的名称String getName() 
+    获取当前File对象的文件或文件夹的大小（字节）long length()
+    判断File对象对应的文件或目录是否存在boolean exists() 
+    返回指定此抽象路径名表示的目录的文件和目录的字符串数组String[] list()
+    获取File所代表目录中所有文件或目录的绝对路径的抽象路径名数组File[] listFiles()
+    返回File的目录中满足过滤器的文件和目录抽象路径名数组//传入一个接口实现类即可
+    File[] listFiles(FilenameFilter filter)
+    返回File的目录中满足过滤器的文件和目录抽象路径名数组//传入一个接口实现类即可
+    File[] listFiles(FileFilter filter)
+    指定的目录必须是存在的目录。否则容易引发返回数组为null，出现NullPointerException
+</code></pre><h3 id="FilenameFilter接口：过滤文件名"><a href="#FilenameFilter接口：过滤文件名" class="headerlink" title="FilenameFilter接口：过滤文件名"></a>FilenameFilter接口：过滤文件名</h3><pre><code>boolean accept(FIle dir,String name)测试指定路径名是否包含在某个路径列表中中
+    当前文件或文件夹所在的路径，当前文件或文件夹对象的名称。
+    只要文件名满足某些条件时使用，调用String方法
+    public class FileDemo2 {
+        public static void main(String[] args) {
+            File file = new File(&quot;E:\\code\\day11_code&quot;);
+            File[] files = file.listFiles(new MyFileFilter());
+        for (File f : files) {
+            System.out.println(f);
+            }
+        }
+    }
+    class MyFileFilter implements FilenameFilter{
+        public boolean accept(File dir, String name) {
+            return name.endsWith(&quot;.java&quot;);
+        }
+    }
+</code></pre><h3 id="FileFilter接口：过滤文件或者文件夹"><a href="#FileFilter接口：过滤文件或者文件夹" class="headerlink" title="FileFilter接口：过滤文件或者文件夹"></a>FileFilter接口：过滤文件或者文件夹</h3><pre><code>boolean accept(File pathname)测试指定抽象路径名是否应该包含在某个路径名列表中
+    参数就当前文件或文件夹对象
+    public class FileDemo2 {
+    public static void main(String[] args) {
+        File file = new File(&quot;E:\\code\\day11_code&quot;);
+        File[] files = file.listFiles(new FileFileterByDir());
+        for (File f : files) {
+            System.out.println(f);
+            }
+        }
+    }
+    class FileFileterByDir implements FileFilter{
+        public boolean accept(File pathname) {
+            return pathname.isDirectory();
+        }
+    }
+</code></pre><h3 id="路径的分类"><a href="#路径的分类" class="headerlink" title="路径的分类"></a>路径的分类</h3><pre><code>绝对路径：带盘盘符E:\Workspace\day20_File\abc.txt
+    相对路径：不带盘符day20_File\abc.txt默认的目录为项目的根目录
+</code></pre><h2 id="字节流：一次操作8个二进制位，可以操作任何文件"><a href="#字节流：一次操作8个二进制位，可以操作任何文件" class="headerlink" title="字节流：一次操作8个二进制位，可以操作任何文件"></a>字节流：一次操作8个二进制位，可以操作任何文件</h2><h3 id="字节输出流OutputStream抽象类：表示输出字节流所有类的超类"><a href="#字节输出流OutputStream抽象类：表示输出字节流所有类的超类" class="headerlink" title="字节输出流OutputStream抽象类：表示输出字节流所有类的超类"></a>字节输出流OutputStream抽象类：表示输出字节流所有类的超类</h3><pre><code>void close()关闭输出流并释放与此流有关的所有系统资源
+    void flush()刷新此输出流并强制写出所有输出字节
+    void write(byte[] b)将b.length个字节从指定的byte数组写入此输出流
+    void write(byte[] b,int off,int len)
+</code></pre><h3 id="FileOutputStream类"><a href="#FileOutputStream类" class="headerlink" title="FileOutputStream类"></a>FileOutputStream类</h3><pre><code>FlieOutputStream(File file)创建Flie对象表示文件中写入数据的输出流（文件存在则覆盖）
+    FlieOutputStream(String name)创建指向指定名称文件中写入数据的输出流(文件存在则覆盖)
+    FileOutputStream(File file,boolean append)，true在文件末尾继续添加，“\r\n”换行
+    FlieOutputStream(String name,boolean append),true就表示可以在文件末尾继续添加
+</code></pre><h4 id="BufferedOutputStream-OutputStream-out-字节缓冲输出流提高了IO的读写速度"><a href="#BufferedOutputStream-OutputStream-out-字节缓冲输出流提高了IO的读写速度" class="headerlink" title="BufferedOutputStream(OutputStream out)字节缓冲输出流提高了IO的读写速度"></a>BufferedOutputStream(OutputStream out)字节缓冲输出流提高了IO的读写速度</h4><h4 id="PrintStream字节打印流"><a href="#PrintStream字节打印流" class="headerlink" title="PrintStream字节打印流"></a>PrintStream字节打印流</h4><pre><code>public PrintStream(OutputStream out, boolean autoFlush)//开启文件自动刷新
+    void print(String str): 输出任意类型的数据
+    void println(String str): 输出任意类型的数据，自动写入换行操作
+</code></pre><h3 id="ObjectInputStream对象序列化流，向流中写入对象的操作流"><a href="#ObjectInputStream对象序列化流，向流中写入对象的操作流" class="headerlink" title="ObjectInputStream对象序列化流，向流中写入对象的操作流"></a>ObjectInputStream对象序列化流，向流中写入对象的操作流</h3><pre><code>ObjectOutputStream(OutputStream out)传入OutputStream的实现类如FileOutputStream即可
+    void writeObject(Object obj)将指定对象写入ObjectOutputStream
+    ①被序列化的对象所属的类必须实现Serializable接口。
+    否则会发生异常NotSerializableException异常。
+    ②反序列化对象时，如果对象所属的class文件在序列化之后被修改了，
+    那么会发生异常InvalidClassException。可能是
+    该类的序列版本号与从流中读取的类描述符的版本号不匹配 、该类包含未知数据类型 、
+    该类没有可访问的无参数构造方法 
+    Serializable标记接口。该接口给需要序列化的类，
+    提供了一个序列版本号。serialVersionUID. 该版本号的目的在于验证序列化的
+    对象和对应类是否版本匹配
+    private static final long serialVersionUID = 1L;。
+    ③transient修饰的属性不会琲序列化
+    ④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，
+    而静态的属于类加载时的数据，不会被序列化
+</code></pre><h2 id="字节输入流InputStream抽象类，表示输入字符流所有类的超类"><a href="#字节输入流InputStream抽象类，表示输入字符流所有类的超类" class="headerlink" title="字节输入流InputStream抽象类，表示输入字符流所有类的超类"></a>字节输入流InputStream抽象类，表示输入字符流所有类的超类</h2><pre><code>int read():读取一个字节并返回，没有字节返回-1.//速度慢
+    int read(byte[] b): 读取一定量的字节数，并存储到字节数组中，
+    返回读取到的字节数一般都是创建一个1024整数倍字节的byte数组用于存储//推荐
+</code></pre><h3 id="FileInputStream类"><a href="#FileInputStream类" class="headerlink" title="FileInputStream类"></a>FileInputStream类</h3><pre><code>FileInputStream(File file)通过File对象来创建一个FileInputStream
+    FileInputStream(String name)通过文件系统中的路径名name来创建一个FileInputStream
+</code></pre><h4 id="BufferedInputStream-InputStream-in-字节缓冲输入流，提高了IO的读写速度"><a href="#BufferedInputStream-InputStream-in-字节缓冲输入流，提高了IO的读写速度" class="headerlink" title="BufferedInputStream(InputStream in)字节缓冲输入流，提高了IO的读写速度"></a>BufferedInputStream(InputStream in)字节缓冲输入流，提高了IO的读写速度</h4><h3 id="ObjectInputStream对象反序列化流，从流中读取对象的操作流"><a href="#ObjectInputStream对象反序列化流，从流中读取对象的操作流" class="headerlink" title="ObjectInputStream对象反序列化流，从流中读取对象的操作流"></a>ObjectInputStream对象反序列化流，从流中读取对象的操作流</h3><pre><code>ObjectInputStream(InputStream in)传入InputStream的实现类如FileInputStream即可
+    Object readObject()从ObjectInputStream读取对象
+    ①被序列化的对象所属的类必须实现Serializable接口。
+    否则会发生异常NotSerializableException异常。
+    ②反序列化对象时，如果对象所属的class文件在序列化之后被修改了，
+    那么会发生异常InvalidClassException。可能是
+    该类的序列版本号与从流中读取的类描述符的版本号不匹配 、该类包含未知数据类型 、
+    该类没有可访问的无参数构造方法 
+    Serializable标记接口。该接口给需要序列化的类，
+    提供了一个序列版本号。serialVersionUID. 该版本号的目的在于验证序列化的对象和
+    对应类是否版本匹配
+    private static final long serialVersionUID = 1L;。
+    ③transient修饰的属性不会琲序列化
+    ④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，
+    而静态的属于类加载时的数据，不会被序列化
+</code></pre><h2 id="字符流：只能写文本文件"><a href="#字符流：只能写文本文件" class="headerlink" title="字符流：只能写文本文件"></a>字符流：只能写文本文件</h2><h3 id="字符输出流Writer抽象类"><a href="#字符输出流Writer抽象类" class="headerlink" title="字符输出流Writer抽象类"></a>字符输出流Writer抽象类</h3><pre><code>写入字符串void write(String str)
+    写入字符串的某一部分void write(String str,int off,int len)
+    写入字符数组void write(char[] cbuf)
+    写入字符数组的某一部分abstract void write(char[] cbuf,int off,int len)
+</code></pre><h3 id="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"><a href="#OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节" class="headerlink" title="OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节"></a>OutputStreamWriter类字节流转成字符流，将字符串按照指定的编码表转成字节</h3><pre><code>OutputStreamWriter(OutputStream out Charset cs)创建使用给定字符集的编码对象
+</code></pre><h4 id="FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小"><a href="#FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小" class="headerlink" title="FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小"></a>FileWriter，写入字符文件的便捷类，使用默认字符集编码和默认字节缓冲区大小</h4><pre><code>FileWriter(File file)根据File对象构造一个FileWriter对象(覆盖)
+    FileWriter(String FileName)根据文件名创建FileWriter对象
+    FileWriter(File file,boolean append)File对象构造FileWriter对象(true继续写)
+    FileWriter(String FileName,boolean append)文件名创建FileWriter对象(true继续写)
+</code></pre><h3 id="BufferedWriter字符缓冲输出流，提高了IO读写速度"><a href="#BufferedWriter字符缓冲输出流，提高了IO读写速度" class="headerlink" title="BufferedWriter字符缓冲输出流，提高了IO读写速度"></a>BufferedWriter字符缓冲输出流，提高了IO读写速度</h3><pre><code>BufferedWriter(Writer out)使用默认大小输出缓冲区,传入Writer实现类如FileWriter
+    void newLine()根据当前的系统，写入一个换行符
+</code></pre><h3 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h3><pre><code>PrintWriter(Writer out, boolean autoFlush)//开启文件自动刷新
+    void println(String str): 输出任意类型的数据，自动写入换行操作
+    void print(String str): 输出任意类型的数据，
+</code></pre><h2 id="字符输入流Reader抽象类"><a href="#字符输入流Reader抽象类" class="headerlink" title="字符输入流Reader抽象类"></a>字符输入流Reader抽象类</h2><pre><code>int read()读取单个字符并返回，若没有则返回-1
+    int read(char[] cbuf)将字符读入数组，并返回读取的个数
+</code></pre><h3 id="InputStreamReader类字符转字节，使用指定的字符编码表读取字节并将其解码为字符"><a href="#InputStreamReader类字符转字节，使用指定的字符编码表读取字节并将其解码为字符" class="headerlink" title="InputStreamReader类字符转字节，使用指定的字符编码表读取字节并将其解码为字符"></a>InputStreamReader类字符转字节，使用指定的字符编码表读取字节并将其解码为字符</h3><pre><code>IutputStreamReader(InputStream in Charset cs)创建使用给定字符集的解码对象
+    读取指定的编码的文件必须指定编码格式，否则就会发生解码错误，而发生乱码现象
+</code></pre><h4 id="FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小"><a href="#FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小" class="headerlink" title="FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小"></a>FileReader，读取字符文件的便捷类，使用默认字符和默认字节缓冲区大小</h4><pre><code>FileReader(File file)从file对象创建一个新的FileReader
+    FileReader(String fileName)从读取数据的文件名创建一个新的FileReader
+</code></pre><h3 id="BufferedReader字符缓冲输入类，提高了IO读写速度"><a href="#BufferedReader字符缓冲输入类，提高了IO读写速度" class="headerlink" title="BufferedReader字符缓冲输入类，提高了IO读写速度"></a>BufferedReader字符缓冲输入类，提高了IO读写速度</h3><pre><code>BufferedReader(Reader in) 默认大小输入缓冲区，传入Reader的实现类如FileReader即可
+    String readLine() 返回文本行内容字符串，不包含任何行终止符，到达流的末尾返回null
+</code></pre><h3 id="字符流与字节流转换原理"><a href="#字符流与字节流转换原理" class="headerlink" title="字符流与字节流转换原理"></a>字符流与字节流转换原理</h3><pre><code>OutputStreamWriter流对象，它到底如何把字符转成字节输出的呢？
+    因为OutputStreamWriter流中维护自己的缓冲区，调用write方法时，会到指定码表中进行查询
+    把查到的字符编码值转成字节数存放到OutputStreamWriter缓冲区中。然后再调用刷新功能，
+    或者关闭流，或者缓冲区存满后把缓冲区中的字节数据使用字节流写到指定的文件中
+</code></pre><h3 id="flush-和close-的区别？"><a href="#flush-和close-的区别？" class="headerlink" title="flush()和close()的区别？"></a>flush()和close()的区别？</h3><pre><code>flush():将流中的缓冲区缓冲的数据刷新到目的地中，刷新后，流还可以继续使用。
+    close():关闭资源，但在关闭前会将缓冲区中的数据先刷新到目的地，否则丢失数据，
+    然后在关闭流。流不可以使用。如果写入数据多，一定要一边写一边刷新，
+    最后一次可以不刷新，由close完成刷新并关闭
+</code></pre><h2 id="字符流与字节流的区别"><a href="#字符流与字节流的区别" class="headerlink" title="字符流与字节流的区别"></a>字符流与字节流的区别</h2><pre><code>Java 内用 Unicode 编码存储字符
+    字符流处理的单元为 2 个字节的 Unicode 字符，分别操作字符、字符数组或字符串、数字
+    而字节流处理单元为 1 个字节，操作字节和字节数组、数字
+    所以字符流是由Java虚拟机将字节转化为2个字节的Unicode字符为单位的字符而成的，
+    所以它对多国语言支持性比较好！
+    如果是音频文件、图片、歌曲，就用字节流好点
+    如果是关系到中文（文本）的，用字符流好点
+</code></pre><h2 id="递归：当前方法内调用自己的这种现象"><a href="#递归：当前方法内调用自己的这种现象" class="headerlink" title="递归：当前方法内调用自己的这种现象"></a>递归：当前方法内调用自己的这种现象</h2><pre><code>递归一定要有条件限定，保证递归能够停止下来，递归次数不能太多。否则会发生栈内存溢出
+</code></pre><h3 id="直接递归：方法自身调用自己"><a href="#直接递归：方法自身调用自己" class="headerlink" title="直接递归：方法自身调用自己"></a>直接递归：方法自身调用自己</h3><pre><code>public void methodA(){
+    methodA();
+    }
+</code></pre><h3 id="间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。"><a href="#间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。" class="headerlink" title="间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。"></a>间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。</h3><pre><code>public void metohdB(){
+    methodC();
+    }
+    public void methodC(){
+    methodB();
+    }
+
+    计算1-n之间的和，使用递归完成
+    public class DiGuiDemo {
+        public static void main(String[] args) {
+            //计算1~num的和，使用递归完成
+            int n = 5;
+            int sum = getSum(n);
+            System.out.println(sum);
+
+        }
+        public static int getSum(int n) {
+            if(n == 1){
+                return 1;
+            }
+            return n + getSum(n-1);
+        }
+    }
+</code></pre><h2 id="Properties类（非静态）"><a href="#Properties类（非静态）" class="headerlink" title="Properties类（非静态）"></a>Properties类（非静态）</h2><pre><code>Properties 类表示了一个持久的属性集。Properties可保存在流中或从流中加载
+    ①Hashtable的子类，map集合中的方法都可以用
+    ②该集合没有泛型。键值都是字符串
+    ③持久化的属性集。键值可以存储到集合或持久化的设备上。键值的来源也可以是持久化的设备
+    void load(InputStream in)把指定流所对应的文件中的数据读取并保存到Propertie集合中
+    void load(Reader)按面向行的格式从输入字符流中读取属性列表（键和元素对）
+    void store(OutputStream out,String commonts)commonts代表对描述信息，无实际意义
+    void store(Writer writer,String comments);与load(Reader)方法对应
+    Object setProperty(String key, String value)调用 Hashtable 的方法 put。
+    String getProperty(String key)用指定的键在此属性列表中搜索属性
+    Set&lt;String&gt; stringPropertyNames()返回此属性列表中的键集，
+</code></pre><h2 id="commons-IO"><a href="#commons-IO" class="headerlink" title="commons-IO"></a>commons-IO</h2><pre><code>加入classpath的第三方jar包内的class文件才能在项目中使用
+    创建lib文件夹、将commons-io.jar拷贝到lib文件夹→Build Path
+</code></pre><h3 id="FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题"><a href="#FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题" class="headerlink" title="FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题"></a>FilenameUtils处理文件名（文件路径），解决不同操作系统文件名称规范不同的问题</h3><pre><code>static String getName()：获取文件名
+    static String getExtension(String path)获取文件的扩展名
+    static boolean isExtension(String fileName,String ext)
+    判断fileName是否是ext后缀名
+</code></pre><h3 id="FileUtils（static）"><a href="#FileUtils（static）" class="headerlink" title="FileUtils（static）"></a>FileUtils（static）</h3><pre><code>void copyDirectoryToDirectory(File srcDir,File destDir)文件夹复制
+    void copyFile(File srcFile,File destFile)文件复制
+    String readFileToString(File file)读取文件内容，并返回一个String
+    void writeStringToFile(File file，String content)将content写入到file中
+</code></pre><h2 id="文件复制"><a href="#文件复制" class="headerlink" title="文件复制"></a>文件复制</h2><h3 id="采用高效的流，一个多个字节的方式赋值"><a href="#采用高效的流，一个多个字节的方式赋值" class="headerlink" title="采用高效的流，一个多个字节的方式赋值"></a>采用高效的流，一个多个字节的方式赋值</h3><pre><code>BufferedInputStream in = new BufferedInputStream(new FileInputStream(src));
+    BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(dest));
+    byte[] buffer = new byte[1024];
+    int len = -1;
+    while ( (len = in.read(buffer)) != -1) {
+    out.write(buffer, 0, len);
+    }
+    in.close();
+    out.close();
+</code></pre><h3 id="采用高效的流，一次一个字节的方式复制"><a href="#采用高效的流，一次一个字节的方式复制" class="headerlink" title="采用高效的流，一次一个字节的方式复制"></a>采用高效的流，一次一个字节的方式复制</h3><pre><code>BufferedInputStream in = new BufferedInputStream(new FileInputStream(src));
+    BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(dest));
+    int ch = -1;
+    while ((ch=in.read()) != -1) {
+    out.write(ch);    
+    }        
+    in.close();
+    out.close();
+</code></pre><h3 id="采用高效的流文件复制"><a href="#采用高效的流文件复制" class="headerlink" title="采用高效的流文件复制"></a>采用高效的流文件复制</h3><pre><code>BufferedReader in = new BufferedReader(new FileReader(&quot;file.txt&quot;));
+    BufferedWriter out = new BufferedWriter(new FileWriter(&quot;copyFile.txt&quot;));
+    String line = null;
+    while ( (line = in.readLine()) != null ) {
+    out.write(line);
+    out.newLine();
+    out.close();
+    in.close();
+</code></pre></div><div class="tags"><a href="/tags/IO/">IO</a></div><div class="post-nav"><a class="pre" href="/2018/04/28/多线程/">多线程</a><a class="next" href="/2018/04/26/集合框架/">集合框架</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

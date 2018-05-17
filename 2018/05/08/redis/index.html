@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>redis | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">redis</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">redis</h1><div class="post-meta">May 8, 2018<span> | </span><span class="category"><a href="/categories/redis/">redis</a></span></div><div class="post-content"><p>redis（nosql数据库）<br><a id="more"></a></p>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><pre><code>关系型数据库是基于关系表的数据库，最终会将数据持久化到磁盘上
+    nosql数据库是基于特殊的结构，并将数据存储到内存的数据库
+    从性能上而言，nosql数据库要优于关系型数据库
+    从安全性上而言关系型数据库要优于nosql数据库
+    一个项目中nosql和关系型数据库会一起使用，达到性能和安全性的双保证。
+</code></pre><h3 id="安装与启动"><a href="#安装与启动" class="headerlink" title="安装与启动"></a>安装与启动</h3><pre><code>在redis的bin目录下可以执行./redis-server前端启动方式
+    在bin下执行命令,/redis-server redis.conf(后端启动)
+    关闭：关闭进程、在客户端下shutdown
+</code></pre><h2 id="jedis的操作"><a href="#jedis的操作" class="headerlink" title="jedis的操作"></a>jedis的操作</h2><h3 id="导包commons-pool2-2-3-jar-jedis2-7-0jar"><a href="#导包commons-pool2-2-3-jar-jedis2-7-0jar" class="headerlink" title="导包commons-pool2-2.3.jar\jedis2.7.0jar"></a>导包commons-pool2-2.3.jar\jedis2.7.0jar</h3><h3 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h3><pre><code>JedisConfig config=new JedisConfig()；
+    config.setMaxtotal(30);
+    config.setMaxIdle(10)
+    JedisPool pool = new JedisPool(JedisConfig,host,port);
+    Jedis jedis=null;
+    jedis=pool.getResource();
+    jedis.set(key,数据类型)
+    jedis.get(key,数据类型)
+
+    Jedis jedis = new Jedis(host,port);
+    jedis.set(key,数据类型)
+    jedis.get(key,数据类型)
+</code></pre><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><pre><code>redis是一种高级的key-value的存储系统
+</code></pre><h3 id="key是字符串类型"><a href="#key是字符串类型" class="headerlink" title="key是字符串类型"></a>key是字符串类型</h3><pre><code>key不要太长，最好不要操作1024个字节，这不仅会消耗内存还会降低查找效率
+    key不要太短，如果太短会降低key的可读性
+    在项目中，key最好有一个统一的命名规范（根据企业的需求）
+</code></pre><h3 id="Key-五种数据类型"><a href="#Key-五种数据类型" class="headerlink" title="Key 五种数据类型"></a>Key 五种数据类型</h3><h4 id="字符串型-string"><a href="#字符串型-string" class="headerlink" title="字符串型 string"></a>字符串型 string</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><pre><code>基础的数据存储类型、在Redis中是二进制安全的
+    该类型可以接受任何格式的数据，如JPEG图像数据或Json对象描述信息
+    Redis中字符串类型的Value最多可以容纳的数据长度是512M
+</code></pre><h5 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h5><pre><code>set key value设置key的value该key存在则进行覆盖操作
+    get key获得key的String值如果该key不存在，返回null.
+    如果与该key关联的value不是String类型，报错
+    getset key value先获取该key的值，然后在设置该key的值
+    incr|decr key将指定的key的value原子性的递增|减1.
+    不存在，初值0，在incr之后其值为1|-1（没设置输出1|-1）。
+    如果value的值不能转成整型，如hello，该操作将执行失败并返回相应的错误信息
+    incrby|decrby key increment|decrement将指定的key的value
+    原子性增加|减小increment|decrement，
+    key不存在，初值为0，在incrby之后，该值为increment|decrement。
+    如果该值不能转成整型，如hello则失败并返回错误信息
+    append key value如果该key存在，则在原有的value后追加该值；
+    如果该key不存在，则重新创建一个key/value
+</code></pre><h4 id="字符串列表-lists"><a href="#字符串列表-lists" class="headerlink" title="字符串列表 lists"></a>字符串列表 lists</h4><h5 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h5><pre><code>在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。
+    与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。
+    List中可以包含的最大元素数量是4294967295。
+    在链表的两头插入或删除元素(高效),即使链表中已经存储了百万条记录
+    该操作也可以在常量时间内完成。元素插入或删除操作是作用于链表中间(低效)
+</code></pre><h5 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h5><pre><code>List类型是按照插入顺序排序的字符串链表、可以在其头部(left)和尾部(right)添加新的元素
+    在list的头部添加多个values，不存在就创建。lpush key value1 value2..
+    在list的尾部添加多个values，不存在就创建。rpush key value1、value2….
+    仅key存在时在list的头部添加value lpushx key value
+    仅key存在时在list的尾部添加value rpushx key value
+    返回并弹出链表中的头部value。删除了 lpop key
+    返回并弹出链表中的尾部value。删除了 rpop key
+    在pivot元素前或者后插入value。linsert key before|after pivot value：
+    返回指定链表中的value数量 llen key
+    删除count个value，lrem key count value，count大于0，从头向尾遍历，count小于0，
+    从尾向头遍历，count等于0，删除链表中所有value
+    设置链表中的index的脚标的元素值，0代表链表的头元素，
+    -1代表链表的尾元素lset key index value
+    获取链表中从start到end的元素的值，start、end可正负，-1表示链表尾部元素，
+    -2倒数第二个，lrange key 0 -1 查全部 lrange key start end
+    将链表中的尾部元素弹出并添加到头部（两个集合的操作）rpoplpush key1 key2
+</code></pre><h4 id="字符串集合-sets"><a href="#字符串集合-sets" class="headerlink" title="字符串集合 sets"></a>字符串集合 sets</h4><h5 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h5><pre><code>相当于没排序的不重复的list
+    操作的时间是常量时间。Set可包含的最大元素数是4294967295
+    在服务器端完成多个Sets之间的聚合计算操作，如unions、intersections和differences。
+    由于这些操作均在服务端完成，    因此效率极高，而且也节省了大量的网络IO开销
+</code></pre><h5 id="操作-2"><a href="#操作-2" class="headerlink" title="操作"></a>操作</h5><pre><code>向set中添加数据，如果该key的值已有则不会重复添加 sadd key value1、value2…
+    删除set中指定的成员 srem key member1、member2…
+    获取set中所有的成员 smembers key
+    获取set中成员的数量 scard key
+    判断参数中指定的成员是否在该set中，1存在，0不在或者key本身就不在sismember key member
+    随机返回set中的一个成员srandmember key
+    与key的顺序有关。返回差集”相减“sdiff key1 key2
+    将key1、key2相差的成员存储在destination上sdiffstore destination key1 key2
+    返回交集sinter key key1,key2…
+    将返回的交集存储在destination上sinterstore destination key1 key2
+    返回并集。sunion key1、key2
+    将返回的并集存储在destination上sunionstore destination key1 key2
+</code></pre><h4 id="有序字符串集合-sorted-sets"><a href="#有序字符串集合-sorted-sets" class="headerlink" title="有序字符串集合 sorted sets"></a>有序字符串集合 sorted sets</h4><h5 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h5><pre><code>游戏排名、微博热点话题等使用场景。
+    Sorted-Sets中的每一个成员都会有一个分数(score)与之关联的set
+    Redis正是通过分数来为集合中的成员进行从小到大的排序。
+    然而需要额外指出的是，Sorted-Sets中的成员必须是唯一的，分数(score)可以重复
+    在Sorted-Set中添加、删除或更新一个成员都是非常快速的操作，
+    其时间复杂度为集合中成员数量的对数。由于Sorted-Sets中的成员在集合中的位置是有序的，
+    因此，即便是访问位于集合中部的成员也仍然是非常高效的
+</code></pre><h5 id="操作-3"><a href="#操作-3" class="headerlink" title="操作"></a>操作</h5><pre><code>将所有成员以及该成员的分数存放到sorted-set中zadd key score member score2 member2 …
+    移除集合中指定的成员，可以指定多个成员。zrem key member[member…]
+    设置指定成员的增加的分数increment。zincrby key increment member
+    获取集合中的成员数量zcard key
+    获取分数在[min,max]之间的成员zcount key min max
+    获取集合中脚标为start-end的成员及分数zrange key start end [withscores]
+    返回分数在[min,max]的成员并按照分数从低到高排序。[limit offset count]：
+    offset，表明从脚标为offset的元素开始并返回count个成员。
+    zrangebyscore key min max [withscores] [limit offset count]
+    返回成员在集合中的位置 zrank key member
+    返回指定成员的分数 zscore key member
+</code></pre><h4 id="哈希类型-hashs"><a href="#哈希类型-hashs" class="headerlink" title="哈希类型 hashs"></a>哈希类型 hashs</h4><h5 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h5><pre><code>具有String Key和String Value的map容器、非常适合于存储值对象的信息
+    如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。
+    每一个Hash可以存储4294967295个键值对。
+</code></pre><h5 id="操作-4"><a href="#操作-4" class="headerlink" title="操作"></a>操作</h5><pre><code>为指定的key设定field/value对（键值对） hset key field value
+    设置key中的多个filed/value hmset key field value
+    返回指定的key中的field的值hget key field
+    获取key中的多个filed的值hmget key field value
+    获取key中的所有filed-vaule hgetall key
+    判断指定的key中的filed是否存在hexists key field value
+    获取key所包含的field的数量hlen key
+    设置key中filed的值增加increment hincrby key field increment
+</code></pre><h3 id="Redis的通用操作"><a href="#Redis的通用操作" class="headerlink" title="Redis的通用操作"></a>Redis的通用操作</h3><h5 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h5><pre><code>获取所有与pattern匹配的key keys pattern，key * 表示多个字符，？表示任意一个字符
+</code></pre><h5 id="概述-6"><a href="#概述-6" class="headerlink" title="概述"></a>概述</h5><pre><code>删除指定key del kye1  key2
+    判断key是否存在，1在，0不在exists key
+    为当前的key重命名rename key newkey 
+    设置过期时间expire key
+    获取该key所剩超时时间，没超时则-1,ttl key
+    返回key 的类型，不存在返回nonetype key
+</code></pre><h2 id="Redis的特性"><a href="#Redis的特性" class="headerlink" title="Redis的特性"></a>Redis的特性</h2><h3 id="多数据库"><a href="#多数据库" class="headerlink" title="多数据库"></a>多数据库</h3><pre><code>有0-15数据库，默认为0，选择数据库select n选择n号数据库
+    移库 move newkey n将当前的key移植到n号库中
+</code></pre><h3 id="消息订阅与发布"><a href="#消息订阅与发布" class="headerlink" title="消息订阅与发布"></a>消息订阅与发布</h3><img src="/2018/05/08/redis/消息的订阅与发布.JPG" title="消息的订阅与发布.JPG">
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><img src="/2018/05/08/redis/redis事务.png" title="redis事务.png">
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3></div><div class="tags"><a href="/tags/redis/">redis</a></div><div class="post-nav"><a class="pre" href="/2018/05/09/hibernate/">hibernate</a><a class="next" href="/2018/05/08/linux/">linux</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

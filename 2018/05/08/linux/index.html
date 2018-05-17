@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>linux | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">linux</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">linux</h1><div class="post-meta">May 8, 2018<span> | </span><span class="category"><a href="/categories/Linux/">Linux</a></span></div><div class="post-content"><p>linux<br><a id="more"></a></p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><pre><code>根据文档可以操作linux系统
+    会将win系统的eclispe开发的工程发布到linux的tomcat中
+</code></pre><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><pre><code>基于Unix的开源免费的操作系统，系统的稳定性和安全性成为程序代码运行的最佳系统环境。
+    Linux是由Linus Torvalds（林纳斯·托瓦兹）起初开发的
+    Linux系统的应用非常广泛，不仅能长时间运行程序代码，还安装在各种计算机硬件设备中，
+    比如手机、平板电脑、路由器等。Android程序最底层就是运行在linux系统上的
+</code></pre><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><pre><code>市场需求
+    图形化界面版：注重用户体验，类似window操作系统，但目前成熟度不够
+    服务器版：无好看界面，是以在控制台窗口中输入命令操作系统的，
+    类似于DOS，架设服务器的最佳选择
+    原生程度
+    内核版本：在Linus领导下的内核小组开发维护的系统内核的版本号
+    发行版本：一些组织或公司在内核版基础上进行二次开发而重新发行的版本
+</code></pre><img src="/2018/05/08/linux/linux.png" title="linux.png">        
+<h2 id="linux安装"><a href="#linux安装" class="headerlink" title="linux安装"></a>linux安装</h2><pre><code>虚拟机的安装
+    VMware（威睿）公司的虚拟机软件，功能强大，收费产品（常用）
+    VitrualBox 虚拟机软件  Oracle公司的虚拟机软件，免费商品
+    CentOS的安装
+</code></pre><h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="linux目录结构"><a href="#linux目录结构" class="headerlink" title="linux目录结构"></a>linux目录结构</h3><img src="/2018/05/08/linux/linux目录.png" title="linux目录.png">    
+<pre><code>root的符号为~、在root中usr与etc互访问：cd ../usr或者cd /usr
+</code></pre><h3 id="目录切换命令"><a href="#目录切换命令" class="headerlink" title="目录切换命令"></a>目录切换命令</h3><pre><code>cd usr切换到该目录下usr目录
+    cd ../切换到上一层目录
+    cd /切换到系统根目录
+    cd~切换到用户主目录
+    cd -切换到上一个所在目录(相当于撤销)
+    cd 绝对路径 
+</code></pre><h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><h4 id="增加目录操作（增）"><a href="#增加目录操作（增）" class="headerlink" title="增加目录操作（增）"></a>增加目录操作（增）</h4><pre><code>mkdir 目录名称
+    在目录的目录下面建文件 mkdir 目录/目录名称，也可以自己进去建文件
+</code></pre><h4 id="查看目录（查）"><a href="#查看目录（查）" class="headerlink" title="查看目录（查）"></a>查看目录（查）</h4><pre><code>ls 看到该目录下的所有的目录和文件
+    ls -a 看到该目录下的所有文件和目录，包括隐藏的（一般为./开头）
+    ls -l（缩写为ll）看到该目录下的所有目录和文件的详细信息
+    find 目录 名称 查找该目录及子目录下所有名字相同的文件（可以用*）
+</code></pre><h4 id="修改目录的名称"><a href="#修改目录的名称" class="headerlink" title="修改目录的名称"></a>修改目录的名称</h4><pre><code>mv 目录名称 新目录名称 （目录、文件、压缩包）
+</code></pre><h4 id="移动目录的位置—剪切"><a href="#移动目录的位置—剪切" class="headerlink" title="移动目录的位置—剪切"></a>移动目录的位置—剪切</h4><pre><code>mv 目录名称 目录的新位置 （目录、文件、压缩包）
+</code></pre><h4 id="拷贝目录"><a href="#拷贝目录" class="headerlink" title="拷贝目录"></a>拷贝目录</h4><pre><code>cp -r 目录名称 目录拷贝的目标位置 -----r代表递归拷贝
+    （将该文件下面所有的文件都拷贝了、因为目录下面可能还有其他的文件，所以要递归）
+    目录、文件、压缩包，拷贝文件和压缩包时不用写-r递归
+</code></pre><h4 id="删除目录（删）"><a href="#删除目录（删）" class="headerlink" title="删除目录（删）"></a>删除目录（删）</h4><pre><code>询问删除 rm -r 目录名、文件名（目录、其他文件或压缩包）
+    强制删除 rm -rf 目录名，文件名（目录、其他文件或压缩包）
+</code></pre><h3 id="文件的操作命令"><a href="#文件的操作命令" class="headerlink" title="文件的操作命令"></a>文件的操作命令</h3><h4 id="文件的创建（增）在linux中后缀没意义"><a href="#文件的创建（增）在linux中后缀没意义" class="headerlink" title="文件的创建（增）在linux中后缀没意义"></a>文件的创建（增）在linux中后缀没意义</h4><pre><code>touch 文件名称  ----- 空文件
+</code></pre><h4 id="文件内容的查看（查）"><a href="#文件内容的查看（查）" class="headerlink" title="文件内容的查看（查）"></a>文件内容的查看（查）</h4><pre><code>cat 文件名 只能显示最后一屏内容
+    more 文件名 显示百分比，回车向下一行，空格向下一页，q退出查看
+    less 文件名 PgUp和PgDn向上和向下翻页，q结束查看
+    tail -n 文件名 查看文件的后n行，Ctrl+C结束
+    对某个文件进行动态监控 tail -f 文件名 例如tomcat的日志文件，会随着程序的运行，
+    日志会变化，可以使用tail -f catalina-2016-11-11.log 监控文件的变化 
+</code></pre><h4 id="修改文件的内容（改）"><a href="#修改文件的内容（改）" class="headerlink" title="修改文件的内容（改）"></a>修改文件的内容（改）</h4><pre><code>vim 文件名 进入命令模式，点击键盘i/a/o进入编辑模式编辑文件 
+    编辑完成后，按下Esc，退回命令模式
+    输入冒号：进入底行模式，
+    在底行模式下输入wq代表写入内容并退出（保存）；输入q!代表强制退出不保存
+    在实际开发中，使用vim编辑器主要作用就是修改配置文件
+    vim 文件→进入文件→命令模式→按i进入编辑模式→编辑文件→
+    按Esc进入底行模式→输入:wq/q!
+</code></pre><h4 id="删除文件（删）-rm-rf-文件名"><a href="#删除文件（删）-rm-rf-文件名" class="headerlink" title="删除文件（删）:rm -rf 文件名"></a>删除文件（删）:rm -rf 文件名</h4><h3 id="压缩文件的操作"><a href="#压缩文件的操作" class="headerlink" title="压缩文件的操作"></a>压缩文件的操作</h3><h4 id="打包并压缩文件"><a href="#打包并压缩文件" class="headerlink" title="打包并压缩文件"></a>打包并压缩文件</h4><pre><code>Linux中的打包文件一般是以.tar结尾的，压缩的命令一般是以.gz结尾的。
+    而一般情况下打包和压缩是一起进行的，打包并压缩后的文件的后缀名一般.tar.gz。
+    tar -zcvf 打包压缩后的文件名 要打包压缩的文件 
+    z：调用gzip压缩命令进行压缩
+    c：打包文件
+    v：显示运行过程
+    f：指定文件名
+    示例：打包并压缩/test下的所有文件 压缩后的压缩包指定名称为xxx.tar.gz
+    tar -zcvf xxx.tar.gz aaa.txt bbb.txt ccc.txt或：tar -zcvf xxx.tar.gz /test/*
+</code></pre><h4 id="解压压缩包（重点）"><a href="#解压压缩包（重点）" class="headerlink" title="解压压缩包（重点）"></a>解压压缩包（重点）</h4><pre><code>tar -xvf 压缩文件 -C /绝对路径  x：代表解压
+</code></pre><h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><h4 id="显示当前所在位置：pwd"><a href="#显示当前所在位置：pwd" class="headerlink" title="显示当前所在位置：pwd"></a>显示当前所在位置：pwd</h4><h4 id="搜索命令（文档内部的字符串）"><a href="#搜索命令（文档内部的字符串）" class="headerlink" title="搜索命令（文档内部的字符串）"></a>搜索命令（文档内部的字符串）</h4><pre><code>grep 要搜索的字符串 要搜索的文件
+    grep 要搜索的字符串 要搜索的文件 --color   高亮显示
+</code></pre><h4 id="查看进程：ps-ef"><a href="#查看进程：ps-ef" class="headerlink" title="查看进程：ps -ef"></a>查看进程：ps -ef</h4><h4 id="管道命令（用来查找tomcat进程、解决端口占用）"><a href="#管道命令（用来查找tomcat进程、解决端口占用）" class="headerlink" title="管道命令（用来查找tomcat进程、解决端口占用）"></a>管道命令（用来查找tomcat进程、解决端口占用）</h4><pre><code>命令：| 将前一个命令的输出作为本次目录的输入（对结果进一步查询）
+    查看当前系统中所有的进程中包括system字符串的进程 ps -ef | grep system
+    查看java进程 ps -ef|grep java
+</code></pre><h4 id="杀死进程-kill-9-进程的pid"><a href="#杀死进程-kill-9-进程的pid" class="headerlink" title="杀死进程:kill -9 进程的pid"></a>杀死进程:kill -9 进程的pid</h4><h4 id="网络通信命令"><a href="#网络通信命令" class="headerlink" title="网络通信命令"></a>网络通信命令</h4><pre><code>查看当前系统的网卡信息：ifconfig
+    查看与某台机器的连接情况：ping
+    查看当前系统的端口使用：netstat -an
+</code></pre><h4 id="查看linux的内核版本"><a href="#查看linux的内核版本" class="headerlink" title="查看linux的内核版本"></a>查看linux的内核版本</h4><pre><code>uname -a
+</code></pre><h4 id="下载指定文件"><a href="#下载指定文件" class="headerlink" title="下载指定文件"></a>下载指定文件</h4><pre><code>wget + 空格 + 参数 + 要下载文件的url路径
+</code></pre><h4 id="权限命令-通过ls-l命令查看某个目录下的文件或目录的权限（第一列）"><a href="#权限命令-通过ls-l命令查看某个目录下的文件或目录的权限（第一列）" class="headerlink" title="权限命令:通过ls -l命令查看某个目录下的文件或目录的权限（第一列）"></a>权限命令:通过ls -l命令查看某个目录下的文件或目录的权限（第一列）</h4><img src="/2018/05/08/linux/linux文件.png" title="linux文件.png">    
+<pre><code>文件的类型
+    d：代表目录
+    -：代表文件
+    l：代表链接（可以认为是window中的快捷方式）
+</code></pre><img src="/2018/05/08/linux/linux的权限.png" title="linux的权限.png">    
+<pre><code>后面的9位分为3组，每3位置一组
+    属主（创建的人）的权限，
+    与当前用户同组的用户的权限
+    其他用户的权限,没有就用-表示
+    修改文件/目录的权限的命令：chmod
+    ①chmod u=rwx,g=rw,o=r aaa.txt
+    ②chmod 764 aaa.txt
+</code></pre><h3 id="远程连接工具的使用"><a href="#远程连接工具的使用" class="headerlink" title="远程连接工具的使用"></a>远程连接工具的使用</h3><pre><code>Puttty、secureCRT、SSH Secure等
+    远程工具乱码的解决：在linux的/etc/sysconfig目录下有一个i18n的文件
+    代表linux的系统编码将其从UTF-8修改成GBK重现连接linux即可：
+</code></pre><h3 id="jdk、mysql、tomcat安装"><a href="#jdk、mysql、tomcat安装" class="headerlink" title="jdk、mysql、tomcat安装"></a>jdk、mysql、tomcat安装</h3></div><div class="tags"><a href="/tags/Linux/">Linux</a></div><div class="post-nav"><a class="pre" href="/2018/05/08/redis/">redis</a><a class="next" href="/2018/05/08/ajax/">ajax</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

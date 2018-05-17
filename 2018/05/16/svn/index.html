@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>svn | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">svn</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">svn</h1><div class="post-meta">May 16, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>项目管理工具svn<br><a id="more"></a></p>
+<h2 id="项目管理工具svn"><a href="#项目管理工具svn" class="headerlink" title="项目管理工具svn"></a>项目管理工具svn</h2><h3 id="svn介绍"><a href="#svn介绍" class="headerlink" title="svn介绍"></a>svn介绍</h3><h4 id="项目管理中的版本控制问题"><a href="#项目管理中的版本控制问题" class="headerlink" title="项目管理中的版本控制问题"></a>项目管理中的版本控制问题</h4><pre><code>通常软件开发由多人协作开发，如果对代码文件、配置文件、文档等
+    没有进行版本控制，将会出现很多问题：
+    备份多个版本，占用磁盘空间大
+    解决代码冲突困难 
+    容易引发BUG 
+    难于追溯问题代码的修改人和修改时间
+    难于恢复至以前正确版本
+    无法进行权限控制 
+    项目版本发布困难
+</code></pre><h4 id="版本控制概念"><a href="#版本控制概念" class="headerlink" title="版本控制概念"></a>版本控制概念</h4><pre><code>版本控制(Revision control)是维护工程蓝图的标准做法，
+    能追踪工程蓝图从诞生一直到定案的过程。
+    是一种记录若干文件内容变化，以便将来查阅特定版本修订情况的系统
+</code></pre><h4 id="svn是什么？"><a href="#svn是什么？" class="headerlink" title="svn是什么？"></a>svn是什么？</h4><pre><code>SVN（Subversion）是近年来崛起的版本管理工具，在当前的开源项目里(J2EE)，
+    几乎95%以上的项目都用到了 SVN。Subversion 
+    项目的初衷是为了替换当年开源社区最为流行的版本控制软件 CVS，
+    在 CVS的功能的基础上有很多的提升同时也能较好的解决 CVS 系统的一些不足。
+</code></pre><h4 id="svn的使用方法"><a href="#svn的使用方法" class="headerlink" title="svn的使用方法"></a>svn的使用方法</h4><pre><code>svn是基于客户/服务器模式：
+</code></pre><img src="/2018/05/16/svn/图片1.png" title="图片1.png">
+<h4 id="复制-修改-合并方案-Subversion默认的模式"><a href="#复制-修改-合并方案-Subversion默认的模式" class="headerlink" title="复制-修改-合并方案(Subversion默认的模式)"></a>复制-修改-合并方案(Subversion默认的模式)</h4><pre><code>在这种模型里，每一个客户读取项目配置库建立一个私有工作副本——
+    版本库中文件和目录的本地映射。用户并行工作，修改各自的工作副本，
+    最终，各个私有的复制合并在一起，成为最终的版本，
+    这种系统通常可以辅助合并操作，但是最终要靠人工去确定正误。
+</code></pre><h4 id="锁定-修改-解锁方案"><a href="#锁定-修改-解锁方案" class="headerlink" title="锁定-修改-解锁方案"></a>锁定-修改-解锁方案</h4><pre><code>在这样的模型里，在一个时间段里配置库的一个文件只允许被一个人修改。
+    此模式不适合软件开发这种工作。
+</code></pre><h4 id="svn服务器的工作方式"><a href="#svn服务器的工作方式" class="headerlink" title="svn服务器的工作方式"></a>svn服务器的工作方式</h4><img src="/2018/05/16/svn/图片2.png" title="图片2.png">
+<pre><code>SVN服务操作数据的方式：
+    独立服务器方式：svnserve 
+    借助Apache方式：mod_dav_svn 
+    SVN版本数据存储方式
+    BDB （Berkeley DB）数据库方式
+    FSFS文件方式 （推荐）
+</code></pre><h3 id="svn服务端安装配置"><a href="#svn服务端安装配置" class="headerlink" title="svn服务端安装配置"></a>svn服务端安装配置</h3><h4 id="两种服务端安装包"><a href="#两种服务端安装包" class="headerlink" title="两种服务端安装包"></a>两种服务端安装包</h4><h5 id="官方安装包"><a href="#官方安装包" class="headerlink" title="官方安装包"></a>官方安装包</h5><pre><code>官方网站：http://subversion.apache.org/
+    下载：http://subversion.apache.org/download.cgi
+</code></pre><img src="/2018/05/16/svn/图片3.png" title="图片3.png">
+<pre><code>官方提供的服务端安装包，安装后需要通过命令行操作，专业配置管理员使用
+</code></pre><h4 id="图形化服务端"><a href="#图形化服务端" class="headerlink" title="图形化服务端"></a>图形化服务端</h4><pre><code>志愿者开发的图形化操作界面的svn服务端，它适用于普通软件开发人员使用。
+    下载地址：https://www.visualsvn.com/downloads/
+</code></pre><img src="/2018/05/16/svn/图片4.png" title="图片4.png">
+<h3 id="安装图形化服务端"><a href="#安装图形化服务端" class="headerlink" title="安装图形化服务端"></a>安装图形化服务端</h3><img src="/2018/05/16/svn/图片5.png" title="图片5.png">
+<img src="/2018/05/16/svn/图片6.png" title="图片6.png">
+<img src="/2018/05/16/svn/图片7.png" title="图片7.png">
+<pre><code>查看程序菜单：
+</code></pre><img src="/2018/05/16/svn/图片8.png" title="图片8.png">
+<pre><code>查看服务，VisualSVN成功启动：
+</code></pre><img src="/2018/05/16/svn/图片9.png" title="图片9.png">
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><pre><code>svn服务端创建完成需要创建仓库，仓库中存放要版本控制的文件。
+    通过开始菜单进入VisualSVN server manager：
+</code></pre><img src="/2018/05/16/svn/图片10.png" title="图片10.png">
+<img src="/2018/05/16/svn/图片11.png" title="图片11.png">
+<img src="/2018/05/16/svn/图片12.png" title="图片12.png">
+<pre><code>选择文件存储方式：
+</code></pre><img src="/2018/05/16/svn/图片13.png" title="图片13.png">
+<img src="/2018/05/16/svn/图片14.png" title="图片14.png">
+<pre><code>创建一个空的仓库：
+</code></pre><img src="/2018/05/16/svn/图片15.png" title="图片15.png">
+<pre><code>设置用户访问仓库权限：
+</code></pre><img src="/2018/05/16/svn/图片16.png" title="图片16.png">
+<pre><code>仓库创建成功：
+    仓库地址为https://ip地址或计算机名/svn/仓库名称
+</code></pre><img src="/2018/05/16/svn/图片17.png" title="图片17.png">
+<img src="/2018/05/16/svn/图片18.png" title="图片18.png">
+<h3 id="创建工程目录"><a href="#创建工程目录" class="headerlink" title="创建工程目录"></a>创建工程目录</h3><pre><code>仓库中存放开发项目代码、文档等，需要创建一个工程目录。
+</code></pre><img src="/2018/05/16/svn/图片19.png" title="图片19.png">
+<img src="/2018/05/16/svn/图片20.png" title="图片20.png">
+<pre><code>创建成功：
+</code></pre><img src="/2018/05/16/svn/图片21.png" title="图片21.png">
+<pre><code>trunk：项目开发代码的主体，是从项目开始直到当前都处于活动的状态，
+    从这里可以获得项目最新的源代码以及几乎所有的变更历史信息。
+    branch：从trunk的某个点分离出来的代码拷贝，通常可以在不影响主干的前提下
+    在这里进行重大bug的修改，或者做实验性的开发，以及定制功能开发等。
+    如果分支达到了预期的目的，通常可以被合并（Mgerge）到主干中。
+    tag：用来表示trunk和branch的某个点的状态，
+    以代表项目的某个稳定状态，通常为最终发布状态。
+</code></pre><img src="/2018/05/16/svn/图片22.png" title="图片22.png">
+<p>工程目录创建完成，查看它的svn地址：<br><img src="/2018/05/16/svn/图片23.png" title="图片23.png"><br>拷贝svn地址：<br><img src="/2018/05/16/svn/图片24.png" title="图片24.png"></p>
+<h2 id="TortoiseSVN客户端"><a href="#TortoiseSVN客户端" class="headerlink" title="TortoiseSVN客户端"></a>TortoiseSVN客户端</h2><h3 id="svn客户端类型"><a href="#svn客户端类型" class="headerlink" title="svn客户端类型"></a>svn客户端类型</h3><pre><code>svn客户端需要通过网络访问svn服务端提交文件、查询文件等，
+    可通过以下客户端类型访问svn服务端：
+    1、使用Subversion提供的客户端命令
+    使用方式：在命令行下输入命令操作。
+    2、使用Torotise图形化界面操作（推荐）
+    3、使用Eclipse等开发工具插件操作（推荐）
+</code></pre><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><pre><code>TortoiseSVN是Subversion版本控制系统的一个免费开源客户端，不用为使用它而付费
+    TortoiseSVN是 Subversion 的 Windows 扩展。
+    它使你避免接触 Subversion 枯燥而且不方便的 Command Line。
+    它完全嵌入 Windows Explorer，使用时只需在正常的窗口里右键操作就可以了
+</code></pre><img src="/2018/05/16/svn/图片25.png" title="图片25.png">
+<pre><code>下载：http://tortoisesvn.net/downloads.html    提供 32位和64位不同版本，
+    安装tortoiseSVN 需要修改客户端电脑右键菜单，安装后需要重启电脑。
+</code></pre><img src="/2018/05/16/svn/图片26.png" title="图片26.png">
+<h3 id="浏览仓库"><a href="#浏览仓库" class="headerlink" title="浏览仓库"></a>浏览仓库</h3><pre><code>使用Tortoise浏览svn服务端的仓库的内容：
+</code></pre><img src="/2018/05/16/svn/图片27.png" title="图片27.png">
+<img src="/2018/05/16/svn/图片28.png" title="图片28.png">
+<img src="/2018/05/16/svn/图片29.png" title="图片29.png">
+<h2 id="权限管理-了解"><a href="#权限管理-了解" class="headerlink" title="权限管理(了解)"></a>权限管理(了解)</h2><h3 id="认证授权机制"><a href="#认证授权机制" class="headerlink" title="认证授权机制"></a>认证授权机制</h3><pre><code>在企业开发中会为每位程序员、测试人员等相关人员分配一个账号，
+    用户通过使用svn客户端连接svn服务时需要输入账号和密码，
+    svn服务对账号和密码进行校验，输入正确可以继续访问，
+    当用户访问仓库下某个目录时，svn服务对用户进行授权，
+    如果用户拥有该目录的访问权限方可访问。
+    判断账号和密码输入是否正确的过程即认证过程。
+    判断用户是否拥有目录的读/写权限时即授权过程。
+</code></pre><h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><img src="/2018/05/16/svn/图片30.png" title="图片30.png">
+<img src="/2018/05/16/svn/图片31.png" title="图片31.png">
+<p>查看已创建的用户：<br><img src="/2018/05/16/svn/图片32.png" title="图片32.png"><br>修改用户：<br><img src="/2018/05/16/svn/图片33.png" title="图片33.png"></p>
+<h3 id="创建组"><a href="#创建组" class="headerlink" title="创建组"></a>创建组</h3><img src="/2018/05/16/svn/图片34.png" title="图片34.png">
+<img src="/2018/05/16/svn/图片35.png" title="图片35.png">
+<p>查看创建的组：<br><img src="/2018/05/16/svn/图片36.png" title="图片36.png"></p>
+<p>修改组：<br><img src="/2018/05/16/svn/图片37.png" title="图片37.png"></p>
+<h3 id="分配仅限"><a href="#分配仅限" class="headerlink" title="分配仅限"></a>分配仅限</h3><p>给仓库下的每个目录分配权限对访问进行控制。<br>删除默认权限<br>删除系统安装后默认权限：<br><img src="/2018/05/16/svn/图片38.png" title="图片38.png"><br><img src="/2018/05/16/svn/图片39.png" title="图片39.png"></p>
+<p>示例一：开发人员拥有读写权限<br>进入权限分配界面：<br><img src="/2018/05/16/svn/图片40.png" title="图片40.png"></p>
+<p>添加组或用户：<br><img src="/2018/05/16/svn/图片41.png" title="图片41.png"></p>
+<p>分配权限：<br>继承父目录权限、不可访问、读权限、读/写权限<br><img src="/2018/05/16/svn/图片42.png" title="图片42.png"></p>
+<p>访问时输入账号：<br><img src="/2018/05/16/svn/图片43.png" title="图片43.png"></p>
+<p>登陆测试是否有读/写权限：<br><img src="/2018/05/16/svn/图片44.png" title="图片44.png"></p>
+<p>示例二：测试人员拥有读权限<br><img src="/2018/05/16/svn/图片45.png" title="图片45.png"></p>
+<p>登陆测试是否有读/写权限：<br><img src="/2018/05/16/svn/图片46.png" title="图片46.png"></p>
+<h3 id="清除认证缓存"><a href="#清除认证缓存" class="headerlink" title="清除认证缓存"></a>清除认证缓存</h3><p>有几种情况需要清除认证缓存：<br>1、本地使用多个账号登陆，每次输入的账号和密码都不一样<br>2、当账号密码修改后（建议清理）<br><img src="/2018/05/16/svn/图片47.png" title="图片47.png"></p>
+<img src="/2018/05/16/svn/图片48.png" title="图片48.png">
+<h2 id="TortoiseSVN日常使用"><a href="#TortoiseSVN日常使用" class="headerlink" title="TortoiseSVN日常使用"></a>TortoiseSVN日常使用</h2><h3 id="浏览仓库-1"><a href="#浏览仓库-1" class="headerlink" title="浏览仓库"></a>浏览仓库</h3><p>Repo-browser ： 浏览仓库中资源信息 </p>
+<img src="/2018/05/16/svn/图片49.png" title="图片49.png">
+<pre><code>导入导出
+    Export ：导出项目 ，和checkout区别
+    （checkout检出后文件，含有.svn隐藏文件夹， 会和SVN仓库交互， 
+     export导出，没有.svn隐藏文件夹）
+</code></pre><img src="/2018/05/16/svn/图片50.png" title="图片50.png">
+<pre><code>import 将本地资源导入到svn 服务器
+</code></pre><img src="/2018/05/16/svn/图片51.png" title="图片51.png">
+<h3 id="修改提交"><a href="#修改提交" class="headerlink" title="修改提交"></a>修改提交</h3><img src="/2018/05/16/svn/图片52.png" title="图片52.png">
+<h4 id="Checkout"><a href="#Checkout" class="headerlink" title="Checkout"></a>Checkout</h4><p>检出项目，复制项目的副本到本地。<br>在要检出的目录中右键：<br><img src="/2018/05/16/svn/图片53.png" title="图片53.png"><br><img src="/2018/05/16/svn/图片54.png" title="图片54.png"></p>
+<h4 id="add"><a href="#add" class="headerlink" title="add"></a>add</h4><p>在检出的目录中添加文件：<br><img src="/2018/05/16/svn/图片55.png" title="图片55.png"><br>图标： 这是一个新文件 </p>
+<p>Add to ignore list ：添加到忽略列表 （标记该文件不需要版本控制 ）<br><img src="/2018/05/16/svn/图片56.png" title="图片56.png"><br>Add ： 标记这个文件添加到服务器<br><img src="/2018/05/16/svn/图片57.png" title="图片57.png"><br>已经标记要添加到版本库 </p>
+<h4 id="Commit"><a href="#Commit" class="headerlink" title="Commit"></a>Commit</h4><p>当检出目录或子目录中内容有修改，目录图标变为：<br>提交Commit 提交本地修改至svn服务器：<br>在检出目录或要提交修改的目录右键：<br><img src="/2018/05/16/svn/图片58.png" title="图片58.png"></p>
+<img src="/2018/05/16/svn/图片59.png" title="图片59.png">
+<img src="/2018/05/16/svn/图片60.png" title="图片60.png">
+<p>提交后目录中的内容与svn服务同步，目录图标变为：</p>
+<h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><p>更新仓库的文件到本地</p>
+<p>在检出目录或子目标或文件上右键：<br><img src="/2018/05/16/svn/图片61.png" title="图片61.png"><br>更新到最新版本<br><img src="/2018/05/16/svn/图片62.png" title="图片62.png"></p>
+<p>更新到指定版本</p>
+<img src="/2018/05/16/svn/图片63.png" title="图片63.png">
+<img src="/2018/05/16/svn/图片64.png" title="图片64.png">
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p>Delete ：删除版本库文件<br> <img src="/2018/05/16/svn/图片65.png" title="图片65.png"><br> 标记删除后，本地文件删除，标记删除后需要提交。</p>
+<h4 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h4><p>在检出目录或子目录操作会记录操作日志，提交前可以回滚操作。<br> <img src="/2018/05/16/svn/图片66.png" title="图片66.png"><br>在要回滚的检出目录或子目录中右键：<br> <img src="/2018/05/16/svn/图片67.png" title="图片67.png"></p>
+<h3 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h3><p>两个客户端同时修改同一个文件， 改动同一个位置，发生冲突情况<br>    如果当commit 遇到文件已经过时，说明另一个人可能改动过 —– update<br>  <img src="/2018/05/16/svn/图片68.png" title="图片68.png"><br>    db.properties 将本地和服务器合并到一起的文件 （不要直接看）<br>    db.properties.mine 我本地自己修改后的文件<br>    db.properties.r16 我修改之前的文件<br>    db.properties.r17 别人修改后的文件</p>
+ <img src="/2018/05/16/svn/图片69.png" title="图片69.png">
+<p>手动Merge 后，需要将编辑后冲突文件，标记为已经解决 ， 再进行commit<br> <img src="/2018/05/16/svn/图片70.png" title="图片70.png"></p>
+<h3 id="eclipse的SVN插件使用"><a href="#eclipse的SVN插件使用" class="headerlink" title="eclipse的SVN插件使用"></a>eclipse的SVN插件使用</h3><h4 id="svn插件安装"><a href="#svn插件安装" class="headerlink" title="svn插件安装"></a>svn插件安装</h4><p>下载Subversion的eclipse插件<br><a href="http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA" target="_blank" rel="noopener">http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA</a> </p>
+<p>下载 site-1.10.11.zip，本教程将此zip放在D盘。</p>
+<p>下边是在STS上安装svn插件步骤：</p>
+<h4 id="进入STS软件安装界面"><a href="#进入STS软件安装界面" class="headerlink" title="进入STS软件安装界面"></a>进入STS软件安装界面</h4> <img src="/2018/05/16/svn/图片71.png" title="图片71.png">
+<h4 id="安装svn插件"><a href="#安装svn插件" class="headerlink" title="安装svn插件"></a>安装svn插件</h4> <img src="/2018/05/16/svn/图片72.png" title="图片72.png">
+<p>上边命令行输入：SVN - jar:file:/d:/site-1.10.11.zip!/</p>
+<p>点击下一步。</p>
+<p>接受协议，完成：<br> <img src="/2018/05/16/svn/图片73.png" title="图片73.png"></p>
+<p>出现提示，选择继续安装：<br> <img src="/2018/05/16/svn/图片74.png" title="图片74.png"></p>
+<p>安装完成，查看STS视图有SVN选项说明安装成功：<br> <img src="/2018/05/16/svn/图片75.png" title="图片75.png"></p>
+<h3 id="将项目共享到SVN"><a href="#将项目共享到SVN" class="headerlink" title="将项目共享到SVN"></a>将项目共享到SVN</h3><pre><code>新建SVN仓库连接 ， 切换“SVN资源库” 视图
+</code></pre> <img src="/2018/05/16/svn/图片76.png" title="图片76.png">
+ <img src="/2018/05/16/svn/图片77.png" title="图片77.png">
+ <img src="/2018/05/16/svn/图片78.png" title="图片78.png">
+<pre><code>共享项目到SVN 
+</code></pre> <img src="/2018/05/16/svn/图片79.png" title="图片79.png">
+<h3 id="从svn检出"><a href="#从svn检出" class="headerlink" title="从svn检出"></a>从svn检出</h3><p> 将svn管理项目检出到工作区<br> <img src="/2018/05/16/svn/图片80.png" title="图片80.png"></p>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3> <img src="/2018/05/16/svn/图片81.png" title="图片81.png">
+<p>手动merge后，标记为解决<br> <img src="/2018/05/16/svn/图片82.png" title="图片82.png"></p>
+<h3 id="重置用户名密码"><a href="#重置用户名密码" class="headerlink" title="重置用户名密码"></a>重置用户名密码</h3><p>删除C:\Users(用户)\”你的用户名”\AppData\Roaming\Subversion\auth\下的所有文件<br> <img src="/2018/05/16/svn/图片83.png" title="图片83.png"></p>
+</div><div class="tags"><a href="/tags/svn/">svn</a></div><div class="post-nav"><a class="next" href="/2018/05/15/oracle/">oracle</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/linux/">linux</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
