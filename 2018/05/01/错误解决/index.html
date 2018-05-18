@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>错误解决 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">错误解决</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">错误解决</h1><div class="post-meta">May 1, 2018<span> | </span><span class="category"><a href="/categories/错误解决/">错误解决</a></span></div><div class="post-content"><p>常见错误解决<br><a id="more"></a></p>
+<h1 id="常见报错解决"><a href="#常见报错解决" class="headerlink" title="常见报错解决"></a>常见报错解决</h1><h2 id="Spring-整合Junit4测试："><a href="#Spring-整合Junit4测试：" class="headerlink" title="Spring 整合Junit4测试："></a>Spring 整合Junit4测试：</h2><pre><code>log4j:WARN No appenders could be found for logger 
+    (org.springframework.test.context.junit4.SpringJUnit4ClassRunner).
+    log4j:WARN Please initialize the log4j system properly.
+    解决办法：在src下建新的file名为log4j.properties
+    然后其内如下
+    log4j.rootLogger=WARN, stdout
+    log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+    log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+    log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m%n
+</code></pre><h2 id="Junit4"><a href="#Junit4" class="headerlink" title="Junit4"></a>Junit4</h2><pre><code>initilizationError[Runner:JUnit4](0.00)表示可能该方法没加@Test
+</code></pre><h2 id="js使用时一定要注意每句后面加分号"><a href="#js使用时一定要注意每句后面加分号" class="headerlink" title="js使用时一定要注意每句后面加分号"></a>js使用时一定要注意每句后面加分号</h2><pre><code>jsp页面数据传递①hidden②？参数名=值
+</code></pre><h2 id="maven错误"><a href="#maven错误" class="headerlink" title="maven错误"></a>maven错误</h2><pre><code>Batch update returned unexpected row count from update [0]; actual row count: 0;
+    Batch update returned unexpected row count from update [0]; actual row count: 0; 
+    expected: 1
+    这个异常是由于主键设置为自增长/uuid，而在我们插入记录的时候设置了ID的值导致的
+</code></pre><h2 id="Maven项目启动的时候一定要设置好tomcat7的版本，注意端口占用问题"><a href="#Maven项目启动的时候一定要设置好tomcat7的版本，注意端口占用问题" class="headerlink" title="Maven项目启动的时候一定要设置好tomcat7的版本，注意端口占用问题"></a>Maven项目启动的时候一定要设置好tomcat7的版本，注意端口占用问题</h2><pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+    &lt;configuration&gt;
+    &lt;!-- 可以灵活配置工程路径 --&gt;
+    &lt;path&gt;/ssh&lt;/path&gt;
+    &lt;!-- 可以灵活配置端口号 --&gt;
+    &lt;port&gt;8080&lt;/port&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+</code></pre><h2 id="Maven错误"><a href="#Maven错误" class="headerlink" title="Maven错误"></a>Maven错误</h2><pre><code>[ERROR] No compiler is provided in this environment. 
+    Perhaps you are running on a JRE rather than a JDK?
+    对于Java开发者来说, Installed JREs中使用jdk目录
+    而不适用jre目录也是最好的选择. 按下图配置
+</code></pre><img src="/2018/05/01/错误解决/maven报错1.PNG" title="maven报错1.PNG">
+<h2 id="永久去除jsp报错"><a href="#永久去除jsp报错" class="headerlink" title="永久去除jsp报错"></a>永久去除jsp报错</h2><pre><code>https://jingyan.baidu.com/article/7f766dafbb5cf34101e1d0d8.html
+</code></pre><h2 id="spring报错"><a href="#spring报错" class="headerlink" title="spring报错"></a>spring报错</h2><pre><code>注意单独配置后springmvc改了url后面重新启动项目不会更新配置，
+    一定要clean
+    Springmvc的 service经过扫描后无法xml配解注入dao接口实现类，
+    需要用@Resource（name=”xxx”）来注入，是因为springmvc配置为子容器，
+    而spring本身是父容器，且子能访问父，父不能访问子，
+    故由于springmvc在请求到来的时候扫描了controller作为bean，即使没注解dao属性，
+    但是已经将整个该类注册成bean，故之后的spring
+    父容器再注册也不能再注入dao进去了
+
+    是因为，系统首先加载spring父容器（application。Xml文件）
+    第一次注册了service整个注解（包括依赖的dao接口），然而跟springmvc无关，
+    相当于没注册进去springmvc容器。
+    然后再加载springmvc文件，当加载到dao接口属性的时候，
+    由于springmvc的扫描扫描bean的时候该接口属性没配置注解，导致没注入dao接口，报空指针错误。
+    ①如果在springmvc里面再用xml注解补充dao的注入的话，会报
+    There is already handler of type [class com.junye.service.ItemsServiceImpl] 
+    mapped.错误，
+    ②即使注解和xml配置调转了都不行，仍然报同样的错误
+    （解释：是因为系统优先加载xml配置，然后再加载注解配置）
+    ③单独xml配置（去掉包扫描）完全没问题，说明springmvc不能同时用注解配置和xml配置
+    ④而对于spring本身来说却可以重复配置一样的bean进去容器，但以xml的配置为准
+
+    补充，子容器能访问父容器的内容，但是父容器不能访问子容器的内容
+    结论：springmvc开启扫描包扫描bean的时候。里面必须都注解注入，
+    不要部分属性xml配置、部分注解，springmvc不允许用注解配置和xml注册同一个bean，
+    而spring本身却可以，以xml为准
+
+    applicationContext里面已经声明了 service的对象bean，
+    又扫描service类的上面注解@Component声明为bean，
+    重复导致spring容器不能判断Service的成员装配哪个对象。
+
+    Xml配置优先于注解配置，加载顺序listener》filter》servlet，
+    而spring配置文件先加载，后加载springmvc的配置文件。
+
+    Springmvc使用必须用自己的springmvc扫描到controller注解的bean，
+    若是spring扫的话没用，404
+</code></pre><h2 id="struts2"><a href="#struts2" class="headerlink" title="struts2"></a>struts2</h2><pre><code>注意struts整合spring时action必须设置scope=”prototype”
+    判断是不是为true，直接&lt;s:if test=&quot;#parameters.select&quot;&gt;，
+    不要&lt;s:if test=&quot;#parameters.select==true&quot;&gt;
+</code></pre></div><div class="tags"><a href="/tags/错误解决/">错误解决</a></div><div class="post-nav"><a class="pre" href="/2018/05/01/反射/">反射&amp;动态代理</a><a class="next" href="/2018/04/30/网络编程/">网络编程</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
