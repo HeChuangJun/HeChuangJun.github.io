@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>maven | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">maven</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">maven</h1><div class="post-meta">May 17, 2018<span> | </span><span class="category"><a href="/categories/maven/">maven</a></span></div><div class="post-content"><p>maven项目管理工具<br><a id="more"></a></p>
+<h2 id="maven项目管理工具"><a href="#maven项目管理工具" class="headerlink" title="maven项目管理工具"></a>maven项目管理工具</h2><h3 id="maven概述"><a href="#maven概述" class="headerlink" title="maven概述"></a>maven概述</h3><pre><code>apche下的专门java开发的项目管理工具开源项目
+</code></pre><h4 id="一步构建项目"><a href="#一步构建项目" class="headerlink" title="一步构建项目"></a>一步构建项目</h4><pre><code>项目构建过程标准化，一个命令完成
+</code></pre><h4 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h4><pre><code>不用手动导入jar包，在pom.xml定义坐标自动从maven仓库中下载，不易出错
+</code></pre><h4 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h4><pre><code>window 和 linux都可以使用
+    遵循规范，提高开发效率，降低项目维护成本
+</code></pre><h3 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h3><pre><code>编写源代码、编译、测试、运行、打包、部署、运行
+</code></pre><h4 id="普通项目构建过程"><a href="#普通项目构建过程" class="headerlink" title="普通项目构建过程"></a>普通项目构建过程</h4><pre><code>①eclipse中创建一个java-web工程
+    ②在工程中编写源代码及配置文件等
+    ③对源代码进行编译，java文件编译成class文件
+    ④执行junit测试
+    ⑤将工程打成war包部署在tomcat中运行
+</code></pre><h4 id="maven项目构建过程"><a href="#maven项目构建过程" class="headerlink" title="maven项目构建过程"></a>maven项目构建过程</h4><pre><code>清理（clean）、编译（commpile）、测试、报告、
+    打包（package：java→jar、web→war）、部署
+    运行mavenLtomcat：run、tomcat7：run
+    一个命令完成构建、运行、方便快捷
+    每个构建阶段规范，有利于团队开发
+</code></pre><h4 id="依赖管理-1"><a href="#依赖管理-1" class="headerlink" title="依赖管理"></a>依赖管理</h4><pre><code>传统项目依赖管理：手动拷贝jar包到WEB-INF目录下。
+    jar包版本冲突、jar包难找、jar包过大
+    maven项目依赖管理：通过pom.xml对jar包版本同一管理，
+    避免冲突、可以从maven仓库中下载jar包
+</code></pre><h3 id="maven仓库"><a href="#maven仓库" class="headerlink" title="maven仓库"></a>maven仓库</h3><h4 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h4><pre><code>优先查找本地仓库、没有查远程、最后中央、
+    查到自动下载到本地仓库保存
+    默认保存位置：windows用户目录/.m2/repository.
+</code></pre><h4 id="远程仓库：互联网或局域网内"><a href="#远程仓库：互联网或局域网内" class="headerlink" title="远程仓库：互联网或局域网内"></a>远程仓库：互联网或局域网内</h4><h4 id="中央仓库：http：-repo1-maven-org-maven2、maven团队自己维护"><a href="#中央仓库：http：-repo1-maven-org-maven2、maven团队自己维护" class="headerlink" title="中央仓库：http：//repo1.maven.org/maven2、maven团队自己维护"></a>中央仓库：http：//repo1.maven.org/maven2、maven团队自己维护</h4><h4 id="配置本地仓库"><a href="#配置本地仓库" class="headerlink" title="配置本地仓库"></a>配置本地仓库</h4><pre><code>F:\apache-maven-3.5.3\conf\setting.xml
+    &lt;localRepository&gt;F:\repository&lt;/localRepository&gt;
+</code></pre><h4 id="运行web工程"><a href="#运行web工程" class="headerlink" title="运行web工程"></a>运行web工程</h4><pre><code>进入maven工程目录(含有pom.xml的位置)，运行tomcat：run命令
+</code></pre><h3 id="maven工程目录"><a href="#maven工程目录" class="headerlink" title="maven工程目录"></a>maven工程目录</h3><img src="/2018/05/17/maven/maven工程目录.png" title="maven工程目录.png">    
+<h3 id="常用maven命令"><a href="#常用maven命令" class="headerlink" title="常用maven命令"></a>常用maven命令</h3><pre><code>mvn compile 将src/main/java下的 文件编译为class文件
+    并放到target/classes目录下,不编译测试的代码
+    mvn test 执行src/test/java的单元测试类
+    mvn clean 删除target目录的内容包括打包结果和编译结果，清理后编译
+    mvn package java工程→jar、web工程→war包，
+    默认jar包名称：artificild-version.jar
+    mvn install：将maven打成jar包或者war包发布到本地仓库
+    (模块开发的时候使用)
+    安装到仓库/groupId/artifacid/version
+</code></pre><h3 id="maven概念模型"><a href="#maven概念模型" class="headerlink" title="maven概念模型"></a>maven概念模型</h3><h4 id="项目对象模型"><a href="#项目对象模型" class="headerlink" title="项目对象模型"></a>项目对象模型</h4><pre><code>pom.xml定义项目坐标、依赖、信息、插件目标
+</code></pre><h4 id="标准集合"><a href="#标准集合" class="headerlink" title="标准集合"></a>标准集合</h4><pre><code>标准目录结构、生命周期阶段、依赖管理有标准的坐标定义
+</code></pre><h4 id="项目生命周期"><a href="#项目生命周期" class="headerlink" title="项目生命周期"></a>项目生命周期</h4><pre><code>清理（clean）、编译（commpile）、测试（test）、报告、
+    打包（package：java→jar、web→war）、部署
+    通过命令实现生命周期
+</code></pre><h4 id="依赖管理系统：对jar包同一管理"><a href="#依赖管理系统：对jar包同一管理" class="headerlink" title="依赖管理系统：对jar包同一管理"></a>依赖管理系统：对jar包同一管理</h4><h4 id="逻辑：定义项目生命周期阶段中插件目标"><a href="#逻辑：定义项目生命周期阶段中插件目标" class="headerlink" title="逻辑：定义项目生命周期阶段中插件目标"></a>逻辑：定义项目生命周期阶段中插件目标</h4><h4 id="插件目标：管理生命周期过程都是基于插件完成的"><a href="#插件目标：管理生命周期过程都是基于插件完成的" class="headerlink" title="插件目标：管理生命周期过程都是基于插件完成的"></a>插件目标：管理生命周期过程都是基于插件完成的</h4><img src="/2018/05/17/maven/pom.xml.png" title="pom.xml.png">
+<h3 id="eclipse构建maven项目一般步骤"><a href="#eclipse构建maven项目一般步骤" class="headerlink" title="eclipse构建maven项目一般步骤"></a>eclipse构建maven项目一般步骤</h3><h4 id="安装maven插件"><a href="#安装maven插件" class="headerlink" title="安装maven插件"></a>安装maven插件</h4><img src="/2018/05/17/maven/maven插件.PNG" title="maven插件.PNG">
+<h4 id="指定maven安装目录"><a href="#指定maven安装目录" class="headerlink" title="指定maven安装目录"></a>指定maven安装目录</h4><img src="/2018/05/17/maven/maven安装目录.PNG" title="maven安装目录.PNG">
+<h4 id="User-setting配置"><a href="#User-setting配置" class="headerlink" title="User setting配置"></a>User setting配置</h4><img src="/2018/05/17/maven/Usersetting配置.PNG" title="Usersetting配置.PNG">
+<p>如果修改了setting.xml文件需要点击”update settings”<br>    按钮对本地仓库建索引点击”Rebuild index”    </p>
+<h4 id="创建maven项目要跳过骨架、不跳过这目录不全、web选择war"><a href="#创建maven项目要跳过骨架、不跳过这目录不全、web选择war" class="headerlink" title="创建maven项目要跳过骨架、不跳过这目录不全、web选择war"></a>创建maven项目要跳过骨架、不跳过这目录不全、web选择war</h4><img src="/2018/05/17/maven/mavenproject.png" title="mavenproject.png">    
+<h4 id="定义maven坐标（maven对jar包的身份定义）eclipse自动生成"><a href="#定义maven坐标（maven对jar包的身份定义）eclipse自动生成" class="headerlink" title="定义maven坐标（maven对jar包的身份定义）eclipse自动生成"></a>定义maven坐标（maven对jar包的身份定义）eclipse自动生成</h4><pre><code>&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;cn.itcast.maven&lt;/groupId&gt;项目名称：组织名+项目名。类似包名
+    &lt;artifactId&gt;maven-helloworld&lt;/artifactId&gt;模块名
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;当前版本号snapshot快照版本非正式版本，
+    release为正式发布版
+    &lt;packaging&gt;war&lt;/packaging&gt;打包类型jar、war、
+    pom父工程使用这个设置与package有关
+    &lt;name&gt;第一个maven工程&lt;/name&gt;
+    &lt;description&gt;第一个maven工程&lt;/description&gt;
+</code></pre><h4 id="定义插件（编译器）jdk1-8（设置编译版本）"><a href="#定义插件（编译器）jdk1-8（设置编译版本）" class="headerlink" title="定义插件（编译器）jdk1.8（设置编译版本）"></a>定义插件（编译器）jdk1.8（设置编译版本）</h4><pre><code>&lt;build&gt;
+    &lt;!-- 配置了很多插件 --&gt;
+    &lt;plugins&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.5.1&lt;/version&gt;  
+    &lt;configuration&gt;
+    &lt;source&gt;1.7&lt;/source&gt;
+    &lt;target&gt;1.7&lt;/target&gt;
+    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    &lt;/build&gt;
+</code></pre><h4 id="在src-webapp-WEB-INF-web-xml配置web-xml，不配置则报错"><a href="#在src-webapp-WEB-INF-web-xml配置web-xml，不配置则报错" class="headerlink" title="在src/webapp/WEB-INF/web.xml配置web.xml，不配置则报错"></a>在src/webapp/WEB-INF/web.xml配置web.xml，不配置则报错</h4><h4 id="定义依赖的jar包在pom-xml"><a href="#定义依赖的jar包在pom-xml" class="headerlink" title="定义依赖的jar包在pom.xml"></a>定义依赖的jar包在pom.xml</h4><img src="/2018/05/17/maven/依赖.png" title="依赖.png">            
+<h4 id="配置其他应该配置及编写servlet，jsp等、运行tomcat：run"><a href="#配置其他应该配置及编写servlet，jsp等、运行tomcat：run" class="headerlink" title="配置其他应该配置及编写servlet，jsp等、运行tomcat：run"></a>配置其他应该配置及编写servlet，jsp等、运行tomcat：run</h4><h3 id="依赖管理-2"><a href="#依赖管理-2" class="headerlink" title="依赖管理"></a>依赖管理</h3><h4 id="查找坐标"><a href="#查找坐标" class="headerlink" title="查找坐标"></a>查找坐标</h4><pre><code>方法一从互联网搜索
+    http://search.maven.org/
+    http://mvnrepository.com/
+    方法二使用maven插件的索引功能
+    如果在本地仓库看jar包，
+    可以在pom.xml中右键添加依赖
+    右击项目→mevan→add dependency
+</code></pre><h4 id="依赖范围（添加依赖jar包格式）"><a href="#依赖范围（添加依赖jar包格式）" class="headerlink" title="依赖范围（添加依赖jar包格式）"></a>依赖范围（添加依赖jar包格式）</h4><pre><code>依赖war包、依赖模块
+</code></pre><img src="/2018/05/17/maven/1.png" title="1.png">
+<img src="/2018/05/17/maven/2.png" title="2.png">
+<img src="/2018/05/17/maven/3.png" title="3.png"> 
+<pre><code>依赖范围由强到弱的顺序是：compile&gt;provided&gt;runtime&gt;test            
+    &lt;dependencies&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;junit&lt;/groupId&gt;
+    &lt;artifactId&gt;junit&lt;/artifactId&gt;
+    &lt;version&gt;4.9&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;2.5&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><h4 id="依赖范围对传递依赖的影响"><a href="#依赖范围对传递依赖的影响" class="headerlink" title="依赖范围对传递依赖的影响"></a>依赖范围对传递依赖的影响</h4><img src="/2018/05/17/maven/4.png" title="4.png">
+<h3 id="pom-xml基本配置"><a href="#pom-xml基本配置" class="headerlink" title="pom.xml基本配置"></a>pom.xml基本配置</h3><pre><code>&lt;project&gt;:文件的根节点
+    &lt;modelVersion&gt;:pom.xml使用的对象模型版本
+    &lt;groupId&gt;:项目名称：组织名+项目名。类似包名
+    &lt;artifactId&gt;:模块名，子项目名或模块名称
+    &lt;version&gt;:当前版本号snapshot快照版本非正式版本release为正式发布版
+    &lt;packaging&gt;:打包类型jar、war、pom父工程使用这个设置与package有关
+    &lt;name&gt;:项目的显示名，常用于maven的生成文档
+    &lt;description&gt;:项目描述，常用于maven的生成文档
+    &lt;dependencies&gt;:项目依赖构件配置，配置项目依赖构件的坐标
+    &lt;build&gt;:项目构建配置，配置编译，运行插件等
+</code></pre><h3 id="常见pom-xml配置"><a href="#常见pom-xml配置" class="headerlink" title="常见pom.xml配置"></a>常见pom.xml配置</h3><h4 id="定义maven坐标-eclipse自动生成"><a href="#定义maven坐标-eclipse自动生成" class="headerlink" title="定义maven坐标(eclipse自动生成)"></a>定义maven坐标(eclipse自动生成)</h4><pre><code>&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;cn.itcast.maven&lt;/groupId&gt;项目名称：组织名+项目名。类似包名
+    &lt;artifactId&gt;maven-helloworld&lt;/artifactId&gt;模块名
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;当前版本号snapshot快照版本非正式版本，
+    release为正式发布版
+    &lt;packaging&gt;war&lt;/packaging&gt;打包类型jar、war、
+    pom父工程使用这个设置与package有关
+    &lt;name&gt;第一个maven工程&lt;/name&gt;
+    &lt;description&gt;第一个maven工程&lt;/description&gt;
+</code></pre><h4 id="定义插件（编译器）jdk1-8"><a href="#定义插件（编译器）jdk1-8" class="headerlink" title="定义插件（编译器）jdk1.8"></a>定义插件（编译器）jdk1.8</h4><pre><code>&lt;build&gt;
+    &lt;!-- 配置了很多插件 --&gt;
+    &lt;plugins&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.5.1&lt;/version&gt;  
+    &lt;configuration&gt;
+    &lt;source&gt;1.7&lt;/source&gt;
+    &lt;target&gt;1.7&lt;/target&gt;
+    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    &lt;/build&gt;
+</code></pre><h4 id="配置servlet-api、jsp-api、junit等jar"><a href="#配置servlet-api、jsp-api、junit等jar" class="headerlink" title="配置servlet-api、jsp-api、junit等jar"></a>配置servlet-api、jsp-api、junit等jar</h4><pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;junit&lt;/groupId&gt;
+    &lt;artifactId&gt;junit&lt;/artifactId&gt;
+    &lt;version&gt;4.9&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;2.5&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><h4 id="配置tomcat插件"><a href="#配置tomcat插件" class="headerlink" title="配置tomcat插件"></a>配置tomcat插件</h4><pre><code>&lt;plugins&gt;
+    &lt;/plugin&gt;
+    &lt;!-- &lt;plugin&gt; --&gt;
+    &lt;!--&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt; --&gt;
+    &lt;!--&lt;artifactId&gt;tomcat-maven-plugin&lt;/artifactId&gt; --&gt;
+    &lt;!--&lt;version&gt;1.1&lt;/version&gt; --&gt;
+    &lt;!--&lt;configuration&gt; --&gt;
+    &lt;!--&lt;port&gt;8888&lt;/port&gt; --&gt;
+    &lt;!--&lt;path&gt;/first&lt;/path&gt; --&gt;
+    &lt;!--&lt;/configuration&gt; --&gt;
+    &lt;!--&lt;/plugin&gt; --&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+    &lt;configuration&gt;
+    &lt;path&gt;/f&lt;/path&gt;
+    &lt;port&gt;8080&lt;/port&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+</code></pre><h3 id="依赖传递与依赖冲突解决"><a href="#依赖传递与依赖冲突解决" class="headerlink" title="依赖传递与依赖冲突解决"></a>依赖传递与依赖冲突解决</h3><h4 id="调解原则"><a href="#调解原则" class="headerlink" title="调解原则"></a>调解原则</h4><pre><code>第一声明者优先原则：谁先声明谁先依赖
+    路径近者优先原则：谁的依赖层小，谁先被依赖
+</code></pre><h4 id="排除依赖"><a href="#排除依赖" class="headerlink" title="排除依赖"></a>排除依赖</h4><img src="/2018/05/17/maven/排除依赖.png" title="排除依赖.png">        
+<h4 id="锁定版本"><a href="#锁定版本" class="headerlink" title="锁定版本"></a>锁定版本</h4><img src="/2018/05/17/maven/锁定版本.png" title="锁定版本.png">            
+<pre><code>配置了锁定版本必须相应地配置依赖，但不需要指定版本啦
+</code></pre><h3 id="分模块开发（重点）"><a href="#分模块开发（重点）" class="headerlink" title="分模块开发（重点）"></a>分模块开发（重点）</h3><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><pre><code>避免了在三层架构中重复定义pom.xml的内容，
+    将这些配置提取出来在父工程中配置
+</code></pre><h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><pre><code>分模块开发完成后会打一个war运行、将每个模块合在一起运行
+</code></pre><h4 id="示意图"><a href="#示意图" class="headerlink" title="示意图"></a>示意图</h4><img src="/2018/05/17/maven/示意图.png" title="示意图.png">                
+<h4 id="步骤（都要跳过骨架）"><a href="#步骤（都要跳过骨架）" class="headerlink" title="步骤（都要跳过骨架）"></a>步骤（都要跳过骨架）</h4><h5 id="①创建父工程maven-Project"><a href="#①创建父工程maven-Project" class="headerlink" title="①创建父工程maven Project"></a>①创建父工程maven Project</h5><pre><code>父工程packaging方式为pom、定义好pom.xml
+    不添加junit依赖、install发布到仓库方便自工程继承
+</code></pre><h5 id="②创建maven-Module子工程dao"><a href="#②创建maven-Module子工程dao" class="headerlink" title="②创建maven Module子工程dao"></a>②创建maven Module子工程dao</h5><pre><code>packaging方式为jar、
+    parent Project 选择父工程、模块中pom.xml父工程的信息    
+    &lt;project xmlns=&quot;http://maven-apache.org/POM/4.0.0&quot;....&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;parent&gt;
+    &lt;groupId&gt;cn.itcast.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-parent&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;artifactId&gt;ssh-dao&lt;/artifactId&gt;
+    &lt;/parent&gt;
+    &lt;project&gt;
+</code></pre><h5 id="③创建maven-Module子工程service"><a href="#③创建maven-Module子工程service" class="headerlink" title="③创建maven Module子工程service"></a>③创建maven Module子工程service</h5><pre><code>packaging方式为jar、
+    parent Project 选择父工程、同时配置dao依赖模块中pom.xml父工程的信息
+    &lt;dependency&gt;
+    &lt;groupId&gt;cn.itcast.ssh-maven&lt;/groupId&gt;
+    &lt;artifactId&gt;ssh-dao&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h4 id="④创建maven-Module子工程web"><a href="#④创建maven-Module子工程web" class="headerlink" title="④创建maven Module子工程web"></a>④创建maven Module子工程web</h4><pre><code>packaging方式为war、
+    parent Project 选择父工程、同时配置service依赖模块中pom.xml父工程的信息
+    &lt;dependency&gt;
+    &lt;groupId&gt;cn.itcast.ssh-maven&lt;/groupId&gt;
+    &lt;artifactId&gt;ssh-service&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h4 id="模块聚合：修改父工程的pom-xml"><a href="#模块聚合：修改父工程的pom-xml" class="headerlink" title="模块聚合：修改父工程的pom.xml"></a>模块聚合：修改父工程的pom.xml</h4><pre><code>&lt;modules&gt;
+    &lt;module&gt;ssh-dao&lt;/module&gt;
+    &lt;module&gt;ssh-service&lt;/module&gt;
+    &lt;module&gt;ssh-web&lt;/module&gt;
+    &lt;/modules&gt;
+</code></pre><h4 id="运行调试"><a href="#运行调试" class="headerlink" title="运行调试"></a>运行调试</h4><img src="/2018/05/17/maven/运行调试.png" title="运行调试.png">            
+<h3 id="maven私服（了解-自己看文档"><a href="#maven私服（了解-自己看文档" class="headerlink" title="maven私服（了解)自己看文档"></a>maven私服（了解)自己看文档</h3></div><div class="tags"><a href="/tags/maven/">maven</a></div><div class="post-nav"><a class="next" href="/2018/05/16/svn/">svn</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/08/redis/">redis</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
