@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>面试题 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">面试题</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">面试题</h1><div class="post-meta">May 19, 2018<span> | </span><span class="category"><a href="/categories/面试题/">面试题</a></span></div><div class="post-content"><p>收集一下面试题<br><a id="more"></a></p>
+<h2 id="秋招"><a href="#秋招" class="headerlink" title="秋招"></a>秋招</h2><h3 id="成绩表（score）"><a href="#成绩表（score）" class="headerlink" title="成绩表（score）"></a>成绩表（score）</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">name</th>
+<th style="text-align:center">kemu</th>
+<th style="text-align:center">fenshu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">81</td>
+</tr>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">72</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">76</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">90</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">81</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-用一条sql语句查询出每个学科低于其平均分的学生"><a href="#1-用一条sql语句查询出每个学科低于其平均分的学生" class="headerlink" title="1.用一条sql语句查询出每个学科低于其平均分的学生"></a>1.用一条sql语句查询出每个学科低于其平均分的学生</h3><pre><code>(查询结果表头名为：姓名、学科、分数、学科平均分)
+</code></pre><h3 id="2-用一条sql语句查询出每门课都大于80分的学生姓名"><a href="#2-用一条sql语句查询出每门课都大于80分的学生姓名" class="headerlink" title="2.用一条sql语句查询出每门课都大于80分的学生姓名"></a>2.用一条sql语句查询出每门课都大于80分的学生姓名</h3><h3 id="3-用一条sql语句写出如下的查询结果"><a href="#3-用一条sql语句写出如下的查询结果" class="headerlink" title="3.用一条sql语句写出如下的查询结果"></a>3.用一条sql语句写出如下的查询结果</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">语文</th>
+<th style="text-align:center">数学</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">81</td>
+<td style="text-align:center">72</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">76</td>
+<td style="text-align:center">90</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">81</td>
+<td style="text-align:center">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-分数等级"><a href="#4-分数等级" class="headerlink" title="4.分数等级"></a>4.分数等级</h3><pre><code>每门课成绩的等级划分为三个，
+    分数小于80为及格，
+    大于等于80低于90分为中等
+    大于等于90分为优秀，查询结果如下
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">name</th>
+<th style="text-align:center">kemu</th>
+<th style="text-align:center">fenshu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">中等</td>
+</tr>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">合格</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">合格</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">优秀</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">语文</td>
+<td style="text-align:center">中等</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">数学</td>
+<td style="text-align:center">优秀</td>
+</tr>
+</tbody>
+</table>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><pre><code>一:
+    ①Select a.name,a.kemu,a.fenshu,
+    (Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu )
+    From score a 
+    Where a.fenshu&lt;(Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu ) 
+    GROUP BY a.kemu
+
+    ②SELECT a.name,a.kemu,a.fenshu,b.aa
+    FROM test a,(SELECT kemu,AVG(fenshu) aa FROM test GROUP BY kemu) b
+    WHERE a.kemu=b.kemu AND a.fenshu&lt;b.aa
+
+    二：
+    SELECT name,kemu,fenshu 
+    from t_grade 
+    where name not in(select name from t_grade where fenshu&lt;=80)
+
+    三:
+    ①SELECT  a.name &apos;分数&apos;,a.fenshu &apos;语文&apos;,b.fenshu &apos;数学&apos;
+    FROM (SELECT NAME,fenshu FROM test WHERE kemu=&apos;语文&apos;) a,
+    (SELECT NAME,fenshu FROM test WHERE kemu=&apos;数学&apos;) b
+    WHERE a.name=b.name;
+    ②SELECT
+        name as 姓名,
+        MAX(
+            CASE 
+            WHEN  kemu=&apos;语文&apos; THEN
+                fenshu
+            END
+        ) AS 语文,
+        MAX(
+            CASE 
+            WHEN kemu=&apos;数学&apos; THEN
+                fenshu
+            END
+        ) AS 数学 
+
+    FROM
+        t_grade
+    GROUP BY name
+
+    四：
+    select name,kemu,
+       case when fenshu&gt;=90 then  &apos;优秀&apos; 
+               when  fenshu&lt;90 and fenshu&gt;=80 then &apos;中等&apos;
+               when  fenshu&lt;80 then &apos;合格&apos;
+               end  as fenshu
+    from t_grade
+</code></pre><h3 id="软件开发一般有几个阶段？每个阶段的作用？"><a href="#软件开发一般有几个阶段？每个阶段的作用？" class="headerlink" title="软件开发一般有几个阶段？每个阶段的作用？"></a>软件开发一般有几个阶段？每个阶段的作用？</h3><h3 id="软件开发流程"><a href="#软件开发流程" class="headerlink" title="软件开发流程"></a>软件开发流程</h3><pre><code>1.问题的定义及规划
+    此阶段是软件开发与需求放共同讨论，主要确定软件的开发目标及其可行性。
+    2.需求分析
+    在确定软件开发可行性的情况下，对软件需要实现的各个功能进行详细需求分析。
+    需求分析阶段是一个很重要的阶段，将为整个软件项目的开发打下良好的基础
+    “唯一不变的是变化本身”，软件需求也是在软件爱你开发过程中不断变化和深入的，
+    因此，我们必须定制需求变更计划来应付这种变化，以保护整个项目的正常进行。
+    3.软件设计
+    此阶段中偶要根据需求分析的结果，对整个软件系统进行设计，
+    如系统框架设计、数据库设计等
+    软件设计一般分为总体设计和详细设计。软件设计将为软件程序编写打下良好的基础
+    4.程序编码
+    此阶段是将软件设计的结果转化为计算机可运行的程序代码。
+    在程序编码中必定要制定统一、符合标准的编写规范。
+    以保证程序的可读性、易维护性。提高程序的运行效率。
+    5.软件测试
+    在软件设计完成之后要进行严密的测试，
+    一发现软件在整个软件设计过程中存在的问题并加以纠正
+    整个测试阶段分为单元测试、组装测试、系统测试三个阶段进行。
+    测试方法主要有白盒测试和黑盒测试
+</code></pre><h3 id="C-捕获错误异常的语法是？"><a href="#C-捕获错误异常的语法是？" class="headerlink" title="C#捕获错误异常的语法是？"></a>C#捕获错误异常的语法是？</h3><h3 id="触发异常"><a href="#触发异常" class="headerlink" title="//触发异常"></a>//触发异常</h3><pre><code>private void test()
+    {
+    int i = 0;
+    i = 12 / i;
+    }
+    //直接捕获异常
+    private void button1_Click(object sender, EventArgs e)
+    {
+    try
+    {
+    test();
+    }
+    catch (Exception ex)
+    {
+    this.textBox1.Text = ex.ToString();
+    }
+    }
+</code></pre><h3 id="分析以下代码，完成填空"><a href="#分析以下代码，完成填空" class="headerlink" title="分析以下代码，完成填空"></a>分析以下代码，完成填空</h3><pre><code>StringstrTMP=&quot;abcdefg某某某&quot;;
+    int i=System.Text.Encoding.Default.GetBytes(strTMP).Length;
+    int j=strTMP.Length;
+    i=?;j=?
+</code></pre><h3 id="解析："><a href="#解析：" class="headerlink" title="解析："></a>解析：</h3><pre><code>英文字母和中文汉字在不同字符集编码下的字节数
+    英文字母：
+    字节数 : 1;编码：GB2312
+    字节数 : 1;编码：GBK
+    字节数 : 1;编码：ISO-8859-1
+    字节数 : 1;编码：UTF-8
+    中文汉字：
+    字节数 : 2;编码：GB2312
+    字节数 : 2;编码：GBK
+    字节数 : 1;编码：ISO-8859-1
+    字节数 : 3;编码：UTF-8
+    length（）方法针对字符串的话，1个英文或字符都是1
+    length（）方法针对字节数的话，1个英文或字符要看编码
+    所以上面i=13,j=10
+</code></pre><h3 id="求以下表达式的值，写出您想到的一种或几种实现方法"><a href="#求以下表达式的值，写出您想到的一种或几种实现方法" class="headerlink" title="求以下表达式的值，写出您想到的一种或几种实现方法"></a>求以下表达式的值，写出您想到的一种或几种实现方法</h3><pre><code>1-2+3-4+...+m
+    public int fun(int m){
+    int sum=0;
+    for(int i=1;i&lt;m+1;i++){
+    if(i%2==0){
+    sum=sum-i;
+    }else{
+    sum=sum+i;
+    }
+    }
+    return sum;
+    }
+</code></pre><h2 id="春招"><a href="#春招" class="headerlink" title="春招"></a>春招</h2><h3 id="1-请说出2种减少页面加载时间的方法"><a href="#1-请说出2种减少页面加载时间的方法" class="headerlink" title="1.请说出2种减少页面加载时间的方法"></a>1.请说出2种减少页面加载时间的方法</h3><pre><code>缓存
+    1. 优化图片 
+    2. 图像格式的选择（GIF：提供的颜色较少，可用在一些对颜色要求不高的地方） 
+    3. 优化CSS（压缩合并css，如 margin-top, margin-left...) 
+    4. 网址后加斜杠
+    （如www.campr.com/目录，会判断这个目录是什么文件类型，或者是目录。） 
+    5.标明高度和宽度（如果浏览器没有找到这两个参数，
+    它需要一边下载图片一边计算大小，如果图片很多，浏览器需要不断地调整页面。
+    这不但影响速度，也影响浏览体验。 
+    当浏览器知道了高度和宽度参数后，即使图片暂时无法显示，
+    页面上也会腾出图片的空位，然后继续加载后面的内容。从而加载时间快了，
+    浏览体验也更好了） 
+    6. 减少http请求（合并文件，合并图片） 
+</code></pre><h3 id="2-HTML中的doctype（文档类型）的作用是什么？你知道多少种文档类型？"><a href="#2-HTML中的doctype（文档类型）的作用是什么？你知道多少种文档类型？" class="headerlink" title="2.HTML中的doctype（文档类型）的作用是什么？你知道多少种文档类型？"></a>2.HTML中的doctype（文档类型）的作用是什么？你知道多少种文档类型？</h3><pre><code>声明文档的解析类型(document.compatMode)，避免浏览器的怪异模式。
+    document.compatMode：
+    BackCompat：怪异模式，浏览器使用自己的怪异模式解析渲染页面。
+    CSS1Compat：标准模式，浏览器使用W3C的标准解析渲染页面。
+    HTML 5： 
+    &lt;!DOCTYPE html&gt;
+    HTML 4.01 Strict
+    该 DTD 包含所有 HTML 元素和属性，
+    但不包括展示性的和弃用的元素（比如 font）。不允许框架集（Framesets）。
+    &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; 
+    &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+    HTML 4.01 Transitional
+    该 DTD 包含所有 HTML 元素和属性，包括展示性的和弃用的元素
+    （比如 font）。不允许框架集（Framesets）。
+    &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;
+    http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+    https://www.cnblogs.com/alwaysblog/p/5822834.html
+</code></pre><h3 id="3-请描述一下cookies-sessionStorage和localStorage的区别？"><a href="#3-请描述一下cookies-sessionStorage和localStorage的区别？" class="headerlink" title="3.请描述一下cookies,sessionStorage和localStorage的区别？"></a>3.请描述一下cookies,sessionStorage和localStorage的区别？</h3><pre><code>cookie
+    cookie 是存储于访问者的计算机中的变量。
+    每当同一台计算机通过浏览器请求某个页面时，就会发送这个cookie
+    你可以使用 JavaScript来创建和取回cookie的值
+    当访问者首次访问页面时，他或她也许会填写他/她们的名字。名字会存储于cookie中
+    当访问者再次访问网站时，他们会收到类似 &quot;Welcome Jacob!&quot; 的欢迎词。
+    而名字则是从 cookie 中取回的。这通常就是通过在 
+    cookie 中存入一段辨别用户身份的数据来实现的。
+    在HTML5之前，这些都是由 cookie 完成的。
+    但是 cookie 不适合大量数据的存储，
+    因为它们由每个对服务器的请求来传递，这使得 cookie 速度很慢而且效率也不高。
+    在HTML5中提供了两种在客户端存储数据的新方法：
+    sessionStorage
+    为每一个给定的源（given origin）维持一个独立的存储区域，
+    该存储区域在页面会话期间可用
+    （即只要浏览器处于打开状态，包括页面重新加载和恢复）。
+    localStorage
+    同样的功能，但是在浏览器关闭，然后重新打开后，除非数据被清除，否则仍然存在。
+    https://www.cnblogs.com/jacobb/p/6824838.html
+</code></pre><h3 id="4-什么是闭包？如何使用它，为何使用它？"><a href="#4-什么是闭包？如何使用它，为何使用它？" class="headerlink" title="4.什么是闭包？如何使用它，为何使用它？"></a>4.什么是闭包？如何使用它，为何使用它？</h3><pre><code>注意点：在函数内部声明变量的时候，一定要使用var命令。
+    如果不用的话，你实际上声明的是一个全局变量！
+    闭包是指能够读取其他函数内部变量的函数。
+    读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中，
+    不会在f1调用后被自动清除。
+    要理解闭包，首先理解javascript特殊的变量作用域，
+    变量的作用于无非就是两种：全局变量，局部变量。
+    javascript语言的特殊处就是函数内部可以读取全局变量。
+    1.如何从外部读取局部变量？
+    我们有时候需要得到函数内的局部变量，
+    但是在正常情况下，这是不能读取到的，只有通过变通方法才能读取到。
+    2.闭包的概念
+    闭包就是能够读取其他函数内部变量的函数。
+    在javascript语言中，只有函数内部的子函数才能读取局部变量，
+    因此可以把闭包简单理解成“定义在一个函数内部的函数”。
+    所以本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+    3.闭包的用途
+    闭包可以读取函数内部的变量，可以让变量的值始终保持在内存中。
+</code></pre><h3 id="1-Java的int和Integer有什么区别？"><a href="#1-Java的int和Integer有什么区别？" class="headerlink" title="1.Java的int和Integer有什么区别？"></a>1.Java的int和Integer有什么区别？</h3><h3 id="2-java的构造器constructor是否可被重写-override-？"><a href="#2-java的构造器constructor是否可被重写-override-？" class="headerlink" title="2.java的构造器constructor是否可被重写(override)？"></a>2.java的构造器constructor是否可被重写(override)？</h3><pre><code>构造器Constructor不能被继承，因此不能重写Override，但可以被重载Overload。
+    Constructor不能被继承，所以Constructor也就不能被override。
+    每一个类必须有自己的构造函数，
+    负责构造自己这部分的构造。子类不会覆盖父类的构造函数，
+    相反必须负责在一开始调用父类的构造函数。
+</code></pre><h3 id="3-java如何实现对象克隆，说出你知道的一种方法？"><a href="#3-java如何实现对象克隆，说出你知道的一种方法？" class="headerlink" title="3.java如何实现对象克隆，说出你知道的一种方法？"></a>3.java如何实现对象克隆，说出你知道的一种方法？</h3><pre><code>1). 实现Cloneable接口并重写Object类中的clone()方法；
+    2). 实现Serializable接口，通过对象的序列化和反序列化
+    实现克隆，可以实现真正的深度克隆；
+</code></pre><h3 id="4-什么时候使用断言（assert）？"><a href="#4-什么时候使用断言（assert）？" class="headerlink" title="4.什么时候使用断言（assert）？"></a>4.什么时候使用断言（assert）？</h3><pre><code>断言在软件开发中是一种常用的调试方式，
+    很多开发语言中都支持这种机制。
+    一般来说，断言用于保证程序最基本、关键的正确性。
+    断言检查通常在开发和测试时开启。为了保证程序的执行效率，
+    在软件发布后断言检查通常是关闭的。
+    断言是一个包含布尔表达式的语句，在执行这个语句时假定该表达式为true；
+    如果表达式的值为false，那么系统会报告一个AssertionError。
+    断言可以有两种形式：
+    assert Expression1;
+    assert Expression1 : Expression2;
+    Expression1表示一个boolean表达式，Expression2表示一个基本类型、
+    表达式或者是一个Object，用于在失败时输出错误信息。
+    要在运行时启用断言，可以在启动JVM时使用-enableassertions或者-ea标记。
+    要在运行时选择禁用断言，
+    可以在启动JVM时使用-da或者-disableassertions标记。
+    要在系统类中启用或禁用断言，可使用-esa或-dsa标记。
+    还可以在包的基础上启用或者禁用断言。
+    注意：断言不应该以任何方式改变程序的状态。
+    简单的说，如果希望在不满足某些条件时阻止代码的执行，
+    就可以考虑用断言来阻止它。
+    用来测试是不是违规
+    assert用于确保代码逻辑上不可能发生的事情绝对不发生
+    （比如factory method返回NULL），
+    而exception用于处理一些有可能发生的事情
+    （比如用户输入错误，比如网络链接断开）。
+</code></pre><h3 id="spring框架中的单例bean是线程安全的吗？"><a href="#spring框架中的单例bean是线程安全的吗？" class="headerlink" title="spring框架中的单例bean是线程安全的吗？"></a>spring框架中的单例bean是线程安全的吗？</h3><pre><code>Spring框架并没有对单例bean进行任何多线程的封装处理。
+    关于单例bean的线程安全和并发问题需要开发者自行去搞定。
+    但实际上，大部分的Spring bean并没有可变的状态(比如Serview类和DAO类)，
+    所以在某种程度上说Spring的单例bean是线程安全的。
+    如果你的bean有多种状态的话
+    （比如 View Model 对象），就需要自行保证线程安全。
+    解决办法就是将多态bean的作用域由“singleton”变更为“prototype”
+</code></pre><h3 id="spring中的-Qualifier注解的作用？"><a href="#spring中的-Qualifier注解的作用？" class="headerlink" title="spring中的@Qualifier注解的作用？"></a>spring中的@Qualifier注解的作用？</h3><pre><code>指定自动装配哪个bean
+</code></pre><h3 id="数据库中delete和truncate的区别？"><a href="#数据库中delete和truncate的区别？" class="headerlink" title="数据库中delete和truncate的区别？"></a>数据库中delete和truncate的区别？</h3><h3 id="jdbc中statement和Preparestatement的区别？"><a href="#jdbc中statement和Preparestatement的区别？" class="headerlink" title="jdbc中statement和Preparestatement的区别？"></a>jdbc中statement和Preparestatement的区别？</h3><h3 id="列举什么样的字段适合建索引？"><a href="#列举什么样的字段适合建索引？" class="headerlink" title="列举什么样的字段适合建索引？"></a>列举什么样的字段适合建索引？</h3><pre><code>表的主键、外键必须有索引；
+    数据量超过300的表应该有索引；
+    经常与其他表进行连接的表，在连接字段上应该建立索引；
+    经常出现在Where子句中的字段，特别是大表的字段，应该建立索引；
+    索引应该建在选择性高的字段上；
+    索引应该建在小字段上，对于大的文本字段甚至超长字段，不要建索引；
+    复合索引的建立需要进行仔细分析；尽量考虑用单字段索引代替：
+    正确选择复合索引中的主列字段，一般是选择性较好的字段；
+    复合索引的几个字段是否经常同时以AND方式出现在Where子句中？
+    单字段查询是否极少甚至没有？是，则可以建立复合索引；否则考虑单字段索引；
+    如果复合索引中包含的字段经常单独出现在Where子句中，则分解为多个单字段索引；
+    如果复合索引所包含的字段超过3个，那么仔细考虑其必要性，考虑减少复合的字段；
+    如果既有单字段索引，又有这几个字段上的复合索引，一般可以删除复合索引；
+    频繁进行数据操作的表，不要建立太多的索引；
+    删除无用的索引，避免对执行计划造成负面影响；
+</code></pre><h3 id="union和union-all有什么不同？"><a href="#union和union-all有什么不同？" class="headerlink" title="union和union all有什么不同？"></a>union和union all有什么不同？</h3><pre><code>1、UNION和UNION ALL关键字都是将两个结果集合并为一个，
+    但这两者从使用和效率上来说都有所不同。
+    2、对重复结果的处理：UNION在进行表链接后会筛选掉重复的记录，
+    Union All不会去除重复记录。
+    3、对排序的处理：Union将会按照字段的顺序进行排序；
+    UNION ALL只是简单的将两个结果合并后就返回。
+    4、从效率上说，UNION ALL 要比UNION快很多，
+    所以，如果可以确认合并的两个结果集中
+    不包含重复数据且不需要排序时的话，那么就使用UNION ALL
+</code></pre><h3 id="mysql中innoDB和myisam存储引擎有什么显著区别？"><a href="#mysql中innoDB和myisam存储引擎有什么显著区别？" class="headerlink" title="mysql中innoDB和myisam存储引擎有什么显著区别？"></a>mysql中innoDB和myisam存储引擎有什么显著区别？</h3><pre><code>1、 存储结构
+    MyISAM：每个MyISAM在磁盘上存储成三个文件。
+    第一个文件的名字以表的名字开始，扩展名指出文件类型。
+    .frm文件存储表定义。数据文件的扩展名为.MYD (MYData)。
+    索引文件的扩展名是.MYI (MYIndex)。
+    InnoDB：所有的表都保存在同一个数据文件中（也可能是多个文件，
+    或者是独立的表空间文件），
+    InnoDB表的大小只受限于操作系统文件的大小，一般为2GB。
+    2、 存储空间
+    MyISAM：可被压缩，存储空间较小。支持三种不同的存储格式：
+    静态表(默认，但是注意数据末尾不能有空格，会被去掉)、动态表、压缩表。
+    InnoDB：需要更多的内存和存储，
+    它会在主内存中建立其专用的缓冲池用于高速缓冲数据和索引。
+    3、 事务支持
+    MyISAM：强调的是性能，每次查询具有原子性,其执行数度比InnoDB类型更快
+    但是不提供事务支持。
+    InnoDB：提供事务支持事务，外部键等高级数据库功能。 
+    具有事务(commit)、回滚(rollback)和崩溃修复能力
+    (crash recovery capabilities)
+    的事务安全(transaction-safe (ACID compliant))型表。
+    4、 CURD操作
+    MyISAM：如果执行大量的SELECT，MyISAM是更好的选择。
+    (因为没有支持行级锁)，在增删的时候需要锁定整个表格，效率会低一些。
+    相关的是innodb支持行级锁，删除插入的时候只需要锁定改行就行，效率较高
+    InnoDB：如果你的数据执行大量的INSERT或UPDATE，出于性能方面的考虑，
+    应该使用InnoDB表。DELETE 从性能上InnoDB更优，但DELETE FROM table时，
+    InnoDB不会重新建立表，而是一行一行的删除，
+    在innodb上如果要清空保存有大量数据的表，最好使用truncate table这个命令。
+    5、 外键
+    MyISAM：不支持
+    InnoDB：支持
+</code></pre><h3 id="1-Please-write-down-the-full-name-0f-“devops”"><a href="#1-Please-write-down-the-full-name-0f-“devops”" class="headerlink" title="1.Please write down the full name 0f “devops”"></a>1.Please write down the full name 0f “devops”</h3><pre><code>Development和Operations的组合
+</code></pre><h3 id="2-List-out-at-least-one-Continuous-Integration-tool-you-know"><a href="#2-List-out-at-least-one-Continuous-Integration-tool-you-know" class="headerlink" title="2.List out at least one Continuous Integration tool you know"></a>2.List out at least one Continuous Integration tool you know</h3><pre><code>eclipse sts myeclipse
+</code></pre><h3 id="3-List-all-java-process查看所有linux的java进程"><a href="#3-List-all-java-process查看所有linux的java进程" class="headerlink" title="3.List all java process查看所有linux的java进程"></a>3.List all java process查看所有linux的java进程</h3><pre><code>ps -ef | grep java
+</code></pre><h3 id="4-List-Linux-kernel-version查看linux的内核版本"><a href="#4-List-Linux-kernel-version查看linux的内核版本" class="headerlink" title="4.List Linux kernel version查看linux的内核版本"></a>4.List Linux kernel version查看linux的内核版本</h3><pre><code>uname -a
+</code></pre><h3 id="5-download-a-file-from-http-some-webstie-some-tar-gz"><a href="#5-download-a-file-from-http-some-webstie-some-tar-gz" class="headerlink" title="5.download a file from http://some.webstie/some.tar.gz"></a>5.download a file from <a href="http://some.webstie/some.tar.gz" target="_blank" rel="noopener">http://some.webstie/some.tar.gz</a></h3><pre><code>下载指定文件下载指定文件
+    wget + 空格 + 参数 + 要下载文件的url路径
+</code></pre><h3 id="List-at-least-3-http-methods-other-than-GET："><a href="#List-at-least-3-http-methods-other-than-GET：" class="headerlink" title="List at least 3 http methods other than GET："></a>List at least 3 http methods other than GET：</h3><pre><code>GET 请求指定的页面信息，并返回实体主体。
+    HEAD 只请求页面的首部
+    POST 请求服务器接受所指定的文档作为对所标识的URI的新的从属实体
+</code></pre><h3 id="Java处理高并发"><a href="#Java处理高并发" class="headerlink" title="Java处理高并发"></a>Java处理高并发</h3><pre><code>HTML静态化
+    图片服务器分离
+    数据库集群，库表散列
+    缓存
+    镜像
+    负载均衡
+    CDN加速
+</code></pre><h3 id="经典练习-amp-面试"><a href="#经典练习-amp-面试" class="headerlink" title="经典练习&amp;面试"></a>经典练习&amp;面试</h3><img src="/2018/05/19/面试题/面试题1.png" title="面试题1.png">
+<pre><code>select rownum,empno,ename,sal 
+    from (select * from emp order by sal desc) 
+    where rownum&lt;=3;
+</code></pre><img src="/2018/05/19/面试题/面试题2.png" title="面试题2.png">    
+<pre><code>①select e.empno,e.ename,e.sal,d.avgsal  
+    from emp e,(select deptno,avg(sal) avgsal from emp group by deptno) d 
+    where e.deptno=d.deptno and e.sal&gt;d.avgsal;
+
+    ②select empno,ename,sal,
+    (select avg(sal) from emp where deptno=e.deptno) avgsal  
+    from emp e  
+    where sal &gt; (select avg(sal) from emp where deptno=e.deptno);
+</code></pre><img src="/2018/05/19/面试题/面试题3.png" title="面试题3.png">    
+<pre><code>select count(*) Total,
+    sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1980&apos;,1,0)) &quot;1980&quot;,
+    sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1981&apos;,1,0)) &quot;1981&quot;,
+    sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1982&apos;,1,0)) &quot;1982&quot;,
+    sum(decode(to_char(hiredate,&apos;yyyy&apos;),&apos;1987&apos;,1,0)) &quot;1987&quot;
+    from emp;
+</code></pre><img src="/2018/05/19/面试题/面试题4.png" title="面试题4.png">        
+<pre><code>①select a.id,a.name,a.money,decode(a.id-1,0,null,b.money) money1
+    from test1 a,(select id,money from test1) b
+    where a.id=b.id
+
+    ②select id,name,money,(select money from test1 where id=t.id-1)montey1
+    from test1 t
+
+    ③select a.id,a.name,a.money,b.money
+    from test1 a left join (select id,money from test1) b
+    on a.id=b.id+1 order by id
+</code></pre><img src="/2018/05/19/面试题/面试题5.png" title="面试题5.png">            
+<pre><code>①select ci_id,wm_concat(stu_name)from (select c.ci_id ,s.stu_name 
+    from pm_ci c,pm_stu s
+    where instr(c.stu_ids,s.stu_id)&gt;0)
+    group by ci_id
+
+    ②select c.ci_id,wm_concat(s.stu_name)
+    from pm_ci c,pm_stu s
+    where instr(c.stu_ids,s.stu_id)&gt;0
+    group by c.ci_id
+</code></pre></div><div class="tags"><a href="/tags/面试题/">面试题</a></div><div class="post-nav"><a class="next" href="/2018/05/17/maven/">maven</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/struts2/">struts2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/09/hibernate/">hibernate</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
