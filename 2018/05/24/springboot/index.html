@@ -1,0 +1,900 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>springboot | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">springboot</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">springboot</h1><div class="post-meta">May 24, 2018<span> | </span><span class="category"><a href="/categories/springboot/">springboot</a></span></div><div class="post-content"><p>最近在搞springboot顺便做一下笔记<br><a id="more"></a></p>
+<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>springboot其实包含了springmvc所以学起来和springmvc差不多</p>
+<h3 id="springboot2-0环境"><a href="#springboot2-0环境" class="headerlink" title="springboot2.0环境"></a>springboot2.0环境</h3><pre><code>Java 7、Spring Framework 4.1.5及以上
+</code></pre><h3 id="springboot2三大文件和配置"><a href="#springboot2三大文件和配置" class="headerlink" title="springboot2三大文件和配置"></a>springboot2三大文件和配置</h3><pre><code>src/main/java下的程序入口：Chapter1Application
+    src/main/resources下的配置文件：application.properties
+    src/test/下的测试入口：Chapter1ApplicationTests
+    src/main/java下的web组件
+    配置pom.xml
+</code></pre><h3 id="springboot2程序入门"><a href="#springboot2程序入门" class="headerlink" title="springboot2程序入门"></a>springboot2程序入门</h3><h4 id="创建maven项目，打包方式选择war，跳过骨架"><a href="#创建maven项目，打包方式选择war，跳过骨架" class="headerlink" title="创建maven项目，打包方式选择war，跳过骨架"></a>创建maven项目，打包方式选择war，跳过骨架</h4><h4 id="配置pom-xml（注意编译jdk版本和运行的jdk版本匹配）"><a href="#配置pom-xml（注意编译jdk版本和运行的jdk版本匹配）" class="headerlink" title="配置pom.xml（注意编译jdk版本和运行的jdk版本匹配）"></a>配置pom.xml（注意编译jdk版本和运行的jdk版本匹配）</h4><pre><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 
+    http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.junye&lt;/groupId&gt;
+  &lt;artifactId&gt;testspringboot&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;name&gt;testspringboot&lt;/name&gt;
+      &lt;description&gt;AAA&lt;/description&gt;
+        &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;
+    &lt;/parent&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre><h3 id="src-main-java下的程序入口：Chapter1Application（必须）"><a href="#src-main-java下的程序入口：Chapter1Application（必须）" class="headerlink" title="src/main/java下的程序入口：Chapter1Application（必须）"></a>src/main/java下的程序入口：Chapter1Application（必须）</h3><pre><code>package com.junye.test;
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    @SpringBootApplication
+    public class Chapter1Application {
+        public static void main(String[] args) {
+            SpringApplication.run(Chapter1Application.class, args);
+        }
+    }
+</code></pre><h3 id="src-main-java下的controller层（必须）"><a href="#src-main-java下的controller层（必须）" class="headerlink" title="src/main/java下的controller层（必须）"></a>src/main/java下的controller层（必须）</h3><pre><code>package com.junye.test;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+    @Controller
+    @RestController
+    public class HelloController {
+    @RequestMapping(&quot;/hello&quot;)
+    public String index() {
+    return &quot;Hello World&quot;;
+    }
+    }
+完成上述步骤访问：http://localhost:8080/hello即可显示helloworld
+</code></pre><h3 id="src-test-下的测试入口：Chapter1ApplicationTests（非必须）"><a href="#src-test-下的测试入口：Chapter1ApplicationTests（非必须）" class="headerlink" title="src/test/下的测试入口：Chapter1ApplicationTests（非必须）"></a>src/test/下的测试入口：Chapter1ApplicationTests（非必须）</h3><pre><code>/**
+    * Spring Boot HelloWorldController 测试 - {@link HelloWorldController}
+    *
+    * Created by bysocket on 16/4/26.
+    */
+    public class HelloWorldControllerTest {
+    @Test
+    public void testSayHello() {
+    assertEquals(&quot;Hello,World!&quot;,new HelloWorldController().sayHello());
+    }
+    }
+</code></pre><h3 id="启动项目的方法"><a href="#启动项目的方法" class="headerlink" title="启动项目的方法"></a>启动项目的方法</h3><pre><code>Debug Run或者运行主函数或者maven的spring-boot：run
+</code></pre><h2 id="springboot参数接收"><a href="#springboot参数接收" class="headerlink" title="springboot参数接收"></a>springboot参数接收</h2><pre><code>@RequestMapping(&quot;/hello&quot;)//接收所有hello路径的请求
+    public String index(参数名与接收的参数名一致) {
+    return &quot;Hello World&quot;;
+    }
+</code></pre><h3 id="指定前端url请求参数名称与方法名一致"><a href="#指定前端url请求参数名称与方法名一致" class="headerlink" title="指定前端url请求参数名称与方法名一致"></a>指定前端url请求参数名称与方法名一致</h3><h3 id="通过HttpServletRequest来获取前端页面参数"><a href="#通过HttpServletRequest来获取前端页面参数" class="headerlink" title="通过HttpServletRequest来获取前端页面参数"></a>通过HttpServletRequest来获取前端页面参数</h3><h3 id="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"><a href="#创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数" class="headerlink" title="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"></a>创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数</h3><h3 id="通过PathVariable注解来绑定请求路径的参数"><a href="#通过PathVariable注解来绑定请求路径的参数" class="headerlink" title="通过PathVariable注解来绑定请求路径的参数"></a>通过PathVariable注解来绑定请求路径的参数</h3><h3 id="通过RequestParam注解来获取"><a href="#通过RequestParam注解来获取" class="headerlink" title="通过RequestParam注解来获取"></a>通过RequestParam注解来获取</h3><h2 id="springboot返回参数"><a href="#springboot返回参数" class="headerlink" title="springboot返回参数"></a>springboot返回参数</h2><h2 id="Spring的发展"><a href="#Spring的发展" class="headerlink" title="Spring的发展"></a>Spring的发展</h2><h3 id="Spring1-x-时代"><a href="#Spring1-x-时代" class="headerlink" title="Spring1.x 时代"></a>Spring1.x 时代</h3><pre><code>在Spring1.x时代，都是通过xml文件配置bean，随着项目的不断扩大，
+    需要将xml配置分放到不同的配置文件中，需要频繁的在java类和xml配置文件中切换。
+</code></pre><h3 id="Spring2-x时代"><a href="#Spring2-x时代" class="headerlink" title="Spring2.x时代"></a>Spring2.x时代</h3><pre><code>随着JDK 1.5带来的注解支持，Spring2.x可以使用注解对Bean进行申明和注入，
+    大大的减少了xml配置文件，同时也大大简化了项目的开发。
+    注解和xml的最佳实践应用场景：
+    1、应用的基本配置用xml，比如：数据源、资源文件等；
+    2、业务开发用注解，比如：Service中注入bean等；
+</code></pre><h3 id="Spring3-x到Spring4-x"><a href="#Spring3-x到Spring4-x" class="headerlink" title="Spring3.x到Spring4.x"></a>Spring3.x到Spring4.x</h3><pre><code>从Spring3.x开始提供了Java配置方式，使用Java配置方式可以更好的理解你配置的Bean，
+    现在我们就处于这个时代，并且Spring4.x和Spring boot都推荐使用java配置的方式。
+</code></pre><h3 id="Spring的Java配置方式"><a href="#Spring的Java配置方式" class="headerlink" title="Spring的Java配置方式"></a>Spring的Java配置方式</h3><pre><code>Java配置是Spring4.x推荐的配置方式，可以完全替代xml配置。
+</code></pre><h2 id="Configuration和-Bean"><a href="#Configuration和-Bean" class="headerlink" title="@Configuration和@Bean"></a>@Configuration和@Bean</h2><pre><code>Spring的Java配置方式是通过 @Configuration 和 @Bean 这两个注解实现的：
+    @Configuration 作用于类上，相当于一个xml配置文件；
+    @Bean作用于方法上,相当于xml配置中的&lt;bean&gt;；
+</code></pre><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>该示例演示了通过Java配置的方式进行配置Spring，并且实现了Spring IOC功能。
+</code></pre><h4 id="创建工程以及导入依赖"><a href="#创建工程以及导入依赖" class="headerlink" title="创建工程以及导入依赖"></a>创建工程以及导入依赖</h4><pre><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 
+    http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;cn.itcast.springboot&lt;/groupId&gt;
+    &lt;artifactId&gt;itcast-springboot&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;dependencies&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+    &lt;version&gt;4.3.7.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 连接池 --&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;com.jolbox&lt;/groupId&gt;
+    &lt;artifactId&gt;bonecp-spring&lt;/artifactId&gt;
+    &lt;version&gt;0.8.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;plugins&gt;
+    &lt;!-- 资源文件拷贝插件 --&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;!-- java编译插件 --&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+    &lt;source&gt;1.7&lt;/source&gt;
+    &lt;target&gt;1.7&lt;/target&gt;
+    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+    &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    &lt;pluginManagement&gt;
+    &lt;plugins&gt;
+    &lt;!-- 配置Tomcat插件 --&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+    &lt;/project&gt;
+</code></pre><h4 id="编写User对象"><a href="#编写User对象" class="headerlink" title="编写User对象"></a>编写User对象</h4><pre><code>public class User {
+    private String username;
+    private String password;
+    private Integer age;
+    set、get方法
+    }
+</code></pre><h4 id="编写UserDAO-用于模拟与数据库的交互"><a href="#编写UserDAO-用于模拟与数据库的交互" class="headerlink" title="编写UserDAO 用于模拟与数据库的交互"></a>编写UserDAO 用于模拟与数据库的交互</h4><pre><code>public class UserDAO {
+    public List&lt;User&gt; queryUserList(){
+    List&lt;User&gt; result = new ArrayList&lt;User&gt;();
+    // 模拟数据库的查询
+    for (int i = 0; i &lt; 10; i++) {
+    User user = new User();
+    user.setUsername(&quot;username_&quot; + i);
+    user.setPassword(&quot;password_&quot; + i);
+    user.setAge(i + 1);
+    result.add(user);
+    }
+    return result;
+    }
+    }
+</code></pre><h4 id="编写UserService-用于实现User数据操作业务逻辑"><a href="#编写UserService-用于实现User数据操作业务逻辑" class="headerlink" title="编写UserService 用于实现User数据操作业务逻辑"></a>编写UserService 用于实现User数据操作业务逻辑</h4><pre><code>@Service
+    public class UserService {
+    @Autowired // 注入Spring容器中的bean对象
+    private UserDAO userDAO;
+    public List&lt;User&gt; queryUserList() {
+    // 调用userDAO中的方法进行查询
+    return this.userDAO.queryUserList();
+    }
+    }
+</code></pre><h4 id="编写SpringConfig-用于实例化Spring容器"><a href="#编写SpringConfig-用于实例化Spring容器" class="headerlink" title="编写SpringConfig 用于实例化Spring容器"></a>编写SpringConfig 用于实例化Spring容器</h4><pre><code>@Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
+    @ComponentScan(basePackages = &quot;cn.itcast.springboot.javaconfig&quot;) //配置扫描包
+    public class SpringConfig {
+
+    @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的&lt;bean&gt;
+    public UserDAO getUserDAO(){
+    return new UserDAO(); // 直接new对象做演示
+    }
+
+    }
+</code></pre><h4 id="编写测试方法-用于启动Spring容器"><a href="#编写测试方法-用于启动Spring容器" class="headerlink" title="编写测试方法 用于启动Spring容器"></a>编写测试方法 用于启动Spring容器</h4><pre><code>public class Main {
+    public static void main(String[] args) {
+    // 通过Java配置来实例化Spring容器
+    AnnotationConfigApplicationContext context = new 
+    AnnotationConfigApplicationContext(SpringConfig.class);
+
+    UserService userService = context.getBean(UserService.class);
+
+    List&lt;User&gt; list = userService.queryUserList();
+    for (User user : list) {
+    System.out.println(user.getUsername() + &quot;, &quot; + 
+    user.getPassword() + &quot;, &quot; + user.getPassword());
+    }        
+    context.destroy();// 销毁该容器
+    }
+    }
+</code></pre><h4 id="测试效果"><a href="#测试效果" class="headerlink" title="测试效果"></a>测试效果</h4><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><pre><code>使用Java代码就完美的替代xml配置文件，并且结构更加的清晰。
+</code></pre><h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><h4 id="读取外部的资源配置文件"><a href="#读取外部的资源配置文件" class="headerlink" title="读取外部的资源配置文件"></a>读取外部的资源配置文件</h4><pre><code>通过@PropertySource可以指定读取的配置文件，通过@Value注解获取值，具体用法：
+    @Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
+    @ComponentScan(basePackages = &quot;cn.itcast.springboot&quot;) //配置扫描包
+    @PropertySource(value= {&quot;classpath:jdbc.properties&quot;})
+    public class SpringConfig {            
+        @Value(&quot;${jdbc.url}&quot;)
+        private String jdbcUrl;        
+    @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的&lt;bean&gt;
+    方法名作为bean的id
+        public UserDAO getUserDAO(){
+            return new UserDAO(); // 直接new对象做演示
+        }
+    }
+</code></pre><h4 id="如何配置多个配置文件？"><a href="#如何配置多个配置文件？" class="headerlink" title="如何配置多个配置文件？"></a>如何配置多个配置文件？</h4><pre><code>@PropertySource(value= {&quot;classpath:jdbc.properties&quot;,&quot;xxxx&quot;})
+</code></pre><h4 id="如果配置的配置文件不存在会怎么样？"><a href="#如果配置的配置文件不存在会怎么样？" class="headerlink" title="如果配置的配置文件不存在会怎么样？"></a>如果配置的配置文件不存在会怎么样？</h4><pre><code>@PropertySource(value= {&quot;classpath:jdbc.properties&quot;‘
+ignoreResourceNotFound=true
+})
+</code></pre><h4 id="配置数据库连接池"><a href="#配置数据库连接池" class="headerlink" title="配置数据库连接池"></a>配置数据库连接池</h4><pre><code>导入依赖：
+    &lt;!-- 连接池 --&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;com.jolbox&lt;/groupId&gt;
+    &lt;artifactId&gt;bonecp-spring&lt;/artifactId&gt;
+    &lt;version&gt;0.8.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h4 id="之前的Spring-xml配置："><a href="#之前的Spring-xml配置：" class="headerlink" title="之前的Spring xml配置："></a>之前的Spring xml配置：</h4><pre><code> &lt;!-- 定义数据源 --&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;com.jolbox.bonecp.BoneCPDataSource&quot;
+    destroy-method=&quot;close&quot;&gt;
+    &lt;!-- 数据库驱动 --&gt;
+    &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driverClassName}&quot; /&gt;
+    &lt;!-- 相应驱动的jdbcUrl --&gt;
+    &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot; /&gt;
+    &lt;!-- 数据库的用户名 --&gt;
+    &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
+    &lt;!-- 数据库的密码 --&gt;
+    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
+    &lt;!-- 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 --&gt;
+    &lt;property name=&quot;idleConnectionTestPeriod&quot; value=&quot;60&quot; /&gt;
+    &lt;!-- 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 --&gt;
+    &lt;property name=&quot;idleMaxAge&quot; value=&quot;30&quot; /&gt;
+    &lt;!-- 每个分区最大的连接数 --&gt;
+    &lt;!-- 判断依据：请求并发数--&gt;
+    &lt;property name=&quot;maxConnectionsPerPartition&quot; value=&quot;100&quot; /&gt;
+    &lt;!-- 每个分区最小的连接数 --&gt;
+    &lt;property name=&quot;minConnectionsPerPartition&quot; value=&quot;5&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><h4 id="参考xml配置改造成java配置方式："><a href="#参考xml配置改造成java配置方式：" class="headerlink" title="参考xml配置改造成java配置方式："></a>参考xml配置改造成java配置方式：</h4><pre><code>@Value(&quot;${jdbc.url}&quot;)
+    private String jdbcUrl;
+
+    @Value(&quot;${jdbc.driverClassName}&quot;)
+    private String jdbcDriverClassName;
+
+    @Value(&quot;${jdbc.username}&quot;)
+    private String jdbcUsername;
+
+    @Value(&quot;${jdbc.password}&quot;)
+    private String jdbcPassword;
+
+    @Bean(destroyMethod = &quot;close&quot;)
+    public DataSource dataSource() {
+    BoneCPDataSource boneCPDataSource = new BoneCPDataSource();
+    // 数据库驱动
+    boneCPDataSource.setDriverClass(jdbcDriverClassName);
+    // 相应驱动的jdbcUrl
+    boneCPDataSource.setJdbcUrl(jdbcUrl);
+    // 数据库的用户名
+    boneCPDataSource.setUsername(jdbcUsername);
+    // 数据库的密码
+    boneCPDataSource.setPassword(jdbcUsername);
+    // 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0
+    boneCPDataSource.setIdleConnectionTestPeriodInMinutes(60);
+    // 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0
+    boneCPDataSource.setIdleMaxAgeInMinutes(30);
+    // 每个分区最大的连接数
+    boneCPDataSource.setMaxConnectionsPerPartition(100);
+    // 每个分区最小的连接数    
+    boneCPDataSource.setMinConnectionsPerPartition(5);
+    return boneCPDataSource;
+    }
+</code></pre><p>思考： 如何使用该DataSource对象？</p>
+<h2 id="Spring-Boot（不配置则使用默认的）"><a href="#Spring-Boot（不配置则使用默认的）" class="headerlink" title="Spring Boot（不配置则使用默认的）"></a>Spring Boot（不配置则使用默认的）</h2><h3 id="什么是Spring-Boot"><a href="#什么是Spring-Boot" class="headerlink" title="什么是Spring Boot"></a>什么是Spring Boot</h3><img src="/2018/05/24/springboot/1.png" title="1.png">
+<h3 id="Spring-Boot的优缺点"><a href="#Spring-Boot的优缺点" class="headerlink" title="Spring Boot的优缺点"></a>Spring Boot的优缺点</h3><img src="/2018/05/24/springboot/2.png" title="2.png">
+<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><h4 id="设置spring-boot的parent"><a href="#设置spring-boot的parent" class="headerlink" title="设置spring boot的parent"></a>设置spring boot的parent</h4><pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;1.5.2.RELEASE&lt;/version&gt;
+    &lt;/parent&gt;
+    说明：Spring boot的项目必须要将parent设置为spring 
+    boot的parent，该parent包含了大量默认的配置，大大简化了我们的开发。
+</code></pre><h4 id="导入spring-boot的web支持"><a href="#导入spring-boot的web支持" class="headerlink" title="导入spring boot的web支持"></a>导入spring boot的web支持</h4><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</code></pre><h4 id="添加Spring-boot的插件"><a href="#添加Spring-boot的插件" class="headerlink" title="添加Spring boot的插件"></a>添加Spring boot的插件</h4><pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;/plugin&gt;
+</code></pre><h4 id="编写第一个Spring-Boot的应用"><a href="#编写第一个Spring-Boot的应用" class="headerlink" title="编写第一个Spring Boot的应用"></a>编写第一个Spring Boot的应用</h4><pre><code>@Controller
+    @SpringBootApplication
+    @Configuration
+    public class HelloApplication {
+
+    @RequestMapping(&quot;hello&quot;)
+    @ResponseBody
+    public String hello(){
+    return &quot;hello world！&quot;;
+    }
+
+    public static void main(String[] args) {
+    SpringApplication.run(HelloApplication.class, args);
+    }
+
+    }
+    代码说明：
+    1、@SpringBootApplication：Spring 
+    Boot项目的核心注解，主要目的是开启自动配置。；是springboot的web应用
+    2、@Configuration：这是一个配置Spring的配置类；自身是一个配置
+    3、@Controller：标明这是一个SpringMVC的Controller控制器；
+    4、main方法：在main方法中启动一个应用，即：这个应用的入口；
+    4.3.5.启动应用
+    在Spring Boot项目中，启动的方式有两种，
+    一种是直接run Java Application
+    另外一种是通过Spring Boot的Maven插件运行。
+
+    第一种：直接run as JavaAppliaction
+    第二种：springboot：run
+</code></pre><h4 id="看到如下信息就说明启动成功了："><a href="#看到如下信息就说明启动成功了：" class="headerlink" title="看到如下信息就说明启动成功了："></a>看到如下信息就说明启动成功了：</h4><pre><code>INFO 6188 --- [           main] c.i.springboot.demo.HelloApplication  
+    : Started HelloApplication in 3.281 seconds (JVM running for 3.601)
+</code></pre><h3 id="Spring-Boot的核心"><a href="#Spring-Boot的核心" class="headerlink" title="Spring Boot的核心"></a>Spring Boot的核心</h3><h4 id="入口类和-SpringBootApplication"><a href="#入口类和-SpringBootApplication" class="headerlink" title="入口类和@SpringBootApplication"></a>入口类和@SpringBootApplication</h4><pre><code>Spring Boot的项目一般都会有*Application的入口类，入口类中会有main方法，
+    这是一个标准的Java应用程序的入口方法。
+    @SpringBootApplication注解是Spring Boot的核心注解，它其实是一个组合注解：
+</code></pre><img src="/2018/05/24/springboot/3.png" title="3.png">
+<pre><code>该注解主要组合了以下注解：
+1.@SpringBootConfiguration：这是Spring Boot项目的配置注解，
+这也是一个组合注解：
+{% asset_img 4.png 4.png %}
+在Spring Boot项目中推荐使用@ SpringBootConfiguration替代@Configuration（代替配置xml）
+2.@EnableAutoConfiguration：启用自动配置，该注解会使Spring Boot根据项目中依赖的jar包自动配置项目的配置项：
+a)如：我们添加了spring-boot-starter-web的依赖，
+项目中也就会引入SpringMVC的依赖，Spring Boot就会自动配置tomcat和SpringMVC
+b)根据这个改项目
+</code></pre><img src="/2018/05/24/springboot/5.png" title="5.png">
+<img src="/2018/05/24/springboot/6.png" title="6.png">
+<p>3.@ComponentScan：默认扫描@SpringBootApplication所在类的同级目录以及它的子目录。<br>4.4.2.关闭自动配置<br>通过上述，我们得知，Spring Boot会根据项目中的jar包依赖，自动做出配置，Spring Boot支持的自动配置如下（非常多）：</p>
+<p>如果我们不需要Spring Boot自动配置，想关闭某一项的自动配置，该如何设置呢？</p>
+<p>比如：我们不想自动配置Redis，想手动配置。</p>
+<p>当然了，其他的配置就类似了。<br>4.4.3.自定义Banner<br>启动Spring Boot项目后会看到这样的图案：</p>
+<p>这个图片其实是可以自定义的：<br>1.打开网站：<br>2.<a href="http://patorjk.com/software/taag/#p=display&amp;h=3&amp;v=3&amp;f=4Max&amp;t=itcast%20Spring%20Bo" target="_blank" rel="noopener">http://patorjk.com/software/taag/#p=display&amp;h=3&amp;v=3&amp;f=4Max&amp;t=itcast%20Spring%20Bo</a><br>ot</p>
+<p>3.拷贝生成的字符到一个文本文件中，并且将该文件命名为banner.txt<br>4.将banner.txt拷贝到项目的resources目录中：</p>
+<p>5.重新启动程序，查看效果：</p>
+<p>好像没有默认的好看啊！！！</p>
+<p>如果不想看到任何的banner，也是可以将其关闭的：</p>
+<p>4.4.4.全局配置文件<br>Spring Boot项目使用一个全局的配置文件application.properties或者是application.yml，在resources目录下或者类路径下的/config下，一般我们放到resources下。</p>
+<p>1、修改tomcat的端口为8088</p>
+<p>重新启动应用，查看效果：</p>
+<p>2、修改进入DispatcherServlet的规则为：*.html</p>
+<p>测试：<br>3、</p>
+<p>更多的配置：</p>
+<h1 id=""><a href="#" class="headerlink" title="==================================================================="></a>===================================================================</h1><h1 id="COMMON-SPRING-BOOT-PROPERTIES"><a href="#COMMON-SPRING-BOOT-PROPERTIES" class="headerlink" title="COMMON SPRING BOOT PROPERTIES"></a>COMMON SPRING BOOT PROPERTIES</h1><p>#</p>
+<h1 id="This-sample-file-is-provided-as-a-guideline-Do-NOT-copy-it-in-its"><a href="#This-sample-file-is-provided-as-a-guideline-Do-NOT-copy-it-in-its" class="headerlink" title="This sample file is provided as a guideline. Do NOT copy it in its"></a>This sample file is provided as a guideline. Do NOT copy it in its</h1><h1 id="entirety-to-your-own-application"><a href="#entirety-to-your-own-application" class="headerlink" title="entirety to your own application.               ^^^"></a>entirety to your own application.               ^^^</h1><h1 id="-1"><a href="#-1" class="headerlink" title="==================================================================="></a>===================================================================</h1><h1 id="—————————————"><a href="#—————————————" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="CORE-PROPERTIES"><a href="#CORE-PROPERTIES" class="headerlink" title="CORE PROPERTIES"></a>CORE PROPERTIES</h1><h1 id="—————————————-1"><a href="#—————————————-1" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="BANNER"><a href="#BANNER" class="headerlink" title="BANNER"></a>BANNER</h1><p>banner.charset=UTF-8 # Banner file encoding.<br>banner.location=classpath:banner.txt # Banner file location.<br>banner.image.location=classpath:banner.gif # Banner image file location (jpg/png can also be used).<br>banner.image.width= # Width of the banner image in chars (default 76)<br>banner.image.height= # Height of the banner image in chars (default based on image height)<br>banner.image.margin= # Left hand image margin in chars (default 2)<br>banner.image.invert= # If images should be inverted for dark terminal themes (default false)</p>
+<h1 id="LOGGING"><a href="#LOGGING" class="headerlink" title="LOGGING"></a>LOGGING</h1><p>logging.config= # Location of the logging configuration file. For instance <code>classpath:logback.xml</code> for Logback<br>logging.exception-conversion-word=%wEx # Conversion word used when logging exceptions.<br>logging.file= # Log file name. For instance <code>myapp.log</code><br>logging.level.*= # Log levels severity mapping. For instance <code>logging.level.org.springframework=DEBUG</code><br>logging.path= # Location of the log file. For instance <code>/var/log</code><br>logging.pattern.console= # Appender pattern for output to the console. Only supported with the default logback setup.<br>logging.pattern.file= # Appender pattern for output to the file. Only supported with the default logback setup.<br>logging.pattern.level= # Appender pattern for log level (default %5p). Only supported with the default logback setup.<br>logging.register-shutdown-hook=false # Register a shutdown hook for the logging system when it is initialized.</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>spring.aop.auto=true # Add @EnableAspectJAutoProxy.<br>spring.aop.proxy-target-class=false # Whether subclass-based (CGLIB) proxies are to be created (true) as opposed to standard Java interface-based proxies (false).</p>
+<h1 id="IDENTITY-ContextIdApplicationContextInitializer"><a href="#IDENTITY-ContextIdApplicationContextInitializer" class="headerlink" title="IDENTITY (ContextIdApplicationContextInitializer)"></a>IDENTITY (ContextIdApplicationContextInitializer)</h1><p>spring.application.index= # Application index.<br>spring.application.name= # Application name.</p>
+<h1 id="ADMIN-SpringApplicationAdminJmxAutoConfiguration"><a href="#ADMIN-SpringApplicationAdminJmxAutoConfiguration" class="headerlink" title="ADMIN (SpringApplicationAdminJmxAutoConfiguration)"></a>ADMIN (SpringApplicationAdminJmxAutoConfiguration)</h1><p>spring.application.admin.enabled=false # Enable admin features for the application.<br>spring.application.admin.jmx-name=org.springframework.boot:type=Admin,name=SpringApplication # JMX name of the application admin MBean.</p>
+<h1 id="AUTO-CONFIGURATION"><a href="#AUTO-CONFIGURATION" class="headerlink" title="AUTO-CONFIGURATION"></a>AUTO-CONFIGURATION</h1><p>spring.autoconfigure.exclude= # Auto-configuration classes to exclude.</p>
+<h1 id="SPRING-CORE"><a href="#SPRING-CORE" class="headerlink" title="SPRING CORE"></a>SPRING CORE</h1><p>spring.beaninfo.ignore=true # Skip search of BeanInfo classes.</p>
+<h1 id="SPRING-CACHE-CacheProperties"><a href="#SPRING-CACHE-CacheProperties" class="headerlink" title="SPRING CACHE (CacheProperties)"></a>SPRING CACHE (CacheProperties)</h1><p>spring.cache.cache-names= # Comma-separated list of cache names to create if supported by the underlying cache manager.<br>spring.cache.caffeine.spec= # The spec to use to create caches. Check CaffeineSpec for more details on the spec format.<br>spring.cache.couchbase.expiration=0 # Entry expiration in milliseconds. By default the entries never expire.<br>spring.cache.ehcache.config= # The location of the configuration file to use to initialize EhCache.<br>spring.cache.guava.spec= # The spec to use to create caches. Check CacheBuilderSpec for more details on the spec format.<br>spring.cache.infinispan.config= # The location of the configuration file to use to initialize Infinispan.<br>spring.cache.jcache.config= # The location of the configuration file to use to initialize the cache manager.<br>spring.cache.jcache.provider= # Fully qualified name of the CachingProvider implementation to use to retrieve the JSR-107 compliant cache manager. Only needed if more than one JSR-107 implementation is available on the classpath.<br>spring.cache.type= # Cache type, auto-detected according to the environment by default.</p>
+<h1 id="SPRING-CONFIG-using-environment-property-only-ConfigFileApplicationListener"><a href="#SPRING-CONFIG-using-environment-property-only-ConfigFileApplicationListener" class="headerlink" title="SPRING CONFIG - using environment property only (ConfigFileApplicationListener)"></a>SPRING CONFIG - using environment property only (ConfigFileApplicationListener)</h1><p>spring.config.location= # Config file locations.<br>spring.config.name=application # Config file name.</p>
+<h1 id="HAZELCAST-HazelcastProperties"><a href="#HAZELCAST-HazelcastProperties" class="headerlink" title="HAZELCAST (HazelcastProperties)"></a>HAZELCAST (HazelcastProperties)</h1><p>spring.hazelcast.config= # The location of the configuration file to use to initialize Hazelcast.</p>
+<h1 id="PROJECT-INFORMATION-ProjectInfoProperties"><a href="#PROJECT-INFORMATION-ProjectInfoProperties" class="headerlink" title="PROJECT INFORMATION (ProjectInfoProperties)"></a>PROJECT INFORMATION (ProjectInfoProperties)</h1><p>spring.info.build.location=classpath:META-INF/build-info.properties # Location of the generated build-info.properties file.<br>spring.info.git.location=classpath:git.properties # Location of the generated git.properties file.</p>
+<h1 id="JMX"><a href="#JMX" class="headerlink" title="JMX"></a>JMX</h1><p>spring.jmx.default-domain= # JMX domain name.<br>spring.jmx.enabled=true # Expose management beans to the JMX domain.<br>spring.jmx.server=mbeanServer # MBeanServer bean name.</p>
+<h1 id="Email-MailProperties"><a href="#Email-MailProperties" class="headerlink" title="Email (MailProperties)"></a>Email (MailProperties)</h1><p>spring.mail.default-encoding=UTF-8 # Default MimeMessage encoding.<br>spring.mail.host= # SMTP server host. For instance <code>smtp.example.com</code><br>spring.mail.jndi-name= # Session JNDI name. When set, takes precedence to others mail settings.<br>spring.mail.password= # Login password of the SMTP server.<br>spring.mail.port= # SMTP server port.<br>spring.mail.properties.*= # Additional JavaMail session properties.<br>spring.mail.protocol=smtp # Protocol used by the SMTP server.<br>spring.mail.test-connection=false # Test that the mail server is available on startup.<br>spring.mail.username= # Login user of the SMTP server.</p>
+<h1 id="APPLICATION-SETTINGS-SpringApplication"><a href="#APPLICATION-SETTINGS-SpringApplication" class="headerlink" title="APPLICATION SETTINGS (SpringApplication)"></a>APPLICATION SETTINGS (SpringApplication)</h1><p>spring.main.banner-mode=console # Mode used to display the banner when the application runs.<br>spring.main.sources= # Sources (class name, package name or XML resource location) to include in the ApplicationContext.<br>spring.main.web-environment= # Run the application in a web environment (auto-detected by default).</p>
+<h1 id="FILE-ENCODING-FileEncodingApplicationListener"><a href="#FILE-ENCODING-FileEncodingApplicationListener" class="headerlink" title="FILE ENCODING (FileEncodingApplicationListener)"></a>FILE ENCODING (FileEncodingApplicationListener)</h1><p>spring.mandatory-file-encoding= # Expected character encoding the application must use.</p>
+<h1 id="INTERNATIONALIZATION-MessageSourceAutoConfiguration"><a href="#INTERNATIONALIZATION-MessageSourceAutoConfiguration" class="headerlink" title="INTERNATIONALIZATION (MessageSourceAutoConfiguration)"></a>INTERNATIONALIZATION (MessageSourceAutoConfiguration)</h1><p>spring.messages.always-use-message-format=false # Set whether to always apply the MessageFormat rules, parsing even messages without arguments.<br>spring.messages.basename=messages # Comma-separated list of basenames, each following the ResourceBundle convention.<br>spring.messages.cache-seconds=-1 # Loaded resource bundle files cache expiration, in seconds. When set to -1, bundles are cached forever.<br>spring.messages.encoding=UTF-8 # Message bundles encoding.<br>spring.messages.fallback-to-system-locale=true # Set whether to fall back to the system Locale if no files for a specific Locale have been found.</p>
+<h1 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h1><p>spring.output.ansi.enabled=detect # Configure the ANSI output.</p>
+<h1 id="PID-FILE-ApplicationPidFileWriter"><a href="#PID-FILE-ApplicationPidFileWriter" class="headerlink" title="PID FILE (ApplicationPidFileWriter)"></a>PID FILE (ApplicationPidFileWriter)</h1><p>spring.pid.fail-on-write-error= # Fail if ApplicationPidFileWriter is used but it cannot write the PID file.<br>spring.pid.file= # Location of the PID file to write (if ApplicationPidFileWriter is used).</p>
+<h1 id="PROFILES"><a href="#PROFILES" class="headerlink" title="PROFILES"></a>PROFILES</h1><p>spring.profiles.active= # Comma-separated list (or list if using YAML) of active profiles.<br>spring.profiles.include= # Unconditionally activate the specified comma separated profiles (or list of profiles if using YAML).</p>
+<h1 id="SENDGRID-SendGridAutoConfiguration"><a href="#SENDGRID-SendGridAutoConfiguration" class="headerlink" title="SENDGRID (SendGridAutoConfiguration)"></a>SENDGRID (SendGridAutoConfiguration)</h1><p>spring.sendgrid.api-key= # SendGrid api key (alternative to username/password)<br>spring.sendgrid.username= # SendGrid account username<br>spring.sendgrid.password= # SendGrid account password<br>spring.sendgrid.proxy.host= # SendGrid proxy host<br>spring.sendgrid.proxy.port= # SendGrid proxy port</p>
+<h1 id="—————————————-2"><a href="#—————————————-2" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="WEB-PROPERTIES"><a href="#WEB-PROPERTIES" class="headerlink" title="WEB PROPERTIES"></a>WEB PROPERTIES</h1><h1 id="—————————————-3"><a href="#—————————————-3" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="EMBEDDED-SERVER-CONFIGURATION-ServerProperties"><a href="#EMBEDDED-SERVER-CONFIGURATION-ServerProperties" class="headerlink" title="EMBEDDED SERVER CONFIGURATION (ServerProperties)"></a>EMBEDDED SERVER CONFIGURATION (ServerProperties)</h1><p>server.address= # Network address to which the server should bind to.<br>server.compression.enabled=false # If response compression is enabled.<br>server.compression.excluded-user-agents= # List of user-agents to exclude from compression.<br>server.compression.mime-types= # Comma-separated list of MIME types that should be compressed. For instance <code>text/html,text/css,application/json</code><br>server.compression.min-response-size= # Minimum response size that is required for compression to be performed. For instance 2048<br>server.connection-timeout= # Time in milliseconds that connectors will wait for another HTTP request before closing the connection. When not set, the connector’s container-specific default will be used. Use a value of -1 to indicate no (i.e. infinite) timeout.<br>server.context-parameters.<em>= # Servlet context init parameters. For instance <code>server.context-parameters.a=alpha</code><br>server.context-path= # Context path of the application.<br>server.display-name=application # Display name of the application.<br>server.max-http-header-size=0 # Maximum size in bytes of the HTTP message header.<br>server.error.include-stacktrace=never # When to include a “stacktrace” attribute.<br>server.error.path=/error # Path of the error controller.<br>server.error.whitelabel.enabled=true # Enable the default error page displayed in browsers in case of a server error.<br>server.jetty.acceptors= # Number of acceptor threads to use.<br>server.jetty.max-http-post-size=0 # Maximum size in bytes of the HTTP post or put content.<br>server.jetty.selectors= # Number of selector threads to use.<br>server.jsp-servlet.class-name=org.apache.jasper.servlet.JspServlet # The class name of the JSP servlet.<br>server.jsp-servlet.init-parameters.</em>= # Init parameters used to configure the JSP servlet<br>server.jsp-servlet.registered=true # Whether or not the JSP servlet is registered<br>server.port=8080 # Server HTTP port.<br>server.server-header= # Value to use for the Server response header (no header is sent if empty)<br>server.servlet-path=/ # Path of the main dispatcher servlet.<br>server.use-forward-headers= # If X-Forwarded-* headers should be applied to the HttpRequest.<br>server.session.cookie.comment= # Comment for the session cookie.<br>server.session.cookie.domain= # Domain for the session cookie.<br>server.session.cookie.http-only= # “HttpOnly” flag for the session cookie.<br>server.session.cookie.max-age= # Maximum age of the session cookie in seconds.<br>server.session.cookie.name= # Session cookie name.<br>server.session.cookie.path= # Path of the session cookie.<br>server.session.cookie.secure= # “Secure” flag for the session cookie.<br>server.session.persistent=false # Persist session data between restarts.<br>server.session.store-dir= # Directory used to store session data.<br>server.session.timeout= # Session timeout in seconds.<br>server.session.tracking-modes= # Session tracking modes (one or more of the following: “cookie”, “url”, “ssl”).<br>server.ssl.ciphers= # Supported SSL ciphers.<br>server.ssl.client-auth= # Whether client authentication is wanted (“want”) or needed (“need”). Requires a trust store.<br>server.ssl.enabled= # Enable SSL support.<br>server.ssl.enabled-protocols= # Enabled SSL protocols.<br>server.ssl.key-alias= # Alias that identifies the key in the key store.<br>server.ssl.key-password= # Password used to access the key in the key store.<br>server.ssl.key-store= # Path to the key store that holds the SSL certificate (typically a jks file).<br>server.ssl.key-store-password= # Password used to access the key store.<br>server.ssl.key-store-provider= # Provider for the key store.<br>server.ssl.key-store-type= # Type of the key store.<br>server.ssl.protocol=TLS # SSL protocol to use.<br>server.ssl.trust-store= # Trust store that holds SSL certificates.<br>server.ssl.trust-store-password= # Password used to access the trust store.<br>server.ssl.trust-store-provider= # Provider for the trust store.<br>server.ssl.trust-store-type= # Type of the trust store.<br>server.tomcat.accept-count= # Maximum queue length for incoming connection requests when all possible request processing threads are in use.<br>server.tomcat.accesslog.buffered=true # Buffer output such that it is only flushed periodically.<br>server.tomcat.accesslog.directory=logs # Directory in which log files are created. Can be relative to the tomcat base dir or absolute.<br>server.tomcat.accesslog.enabled=false # Enable access log.<br>server.tomcat.accesslog.pattern=common # Format pattern for access logs.<br>server.tomcat.accesslog.prefix=access_log # Log file name prefix.<br>server.tomcat.accesslog.rename-on-rotate=false # Defer inclusion of the date stamp in the file name until rotate time.<br>server.tomcat.accesslog.request-attributes-enabled=false # Set request attributes for IP address, Hostname, protocol and port used for the request.<br>server.tomcat.accesslog.rotate=true # Enable access log rotation.<br>server.tomcat.accesslog.suffix=.log # Log file name suffix.<br>server.tomcat.additional-tld-skip-patterns= # Comma-separated list of additional patterns that match jars to ignore for TLD scanning.<br>server.tomcat.background-processor-delay=30 # Delay in seconds between the invocation of backgroundProcess methods.<br>server.tomcat.basedir= # Tomcat base directory. If not specified a temporary directory will be used.<br>server.tomcat.internal-proxies=10\.\d{1,3}\.\d{1,3}\.\d{1,3}|\<br>        192\.168\.\d{1,3}\.\d{1,3}|\<br>        169\.254\.\d{1,3}\.\d{1,3}|\<br>        127\.\d{1,3}\.\d{1,3}\.\d{1,3}|\<br>        172\.1[6-9]{1}\.\d{1,3}\.\d{1,3}|\<br>        172\.2[0-9]{1}\.\d{1,3}\.\d{1,3}|\<br>        172\.3[0-1]{1}\.\d{1,3}\.\d{1,3} # regular expression matching trusted IP addresses.<br>server.tomcat.max-connections= # Maximum number of connections that the server will accept and process at any given time.<br>server.tomcat.max-http-post-size=0 # Maximum size in bytes of the HTTP post content.<br>server.tomcat.max-threads=0 # Maximum amount of worker threads.<br>server.tomcat.min-spare-threads=0 # Minimum amount of worker threads.<br>server.tomcat.port-header=X-Forwarded-Port # Name of the HTTP header used to override the original port value.<br>server.tomcat.protocol-header= # Header that holds the incoming protocol, usually named “X-Forwarded-Proto”.<br>server.tomcat.protocol-header-https-value=https # Value of the protocol header that indicates that the incoming request uses SSL.<br>server.tomcat.redirect-context-root= # Whether requests to the context root should be redirected by appending a / to the path.<br>server.tomcat.remote-ip-header= # Name of the http header from which the remote ip is extracted. For instance <code>X-FORWARDED-FOR</code><br>server.tomcat.uri-encoding=UTF-8 # Character encoding to use to decode the URI.<br>server.undertow.accesslog.dir= # Undertow access log directory.<br>server.undertow.accesslog.enabled=false # Enable access log.<br>server.undertow.accesslog.pattern=common # Format pattern for access logs.<br>server.undertow.accesslog.prefix=access_log. # Log file name prefix.<br>server.undertow.accesslog.rotate=true # Enable access log rotation.<br>server.undertow.accesslog.suffix=log # Log file name suffix.<br>server.undertow.buffer-size= # Size of each buffer in bytes.<br>server.undertow.buffers-per-region= # Number of buffer per region.<br>server.undertow.direct-buffers= # Allocate buffers outside the Java heap.<br>server.undertow.io-threads= # Number of I/O threads to create for the worker.<br>server.undertow.max-http-post-size=0 # Maximum size in bytes of the HTTP post content.<br>server.undertow.worker-threads= # Number of worker threads.</p>
+<h1 id="FREEMARKER-FreeMarkerAutoConfiguration"><a href="#FREEMARKER-FreeMarkerAutoConfiguration" class="headerlink" title="FREEMARKER (FreeMarkerAutoConfiguration)"></a>FREEMARKER (FreeMarkerAutoConfiguration)</h1><p>spring.freemarker.allow-request-override=false # Set whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.freemarker.allow-session-override=false # Set whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.freemarker.cache=false # Enable template caching.<br>spring.freemarker.charset=UTF-8 # Template encoding.<br>spring.freemarker.check-template-location=true # Check that the templates location exists.<br>spring.freemarker.content-type=text/html # Content-Type value.<br>spring.freemarker.enabled=true # Enable MVC view resolution for this technology.<br>spring.freemarker.expose-request-attributes=false # Set whether all request attributes should be added to the model prior to merging with the template.<br>spring.freemarker.expose-session-attributes=false # Set whether all HttpSession attributes should be added to the model prior to merging with the template.<br>spring.freemarker.expose-spring-macro-helpers=true # Set whether to expose a RequestContext for use by Spring’s macro library, under the name “springMacroRequestContext”.<br>spring.freemarker.prefer-file-system-access=true # Prefer file system access for template loading. File system access enables hot detection of template changes.<br>spring.freemarker.prefix= # Prefix that gets prepended to view names when building a URL.<br>spring.freemarker.request-context-attribute= # Name of the RequestContext attribute for all views.<br>spring.freemarker.settings.*= # Well-known FreeMarker keys which will be passed to FreeMarker’s Configuration.<br>spring.freemarker.suffix= # Suffix that gets appended to view names when building a URL.<br>spring.freemarker.template-loader-path=classpath:/templates/ # Comma-separated list of template paths.<br>spring.freemarker.view-names= # White list of view names that can be resolved.</p>
+<h1 id="GROOVY-TEMPLATES-GroovyTemplateAutoConfiguration"><a href="#GROOVY-TEMPLATES-GroovyTemplateAutoConfiguration" class="headerlink" title="GROOVY TEMPLATES (GroovyTemplateAutoConfiguration)"></a>GROOVY TEMPLATES (GroovyTemplateAutoConfiguration)</h1><p>spring.groovy.template.allow-request-override=false # Set whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.groovy.template.allow-session-override=false # Set whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.groovy.template.cache= # Enable template caching.<br>spring.groovy.template.charset=UTF-8 # Template encoding.<br>spring.groovy.template.check-template-location=true # Check that the templates location exists.<br>spring.groovy.template.configuration.*= # See GroovyMarkupConfigurer<br>spring.groovy.template.content-type=test/html # Content-Type value.<br>spring.groovy.template.enabled=true # Enable MVC view resolution for this technology.<br>spring.groovy.template.expose-request-attributes=false # Set whether all request attributes should be added to the model prior to merging with the template.<br>spring.groovy.template.expose-session-attributes=false # Set whether all HttpSession attributes should be added to the model prior to merging with the template.<br>spring.groovy.template.expose-spring-macro-helpers=true # Set whether to expose a RequestContext for use by Spring’s macro library, under the name “springMacroRequestContext”.<br>spring.groovy.template.prefix= # Prefix that gets prepended to view names when building a URL.<br>spring.groovy.template.request-context-attribute= # Name of the RequestContext attribute for all views.<br>spring.groovy.template.resource-loader-path=classpath:/templates/ # Template path.<br>spring.groovy.template.suffix=.tpl # Suffix that gets appended to view names when building a URL.<br>spring.groovy.template.view-names= # White list of view names that can be resolved.</p>
+<h1 id="SPRING-HATEOAS-HateoasProperties"><a href="#SPRING-HATEOAS-HateoasProperties" class="headerlink" title="SPRING HATEOAS (HateoasProperties)"></a>SPRING HATEOAS (HateoasProperties)</h1><p>spring.hateoas.use-hal-as-default-json-media-type=true # Specify if application/hal+json responses should be sent to requests that accept application/json.</p>
+<h1 id="HTTP-message-conversion"><a href="#HTTP-message-conversion" class="headerlink" title="HTTP message conversion"></a>HTTP message conversion</h1><p>spring.http.converters.preferred-json-mapper=jackson # Preferred JSON mapper to use for HTTP message conversion. Set to “gson” to force the use of Gson when both it and Jackson are on the classpath.</p>
+<h1 id="HTTP-encoding-HttpEncodingProperties"><a href="#HTTP-encoding-HttpEncodingProperties" class="headerlink" title="HTTP encoding (HttpEncodingProperties)"></a>HTTP encoding (HttpEncodingProperties)</h1><p>spring.http.encoding.charset=UTF-8 # Charset of HTTP requests and responses. Added to the “Content-Type” header if not set explicitly.<br>spring.http.encoding.enabled=true # Enable http encoding support.<br>spring.http.encoding.force= # Force the encoding to the configured charset on HTTP requests and responses.<br>spring.http.encoding.force-request= # Force the encoding to the configured charset on HTTP requests. Defaults to true when “force” has not been specified.<br>spring.http.encoding.force-response= # Force the encoding to the configured charset on HTTP responses.<br>spring.http.encoding.mapping= # Locale to Encoding mapping.</p>
+<h1 id="MULTIPART-MultipartProperties"><a href="#MULTIPART-MultipartProperties" class="headerlink" title="MULTIPART (MultipartProperties)"></a>MULTIPART (MultipartProperties)</h1><p>spring.http.multipart.enabled=true # Enable support of multi-part uploads.<br>spring.http.multipart.file-size-threshold=0 # Threshold after which files will be written to disk. Values can use the suffixed “MB” or “KB” to indicate a Megabyte or Kilobyte size.<br>spring.http.multipart.location= # Intermediate location of uploaded files.<br>spring.http.multipart.max-file-size=1MB # Max file size. Values can use the suffixed “MB” or “KB” to indicate a Megabyte or Kilobyte size.<br>spring.http.multipart.max-request-size=10MB # Max request size. Values can use the suffixed “MB” or “KB” to indicate a Megabyte or Kilobyte size.<br>spring.http.multipart.resolve-lazily=false # Whether to resolve the multipart request lazily at the time of file or parameter access.</p>
+<h1 id="JACKSON-JacksonProperties"><a href="#JACKSON-JacksonProperties" class="headerlink" title="JACKSON (JacksonProperties)"></a>JACKSON (JacksonProperties)</h1><p>spring.jackson.date-format= # Date format string or a fully-qualified date format class name. For instance <code>yyyy-MM-dd HH:mm:ss</code>.<br>spring.jackson.default-property-inclusion= # Controls the inclusion of properties during serialization.<br>spring.jackson.deserialization.<em>= # Jackson on/off features that affect the way Java objects are deserialized.<br>spring.jackson.generator.</em>= # Jackson on/off features for generators.<br>spring.jackson.joda-date-time-format= # Joda date time format string. If not configured, “date-format” will be used as a fallback if it is configured with a format string.<br>spring.jackson.locale= # Locale used for formatting.<br>spring.jackson.mapper.<em>= # Jackson general purpose on/off features.<br>spring.jackson.parser.</em>= # Jackson on/off features for parsers.<br>spring.jackson.property-naming-strategy= # One of the constants on Jackson’s PropertyNamingStrategy. Can also be a fully-qualified class name of a PropertyNamingStrategy subclass.<br>spring.jackson.serialization.*= # Jackson on/off features that affect the way Java objects are serialized.<br>spring.jackson.time-zone= # Time zone used when formatting dates. For instance <code>America/Los_Angeles</code></p>
+<h1 id="JERSEY-JerseyProperties"><a href="#JERSEY-JerseyProperties" class="headerlink" title="JERSEY (JerseyProperties)"></a>JERSEY (JerseyProperties)</h1><p>spring.jersey.application-path= # Path that serves as the base URI for the application. Overrides the value of “@ApplicationPath” if specified.<br>spring.jersey.filter.order=0 # Jersey filter chain order.<br>spring.jersey.init.*= # Init parameters to pass to Jersey via the servlet or filter.<br>spring.jersey.servlet.load-on-startup=-1 # Load on startup priority of the Jersey servlet.<br>spring.jersey.type=servlet # Jersey integration type.</p>
+<h1 id="SPRING-LDAP-LdapProperties"><a href="#SPRING-LDAP-LdapProperties" class="headerlink" title="SPRING LDAP (LdapProperties)"></a>SPRING LDAP (LdapProperties)</h1><p>spring.ldap.urls= # LDAP URLs of the server.<br>spring.ldap.base= # Base suffix from which all operations should originate.<br>spring.ldap.username= # Login user of the server.<br>spring.ldap.password= # Login password of the server.<br>spring.ldap.base-environment.*= # LDAP specification settings.</p>
+<h1 id="EMBEDDED-LDAP-EmbeddedLdapProperties"><a href="#EMBEDDED-LDAP-EmbeddedLdapProperties" class="headerlink" title="EMBEDDED LDAP (EmbeddedLdapProperties)"></a>EMBEDDED LDAP (EmbeddedLdapProperties)</h1><p>spring.ldap.embedded.base-dn= # The base DN<br>spring.ldap.embedded.credential.username= # Embedded LDAP username.<br>spring.ldap.embedded.credential.password= # Embedded LDAP password.<br>spring.ldap.embedded.ldif=classpath:schema.ldif # Schema (LDIF) script resource reference.<br>spring.ldap.embedded.port= # Embedded LDAP port.<br>spring.ldap.embedded.validation.enabled=true # Enable LDAP schema validation.<br>spring.ldap.embedded.validation.schema= # Path to the custom schema.</p>
+<h1 id="SPRING-MOBILE-DEVICE-VIEWS-DeviceDelegatingViewResolverAutoConfiguration"><a href="#SPRING-MOBILE-DEVICE-VIEWS-DeviceDelegatingViewResolverAutoConfiguration" class="headerlink" title="SPRING MOBILE DEVICE VIEWS (DeviceDelegatingViewResolverAutoConfiguration)"></a>SPRING MOBILE DEVICE VIEWS (DeviceDelegatingViewResolverAutoConfiguration)</h1><p>spring.mobile.devicedelegatingviewresolver.enable-fallback=false # Enable support for fallback resolution.<br>spring.mobile.devicedelegatingviewresolver.enabled=false # Enable device view resolver.<br>spring.mobile.devicedelegatingviewresolver.mobile-prefix=mobile/ # Prefix that gets prepended to view names for mobile devices.<br>spring.mobile.devicedelegatingviewresolver.mobile-suffix= # Suffix that gets appended to view names for mobile devices.<br>spring.mobile.devicedelegatingviewresolver.normal-prefix= # Prefix that gets prepended to view names for normal devices.<br>spring.mobile.devicedelegatingviewresolver.normal-suffix= # Suffix that gets appended to view names for normal devices.<br>spring.mobile.devicedelegatingviewresolver.tablet-prefix=tablet/ # Prefix that gets prepended to view names for tablet devices.<br>spring.mobile.devicedelegatingviewresolver.tablet-suffix= # Suffix that gets appended to view names for tablet devices.</p>
+<h1 id="SPRING-MOBILE-SITE-PREFERENCE-SitePreferenceAutoConfiguration"><a href="#SPRING-MOBILE-SITE-PREFERENCE-SitePreferenceAutoConfiguration" class="headerlink" title="SPRING MOBILE SITE PREFERENCE (SitePreferenceAutoConfiguration)"></a>SPRING MOBILE SITE PREFERENCE (SitePreferenceAutoConfiguration)</h1><p>spring.mobile.sitepreference.enabled=true # Enable SitePreferenceHandler.</p>
+<h1 id="MUSTACHE-TEMPLATES-MustacheAutoConfiguration"><a href="#MUSTACHE-TEMPLATES-MustacheAutoConfiguration" class="headerlink" title="MUSTACHE TEMPLATES (MustacheAutoConfiguration)"></a>MUSTACHE TEMPLATES (MustacheAutoConfiguration)</h1><p>spring.mustache.allow-request-override= # Set whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.mustache.allow-session-override= # Set whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.<br>spring.mustache.cache= # Enable template caching.<br>spring.mustache.charset= # Template encoding.<br>spring.mustache.check-template-location= # Check that the templates location exists.<br>spring.mustache.content-type= # Content-Type value.<br>spring.mustache.enabled= # Enable MVC view resolution for this technology.<br>spring.mustache.expose-request-attributes= # Set whether all request attributes should be added to the model prior to merging with the template.<br>spring.mustache.expose-session-attributes= # Set whether all HttpSession attributes should be added to the model prior to merging with the template.<br>spring.mustache.expose-spring-macro-helpers= # Set whether to expose a RequestContext for use by Spring’s macro library, under the name “springMacroRequestContext”.<br>spring.mustache.prefix=classpath:/templates/ # Prefix to apply to template names.<br>spring.mustache.request-context-attribute= # Name of the RequestContext attribute for all views.<br>spring.mustache.suffix=.html # Suffix to apply to template names.<br>spring.mustache.view-names= # White list of view names that can be resolved.</p>
+<h1 id="SPRING-MVC-WebMvcProperties"><a href="#SPRING-MVC-WebMvcProperties" class="headerlink" title="SPRING MVC (WebMvcProperties)"></a>SPRING MVC (WebMvcProperties)</h1><p>spring.mvc.async.request-timeout= # Amount of time (in milliseconds) before asynchronous request handling times out.<br>spring.mvc.date-format= # Date format to use. For instance <code>dd/MM/yyyy</code>.<br>spring.mvc.dispatch-trace-request=false # Dispatch TRACE requests to the FrameworkServlet doService method.<br>spring.mvc.dispatch-options-request=true # Dispatch OPTIONS requests to the FrameworkServlet doService method.<br>spring.mvc.favicon.enabled=true # Enable resolution of favicon.ico.<br>spring.mvc.formcontent.putfilter.enabled=true # Enable Spring’s HttpPutFormContentFilter.<br>spring.mvc.ignore-default-model-on-redirect=true # If the content of the “default” model should be ignored during redirect scenarios.<br>spring.mvc.locale= # Locale to use. By default, this locale is overridden by the “Accept-Language” header.<br>spring.mvc.locale-resolver=accept-header # Define how the locale should be resolved.<br>spring.mvc.log-resolved-exception=false # Enable warn logging of exceptions resolved by a “HandlerExceptionResolver”.<br>spring.mvc.media-types.*= # Maps file extensions to media types for content negotiation.<br>spring.mvc.message-codes-resolver-format= # Formatting strategy for message codes. For instance <code>PREFIX_ERROR_CODE</code>.<br>spring.mvc.servlet.load-on-startup=-1 # Load on startup priority of the Spring Web Services servlet.<br>spring.mvc.static-path-pattern=/** # Path pattern used for static resources.<br>spring.mvc.throw-exception-if-no-handler-found=false # If a “NoHandlerFoundException” should be thrown if no Handler was found to process a request.<br>spring.mvc.view.prefix= # Spring MVC view prefix.<br>spring.mvc.view.suffix= # Spring MVC view suffix.</p>
+<h1 id="SPRING-RESOURCES-HANDLING-ResourceProperties"><a href="#SPRING-RESOURCES-HANDLING-ResourceProperties" class="headerlink" title="SPRING RESOURCES HANDLING (ResourceProperties)"></a>SPRING RESOURCES HANDLING (ResourceProperties)</h1><p>spring.resources.add-mappings=true # Enable default resource handling.<br>spring.resources.cache-period= # Cache period for the resources served by the resource handler, in seconds.<br>spring.resources.chain.cache=true # Enable caching in the Resource chain.<br>spring.resources.chain.enabled= # Enable the Spring Resource Handling chain. Disabled by default unless at least one strategy has been enabled.<br>spring.resources.chain.gzipped=false # Enable resolution of already gzipped resources.<br>spring.resources.chain.html-application-cache=false # Enable HTML5 application cache manifest rewriting.<br>spring.resources.chain.strategy.content.enabled=false # Enable the content Version Strategy.<br>spring.resources.chain.strategy.content.paths=/<strong> # Comma-separated list of patterns to apply to the Version Strategy.<br>spring.resources.chain.strategy.fixed.enabled=false # Enable the fixed Version Strategy.<br>spring.resources.chain.strategy.fixed.paths=/</strong> # Comma-separated list of patterns to apply to the Version Strategy.<br>spring.resources.chain.strategy.fixed.version= # Version string to use for the Version Strategy.<br>spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/ # Locations of static resources.</p>
+<h1 id="SPRING-SESSION-SessionProperties"><a href="#SPRING-SESSION-SessionProperties" class="headerlink" title="SPRING SESSION (SessionProperties)"></a>SPRING SESSION (SessionProperties)</h1><p>spring.session.hazelcast.flush-mode=on-save # Sessions flush mode.<br>spring.session.hazelcast.map-name=spring:session:sessions # Name of the map used to store sessions.<br>spring.session.jdbc.initializer.enabled= # Create the required session tables on startup if necessary. Enabled automatically if the default table name is set or a custom schema is configured.<br>spring.session.jdbc.schema=classpath:org/springframework/session/jdbc/schema-@@platform@@.sql # Path to the SQL file to use to initialize the database schema.<br>spring.session.jdbc.table-name=SPRING_SESSION # Name of database table used to store sessions.<br>spring.session.mongo.collection-name=sessions # Collection name used to store sessions.<br>spring.session.redis.flush-mode=on-save # Sessions flush mode.<br>spring.session.redis.namespace= # Namespace for keys used to store sessions.<br>spring.session.store-type= # Session store type.</p>
+<h1 id="SPRING-SOCIAL-SocialWebAutoConfiguration"><a href="#SPRING-SOCIAL-SocialWebAutoConfiguration" class="headerlink" title="SPRING SOCIAL (SocialWebAutoConfiguration)"></a>SPRING SOCIAL (SocialWebAutoConfiguration)</h1><p>spring.social.auto-connection-views=false # Enable the connection status view for supported providers.</p>
+<h1 id="SPRING-SOCIAL-FACEBOOK-FacebookAutoConfiguration"><a href="#SPRING-SOCIAL-FACEBOOK-FacebookAutoConfiguration" class="headerlink" title="SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)"></a>SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)</h1><p>spring.social.facebook.app-id= # your application’s Facebook App ID<br>spring.social.facebook.app-secret= # your application’s Facebook App Secret</p>
+<h1 id="SPRING-SOCIAL-LINKEDIN-LinkedInAutoConfiguration"><a href="#SPRING-SOCIAL-LINKEDIN-LinkedInAutoConfiguration" class="headerlink" title="SPRING SOCIAL LINKEDIN (LinkedInAutoConfiguration)"></a>SPRING SOCIAL LINKEDIN (LinkedInAutoConfiguration)</h1><p>spring.social.linkedin.app-id= # your application’s LinkedIn App ID<br>spring.social.linkedin.app-secret= # your application’s LinkedIn App Secret</p>
+<h1 id="SPRING-SOCIAL-TWITTER-TwitterAutoConfiguration"><a href="#SPRING-SOCIAL-TWITTER-TwitterAutoConfiguration" class="headerlink" title="SPRING SOCIAL TWITTER (TwitterAutoConfiguration)"></a>SPRING SOCIAL TWITTER (TwitterAutoConfiguration)</h1><p>spring.social.twitter.app-id= # your application’s Twitter App ID<br>spring.social.twitter.app-secret= # your application’s Twitter App Secret</p>
+<h1 id="THYMELEAF-ThymeleafAutoConfiguration"><a href="#THYMELEAF-ThymeleafAutoConfiguration" class="headerlink" title="THYMELEAF (ThymeleafAutoConfiguration)"></a>THYMELEAF (ThymeleafAutoConfiguration)</h1><p>spring.thymeleaf.cache=true # Enable template caching.<br>spring.thymeleaf.check-template=true # Check that the template exists before rendering it.<br>spring.thymeleaf.check-template-location=true # Check that the templates location exists.<br>spring.thymeleaf.content-type=text/html # Content-Type value.<br>spring.thymeleaf.enabled=true # Enable MVC Thymeleaf view resolution.<br>spring.thymeleaf.encoding=UTF-8 # Template encoding.<br>spring.thymeleaf.excluded-view-names= # Comma-separated list of view names that should be excluded from resolution.<br>spring.thymeleaf.mode=HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.<br>spring.thymeleaf.prefix=classpath:/templates/ # Prefix that gets prepended to view names when building a URL.<br>spring.thymeleaf.suffix=.html # Suffix that gets appended to view names when building a URL.<br>spring.thymeleaf.template-resolver-order= # Order of the template resolver in the chain.<br>spring.thymeleaf.view-names= # Comma-separated list of view names that can be resolved.</p>
+<h1 id="SPRING-WEB-SERVICES-WebServicesProperties"><a href="#SPRING-WEB-SERVICES-WebServicesProperties" class="headerlink" title="SPRING WEB SERVICES (WebServicesProperties)"></a>SPRING WEB SERVICES (WebServicesProperties)</h1><p>spring.webservices.path=/services # Path that serves as the base URI for the services.<br>spring.webservices.servlet.init= # Servlet init parameters to pass to Spring Web Services.<br>spring.webservices.servlet.load-on-startup=-1 # Load on startup priority of the Spring Web Services servlet.</p>
+<h1 id="—————————————-4"><a href="#—————————————-4" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="SECURITY-PROPERTIES"><a href="#SECURITY-PROPERTIES" class="headerlink" title="SECURITY PROPERTIES"></a>SECURITY PROPERTIES</h1><h1 id="—————————————-5"><a href="#—————————————-5" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="SECURITY-SecurityProperties"><a href="#SECURITY-SecurityProperties" class="headerlink" title="SECURITY (SecurityProperties)"></a>SECURITY (SecurityProperties)</h1><p>security.basic.authorize-mode=role # Security authorize mode to apply.<br>security.basic.enabled=true # Enable basic authentication.<br>security.basic.path=/** # Comma-separated list of paths to secure.<br>security.basic.realm=Spring # HTTP basic realm name.<br>security.enable-csrf=false # Enable Cross Site Request Forgery support.<br>security.filter-order=0 # Security filter chain order.<br>security.filter-dispatcher-types=ASYNC, FORWARD, INCLUDE, REQUEST # Security filter chain dispatcher types.<br>security.headers.cache=true # Enable cache control HTTP headers.<br>security.headers.content-security-policy= # Value for content security policy header.<br>security.headers.content-security-policy-mode=default # Content security policy mode.<br>security.headers.content-type=true # Enable “X-Content-Type-Options” header.<br>security.headers.frame=true # Enable “X-Frame-Options” header.<br>security.headers.hsts=all # HTTP Strict Transport Security (HSTS) mode (none, domain, all).<br>security.headers.xss=true # Enable cross site scripting (XSS) protection.<br>security.ignored= # Comma-separated list of paths to exclude from the default secured paths.<br>security.require-ssl=false # Enable secure channel for all requests.<br>security.sessions=stateless # Session creation policy (always, never, if_required, stateless).<br>security.user.name=user # Default user name.<br>security.user.password= # Password for the default user name. A random password is logged on startup by default.<br>security.user.role=USER # Granted roles for the default user name.</p>
+<h1 id="SECURITY-OAUTH2-CLIENT-OAuth2ClientProperties"><a href="#SECURITY-OAUTH2-CLIENT-OAuth2ClientProperties" class="headerlink" title="SECURITY OAUTH2 CLIENT (OAuth2ClientProperties)"></a>SECURITY OAUTH2 CLIENT (OAuth2ClientProperties)</h1><p>security.oauth2.client.client-id= # OAuth2 client id.<br>security.oauth2.client.client-secret= # OAuth2 client secret. A random secret is generated by default</p>
+<h1 id="SECURITY-OAUTH2-RESOURCES-ResourceServerProperties"><a href="#SECURITY-OAUTH2-RESOURCES-ResourceServerProperties" class="headerlink" title="SECURITY OAUTH2 RESOURCES (ResourceServerProperties)"></a>SECURITY OAUTH2 RESOURCES (ResourceServerProperties)</h1><p>security.oauth2.resource.filter-order= # The order of the filter chain used to authenticate tokens.<br>security.oauth2.resource.id= # Identifier of the resource.<br>security.oauth2.resource.jwt.key-uri= # The URI of the JWT token. Can be set if the value is not available and the key is public.<br>security.oauth2.resource.jwt.key-value= # The verification key of the JWT token. Can either be a symmetric secret or PEM-encoded RSA public key.<br>security.oauth2.resource.prefer-token-info=true # Use the token info, can be set to false to use the user info.<br>security.oauth2.resource.service-id=resource #<br>security.oauth2.resource.token-info-uri= # URI of the token decoding endpoint.<br>security.oauth2.resource.token-type= # The token type to send when using the userInfoUri.<br>security.oauth2.resource.user-info-uri= # URI of the user endpoint.</p>
+<h1 id="SECURITY-OAUTH2-SSO-OAuth2SsoProperties"><a href="#SECURITY-OAUTH2-SSO-OAuth2SsoProperties" class="headerlink" title="SECURITY OAUTH2 SSO (OAuth2SsoProperties)"></a>SECURITY OAUTH2 SSO (OAuth2SsoProperties)</h1><p>security.oauth2.sso.filter-order= # Filter order to apply if not providing an explicit WebSecurityConfigurerAdapter<br>security.oauth2.sso.login-path=/login # Path to the login page, i.e. the one that triggers the redirect to the OAuth2 Authorization Server</p>
+<h1 id="—————————————-6"><a href="#—————————————-6" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="DATA-PROPERTIES"><a href="#DATA-PROPERTIES" class="headerlink" title="DATA PROPERTIES"></a>DATA PROPERTIES</h1><h1 id="—————————————-7"><a href="#—————————————-7" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="FLYWAY-FlywayProperties"><a href="#FLYWAY-FlywayProperties" class="headerlink" title="FLYWAY (FlywayProperties)"></a>FLYWAY (FlywayProperties)</h1><p>flyway.baseline-description= #<br>flyway.baseline-version=1 # version to start migration<br>flyway.baseline-on-migrate= #<br>flyway.check-location=false # Check that migration scripts location exists.<br>flyway.clean-on-validation-error= #<br>flyway.enabled=true # Enable flyway.<br>flyway.encoding= #<br>flyway.ignore-failed-future-migration= #<br>flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.<br>flyway.locations=classpath:db/migration # locations of migrations scripts<br>flyway.out-of-order= #<br>flyway.password= # JDBC password if you want Flyway to create its own DataSource<br>flyway.placeholder-prefix= #<br>flyway.placeholder-replacement= #<br>flyway.placeholder-suffix= #<br>flyway.placeholders.*= #<br>flyway.schemas= # schemas to update<br>flyway.sql-migration-prefix=V #<br>flyway.sql-migration-separator= #<br>flyway.sql-migration-suffix=.sql #<br>flyway.table= #<br>flyway.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.<br>flyway.user= # Login user of the database to migrate.<br>flyway.validate-on-migrate= #</p>
+<h1 id="LIQUIBASE-LiquibaseProperties"><a href="#LIQUIBASE-LiquibaseProperties" class="headerlink" title="LIQUIBASE (LiquibaseProperties)"></a>LIQUIBASE (LiquibaseProperties)</h1><p>liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml # Change log configuration path.<br>liquibase.check-change-log-location=true # Check the change log location exists.<br>liquibase.contexts= # Comma-separated list of runtime contexts to use.<br>liquibase.default-schema= # Default database schema.<br>liquibase.drop-first=false # Drop the database schema first.<br>liquibase.enabled=true # Enable liquibase support.<br>liquibase.labels= # Comma-separated list of runtime labels to use.<br>liquibase.parameters.*= # Change log parameters.<br>liquibase.password= # Login password of the database to migrate.<br>liquibase.rollback-file= # File to which rollback SQL will be written when an update is performed.<br>liquibase.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.<br>liquibase.user= # Login user of the database to migrate.</p>
+<h1 id="COUCHBASE-CouchbaseProperties"><a href="#COUCHBASE-CouchbaseProperties" class="headerlink" title="COUCHBASE (CouchbaseProperties)"></a>COUCHBASE (CouchbaseProperties)</h1><p>spring.couchbase.bootstrap-hosts= # Couchbase nodes (host or IP address) to bootstrap from.<br>spring.couchbase.bucket.name=default # Name of the bucket to connect to.<br>spring.couchbase.bucket.password=  # Password of the bucket.<br>spring.couchbase.env.endpoints.key-value=1 # Number of sockets per node against the Key/value service.<br>spring.couchbase.env.endpoints.query=1 # Number of sockets per node against the Query (N1QL) service.<br>spring.couchbase.env.endpoints.view=1 # Number of sockets per node against the view service.<br>spring.couchbase.env.ssl.enabled= # Enable SSL support. Enabled automatically if a “keyStore” is provided unless specified otherwise.<br>spring.couchbase.env.ssl.key-store= # Path to the JVM key store that holds the certificates.<br>spring.couchbase.env.ssl.key-store-password= # Password used to access the key store.<br>spring.couchbase.env.timeouts.connect=5000 # Bucket connections timeout in milliseconds.<br>spring.couchbase.env.timeouts.key-value=2500 # Blocking operations performed on a specific key timeout in milliseconds.<br>spring.couchbase.env.timeouts.query=7500 # N1QL query operations timeout in milliseconds.<br>spring.couchbase.env.timeouts.socket-connect=1000 # Socket connect connections timeout in milliseconds.<br>spring.couchbase.env.timeouts.view=7500 # Regular and geospatial view operations timeout in milliseconds.</p>
+<h1 id="DAO-PersistenceExceptionTranslationAutoConfiguration"><a href="#DAO-PersistenceExceptionTranslationAutoConfiguration" class="headerlink" title="DAO (PersistenceExceptionTranslationAutoConfiguration)"></a>DAO (PersistenceExceptionTranslationAutoConfiguration)</h1><p>spring.dao.exceptiontranslation.enabled=true # Enable the PersistenceExceptionTranslationPostProcessor.</p>
+<h1 id="CASSANDRA-CassandraProperties"><a href="#CASSANDRA-CassandraProperties" class="headerlink" title="CASSANDRA (CassandraProperties)"></a>CASSANDRA (CassandraProperties)</h1><p>spring.data.cassandra.cluster-name= # Name of the Cassandra cluster.<br>spring.data.cassandra.compression=none # Compression supported by the Cassandra binary protocol.<br>spring.data.cassandra.connect-timeout-millis= # Socket option: connection time out.<br>spring.data.cassandra.consistency-level= # Queries consistency level.<br>spring.data.cassandra.contact-points=localhost # Comma-separated list of cluster node addresses.<br>spring.data.cassandra.fetch-size= # Queries default fetch size.<br>spring.data.cassandra.keyspace-name= # Keyspace name to use.<br>spring.data.cassandra.load-balancing-policy= # Class name of the load balancing policy.<br>spring.data.cassandra.port= # Port of the Cassandra server.<br>spring.data.cassandra.password= # Login password of the server.<br>spring.data.cassandra.read-timeout-millis= # Socket option: read time out.<br>spring.data.cassandra.reconnection-policy= # Reconnection policy class.<br>spring.data.cassandra.retry-policy= # Class name of the retry policy.<br>spring.data.cassandra.serial-consistency-level= # Queries serial consistency level.<br>spring.data.cassandra.schema-action=none # Schema action to take at startup.<br>spring.data.cassandra.ssl=false # Enable SSL support.<br>spring.data.cassandra.username= # Login user of the server.</p>
+<h1 id="DATA-COUCHBASE-CouchbaseDataProperties"><a href="#DATA-COUCHBASE-CouchbaseDataProperties" class="headerlink" title="DATA COUCHBASE (CouchbaseDataProperties)"></a>DATA COUCHBASE (CouchbaseDataProperties)</h1><p>spring.data.couchbase.auto-index=false # Automatically create views and indexes.<br>spring.data.couchbase.consistency=read-your-own-writes # Consistency to apply by default on generated queries.<br>spring.data.couchbase.repositories.enabled=true # Enable Couchbase repositories.</p>
+<h1 id="ELASTICSEARCH-ElasticsearchProperties"><a href="#ELASTICSEARCH-ElasticsearchProperties" class="headerlink" title="ELASTICSEARCH (ElasticsearchProperties)"></a>ELASTICSEARCH (ElasticsearchProperties)</h1><p>spring.data.elasticsearch.cluster-name=elasticsearch # Elasticsearch cluster name.<br>spring.data.elasticsearch.cluster-nodes= # Comma-separated list of cluster node addresses. If not specified, starts a client node.<br>spring.data.elasticsearch.properties.*= # Additional properties used to configure the client.<br>spring.data.elasticsearch.repositories.enabled=true # Enable Elasticsearch repositories.</p>
+<h1 id="DATA-LDAP"><a href="#DATA-LDAP" class="headerlink" title="DATA LDAP"></a>DATA LDAP</h1><p>spring.data.ldap.repositories.enabled=true # Enable LDAP repositories.</p>
+<h1 id="MONGODB-MongoProperties"><a href="#MONGODB-MongoProperties" class="headerlink" title="MONGODB (MongoProperties)"></a>MONGODB (MongoProperties)</h1><p>spring.data.mongodb.authentication-database= # Authentication database name.<br>spring.data.mongodb.database=test # Database name.<br>spring.data.mongodb.field-naming-strategy= # Fully qualified name of the FieldNamingStrategy to use.<br>spring.data.mongodb.grid-fs-database= # GridFS database name.<br>spring.data.mongodb.host=localhost # Mongo server host. Cannot be set with uri.<br>spring.data.mongodb.password= # Login password of the mongo server. Cannot be set with uri.<br>spring.data.mongodb.port=27017 # Mongo server port. Cannot be set with uri.<br>spring.data.mongodb.repositories.enabled=true # Enable Mongo repositories.<br>spring.data.mongodb.uri=mongodb://localhost/test # Mongo database URI. Cannot be set with host, port and credentials.<br>spring.data.mongodb.username= # Login user of the mongo server. Cannot be set with uri.</p>
+<h1 id="DATA-REDIS"><a href="#DATA-REDIS" class="headerlink" title="DATA REDIS"></a>DATA REDIS</h1><p>spring.data.redis.repositories.enabled=true # Enable Redis repositories.</p>
+<h1 id="NEO4J-Neo4jProperties"><a href="#NEO4J-Neo4jProperties" class="headerlink" title="NEO4J (Neo4jProperties)"></a>NEO4J (Neo4jProperties)</h1><p>spring.data.neo4j.compiler= # Compiler to use.<br>spring.data.neo4j.embedded.enabled=true # Enable embedded mode if the embedded driver is available.<br>spring.data.neo4j.open-in-view=false # Register OpenSessionInViewInterceptor. Binds a Neo4j Session to the thread for the entire processing of the request.<br>spring.data.neo4j.password= # Login password of the server.<br>spring.data.neo4j.repositories.enabled=true # Enable Neo4j repositories.<br>spring.data.neo4j.uri= # URI used by the driver. Auto-detected by default.<br>spring.data.neo4j.username= # Login user of the server.</p>
+<h1 id="DATA-REST-RepositoryRestProperties"><a href="#DATA-REST-RepositoryRestProperties" class="headerlink" title="DATA REST (RepositoryRestProperties)"></a>DATA REST (RepositoryRestProperties)</h1><p>spring.data.rest.base-path= # Base path to be used by Spring Data REST to expose repository resources.<br>spring.data.rest.default-page-size= # Default size of pages.<br>spring.data.rest.detection-strategy=default # Strategy to use to determine which repositories get exposed.<br>spring.data.rest.enable-enum-translation= # Enable enum value translation via the Spring Data REST default resource bundle.<br>spring.data.rest.limit-param-name= # Name of the URL query string parameter that indicates how many results to return at once.<br>spring.data.rest.max-page-size= # Maximum size of pages.<br>spring.data.rest.page-param-name= # Name of the URL query string parameter that indicates what page to return.<br>spring.data.rest.return-body-on-create= # Return a response body after creating an entity.<br>spring.data.rest.return-body-on-update= # Return a response body after updating an entity.<br>spring.data.rest.sort-param-name= # Name of the URL query string parameter that indicates what direction to sort results.</p>
+<h1 id="SOLR-SolrProperties"><a href="#SOLR-SolrProperties" class="headerlink" title="SOLR (SolrProperties)"></a>SOLR (SolrProperties)</h1><p>spring.data.solr.host=<a href="http://127.0.0.1:8983/solr" target="_blank" rel="noopener">http://127.0.0.1:8983/solr</a> # Solr host. Ignored if “zk-host” is set.<br>spring.data.solr.repositories.enabled=true # Enable Solr repositories.<br>spring.data.solr.zk-host= # ZooKeeper host address in the form HOST:PORT.</p>
+<h1 id="DATASOURCE-DataSourceAutoConfiguration-amp-DataSourceProperties"><a href="#DATASOURCE-DataSourceAutoConfiguration-amp-DataSourceProperties" class="headerlink" title="DATASOURCE (DataSourceAutoConfiguration &amp; DataSourceProperties)"></a>DATASOURCE (DataSourceAutoConfiguration &amp; DataSourceProperties)</h1><p>spring.datasource.continue-on-error=false # Do not stop if an error occurs while initializing the database.<br>spring.datasource.data= # Data (DML) script resource references.<br>spring.datasource.data-username= # User of the database to execute DML scripts (if different).<br>spring.datasource.data-password= # Password of the database to execute DML scripts (if different).<br>spring.datasource.dbcp2.<em>= # Commons DBCP2 specific settings<br>spring.datasource.driver-class-name= # Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.<br>spring.datasource.generate-unique-name=false # Generate a random datasource name.<br>spring.datasource.hikari.</em>= # Hikari specific settings<br>spring.datasource.initialize=true # Populate the database using ‘data.sql’.<br>spring.datasource.jmx-enabled=false # Enable JMX support (if provided by the underlying pool).<br>spring.datasource.jndi-name= # JNDI location of the datasource. Class, url, username &amp; password are ignored when set.<br>spring.datasource.name=testdb # Name of the datasource.<br>spring.datasource.password= # Login password of the database.<br>spring.datasource.platform=all # Platform to use in the schema resource (schema-${platform}.sql).<br>spring.datasource.schema= # Schema (DDL) script resource references.<br>spring.datasource.schema-username= # User of the database to execute DDL scripts (if different).<br>spring.datasource.schema-password= # Password of the database to execute DDL scripts (if different).<br>spring.datasource.separator=; # Statement separator in SQL initialization scripts.<br>spring.datasource.sql-script-encoding= # SQL scripts encoding.<br>spring.datasource.tomcat.*= # Tomcat datasource specific settings<br>spring.datasource.type= # Fully qualified name of the connection pool implementation to use. By default, it is auto-detected from the classpath.<br>spring.datasource.url= # JDBC url of the database.<br>spring.datasource.username=</p>
+<h1 id="JEST-Elasticsearch-HTTP-client-JestProperties"><a href="#JEST-Elasticsearch-HTTP-client-JestProperties" class="headerlink" title="JEST (Elasticsearch HTTP client) (JestProperties)"></a>JEST (Elasticsearch HTTP client) (JestProperties)</h1><p>spring.elasticsearch.jest.connection-timeout=3000 # Connection timeout in milliseconds.<br>spring.elasticsearch.jest.multi-threaded=true # Enable connection requests from multiple execution threads.<br>spring.elasticsearch.jest.password= # Login password.<br>spring.elasticsearch.jest.proxy.host= # Proxy host the HTTP client should use.<br>spring.elasticsearch.jest.proxy.port= # Proxy port the HTTP client should use.<br>spring.elasticsearch.jest.read-timeout=3000 # Read timeout in milliseconds.<br>spring.elasticsearch.jest.uris=<a href="http://localhost:9200" target="_blank" rel="noopener">http://localhost:9200</a> # Comma-separated list of the Elasticsearch instances to use.<br>spring.elasticsearch.jest.username= # Login user.</p>
+<h1 id="H2-Web-Console-H2ConsoleProperties"><a href="#H2-Web-Console-H2ConsoleProperties" class="headerlink" title="H2 Web Console (H2ConsoleProperties)"></a>H2 Web Console (H2ConsoleProperties)</h1><p>spring.h2.console.enabled=false # Enable the console.<br>spring.h2.console.path=/h2-console # Path at which the console will be available.<br>spring.h2.console.settings.trace=false # Enable trace output.<br>spring.h2.console.settings.web-allow-others=false # Enable remote access.</p>
+<h1 id="JOOQ-JooqAutoConfiguration"><a href="#JOOQ-JooqAutoConfiguration" class="headerlink" title="JOOQ (JooqAutoConfiguration)"></a>JOOQ (JooqAutoConfiguration)</h1><p>spring.jooq.sql-dialect= # SQLDialect JOOQ used when communicating with the configured datasource. For instance <code>POSTGRES</code></p>
+<h1 id="JPA-JpaBaseConfiguration-HibernateJpaAutoConfiguration"><a href="#JPA-JpaBaseConfiguration-HibernateJpaAutoConfiguration" class="headerlink" title="JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)"></a>JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)</h1><p>spring.data.jpa.repositories.enabled=true # Enable JPA repositories.<br>spring.jpa.database= # Target database to operate on, auto-detected by default. Can be alternatively set using the “databasePlatform” property.<br>spring.jpa.database-platform= # Name of the target database to operate on, auto-detected by default. Can be alternatively set using the “Database” enum.<br>spring.jpa.generate-ddl=false # Initialize the schema on startup.<br>spring.jpa.hibernate.ddl-auto= # DDL mode. This is actually a shortcut for the “hibernate.hbm2ddl.auto” property. Default to “create-drop” when using an embedded database, “none” otherwise.<br>spring.jpa.hibernate.naming.implicit-strategy= # Hibernate 5 implicit naming strategy fully qualified name.<br>spring.jpa.hibernate.naming.physical-strategy= # Hibernate 5 physical naming strategy fully qualified name.<br>spring.jpa.hibernate.naming.strategy= # Hibernate 4 naming strategy fully qualified name. Not supported with Hibernate 5.<br>spring.jpa.hibernate.use-new-id-generator-mappings= # Use Hibernate’s newer IdentifierGenerator for AUTO, TABLE and SEQUENCE.<br>spring.jpa.open-in-view=true # Register OpenEntityManagerInViewInterceptor. Binds a JPA EntityManager to the thread for the entire processing of the request.<br>spring.jpa.properties.*= # Additional native properties to set on the JPA provider.<br>spring.jpa.show-sql=false # Enable logging of SQL statements.</p>
+<h1 id="JTA-JtaAutoConfiguration"><a href="#JTA-JtaAutoConfiguration" class="headerlink" title="JTA (JtaAutoConfiguration)"></a>JTA (JtaAutoConfiguration)</h1><p>spring.jta.enabled=true # Enable JTA support.<br>spring.jta.log-dir= # Transaction logs directory.<br>spring.jta.transaction-manager-id= # Transaction manager unique identifier.</p>
+<h1 id="ATOMIKOS-AtomikosProperties"><a href="#ATOMIKOS-AtomikosProperties" class="headerlink" title="ATOMIKOS (AtomikosProperties)"></a>ATOMIKOS (AtomikosProperties)</h1><p>spring.jta.atomikos.connectionfactory.borrow-connection-timeout=30 # Timeout, in seconds, for borrowing connections from the pool.<br>spring.jta.atomikos.connectionfactory.ignore-session-transacted-flag=true # Whether or not to ignore the transacted flag when creating session.<br>spring.jta.atomikos.connectionfactory.local-transaction-mode=false # Whether or not local transactions are desired.<br>spring.jta.atomikos.connectionfactory.maintenance-interval=60 # The time, in seconds, between runs of the pool’s maintenance thread.<br>spring.jta.atomikos.connectionfactory.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.<br>spring.jta.atomikos.connectionfactory.max-lifetime=0 # The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.<br>spring.jta.atomikos.connectionfactory.max-pool-size=1 # The maximum size of the pool.<br>spring.jta.atomikos.connectionfactory.min-pool-size=1 # The minimum size of the pool.<br>spring.jta.atomikos.connectionfactory.reap-timeout=0 # The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.<br>spring.jta.atomikos.connectionfactory.unique-resource-name=jmsConnectionFactory # The unique name used to identify the resource during recovery.<br>spring.jta.atomikos.datasource.borrow-connection-timeout=30 # Timeout, in seconds, for borrowing connections from the pool.<br>spring.jta.atomikos.datasource.default-isolation-level= # Default isolation level of connections provided by the pool.<br>spring.jta.atomikos.datasource.login-timeout= # Timeout, in seconds, for establishing a database connection.<br>spring.jta.atomikos.datasource.maintenance-interval=60 # The time, in seconds, between runs of the pool’s maintenance thread.<br>spring.jta.atomikos.datasource.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.<br>spring.jta.atomikos.datasource.max-lifetime=0 # The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.<br>spring.jta.atomikos.datasource.max-pool-size=1 # The maximum size of the pool.<br>spring.jta.atomikos.datasource.min-pool-size=1 # The minimum size of the pool.<br>spring.jta.atomikos.datasource.reap-timeout=0 # The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.<br>spring.jta.atomikos.datasource.test-query= # SQL query or statement used to validate a connection before returning it.<br>spring.jta.atomikos.datasource.unique-resource-name=dataSource # The unique name used to identify the resource during recovery.<br>spring.jta.atomikos.properties.checkpoint-interval=500 # Interval between checkpoints.<br>spring.jta.atomikos.properties.console-file-count=1 # Number of debug logs files that can be created.<br>spring.jta.atomikos.properties.console-file-limit=-1 # How many bytes can be stored at most in debug logs files.<br>spring.jta.atomikos.properties.console-file-name=tm.out # Debug logs file name.<br>spring.jta.atomikos.properties.console-log-level=warn # Console log level.<br>spring.jta.atomikos.properties.default-jta-timeout=10000 # Default timeout for JTA transactions.<br>spring.jta.atomikos.properties.enable-logging=true # Enable disk logging.<br>spring.jta.atomikos.properties.force-shutdown-on-vm-exit=false # Specify if a VM shutdown should trigger forced shutdown of the transaction core.<br>spring.jta.atomikos.properties.log-base-dir= # Directory in which the log files should be stored.<br>spring.jta.atomikos.properties.log-base-name=tmlog # Transactions log file base name.<br>spring.jta.atomikos.properties.max-actives=50 # Maximum number of active transactions.<br>spring.jta.atomikos.properties.max-timeout=300000 # Maximum timeout (in milliseconds) that can be allowed for transactions.<br>spring.jta.atomikos.properties.output-dir= # Directory in which to store the debug log files.<br>spring.jta.atomikos.properties.serial-jta-transactions=true # Specify if sub-transactions should be joined when possible.<br>spring.jta.atomikos.properties.service= # Transaction manager implementation that should be started.<br>spring.jta.atomikos.properties.threaded-two-phase-commit=true # Use different (and concurrent) threads for two-phase commit on the participating resources.<br>spring.jta.atomikos.properties.transaction-manager-unique-name= # Transaction manager’s unique name.</p>
+<h1 id="BITRONIX"><a href="#BITRONIX" class="headerlink" title="BITRONIX"></a>BITRONIX</h1><p>spring.jta.bitronix.connectionfactory.acquire-increment=1 # Number of connections to create when growing the pool.<br>spring.jta.bitronix.connectionfactory.acquisition-interval=1 # Time, in seconds, to wait before trying to acquire a connection again after an invalid connection was acquired.<br>spring.jta.bitronix.connectionfactory.acquisition-timeout=30 # Timeout, in seconds, for acquiring connections from the pool.<br>spring.jta.bitronix.connectionfactory.allow-local-transactions=true # Whether or not the transaction manager should allow mixing XA and non-XA transactions.<br>spring.jta.bitronix.connectionfactory.apply-transaction-timeout=false # Whether or not the transaction timeout should be set on the XAResource when it is enlisted.<br>spring.jta.bitronix.connectionfactory.automatic-enlisting-enabled=true # Whether or not resources should be enlisted and delisted automatically.<br>spring.jta.bitronix.connectionfactory.cache-producers-consumers=true # Whether or not produces and consumers should be cached.<br>spring.jta.bitronix.connectionfactory.defer-connection-release=true # Whether or not the provider can run many transactions on the same connection and supports transaction interleaving.<br>spring.jta.bitronix.connectionfactory.ignore-recovery-failures=false # Whether or not recovery failures should be ignored.<br>spring.jta.bitronix.connectionfactory.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.<br>spring.jta.bitronix.connectionfactory.max-pool-size=10 # The maximum size of the pool. 0 denotes no limit.<br>spring.jta.bitronix.connectionfactory.min-pool-size=0 # The minimum size of the pool.<br>spring.jta.bitronix.connectionfactory.password= # The password to use to connect to the JMS provider.<br>spring.jta.bitronix.connectionfactory.share-transaction-connections=false #  Whether or not connections in the ACCESSIBLE state can be shared within the context of a transaction.<br>spring.jta.bitronix.connectionfactory.test-connections=true # Whether or not connections should be tested when acquired from the pool.<br>spring.jta.bitronix.connectionfactory.two-pc-ordering-position=1 # The position that this resource should take during two-phase commit (always first is Integer.MIN_VALUE, always last is Integer.MAX_VALUE).<br>spring.jta.bitronix.connectionfactory.unique-name=jmsConnectionFactory # The unique name used to identify the resource during recovery.<br>spring.jta.bitronix.connectionfactory.use-tm-join=true Whether or not TMJOIN should be used when starting XAResources.<br>spring.jta.bitronix.connectionfactory.user= # The user to use to connect to the JMS provider.<br>spring.jta.bitronix.datasource.acquire-increment=1 # Number of connections to create when growing the pool.<br>spring.jta.bitronix.datasource.acquisition-interval=1 # Time, in seconds, to wait before trying to acquire a connection again after an invalid connection was acquired.<br>spring.jta.bitronix.datasource.acquisition-timeout=30 # Timeout, in seconds, for acquiring connections from the pool.<br>spring.jta.bitronix.datasource.allow-local-transactions=true # Whether or not the transaction manager should allow mixing XA and non-XA transactions.<br>spring.jta.bitronix.datasource.apply-transaction-timeout=false # Whether or not the transaction timeout should be set on the XAResource when it is enlisted.<br>spring.jta.bitronix.datasource.automatic-enlisting-enabled=true # Whether or not resources should be enlisted and delisted automatically.<br>spring.jta.bitronix.datasource.cursor-holdability= # The default cursor holdability for connections.<br>spring.jta.bitronix.datasource.defer-connection-release=true # Whether or not the database can run many transactions on the same connection and supports transaction interleaving.<br>spring.jta.bitronix.datasource.enable-jdbc4-connection-test= # Whether or not Connection.isValid() is called when acquiring a connection from the pool.<br>spring.jta.bitronix.datasource.ignore-recovery-failures=false # Whether or not recovery failures should be ignored.<br>spring.jta.bitronix.datasource.isolation-level= # The default isolation level for connections.<br>spring.jta.bitronix.datasource.local-auto-commit= # The default auto-commit mode for local transactions.<br>spring.jta.bitronix.datasource.login-timeout= # Timeout, in seconds, for establishing a database connection.<br>spring.jta.bitronix.datasource.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.<br>spring.jta.bitronix.datasource.max-pool-size=10 # The maximum size of the pool. 0 denotes no limit.<br>spring.jta.bitronix.datasource.min-pool-size=0 # The minimum size of the pool.<br>spring.jta.bitronix.datasource.prepared-statement-cache-size=0 # The target size of the prepared statement cache. 0 disables the cache.<br>spring.jta.bitronix.datasource.share-transaction-connections=false #  Whether or not connections in the ACCESSIBLE state can be shared within the context of a transaction.<br>spring.jta.bitronix.datasource.test-query= # SQL query or statement used to validate a connection before returning it.<br>spring.jta.bitronix.datasource.two-pc-ordering-position=1 # The position that this resource should take during two-phase commit (always first is Integer.MIN_VALUE, always last is Integer.MAX_VALUE).<br>spring.jta.bitronix.datasource.unique-name=dataSource # The unique name used to identify the resource during recovery.<br>spring.jta.bitronix.datasource.use-tm-join=true Whether or not TMJOIN should be used when starting XAResources.<br>spring.jta.bitronix.properties.allow-multiple-lrc=false # Allow multiple LRC resources to be enlisted into the same transaction.<br>spring.jta.bitronix.properties.asynchronous2-pc=false # Enable asynchronously execution of two phase commit.<br>spring.jta.bitronix.properties.background-recovery-interval-seconds=60 # Interval in seconds at which to run the recovery process in the background.<br>spring.jta.bitronix.properties.current-node-only-recovery=true # Recover only the current node.<br>spring.jta.bitronix.properties.debug-zero-resource-transaction=false # Log the creation and commit call stacks of transactions executed without a single enlisted resource.<br>spring.jta.bitronix.properties.default-transaction-timeout=60 # Default transaction timeout in seconds.<br>spring.jta.bitronix.properties.disable-jmx=false # Enable JMX support.<br>spring.jta.bitronix.properties.exception-analyzer= # Set the fully qualified name of the exception analyzer implementation to use.<br>spring.jta.bitronix.properties.filter-log-status=false # Enable filtering of logs so that only mandatory logs are written.<br>spring.jta.bitronix.properties.force-batching-enabled=true #  Set if disk forces are batched.<br>spring.jta.bitronix.properties.forced-write-enabled=true # Set if logs are forced to disk.<br>spring.jta.bitronix.properties.graceful-shutdown-interval=60 # Maximum amount of seconds the TM will wait for transactions to get done before aborting them at shutdown time.<br>spring.jta.bitronix.properties.jndi-transaction-synchronization-registry-name= # JNDI name of the TransactionSynchronizationRegistry.<br>spring.jta.bitronix.properties.jndi-user-transaction-name= # JNDI name of the UserTransaction.<br>spring.jta.bitronix.properties.journal=disk # Name of the journal. Can be ‘disk’, ‘null’ or a class name.<br>spring.jta.bitronix.properties.log-part1-filename=btm1.tlog # Name of the first fragment of the journal.<br>spring.jta.bitronix.properties.log-part2-filename=btm2.tlog # Name of the second fragment of the journal.<br>spring.jta.bitronix.properties.max-log-size-in-mb=2 # Maximum size in megabytes of the journal fragments.<br>spring.jta.bitronix.properties.resource-configuration-filename= # ResourceLoader configuration file name.<br>spring.jta.bitronix.properties.server-id= # ASCII ID that must uniquely identify this TM instance. Default to the machine’s IP address.<br>spring.jta.bitronix.properties.skip-corrupted-logs=false # Skip corrupted transactions log entries.<br>spring.jta.bitronix.properties.warn-about-zero-resource-transaction=true # Log a warning for transactions executed without a single enlisted resource.</p>
+<h1 id="NARAYANA-NarayanaProperties"><a href="#NARAYANA-NarayanaProperties" class="headerlink" title="NARAYANA (NarayanaProperties)"></a>NARAYANA (NarayanaProperties)</h1><p>spring.jta.narayana.default-timeout=60 # Transaction timeout in seconds.<br>spring.jta.narayana.expiry-scanners=com.arjuna.ats.internal.arjuna.recovery.ExpiredTransactionStatusManagerScanner # Comma-separated list of expiry scanners.<br>spring.jta.narayana.log-dir= # Transaction object store directory.<br>spring.jta.narayana.one-phase-commit=true # Enable one phase commit optimisation.<br>spring.jta.narayana.periodic-recovery-period=120 # Interval in which periodic recovery scans are performed in seconds.<br>spring.jta.narayana.recovery-backoff-period=10 # Back off period between first and second phases of the recovery scan in seconds.<br>spring.jta.narayana.recovery-db-pass= # Database password to be used by recovery manager.<br>spring.jta.narayana.recovery-db-user= # Database username to be used by recovery manager.<br>spring.jta.narayana.recovery-jms-pass= # JMS password to be used by recovery manager.<br>spring.jta.narayana.recovery-jms-user= # JMS username to be used by recovery manager.<br>spring.jta.narayana.recovery-modules= # Comma-separated list of recovery modules.<br>spring.jta.narayana.transaction-manager-id=1 # Unique transaction manager id.<br>spring.jta.narayana.xa-resource-orphan-filters= # Comma-separated list of orphan filters.</p>
+<h1 id="EMBEDDED-MONGODB-EmbeddedMongoProperties"><a href="#EMBEDDED-MONGODB-EmbeddedMongoProperties" class="headerlink" title="EMBEDDED MONGODB (EmbeddedMongoProperties)"></a>EMBEDDED MONGODB (EmbeddedMongoProperties)</h1><p>spring.mongodb.embedded.features=SYNC_DELAY # Comma-separated list of features to enable.<br>spring.mongodb.embedded.storage.database-dir= # Directory used for data storage.<br>spring.mongodb.embedded.storage.oplog-size= # Maximum size of the oplog in megabytes.<br>spring.mongodb.embedded.storage.repl-set-name= # Name of the replica set.<br>spring.mongodb.embedded.version=2.6.10 # Version of Mongo to use.</p>
+<h1 id="REDIS-RedisProperties"><a href="#REDIS-RedisProperties" class="headerlink" title="REDIS (RedisProperties)"></a>REDIS (RedisProperties)</h1><p>spring.redis.cluster.max-redirects= # Maximum number of redirects to follow when executing commands across the cluster.<br>spring.redis.cluster.nodes= # Comma-separated list of “host:port” pairs to bootstrap from.<br>spring.redis.database=0 # Database index used by the connection factory.<br>spring.redis.url= # Connection URL, will override host, port and password (user will be ignored), e.g. redis://user:<a href="mailto:password@example.com" target="_blank" rel="noopener">password@example.com</a>:6379<br>spring.redis.host=localhost # Redis server host.<br>spring.redis.password= # Login password of the redis server.<br>spring.redis.ssl=false # Enable SSL support.<br>spring.redis.pool.max-active=8 # Max number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.<br>spring.redis.pool.max-idle=8 # Max number of “idle” connections in the pool. Use a negative value to indicate an unlimited number of idle connections.<br>spring.redis.pool.max-wait=-1 # Maximum amount of time (in milliseconds) a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.<br>spring.redis.pool.min-idle=0 # Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.<br>spring.redis.port=6379 # Redis server port.<br>spring.redis.sentinel.master= # Name of Redis server.<br>spring.redis.sentinel.nodes= # Comma-separated list of host:port pairs.<br>spring.redis.timeout=0 # Connection timeout in milliseconds.</p>
+<h1 id="TRANSACTION-TransactionProperties"><a href="#TRANSACTION-TransactionProperties" class="headerlink" title="TRANSACTION (TransactionProperties)"></a>TRANSACTION (TransactionProperties)</h1><p>spring.transaction.default-timeout= # Default transaction timeout in seconds.<br>spring.transaction.rollback-on-commit-failure= # Perform the rollback on commit failures.</p>
+<h1 id="—————————————-8"><a href="#—————————————-8" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="INTEGRATION-PROPERTIES"><a href="#INTEGRATION-PROPERTIES" class="headerlink" title="INTEGRATION PROPERTIES"></a>INTEGRATION PROPERTIES</h1><h1 id="—————————————-9"><a href="#—————————————-9" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="ACTIVEMQ-ActiveMQProperties"><a href="#ACTIVEMQ-ActiveMQProperties" class="headerlink" title="ACTIVEMQ (ActiveMQProperties)"></a>ACTIVEMQ (ActiveMQProperties)</h1><p>spring.activemq.broker-url= # URL of the ActiveMQ broker. Auto-generated by default. For instance <code>tcp://localhost:61616</code><br>spring.activemq.in-memory=true # Specify if the default broker URL should be in memory. Ignored if an explicit broker has been specified.<br>spring.activemq.password= # Login password of the broker.<br>spring.activemq.user= # Login user of the broker.<br>spring.activemq.packages.trust-all=false # Trust all packages.<br>spring.activemq.packages.trusted= # Comma-separated list of specific packages to trust (when not trusting all packages).<br>spring.activemq.pool.configuration.*= # See PooledConnectionFactory.<br>spring.activemq.pool.enabled=false # Whether a PooledConnectionFactory should be created instead of a regular ConnectionFactory.<br>spring.activemq.pool.expiry-timeout=0 # Connection expiration timeout in milliseconds.<br>spring.activemq.pool.idle-timeout=30000 # Connection idle timeout in milliseconds.<br>spring.activemq.pool.max-connections=1 # Maximum number of pooled connections.</p>
+<h1 id="ARTEMIS-ArtemisProperties"><a href="#ARTEMIS-ArtemisProperties" class="headerlink" title="ARTEMIS (ArtemisProperties)"></a>ARTEMIS (ArtemisProperties)</h1><p>spring.artemis.embedded.cluster-password= # Cluster password. Randomly generated on startup by default.<br>spring.artemis.embedded.data-directory= # Journal file directory. Not necessary if persistence is turned off.<br>spring.artemis.embedded.enabled=true # Enable embedded mode if the Artemis server APIs are available.<br>spring.artemis.embedded.persistent=false # Enable persistent store.<br>spring.artemis.embedded.queues= # Comma-separated list of queues to create on startup.<br>spring.artemis.embedded.server-id= # Server id. By default, an auto-incremented counter is used.<br>spring.artemis.embedded.topics= # Comma-separated list of topics to create on startup.<br>spring.artemis.host=localhost # Artemis broker host.<br>spring.artemis.mode= # Artemis deployment mode, auto-detected by default.<br>spring.artemis.password= # Login password of the broker.<br>spring.artemis.port=61616 # Artemis broker port.<br>spring.artemis.user= # Login user of the broker.</p>
+<h1 id="SPRING-BATCH-BatchProperties"><a href="#SPRING-BATCH-BatchProperties" class="headerlink" title="SPRING BATCH (BatchProperties)"></a>SPRING BATCH (BatchProperties)</h1><p>spring.batch.initializer.enabled= # Create the required batch tables on startup if necessary. Enabled automatically if no custom table prefix is set or if a custom schema is configured.<br>spring.batch.job.enabled=true # Execute all Spring Batch jobs in the context on startup.<br>spring.batch.job.names= # Comma-separated list of job names to execute on startup (For instance <code>job1,job2</code>). By default, all Jobs found in the context are executed.<br>spring.batch.schema=classpath:org/springframework/batch/core/schema-@@platform@@.sql # Path to the SQL file to use to initialize the database schema.<br>spring.batch.table-prefix= # Table prefix for all the batch meta-data tables.</p>
+<h1 id="JMS-JmsProperties"><a href="#JMS-JmsProperties" class="headerlink" title="JMS (JmsProperties)"></a>JMS (JmsProperties)</h1><p>spring.jms.jndi-name= # Connection factory JNDI name. When set, takes precedence to others connection factory auto-configurations.<br>spring.jms.listener.acknowledge-mode= # Acknowledge mode of the container. By default, the listener is transacted with automatic acknowledgment.<br>spring.jms.listener.auto-startup=true # Start the container automatically on startup.<br>spring.jms.listener.concurrency= # Minimum number of concurrent consumers.<br>spring.jms.listener.max-concurrency= # Maximum number of concurrent consumers.<br>spring.jms.pub-sub-domain=false # Specify if the default destination type is topic.<br>spring.jms.template.default-destination= # Default destination to use on send/receive operations that do not have a destination parameter.<br>spring.jms.template.delivery-delay= # Delivery delay to use for send calls in milliseconds.<br>spring.jms.template.delivery-mode= # Delivery mode. Enable QoS when set.<br>spring.jms.template.priority= # Priority of a message when sending. Enable QoS when set.<br>spring.jms.template.qos-enabled= # Enable explicit QoS when sending a message.<br>spring.jms.template.receive-timeout= # Timeout to use for receive calls in milliseconds.<br>spring.jms.template.time-to-live= # Time-to-live of a message when sending in milliseconds. Enable QoS when set.</p>
+<h1 id="APACHE-KAFKA-KafkaProperties"><a href="#APACHE-KAFKA-KafkaProperties" class="headerlink" title="APACHE KAFKA (KafkaProperties)"></a>APACHE KAFKA (KafkaProperties)</h1><p>spring.kafka.bootstrap-servers= # Comma-delimited list of host:port pairs to use for establishing the initial connection to the Kafka cluster.<br>spring.kafka.client-id= # Id to pass to the server when making requests; used for server-side logging.<br>spring.kafka.consumer.auto-commit-interval= # Frequency in milliseconds that the consumer offsets are auto-committed to Kafka if ‘enable.auto.commit’ true.<br>spring.kafka.consumer.auto-offset-reset= # What to do when there is no initial offset in Kafka or if the current offset does not exist any more on the server.<br>spring.kafka.consumer.bootstrap-servers= # Comma-delimited list of host:port pairs to use for establishing the initial connection to the Kafka cluster.<br>spring.kafka.consumer.client-id= # Id to pass to the server when making requests; used for server-side logging.<br>spring.kafka.consumer.enable-auto-commit= # If true the consumer’s offset will be periodically committed in the background.<br>spring.kafka.consumer.fetch-max-wait= # Maximum amount of time in milliseconds the server will block before answering the fetch request if there isn’t sufficient data to immediately satisfy the requirement given by “fetch.min.bytes”.<br>spring.kafka.consumer.fetch-min-size= # Minimum amount of data the server should return for a fetch request in bytes.<br>spring.kafka.consumer.group-id= # Unique string that identifies the consumer group this consumer belongs to.<br>spring.kafka.consumer.heartbeat-interval= # Expected time in milliseconds between heartbeats to the consumer coordinator.<br>spring.kafka.consumer.key-deserializer= # Deserializer class for keys.<br>spring.kafka.consumer.max-poll-records= # Maximum number of records returned in a single call to poll().<br>spring.kafka.consumer.value-deserializer= # Deserializer class for values.<br>spring.kafka.listener.ack-count= # Number of records between offset commits when ackMode is “COUNT” or “COUNT_TIME”.<br>spring.kafka.listener.ack-mode= # Listener AckMode; see the spring-kafka documentation.<br>spring.kafka.listener.ack-time= # Time in milliseconds between offset commits when ackMode is “TIME” or “COUNT_TIME”.<br>spring.kafka.listener.concurrency= # Number of threads to run in the listener containers.<br>spring.kafka.listener.poll-timeout= # Timeout in milliseconds to use when polling the consumer.<br>spring.kafka.producer.acks= # Number of acknowledgments the producer requires the leader to have received before considering a request complete.<br>spring.kafka.producer.batch-size= # Number of records to batch before sending.<br>spring.kafka.producer.bootstrap-servers= # Comma-delimited list of host:port pairs to use for establishing the initial connection to the Kafka cluster.<br>spring.kafka.producer.buffer-memory= # Total bytes of memory the producer can use to buffer records waiting to be sent to the server.<br>spring.kafka.producer.client-id= # Id to pass to the server when making requests; used for server-side logging.<br>spring.kafka.producer.compression-type= # Compression type for all data generated by the producer.<br>spring.kafka.producer.key-serializer= # Serializer class for keys.<br>spring.kafka.producer.retries= # When greater than zero, enables retrying of failed sends.<br>spring.kafka.producer.value-serializer= # Serializer class for values.<br>spring.kafka.properties.*= # Additional properties used to configure the client.<br>spring.kafka.ssl.key-password= # Password of the private key in the key store file.<br>spring.kafka.ssl.keystore-location= # Location of the key store file.<br>spring.kafka.ssl.keystore-password= # Store password for the key store file.<br>spring.kafka.ssl.truststore-location= # Location of the trust store file.<br>spring.kafka.ssl.truststore-password= # Store password for the trust store file.<br>spring.kafka.template.default-topic= # Default topic to which messages will be sent.</p>
+<h1 id="RABBIT-RabbitProperties"><a href="#RABBIT-RabbitProperties" class="headerlink" title="RABBIT (RabbitProperties)"></a>RABBIT (RabbitProperties)</h1><p>spring.rabbitmq.addresses= # Comma-separated list of addresses to which the client should connect.<br>spring.rabbitmq.cache.channel.checkout-timeout= # Number of milliseconds to wait to obtain a channel if the cache size has been reached.<br>spring.rabbitmq.cache.channel.size= # Number of channels to retain in the cache.<br>spring.rabbitmq.cache.connection.mode=channel # Connection factory cache mode.<br>spring.rabbitmq.cache.connection.size= # Number of connections to cache.<br>spring.rabbitmq.connection-timeout= # Connection timeout, in milliseconds; zero for infinite.<br>spring.rabbitmq.dynamic=true # Create an AmqpAdmin bean.<br>spring.rabbitmq.host=localhost # RabbitMQ host.<br>spring.rabbitmq.listener.acknowledge-mode= # Acknowledge mode of container.<br>spring.rabbitmq.listener.auto-startup=true # Start the container automatically on startup.<br>spring.rabbitmq.listener.concurrency= # Minimum number of consumers.<br>spring.rabbitmq.listener.default-requeue-rejected= # Whether or not to requeue delivery failures; default <code>true</code>.<br>spring.rabbitmq.listener.idle-event-interval= # How often idle container events should be published in milliseconds.<br>spring.rabbitmq.listener.max-concurrency= # Maximum number of consumers.<br>spring.rabbitmq.listener.prefetch= # Number of messages to be handled in a single request. It should be greater than or equal to the transaction size (if used).<br>spring.rabbitmq.listener.retry.enabled=false # Whether or not publishing retries are enabled.<br>spring.rabbitmq.listener.retry.initial-interval=1000 # Interval between the first and second attempt to deliver a message.<br>spring.rabbitmq.listener.retry.max-attempts=3 # Maximum number of attempts to deliver a message.<br>spring.rabbitmq.listener.retry.max-interval=10000 # Maximum interval between attempts.<br>spring.rabbitmq.listener.retry.multiplier=1.0 # A multiplier to apply to the previous delivery retry interval.<br>spring.rabbitmq.listener.retry.stateless=true # Whether or not retry is stateless or stateful.<br>spring.rabbitmq.listener.transaction-size= # Number of messages to be processed in a transaction. For best results it should be less than or equal to the prefetch count.<br>spring.rabbitmq.password= # Login to authenticate against the broker.<br>spring.rabbitmq.port=5672 # RabbitMQ port.<br>spring.rabbitmq.publisher-confirms=false # Enable publisher confirms.<br>spring.rabbitmq.publisher-returns=false # Enable publisher returns.<br>spring.rabbitmq.requested-heartbeat= # Requested heartbeat timeout, in seconds; zero for none.<br>spring.rabbitmq.ssl.enabled=false # Enable SSL support.<br>spring.rabbitmq.ssl.key-store= # Path to the key store that holds the SSL certificate.<br>spring.rabbitmq.ssl.key-store-password= # Password used to access the key store.<br>spring.rabbitmq.ssl.trust-store= # Trust store that holds SSL certificates.<br>spring.rabbitmq.ssl.trust-store-password= # Password used to access the trust store.<br>spring.rabbitmq.ssl.algorithm= # SSL algorithm to use. By default configure by the rabbit client library.<br>spring.rabbitmq.template.mandatory=false # Enable mandatory messages.<br>spring.rabbitmq.template.receive-timeout=0 # Timeout for <code>receive()</code> methods.<br>spring.rabbitmq.template.reply-timeout=5000 # Timeout for <code>sendAndReceive()</code> methods.<br>spring.rabbitmq.template.retry.enabled=false # Set to true to enable retries in the <code>RabbitTemplate</code>.<br>spring.rabbitmq.template.retry.initial-interval=1000 # Interval between the first and second attempt to publish a message.<br>spring.rabbitmq.template.retry.max-attempts=3 # Maximum number of attempts to publish a message.<br>spring.rabbitmq.template.retry.max-interval=10000 # Maximum number of attempts to publish a message.<br>spring.rabbitmq.template.retry.multiplier=1.0 # A multiplier to apply to the previous publishing retry interval.<br>spring.rabbitmq.username= # Login user to authenticate to the broker.<br>spring.rabbitmq.virtual-host= # Virtual host to use when connecting to the broker.</p>
+<h1 id="—————————————-10"><a href="#—————————————-10" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="ACTUATOR-PROPERTIES"><a href="#ACTUATOR-PROPERTIES" class="headerlink" title="ACTUATOR PROPERTIES"></a>ACTUATOR PROPERTIES</h1><h1 id="—————————————-11"><a href="#—————————————-11" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="ENDPOINTS-AbstractEndpoint-subclasses"><a href="#ENDPOINTS-AbstractEndpoint-subclasses" class="headerlink" title="ENDPOINTS (AbstractEndpoint subclasses)"></a>ENDPOINTS (AbstractEndpoint subclasses)</h1><p>endpoints.enabled=true # Enable endpoints.<br>endpoints.sensitive= # Default endpoint sensitive setting.<br>endpoints.actuator.enabled=true # Enable the endpoint.<br>endpoints.actuator.path= # Endpoint URL path.<br>endpoints.actuator.sensitive=false # Enable security on the endpoint.<br>endpoints.auditevents.enabled= # Enable the endpoint.<br>endpoints.auditevents.path= # Endpoint path.<br>endpoints.auditevents.sensitive=false # Enable security on the endpoint.<br>endpoints.autoconfig.enabled= # Enable the endpoint.<br>endpoints.autoconfig.id= # Endpoint identifier.<br>endpoints.autoconfig.path= # Endpoint path.<br>endpoints.autoconfig.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.beans.enabled= # Enable the endpoint.<br>endpoints.beans.id= # Endpoint identifier.<br>endpoints.beans.path= # Endpoint path.<br>endpoints.beans.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.configprops.enabled= # Enable the endpoint.<br>endpoints.configprops.id= # Endpoint identifier.<br>endpoints.configprops.keys-to-sanitize=password,secret,key,token,.<em>credentials.</em>,vcap_services # Keys that should be sanitized. Keys can be simple strings that the property ends with or regex expressions.<br>endpoints.configprops.path= # Endpoint path.<br>endpoints.configprops.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.docs.curies.enabled=false # Enable the curie generation.<br>endpoints.docs.enabled=true # Enable actuator docs endpoint.<br>endpoints.docs.path=/docs #<br>endpoints.docs.sensitive=false #<br>endpoints.dump.enabled= # Enable the endpoint.<br>endpoints.dump.id= # Endpoint identifier.<br>endpoints.dump.path= # Endpoint path.<br>endpoints.dump.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.env.enabled= # Enable the endpoint.<br>endpoints.env.id= # Endpoint identifier.<br>endpoints.env.keys-to-sanitize=password,secret,key,token,.<em>credentials.</em>,vcap_services # Keys that should be sanitized. Keys can be simple strings that the property ends with or regex expressions.<br>endpoints.env.path= # Endpoint path.<br>endpoints.env.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.flyway.enabled= # Enable the endpoint.<br>endpoints.flyway.id= # Endpoint identifier.<br>endpoints.flyway.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.health.enabled= # Enable the endpoint.<br>endpoints.health.id= # Endpoint identifier.<br>endpoints.health.mapping.*= # Mapping of health statuses to HttpStatus codes. By default, registered health statuses map to sensible defaults (i.e. UP maps to 200).<br>endpoints.health.path= # Endpoint path.<br>endpoints.health.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.health.time-to-live=1000 # Time to live for cached result, in milliseconds.<br>endpoints.heapdump.enabled= # Enable the endpoint.<br>endpoints.heapdump.path= # Endpoint path.<br>endpoints.heapdump.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.hypermedia.enabled=false # Enable hypermedia support for endpoints.<br>endpoints.info.enabled= # Enable the endpoint.<br>endpoints.info.id= # Endpoint identifier.<br>endpoints.info.path= # Endpoint path.<br>endpoints.info.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.jolokia.enabled=true # Enable Jolokia endpoint.<br>endpoints.jolokia.path=/jolokia # Endpoint URL path.<br>endpoints.jolokia.sensitive=true # Enable security on the endpoint.<br>endpoints.liquibase.enabled= # Enable the endpoint.<br>endpoints.liquibase.id= # Endpoint identifier.<br>endpoints.liquibase.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.logfile.enabled=true # Enable the endpoint.<br>endpoints.logfile.external-file= # External Logfile to be accessed.<br>endpoints.logfile.path=/logfile # Endpoint URL path.<br>endpoints.logfile.sensitive=true # Enable security on the endpoint.<br>endpoints.loggers.enabled=true # Enable the endpoint.<br>endpoints.loggers.id= # Endpoint identifier.<br>endpoints.loggers.path=/logfile # Endpoint path.<br>endpoints.loggers.sensitive=true # Mark if the endpoint exposes sensitive information.<br>endpoints.mappings.enabled= # Enable the endpoint.<br>endpoints.mappings.id= # Endpoint identifier.<br>endpoints.mappings.path= # Endpoint path.<br>endpoints.mappings.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.metrics.enabled= # Enable the endpoint.<br>endpoints.metrics.filter.enabled=true # Enable the metrics servlet filter.<br>endpoints.metrics.filter.gauge-submissions=merged # Http filter gauge submissions (merged, per-http-method)<br>endpoints.metrics.filter.counter-submissions=merged # Http filter counter submissions (merged, per-http-method)<br>endpoints.metrics.id= # Endpoint identifier.<br>endpoints.metrics.path= # Endpoint path.<br>endpoints.metrics.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.shutdown.enabled= # Enable the endpoint.<br>endpoints.shutdown.id= # Endpoint identifier.<br>endpoints.shutdown.path= # Endpoint path.<br>endpoints.shutdown.sensitive= # Mark if the endpoint exposes sensitive information.<br>endpoints.trace.enabled= # Enable the endpoint.<br>endpoints.trace.id= # Endpoint identifier.<br>endpoints.trace.path= # Endpoint path.<br>endpoints.trace.sensitive= # Mark if the endpoint exposes sensitive information.</p>
+<h1 id="ENDPOINTS-CORS-CONFIGURATION-EndpointCorsProperties"><a href="#ENDPOINTS-CORS-CONFIGURATION-EndpointCorsProperties" class="headerlink" title="ENDPOINTS CORS CONFIGURATION (EndpointCorsProperties)"></a>ENDPOINTS CORS CONFIGURATION (EndpointCorsProperties)</h1><p>endpoints.cors.allow-credentials= # Set whether credentials are supported. When not set, credentials are not supported.<br>endpoints.cors.allowed-headers= # Comma-separated list of headers to allow in a request. ‘<em>‘ allows all headers.<br>endpoints.cors.allowed-methods=GET # Comma-separated list of methods to allow. ‘</em>‘ allows all methods.<br>endpoints.cors.allowed-origins= # Comma-separated list of origins to allow. ‘*’ allows all origins. When not set, CORS support is disabled.<br>endpoints.cors.exposed-headers= # Comma-separated list of headers to include in a response.<br>endpoints.cors.max-age=1800 # How long, in seconds, the response from a pre-flight request can be cached by clients.</p>
+<h1 id="JMX-ENDPOINT-EndpointMBeanExportProperties"><a href="#JMX-ENDPOINT-EndpointMBeanExportProperties" class="headerlink" title="JMX ENDPOINT (EndpointMBeanExportProperties)"></a>JMX ENDPOINT (EndpointMBeanExportProperties)</h1><p>endpoints.jmx.domain= # JMX domain name. Initialized with the value of ‘spring.jmx.default-domain’ if set.<br>endpoints.jmx.enabled=true # Enable JMX export of all endpoints.<br>endpoints.jmx.static-names= # Additional static properties to append to all ObjectNames of MBeans representing Endpoints.<br>endpoints.jmx.unique-names=false # Ensure that ObjectNames are modified in case of conflict.</p>
+<h1 id="JOLOKIA-JolokiaProperties"><a href="#JOLOKIA-JolokiaProperties" class="headerlink" title="JOLOKIA (JolokiaProperties)"></a>JOLOKIA (JolokiaProperties)</h1><p>jolokia.config.*= # See Jolokia manual</p>
+<h1 id="MANAGEMENT-HTTP-SERVER-ManagementServerProperties"><a href="#MANAGEMENT-HTTP-SERVER-ManagementServerProperties" class="headerlink" title="MANAGEMENT HTTP SERVER (ManagementServerProperties)"></a>MANAGEMENT HTTP SERVER (ManagementServerProperties)</h1><p>management.add-application-context-header=true # Add the “X-Application-Context” HTTP header in each response.<br>management.address= # Network address that the management endpoints should bind to.<br>management.context-path= # Management endpoint context-path. For instance <code>/actuator</code><br>management.cloudfoundry.enabled= # Enable extended Cloud Foundry actuator endpoints<br>management.cloudfoundry.skip-ssl-validation= # Skip SSL verification for Cloud Foundry actuator endpoint security calls<br>management.port= # Management endpoint HTTP port. Uses the same port as the application by default. Configure a different port to use management-specific SSL.<br>management.security.enabled=true # Enable security.<br>management.security.roles=ACTUATOR # Comma-separated list of roles that can access the management endpoint.<br>management.security.sessions=stateless # Session creating policy to use (always, never, if_required, stateless).<br>management.ssl.ciphers= # Supported SSL ciphers. Requires a custom management.port.<br>management.ssl.client-auth= # Whether client authentication is wanted (“want”) or needed (“need”). Requires a trust store. Requires a custom management.port.<br>management.ssl.enabled= # Enable SSL support. Requires a custom management.port.<br>management.ssl.enabled-protocols= # Enabled SSL protocols. Requires a custom management.port.<br>management.ssl.key-alias= # Alias that identifies the key in the key store. Requires a custom management.port.<br>management.ssl.key-password= # Password used to access the key in the key store. Requires a custom management.port.<br>management.ssl.key-store= # Path to the key store that holds the SSL certificate (typically a jks file). Requires a custom management.port.<br>management.ssl.key-store-password= # Password used to access the key store. Requires a custom management.port.<br>management.ssl.key-store-provider= # Provider for the key store. Requires a custom management.port.<br>management.ssl.key-store-type= # Type of the key store. Requires a custom management.port.<br>management.ssl.protocol=TLS # SSL protocol to use. Requires a custom management.port.<br>management.ssl.trust-store= # Trust store that holds SSL certificates. Requires a custom management.port.<br>management.ssl.trust-store-password= # Password used to access the trust store. Requires a custom management.port.<br>management.ssl.trust-store-provider= # Provider for the trust store. Requires a custom management.port.<br>management.ssl.trust-store-type= # Type of the trust store. Requires a custom management.port.</p>
+<h1 id="HEALTH-INDICATORS"><a href="#HEALTH-INDICATORS" class="headerlink" title="HEALTH INDICATORS"></a>HEALTH INDICATORS</h1><p>management.health.db.enabled=true # Enable database health check.<br>management.health.cassandra.enabled=true # Enable cassandra health check.<br>management.health.couchbase.enabled=true # Enable couchbase health check.<br>management.health.defaults.enabled=true # Enable default health indicators.<br>management.health.diskspace.enabled=true # Enable disk space health check.<br>management.health.diskspace.path= # Path used to compute the available disk space.<br>management.health.diskspace.threshold=0 # Minimum disk space that should be available, in bytes.<br>management.health.elasticsearch.enabled=true # Enable elasticsearch health check.<br>management.health.elasticsearch.indices= # Comma-separated index names.<br>management.health.elasticsearch.response-timeout=100 # The time, in milliseconds, to wait for a response from the cluster.<br>management.health.jms.enabled=true # Enable JMS health check.<br>management.health.ldap.enabled=true # Enable LDAP health check.<br>management.health.mail.enabled=true # Enable Mail health check.<br>management.health.mongo.enabled=true # Enable MongoDB health check.<br>management.health.rabbit.enabled=true # Enable RabbitMQ health check.<br>management.health.redis.enabled=true # Enable Redis health check.<br>management.health.solr.enabled=true # Enable Solr health check.<br>management.health.status.order=DOWN, OUT_OF_SERVICE, UP, UNKNOWN # Comma-separated list of health statuses in order of severity.</p>
+<h1 id="INFO-CONTRIBUTORS-InfoContributorProperties"><a href="#INFO-CONTRIBUTORS-InfoContributorProperties" class="headerlink" title="INFO CONTRIBUTORS (InfoContributorProperties)"></a>INFO CONTRIBUTORS (InfoContributorProperties)</h1><p>management.info.build.enabled=true # Enable build info.<br>management.info.defaults.enabled=true # Enable default info contributors.<br>management.info.env.enabled=true # Enable environment info.<br>management.info.git.enabled=true # Enable git info.<br>management.info.git.mode=simple # Mode to use to expose git information.</p>
+<h1 id="REMOTE-SHELL-ShellProperties"><a href="#REMOTE-SHELL-ShellProperties" class="headerlink" title="REMOTE SHELL (ShellProperties)"></a>REMOTE SHELL (ShellProperties)</h1><p>management.shell.auth.type=simple # Authentication type. Auto-detected according to the environment.<br>management.shell.auth.jaas.domain=my-domain # JAAS domain.<br>management.shell.auth.key.path= # Path to the authentication key. This should point to a valid “.pem” file.<br>management.shell.auth.simple.user.name=user # Login user.<br>management.shell.auth.simple.user.password= # Login password.<br>management.shell.auth.spring.roles=ACTUATOR # Comma-separated list of required roles to login to the CRaSH console.<br>management.shell.command-path-patterns=classpath<em>:/commands/**,classpath</em>:/crash/commands/*<em> # Patterns to use to look for commands.<br>management.shell.command-refresh-interval=-1 # Scan for changes and update the command if necessary (in seconds).<br>management.shell.config-path-patterns=classpath</em>:/crash/<em> # Patterns to use to look for configurations.<br>management.shell.disabled-commands=jpa</em>,jdbc<em>,jndi</em> # Comma-separated list of commands to disable.<br>management.shell.disabled-plugins= # Comma-separated list of plugins to disable. Certain plugins are disabled by default based on the environment.<br>management.shell.ssh.auth-timeout = # Number of milliseconds after user will be prompted to login again.<br>management.shell.ssh.enabled=true # Enable CRaSH SSH support.<br>management.shell.ssh.idle-timeout = # Number of milliseconds after which unused connections are closed.<br>management.shell.ssh.key-path= # Path to the SSH server key.<br>management.shell.ssh.port=2000 # SSH port.<br>management.shell.telnet.enabled=false # Enable CRaSH telnet support. Enabled by default if the TelnetPlugin is  available.<br>management.shell.telnet.port=5000 # Telnet port.</p>
+<h1 id="TRACING-TraceProperties"><a href="#TRACING-TraceProperties" class="headerlink" title="TRACING (TraceProperties)"></a>TRACING (TraceProperties)</h1><p>management.trace.include=request-headers,response-headers,cookies,errors # Items to be included in the trace.</p>
+<h1 id="METRICS-EXPORT-MetricExportProperties"><a href="#METRICS-EXPORT-MetricExportProperties" class="headerlink" title="METRICS EXPORT (MetricExportProperties)"></a>METRICS EXPORT (MetricExportProperties)</h1><p>spring.metrics.export.aggregate.key-pattern= # Pattern that tells the aggregator what to do with the keys from the source repository.<br>spring.metrics.export.aggregate.prefix= # Prefix for global repository if active.<br>spring.metrics.export.delay-millis=5000 # Delay in milliseconds between export ticks. Metrics are exported to external sources on a schedule with this delay.<br>spring.metrics.export.enabled=true # Flag to enable metric export (assuming a MetricWriter is available).<br>spring.metrics.export.excludes= # List of patterns for metric names to exclude. Applied after the includes.<br>spring.metrics.export.includes= # List of patterns for metric names to include.<br>spring.metrics.export.redis.key=keys.spring.metrics # Key for redis repository export (if active).<br>spring.metrics.export.redis.prefix=spring.metrics # Prefix for redis repository if active.<br>spring.metrics.export.send-latest= # Flag to switch off any available optimizations based on not exporting unchanged metric values.<br>spring.metrics.export.statsd.host= # Host of a statsd server to receive exported metrics.<br>spring.metrics.export.statsd.port=8125 # Port of a statsd server to receive exported metrics.<br>spring.metrics.export.statsd.prefix= # Prefix for statsd exported metrics.<br>spring.metrics.export.triggers.*= # Specific trigger properties per MetricWriter bean name.</p>
+<h1 id="—————————————-12"><a href="#—————————————-12" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="DEVTOOLS-PROPERTIES"><a href="#DEVTOOLS-PROPERTIES" class="headerlink" title="DEVTOOLS PROPERTIES"></a>DEVTOOLS PROPERTIES</h1><h1 id="—————————————-13"><a href="#—————————————-13" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="DEVTOOLS-DevToolsProperties"><a href="#DEVTOOLS-DevToolsProperties" class="headerlink" title="DEVTOOLS (DevToolsProperties)"></a>DEVTOOLS (DevToolsProperties)</h1><p>spring.devtools.livereload.enabled=true # Enable a livereload.com compatible server.<br>spring.devtools.livereload.port=35729 # Server port.<br>spring.devtools.restart.additional-exclude= # Additional patterns that should be excluded from triggering a full restart.<br>spring.devtools.restart.additional-paths= # Additional paths to watch for changes.<br>spring.devtools.restart.enabled=true # Enable automatic restart.<br>spring.devtools.restart.exclude=META-INF/maven/<strong>,META-INF/resources/</strong>,resources/<strong>,static/</strong>,public/<strong>,templates/</strong>,<strong>/*Test.class,</strong>/*Tests.class,git.properties # Patterns that should be excluded from triggering a full restart.<br>spring.devtools.restart.poll-interval=1000 # Amount of time (in milliseconds) to wait between polling for classpath changes.<br>spring.devtools.restart.quiet-period=400 # Amount of quiet time (in milliseconds) required without any classpath changes before a restart is triggered.<br>spring.devtools.restart.trigger-file= # Name of a specific file that when changed will trigger the restart check. If not specified any classpath file change will trigger the restart.</p>
+<h1 id="REMOTE-DEVTOOLS-RemoteDevToolsProperties"><a href="#REMOTE-DEVTOOLS-RemoteDevToolsProperties" class="headerlink" title="REMOTE DEVTOOLS (RemoteDevToolsProperties)"></a>REMOTE DEVTOOLS (RemoteDevToolsProperties)</h1><p>spring.devtools.remote.context-path=/.~~spring-boot!~ # Context path used to handle the remote connection.<br>spring.devtools.remote.debug.enabled=true # Enable remote debug support.<br>spring.devtools.remote.debug.local-port=8000 # Local remote debug server port.<br>spring.devtools.remote.proxy.host= # The host of the proxy to use to connect to the remote application.<br>spring.devtools.remote.proxy.port= # The port of the proxy to use to connect to the remote application.<br>spring.devtools.remote.restart.enabled=true # Enable remote restart.<br>spring.devtools.remote.secret= # A shared secret required to establish a connection (required to enable remote support).<br>spring.devtools.remote.secret-header-name=X-AUTH-TOKEN # HTTP header used to transfer the shared secret.</p>
+<h1 id="—————————————-14"><a href="#—————————————-14" class="headerlink" title="—————————————-"></a>—————————————-</h1><h1 id="TESTING-PROPERTIES"><a href="#TESTING-PROPERTIES" class="headerlink" title="TESTING PROPERTIES"></a>TESTING PROPERTIES</h1><h1 id="—————————————-15"><a href="#—————————————-15" class="headerlink" title="—————————————-"></a>—————————————-</h1><p>spring.test.database.replace=any # Type of existing DataSource to replace.<br>spring.test.mockmvc.print=default # MVC Print option.</p>
+<p>4.4.5.Starter pom</p>
+<p>4.4.6.Xml 配置文件（java配置替代）</p>
+<p>4.4.7.日志<br>Spring Boot对各种日志框架都做了支持，我们可以通过配置来修改默认的日志的配置：</p>
+<p>#设置日志级别<br>logging.level.org.springframework=DEBUG</p>
+<p>格式：<br>logging.level.*= # Log levels severity mapping. For instance <code>logging.level.org.springframework=DEBUG</code><br>4.5.Spring Boot的自动配置的原理<br>Spring Boot在进行SpringApplication对象实例化时会加载springboot-1.5。1.reales /META-INF/spring.factories文件，将该配置文件中的配置载入到Spring容器。<br>4.5.1.Maven下载源码<br>通过 dependency:sources 该命令可以下载该项目中所有的依赖的包的源码。<br>4.5.2.源码分析<br>org.springframework.boot.SpringApplication：</p>
+<p>org.springframework.core.io.support.SpringFactoriesLoader:</p>
+<p>由此可见，读取该配置文件来加载内容。<br>4.5.3.Spring.factories文件</p>
+<h1 id="Initializers"><a href="#Initializers" class="headerlink" title="Initializers"></a>Initializers</h1><p>org.springframework.context.ApplicationContextInitializer=\<br>org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer,\<br>org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer</p>
+<h1 id="Application-Listeners"><a href="#Application-Listeners" class="headerlink" title="Application Listeners"></a>Application Listeners</h1><p>org.springframework.context.ApplicationListener=\<br>org.springframework.boot.autoconfigure.BackgroundPreinitializer</p>
+<h1 id="Auto-Configuration-Import-Listeners"><a href="#Auto-Configuration-Import-Listeners" class="headerlink" title="Auto Configuration Import Listeners"></a>Auto Configuration Import Listeners</h1><p>org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\<br>org.springframework.boot.autoconfigure.condition.ConditionEvaluationReportAutoConfigurationImportListener</p>
+<h1 id="Auto-Configuration-Import-Filters"><a href="#Auto-Configuration-Import-Filters" class="headerlink" title="Auto Configuration Import Filters"></a>Auto Configuration Import Filters</h1><p>org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=\<br>org.springframework.boot.autoconfigure.condition.OnClassCondition</p>
+<h1 id="Auto-Configure"><a href="#Auto-Configure" class="headerlink" title="Auto Configure"></a>Auto Configure</h1><p>org.springframework.boot.autoconfigure.EnableAutoConfiguration=\<br>org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\<br>org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\<br>org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,\<br>org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\<br>org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration,\<br>org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration,\<br>org.springframework.boot.autoconfigure.cloud.CloudAutoConfiguration,\<br>org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration,\<br>org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration,\<br>org.springframework.boot.autoconfigure.couchbase.CouchbaseAutoConfiguration,\<br>org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.cassandra.CassandraRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.couchbase.CouchbaseDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.couchbase.CouchbaseRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.ldap.LdapDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.ldap.LdapRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.neo4j.Neo4jDataAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.neo4j.Neo4jRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.solr.SolrRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration,\<br>org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration,\<br>org.springframework.boot.autoconfigure.elasticsearch.jest.JestAutoConfiguration,\<br>org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration,\<br>org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration,\<br>org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration,\<br>org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration,\<br>org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration,\<br>org.springframework.boot.autoconfigure.hazelcast.HazelcastJpaDependencyAutoConfiguration,\<br>org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration,\<br>org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jdbc.JndiDataSourceAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jdbc.XADataSourceAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jms.JndiConnectionFactoryAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jms.artemis.ArtemisAutoConfiguration,\<br>org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration,\<br>org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration,\<br>org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration,\<br>org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration,\<br>org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapAutoConfiguration,\<br>org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration,\<br>org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mail.MailSenderValidatorAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mobile.DeviceResolverAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mobile.DeviceDelegatingViewResolverAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mobile.SitePreferenceAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,\<br>org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration,\<br>org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,\<br>org.springframework.boot.autoconfigure.reactor.ReactorAutoConfiguration,\<br>org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration,\<br>org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfiguration,\<br>org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration,\<br>org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration,\<br>org.springframework.boot.autoconfigure.sendgrid.SendGridAutoConfiguration,\<br>org.springframework.boot.autoconfigure.session.SessionAutoConfiguration,\<br>org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration,\<br>org.springframework.boot.autoconfigure.social.FacebookAutoConfiguration,\<br>org.springframework.boot.autoconfigure.social.LinkedInAutoConfiguration,\<br>org.springframework.boot.autoconfigure.social.TwitterAutoConfiguration,\<br>org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration,\<br>org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration,\<br>org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration,\<br>org.springframework.boot.autoconfigure.transaction.jta.JtaAutoConfiguration,\<br>org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.HttpEncodingAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.HttpMessageConvertersAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.ServerPropertiesAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration,\<br>org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration,\<br>org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration,\<br>org.springframework.boot.autoconfigure.websocket.WebSocketMessagingAutoConfiguration,\<br>org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration</p>
+<h1 id="Failure-analyzers"><a href="#Failure-analyzers" class="headerlink" title="Failure analyzers"></a>Failure analyzers</h1><p>org.springframework.boot.diagnostics.FailureAnalyzer=\<br>org.springframework.boot.autoconfigure.diagnostics.analyzer.NoSuchBeanDefinitionFailureAnalyzer,\<br>org.springframework.boot.autoconfigure.jdbc.DataSourceBeanCreationFailureAnalyzer,\<br>org.springframework.boot.autoconfigure.jdbc.HikariDriverConfigurationFailureAnalyzer</p>
+<h1 id="Template-availability-providers"><a href="#Template-availability-providers" class="headerlink" title="Template availability providers"></a>Template availability providers</h1><p>org.springframework.boot.autoconfigure.template.TemplateAvailabilityProvider=\<br>org.springframework.boot.autoconfigure.freemarker.FreeMarkerTemplateAvailabilityProvider,\<br>org.springframework.boot.autoconfigure.mustache.MustacheTemplateAvailabilityProvider,\<br>org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAvailabilityProvider,\<br>org.springframework.boot.autoconfigure.thymeleaf.ThymeleafTemplateAvailabilityProvider,\<br>org.springframework.boot.autoconfigure.web.JspTemplateAvailabilityProvider<br>4.5.4.举例：Redis的自动配置<br>从上述的配置中可以看出，org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration是Redis的自动配置。</p>
+<p>内容：</p>
+<p>底层类</p>
+<p>前缀为那个的自动配置<br>4.5.5.条件注解</p>
+<p>5.Spring Boot的web开发<br>Web开发的自动配置类：<br>org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration<br>org.springframework.boot.autoconfigure所有自动配置类的包<br>5.1.自动配置的ViewResolver<br>rg.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration中</p>
+<p>视图的配置mvcProperties对象中：<br>org.springframework.boot.autoconfigure.web.WebMvcProperties.View</p>
+<p>5.2.自动配置静态资源<br>5.2.1.进入规则为 /<br>如果进入SpringMVC的规则为/时，静态资源随便访问<br>Spring Boot的默认静态资源的路径为：<br>spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/</p>
+<p>测试：</p>
+<p>5.2.2.进入规则为*.xxx 或者 不指定静态文件路径时<br>将静态资源放置到webapp下的static目录中即可通过地址访问：</p>
+<p>测试：</p>
+<p>5.3.自定义消息转化器（中文乱码、json）<br>原来的配置</p>
+<p>自定义消息转化器，只需要在@Configuration的类中添加消息转化器的@bean加入到Spring容器，就会被Spring Boot自动加入到容器中。</p>
+<pre><code>@Bean
+public StringHttpMessageConverter stringHttpMessageConverter(){
+    StringHttpMessageConverter converter  = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
+    return converter;
+</code></pre><p>}</p>
+<p>默认配置：utf-8</p>
+<p>5.4.自定义SpringMVC的配置<br>有些时候我们需要自已配置SpringMVC而不是采用默认，比如说增加一个拦截器，这个时候就得通过继承WebMvcConfigurerAdapter然后重写父类中的方法进行扩展。</p>
+<p>import java.nio.charset.Charset;<br>import java.util.List;</p>
+<p>import javax.servlet.http.HttpServletRequest;<br>import javax.servlet.http.HttpServletResponse;</p>
+<p>import org.springframework.context.annotation.Configuration;<br>import org.springframework.http.converter.HttpMessageConverter;<br>import org.springframework.http.converter.StringHttpMessageConverter;<br>import org.springframework.web.servlet.HandlerInterceptor;<br>import org.springframework.web.servlet.ModelAndView;<br>import org.springframework.web.servlet.config.annotation.InterceptorRegistry;<br>import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</p>
+<p>@Configuration //申明这是一个配置<br>public class MySrpingMVCConfig extends WebMvcConfigurerAdapter{</p>
+<pre><code>// 自定义拦截器
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    HandlerInterceptor handlerInterceptor = new HandlerInterceptor() {
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+                throws Exception {
+            System.out.println(&quot;自定义拦截器............&quot;);
+            return true;
+        }
+
+        @Override
+        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+                ModelAndView modelAndView) throws Exception {
+
+        }
+
+        @Override
+        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+                Exception ex) throws Exception {
+        }
+    };
+</code></pre><p>   //注册拦截器     registry.addInterceptor(handlerInterceptor).addPathPatterns(“/**”);<br>    }</p>
+<pre><code>// 自定义消息转化器的第二种方法
+@Override
+public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+    StringHttpMessageConverter converter  = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
+    converters.add(converter);
+}
+</code></pre><p>}<br>6.改造购物车系统<br>6.1.创建购物车的Spring Boot工程</p>
+<p>6.2.导入依赖</p>
+<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelversion>4.0.0</modelversion><br>    <parent><br>        <groupid>org.springframework.boot</groupid><br>        <artifactid>spring-boot-starter-parent</artifactid><br>        <version>1.5.2.RELEASE</version><br>    </parent><br>    <groupid>com.taotao.cart</groupid><br>    <artifactid>taotao-cart-springboot</artifactid><br>    <version>1.0.0-SNAPSHOT</version><br>    <packaging>war</packaging></project></p>
+<pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.taotao.common&lt;/groupId&gt;
+        &lt;artifactId&gt;taotao-common&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.taotao.sso&lt;/groupId&gt;
+        &lt;artifactId&gt;taotao-sso-interface&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 单元测试 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Mybatis --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+        &lt;version&gt;3.2.8&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+        &lt;version&gt;1.2.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 分页助手 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;
+        &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;
+        &lt;version&gt;3.7.5&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.jsqlparser&lt;/groupId&gt;
+        &lt;artifactId&gt;jsqlparser&lt;/artifactId&gt;
+        &lt;version&gt;0.9.1&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- 通用Mapper --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.abel533&lt;/groupId&gt;
+        &lt;artifactId&gt;mapper&lt;/artifactId&gt;
+        &lt;version&gt;2.3.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- MySql --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+        &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 连接池 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.jolbox&lt;/groupId&gt;
+        &lt;artifactId&gt;bonecp-spring&lt;/artifactId&gt;
+        &lt;version&gt;0.8.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- httpclient --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+        &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- JSP相关 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jstl&lt;/groupId&gt;
+        &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+        &lt;version&gt;1.2&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Apache工具组件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+        &lt;version&gt;3.3.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+        &lt;version&gt;1.3.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.amqp&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-rabbit&lt;/artifactId&gt;
+        &lt;version&gt;1.4.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+        &lt;artifactId&gt;dubbo&lt;/artifactId&gt;
+        &lt;version&gt;2.5.3&lt;/version&gt;
+        &lt;exclusions&gt;
+            &lt;exclusion&gt;
+                &lt;!-- 排除传递spring依赖 --&gt;
+                &lt;artifactId&gt;spring&lt;/artifactId&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;/exclusion&gt;
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;
+        &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;
+        &lt;version&gt;3.3.3&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.sgroschupf&lt;/groupId&gt;
+        &lt;artifactId&gt;zkclient&lt;/artifactId&gt;
+        &lt;version&gt;0.1&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;!-- 资源文件拷贝插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- java编译插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;1.7&lt;/source&gt;
+                &lt;target&gt;1.7&lt;/target&gt;
+                &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p><br>6.3.将taotao-cart中的java代码拷贝到taotao-car-springboot</p>
+<p>拷贝完成后：</p>
+<p>并且将properties文件也拷贝过来：</p>
+<p>将页面也拷贝过来：</p>
+<p>6.3.1.编写Spring配置类TaotaoApplication</p>
+<p>6.3.2.设置tomcat端口<br>application.properties：</p>
+<p>6.3.3.读取外部的配置文件<br>@Configuration<br>@PropertySource(value = { “classpath:jdbc.properties”, “classpath:env.properties”,<br>        “classpath:httpclient.properties”, “classpath:redis.properties”, “classpath:rabbitmq.properties” }, ignoreResourceNotFound = true)<br>public class TaotaoApplication {</p>
+<p>}<br>6.3.4.设置扫描包</p>
+<p>6.3.5.定义数据源<br>    @Value(“${jdbc.url}”)<br>    private String jdbcUrl;</p>
+<pre><code>@Value(&quot;${jdbc.driverClassName}&quot;)
+private String jdbcDriverClassName;
+
+@Value(&quot;${jdbc.username}&quot;)
+private String jdbcUsername;
+
+@Value(&quot;${jdbc.password}&quot;)
+private String jdbcPassword;
+
+@Bean(destroyMethod = &quot;close&quot;)
+public DataSource dataSource() {
+    BoneCPDataSource boneCPDataSource = new BoneCPDataSource();
+    // 数据库驱动
+    boneCPDataSource.setDriverClass(jdbcDriverClassName);
+    // 相应驱动的jdbcUrl
+    boneCPDataSource.setJdbcUrl(jdbcUrl);
+    // 数据库的用户名
+    boneCPDataSource.setUsername(jdbcUsername);
+    // 数据库的密码
+    boneCPDataSource.setPassword(jdbcUsername);
+    // 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0
+    boneCPDataSource.setIdleConnectionTestPeriodInMinutes(60);
+    // 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0
+    boneCPDataSource.setIdleMaxAgeInMinutes(30);
+    // 每个分区最大的连接数
+    boneCPDataSource.setMaxConnectionsPerPartition(100);
+    // 每个分区最小的连接数
+    boneCPDataSource.setMinConnectionsPerPartition(5);
+    return boneCPDataSource;
+</code></pre><p>}<br>6.3.6.设置Mybatis和Spring Boot整合<br>Mybatis和Spring Boot的整合有两种方式：<br>第一种：使用mybatis官方提供的Spring Boot整合包实现，地址：<a href="https://github.com/mybatis/spring-boot-starter" target="_blank" rel="noopener">https://github.com/mybatis/spring-boot-starter</a><br>第二种：使用mybatis-spring整合的方式，也就是我们传统的方式</p>
+<p>这里我们推荐使用第二种，因为这样我们可以很方便的控制Mybatis的各种配置。</p>
+<p>首先，创建一个Mybatis的配置类：</p>
+<p>代码：<br>import javax.sql.DataSource;</p>
+<p>import org.mybatis.spring.SqlSessionFactoryBean;<br>import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.core.io.Resource;<br>import org.springframework.core.io.support.PathMatchingResourcePatternResolver;<br>import org.springframework.core.io.support.ResourcePatternResolver;</p>
+<p>@Configuration<br>public class MyBatisConfig {</p>
+<pre><code>@Bean
+@ConditionalOnMissingBean //当容器里没有指定的Bean的情况下创建该对象
+public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+    SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+    // 设置数据源
+    sqlSessionFactoryBean.setDataSource(dataSource);
+    // 设置mybatis的主配置文件
+    ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+    Resource mybatisConfigXml = resolver.getResource(&quot;classpath:mybatis/mybatis-config.xml&quot;);
+    sqlSessionFactoryBean.setConfigLocation(mybatisConfigXml);
+    // 设置别名包
+    sqlSessionFactoryBean.setTypeAliasesPackage(&quot;com.taotao.cart.pojo&quot;);
+    return sqlSessionFactoryBean;
+}
+</code></pre><p>}</p>
+<p>然后，创建Mapper接口的扫描类MapperScannerConfig：</p>
+<p>代码：<br>import org.mybatis.spring.mapper.MapperScannerConfigurer;<br>import org.springframework.boot.autoconfigure.AutoConfigureAfter;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;</p>
+<p>@Configuration<br>@AutoConfigureAfter(MyBatisConfig.class) //保证在MyBatisConfig实例化之后再实例化该类<br>public class MapperScannerConfig {</p>
+<pre><code>// mapper接口的扫描器
+@Bean
+public MapperScannerConfigurer mapperScannerConfigurer() {
+    MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+    mapperScannerConfigurer.setBasePackage(&quot;com.taotao.cart.mapper&quot;);
+    return mapperScannerConfigurer;
+}
+</code></pre><p>}<br>6.3.7.设置事务管理<br>在Spring Boot中推荐使用@Transactional注解来申明事务。</p>
+<p>首先需要导入依赖：</p>
+<dependency><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-starter-jdbc</artifactid><br>        </dependency>
+
+<p>当引入jdbc依赖之后，Spring Boot会自动默认分别注入DataSourceTransactionManager或JpaTransactionManager，所以我们不需要任何额外配置就可以用@Transactional注解进行事务的使用。</p>
+<p>在Service中添加@Transactional注解：</p>
+<p>6.3.8.设置Redis和Spring的整合<br>在Spring Boot中提供了RedisTempplate的操作，我们暂时不做学习，先按照我们之前的实现来完成。</p>
+<p>代码：</p>
+<p>import java.util.ArrayList;<br>import java.util.List;</p>
+<p>import org.springframework.beans.factory.annotation.Value;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.context.annotation.PropertySource;</p>
+<p>import redis.clients.jedis.JedisPoolConfig;<br>import redis.clients.jedis.JedisShardInfo;<br>import redis.clients.jedis.ShardedJedisPool;</p>
+<p>@Configuration<br>@PropertySource(value = “classpath:redis.properties”)<br>public class RedisSpringConfig {</p>
+<pre><code>@Value(&quot;${redis.maxTotal}&quot;)
+private Integer redisMaxTotal;
+
+@Value(&quot;${redis.node1.host}&quot;)
+private String redisNode1Host;
+
+@Value(&quot;${redis.node1.port}&quot;)
+private Integer redisNode1Port;
+
+private JedisPoolConfig jedisPoolConfig() {
+    JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+    jedisPoolConfig.setMaxTotal(redisMaxTotal);
+    return jedisPoolConfig;
+}
+
+@Bean
+public ShardedJedisPool shardedJedisPool() {
+    List&lt;JedisShardInfo&gt; jedisShardInfos = new ArrayList&lt;JedisShardInfo&gt;();
+    jedisShardInfos.add(new JedisShardInfo(redisNode1Host, redisNode1Port));
+    return new ShardedJedisPool(jedisPoolConfig(), jedisShardInfos);
+}
+</code></pre><p>}<br>6.3.9.设置Httpclient和Spring的整合<br>import org.apache.http.client.config.RequestConfig;<br>import org.apache.http.impl.client.CloseableHttpClient;<br>import org.apache.http.impl.client.HttpClients;<br>import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.beans.factory.annotation.Value;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.context.annotation.PropertySource;<br>import org.springframework.context.annotation.Scope;</p>
+<p>import com.taotao.common.httpclient.IdleConnectionEvictor;</p>
+<p>@Configuration<br>@PropertySource(value = “classpath:httpclient.properties”)<br>public class HttpclientSpringConfig {</p>
+<pre><code>@Value(&quot;${http.maxTotal}&quot;)
+private Integer httpMaxTotal;
+
+@Value(&quot;${http.defaultMaxPerRoute}&quot;)
+private Integer httpDefaultMaxPerRoute;
+
+@Value(&quot;${http.connectTimeout}&quot;)
+private Integer httpConnectTimeout;
+
+@Value(&quot;${http.connectionRequestTimeout}&quot;)
+private Integer httpConnectionRequestTimeout;
+
+@Value(&quot;${http.socketTimeout}&quot;)
+private Integer httpSocketTimeout;
+
+@Value(&quot;${http.staleConnectionCheckEnabled}&quot;)
+private Boolean httpStaleConnectionCheckEnabled;
+
+@Autowired
+private PoolingHttpClientConnectionManager manager;
+
+@Bean
+public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
+    PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+    // 最大连接数
+    poolingHttpClientConnectionManager.setMaxTotal(httpMaxTotal);
+    // 每个主机的最大并发数
+    poolingHttpClientConnectionManager.setDefaultMaxPerRoute(httpDefaultMaxPerRoute);
+    return poolingHttpClientConnectionManager;
+}
+
+// 定期关闭无效连接
+@Bean
+public IdleConnectionEvictor idleConnectionEvictor() {
+    return new IdleConnectionEvictor(manager);
+}
+
+// 定义Httpclient对
+@Bean
+@Scope(&quot;prototype&quot;)
+public CloseableHttpClient closeableHttpClient() {
+    return HttpClients.custom().setConnectionManager(this.manager).build();
+}
+
+// 请求配置
+@Bean
+public RequestConfig requestConfig() {
+    return RequestConfig.custom().setConnectTimeout(httpConnectTimeout) // 创建连接的最长时间
+            .setConnectionRequestTimeout(httpConnectionRequestTimeout) // 从连接池中获取到连接的最长时间
+            .setSocketTimeout(httpSocketTimeout) // 数据传输的最长时间
+            .setStaleConnectionCheckEnabled(httpStaleConnectionCheckEnabled) // 提交请求前测试连接是否可用
+            .build();
+}
+</code></pre><p>}<br>6.3.10.设置RabbitMQ和Spring的整合<br>我们之前使用的Spring-Rabbit的xml方式，现在我们要改造成java方式，并且Spring Boot对RabbitMQ的使用做了自动配置，更加的简化了我们的使用。</p>
+<p>1、在导入spring-boot-starter-amqp的依赖；</p>
+<p>2、在application.properties文件中配置RabbitMQ的连接信息</p>
+<p>3、编写Rabbit的Spring配置类<br> import org.springframework.amqp.core.Queue;<br>import org.springframework.amqp.rabbit.connection.ConnectionFactory;<br>import org.springframework.amqp.rabbit.core.RabbitAdmin;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;</p>
+<p>@Configuration<br>public class RabbitMQSpringConfig {</p>
+<pre><code>@Autowired
+private ConnectionFactory connectionFactory;
+
+// 管理
+@Bean
+public RabbitAdmin rabbitAdmin() {
+    return new RabbitAdmin(connectionFactory);
+}
+
+// 声明队列
+@Bean
+public Queue taotaoCartLoginQueue() {
+    // 默认就是自动声明的
+    return new Queue(&quot;TAOTAO-CART-LOGIN-QUEUE&quot;, true);
+}
+
+// 声明队列
+@Bean
+public Queue taotaoCartOrderSuccessQueue() {
+    // 默认就是自动声明的
+    return new Queue(&quot;TAOTAO-CART-ORDER-SUCCESS-QUEUE&quot;, true);
+}
+</code></pre><p>}<br>4、设置监听</p>
+<p>6.3.11.设置SpringMVC的配置<br>原有配置：</p>
+<p>具体实现：<br>视图解析器配置：</p>
+<p>自定义拦截器：<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.web.servlet.config.annotation.InterceptorRegistry;<br>import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</p>
+<p>import com.taotao.cart.interceptors.UserLoginHandlerInterceptor;</p>
+<p>@Configuration<br>public class SpringMVCConfig extends WebMvcConfigurerAdapter {</p>
+<pre><code>@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    // 判断用户是否登录的拦截器
+    registry.addInterceptor(new UserLoginHandlerInterceptor()).addPathPatterns(&quot;/cart/**&quot;);
+}
+</code></pre><p>}</p>
+<p>6.3.12.设置dubbo的配置<br>Dubbo目前只能使用xml配置的方式，所以我们需要保留xml，并且需要将该xml加入到现有的Spring容器中才能生效。</p>
+<p>1、将dubbo目录以及下面的xml配置文件拷贝到taotao-cat-springboot中</p>
+<p>2、将dubbo的xml文件加入到spring容器</p>
+<p>3、<br>6.4.编写入口类</p>
+<p>编写main方法：</p>
+<p>6.4.1.启动错误1</p>
+<p>关键错误（丢失了web容器的工厂，也就是说我们并没有把它作为一个web应用来启动）：<br>org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is org.springframework.context.ApplicationContextException: Unable to start EmbeddedWebApplicationContext due to missing EmbeddedServletContainerFactory bean.</p>
+<p>解决：</p>
+<p>让Spring Boot来自动选择并且完成web的相关加载工作。<br>6.4.2.Slf4j日志警告</p>
+<p>提示我们当前的项目中slf4j引入了2个，导致了jar冲突。</p>
+<p>解决：<br>1、删除自己引入到slf4j的依赖</p>
+<p>2、将taotao-common中传递的依赖排除掉</p>
+<p>再次启动，发现警告没了：</p>
+<p>6.4.3.解决jsp访问404的问题<br>由于Spring boot使用的内嵌的tomcat，而内嵌的tamcat是不支持jsp页面的，所有需要导入额外的包才能解决。</p>
+<dependency><br>            <groupid>org.apache.tomcat.embed</groupid><br>            <artifactid>tomcat-embed-jasper</artifactid><br>            <scope>provided</scope><br>        </dependency>
+
+<p>重新启动进行测试：</p>
+<p>6.4.4.拦截器中的UserService空指针异常<br>分析：由于添加拦截器时，直接对UserLoginHandlerInterceptor进行new操作，导致UserService无法注入，所以有空指针异常。</p>
+<p>解决：</p>
+<p>6.4.5.路径问题<br>现在我们进入Servlet的路径为”/”，访问<em>.html页面没问题，但是，访问 /service/</em> 就会有问题，所以需要改一下js，将原有的/service/ 改为 /</p>
+<p>测试，功能一切ok。<br>7.发布到独立的tomcat中运行<br>在开发阶段我们推荐使用内嵌的tomcat进行开发，因为这样会方便很多，但是到生成环境，我希望在独立的tomcat容器中运行，因为我们需要对tomcat做额外的优化，这时我们需要将工程打包成war包发进行发布。<br>7.1.工程的打包方式为war</p>
+<p>7.2.将spring-boot-starter-tomcat的范围设置为provided<br>设置为provided是在打包时会将该包排除，因为要放到独立的tomcat中运行，是不需要的。</p>
+<p><dependency><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-starter-tomcat</artifactid><br>            <scope>provided</scope><br>        </dependency><br>7.3.修改代码，设置启动配置<br>需要集成SpringBootServletInitializer，然后重写configure，将Spring Boot的入口类设置进去。</p>
+<p>7.4.打war包</p>
+<p>打包成功：</p>
+<p>7.5.部署到tomcat<br>解压apache-tomcat-7.0.57.tar.gz，将war包解压到webapps下的ROOT目录中，启动：</p>
+<p>完美！</p>
+</div><div class="tags"><a href="/tags/springboot/">springboot</a></div><div class="post-nav"><a class="next" href="/2018/05/20/easy-ui/">easy-ui</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/springboot/">springboot</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/20/easy-ui/">easy-ui</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/spring/">spring</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
