@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>正则表达式 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">正则表达式</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">正则表达式</h1><div class="post-meta">Apr 24, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>mqtt协议<br>最近在弄emq服务器，故记录一下如何使用mqtt<br><a id="more"></a><br>同一个clientId重复连接会导致连接断开</p>
+<h2 id="最简单的emqttd客户端"><a href="#最简单的emqttd客户端" class="headerlink" title="最简单的emqttd客户端"></a>最简单的emqttd客户端</h2><pre><code>import java.io.FileNotFoundException;
+    import java.io.IOException;
+    import java.security.KeyManagementException;
+    import java.security.KeyStoreException;
+    import java.security.cert.CertificateException;
+
+    import org.eclipse.paho.client.mqttv3.MqttClient;
+    import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+    import org.eclipse.paho.client.mqttv3.MqttException;
+    import org.eclipse.paho.client.mqttv3.MqttMessage;
+    import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+    public class MqttPublishSample {
+
+    public static void main(String[] args) throws KeyManagementException, CertificateException, FileNotFoundException, IOException, KeyStoreException {
+
+    String topic        = &quot;MQTT Examples&quot;;
+    String content      = &quot;Message from MqttPublishSample&quot;;
+    int qos             = 2;
+    String broker       = &quot;tcp://127.0.0.1:11883&quot;;
+    String broker       = &quot;ssl://10.110.111.251:8883&quot;;
+    String clientId     = &quot;JavaSample&quot;;
+    MemoryPersistence persistence = new MemoryPersistence();
+
+    try {
+    MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+    MqttConnectOptions connOpts = new MqttConnectOptions();
+    connOpts.setCleanSession(true);
+    System.out.println(&quot;Connecting to broker: &quot;+broker);
+    sampleClient.connect(connOpts);
+    System.out.println(&quot;Connected&quot;);
+    System.out.println(&quot;Publishing message: &quot;+content);
+    MqttMessage message = new MqttMessage(content.getBytes());
+    message.setQos(qos);
+    sampleClient.publish(topic, message);
+    System.out.println(&quot;Message published&quot;);
+    sampleClient.disconnect();
+    System.out.println(&quot;Disconnected&quot;);
+    System.exit(0);
+    } catch(MqttException me) {
+    System.out.println(&quot;reason &quot;+me.getReasonCode());
+    System.out.println(&quot;msg &quot;+me.getMessage());
+    System.out.println(&quot;loc &quot;+me.getLocalizedMessage());
+    System.out.println(&quot;cause &quot;+me.getCause());
+    System.out.println(&quot;excep &quot;+me);
+    me.printStackTrace();
+    } 
+    }
+    }
+</code></pre><h2 id="spring整合mqtt"><a href="#spring整合mqtt" class="headerlink" title="spring整合mqtt"></a>spring整合mqtt</h2><h3 id="定义mqtt的配置类"><a href="#定义mqtt的配置类" class="headerlink" title="定义mqtt的配置类"></a>定义mqtt的配置类</h3><pre><code>package com.junye.test;
+
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.context.annotation.Scope;
+    import org.springframework.stereotype.Component;
+
+    @Component
+    public class ClientConfig {
+    @Value(&quot;tcp://127.0.0.1:11883&quot;)
+    private String broker;
+    @Value(&quot;admin&quot;)
+    private String user;
+    @Value(&quot;public&quot;)
+    private String password;
+    private int qos = 2;
+    private String clientId;
+
+    public void setBroker(String broker) {
+    this.broker = broker;
+    }
+
+    public void setUser(String user) {
+    this.user = user;
+    }
+
+    public void setPassword(String password) {
+    this.password = password;
+    }
+
+    public void setQos(int qos) {
+    this.qos = qos;
+    }
+
+    public void setClientId(String clientId) {
+    this.clientId = clientId;
+    }
+
+    public String getBroker() {
+    return broker;
+    }
+
+    public String getUser() {
+    return user;
+    }
+
+    public String getPassword() {
+    return password;
+    }
+
+    public int getQos() {
+    return qos;
+    }
+
+    public String getClientId() {
+    return clientId;
+    }
+    }
+</code></pre><h3 id="定义RemoteClient接口"><a href="#定义RemoteClient接口" class="headerlink" title="定义RemoteClient接口"></a>定义RemoteClient接口</h3><pre><code>package com.junye.test;
+    import org.eclipse.paho.client.mqttv3.MqttException;
+    /**
+    * 2018/05/26.
+    * 客户端接口
+    */
+    public interface RemoteClient {
+    /**
+    * @param broker   链接地址
+    * @param user     用户名
+    * @param password 密码
+    * @throws MqttException 异常
+    */
+    void init(String broker, String user, String password) throws MqttException;
+
+    /**
+    * 发布消息
+    *
+    * @param topic   主题
+    * @param message 消息
+    * @param qos     传输等级
+    * @throws MqttException 异常
+    */
+    void publish(String topic, String message, int qos) throws MqttException;
+
+    /**
+    * 订阅消息
+    *
+    * @param topic    主题
+    * @param listener 监听器
+    * @throws MqttException 异常
+    */
+    void subscribe(String topic, OnMessageListener listener) throws MqttException;
+
+    /**
+    * 取消订阅
+    *
+    * @param topic 主题
+    * @throws MqttException 异常
+    */
+    void unSubscribe(String topic) throws MqttException;
+    /**
+    * 关闭客户端
+    *
+    * @param topic 主题
+    * @throws MqttException 异常
+    */
+    void close() throws MqttException;
+    }
+</code></pre><h3 id="实现RemoteClient接口，编写RemoteClientImpl类"><a href="#实现RemoteClient接口，编写RemoteClientImpl类" class="headerlink" title="实现RemoteClient接口，编写RemoteClientImpl类"></a>实现RemoteClient接口，编写RemoteClientImpl类</h3><pre><code>package com.junye.test;
+    import java.util.UUID;
+    import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+    import org.eclipse.paho.client.mqttv3.MqttCallback;
+    import org.eclipse.paho.client.mqttv3.MqttClient;
+    import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+    import org.eclipse.paho.client.mqttv3.MqttException;
+    import org.eclipse.paho.client.mqttv3.MqttMessage;
+    import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
+    import org.springframework.util.Assert;
+    /** 
+    * MQTT客户端的简单实现 
+    */  
+    public class RemoteClientImpl implements RemoteClient {  
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private String broker;
+    private String user;
+    private String password;
+    private int qos = 2;
+
+
+    private String clientId;  
+    private MqttClient client;  
+
+
+    public void setQos(int qos) {
+    this.qos = qos;
+    }
+
+    public void setBroker(String broker) {
+    this.broker = broker;
+    }
+
+    public void setUser(String user) {
+    this.user = user;
+    }
+
+    public void setPassword(String password) {
+    this.password = password;
+    }
+
+    public void setClientId(String clientId) {
+    this.clientId = clientId;
+    }
+
+    public RemoteClientImpl() {  
+    this(UUID.randomUUID().toString());  
+    }  
+
+    public BasicRemoteClient(String clientId) {  
+    this.clientId = clientId;  
+    }  
+
+    public void init(String broker, String user, String password) throws MqttException {  
+    MemoryPersistence persistence = new MemoryPersistence();  
+    client = new MqttClient(broker, clientId, persistence);  
+    MqttConnectOptions options = new MqttConnectOptions();  
+
+    options.setCleanSession(true);  
+    options.setUserName(user);  
+    options.setPassword(password.toCharArray());  
+    client.connect(options);  
+    }  
+
+    public void init() throws MqttException {  
+    MemoryPersistence persistence = new MemoryPersistence();  
+    client = new MqttClient(broker, clientId, persistence);  
+    MqttConnectOptions options = new MqttConnectOptions();  
+    options.setCleanSession(true);  
+    options.setUserName(user);  
+    options.setPassword(password.toCharArray());  
+    client.connect(options);  
+    }  
+
+
+    public void publish(String topic, String message, int qos) throws MqttException {  
+    MqttMessage mqttMessage = new MqttMessage(message.getBytes());  
+    mqttMessage.setQos(qos);  
+    client.publish(topic, mqttMessage);  
+    }  
+
+    public void subscribe(String topic, final OnMessageListener listener) throws MqttException {  
+    Assert.notNull(listener, &quot;listener can&apos;t be null.&quot;);
+    try {  
+    client.subscribe(topic, this.qos);
+    client.setCallback(new MqttCallback(){
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        try {
+            init();
+            System.out.println(&quot;重连&quot;);
+        } catch (MqttException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void messageArrived(String topic2, MqttMessage message) throws Exception {
+        listener.handleMessage(topic2, message.toString());  
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        System.out.println(&quot;成功&quot;);
+        logger.info(&quot;deliveryComplete {}&quot;, token);
+    }
+
+    });
+    } catch (MqttException e) {  
+    throw e;  
+    }  
+    }  
+
+    public void unSubscribe(String topic) throws MqttException {  
+    client.unsubscribe(topic);  
+    }  
+
+    @Override  
+    public void close() throws MqttException {  
+    client.disconnect();  
+    }  
+
+    } 
+</code></pre><h3 id="定义监听接口OnMessageListener用于传入RemoteClient处理信息"><a href="#定义监听接口OnMessageListener用于传入RemoteClient处理信息" class="headerlink" title="定义监听接口OnMessageListener用于传入RemoteClient处理信息"></a>定义监听接口OnMessageListener用于传入RemoteClient处理信息</h3><pre><code>public interface OnMessageListener {
+    void handleMessage(String topic, String message);
+    }
+</code></pre><h3 id="自定义Bean注入"><a href="#自定义Bean注入" class="headerlink" title="自定义Bean注入"></a>自定义Bean注入</h3><pre><code>//自定义Basic的注入，直接当成一个普通的Bean即可，只是初始化的方法自定义了
+    @Component
+    public class BasicRemoteClientFactory implements FactoryBean&lt;RemoteClient&gt;{
+
+    @Autowired
+    private ClientConfig clientConfig;
+    public void setClientConfig(ClientConfig clientConfig) {
+    this.clientConfig = clientConfig;
+    }
+    @Override
+    public RemoteClient getObject() throws Exception {
+    BasicRemoteClient client = new BasicRemoteClient();
+    if(clientConfig.getClientId()!=null){
+    client.setClientId(clientConfig.getClientId());
+    }
+    client.init(clientConfig.getBroker(), clientConfig.getUser(), clientConfig.getPassword());
+    client.setQos(clientConfig.getQos());
+    return (RemoteClient) client;
+    }
+
+    @Override
+    public Class&lt;?&gt; getObjectType() {
+    return BasicRemoteClient.class;
+    }
+
+    @Override
+    public boolean isSingleton() {
+    return false;
+    }
+
+    }
+</code></pre><h3 id="定义抽象类BaseMqttSubscriber用于多个Controller继承（可选）"><a href="#定义抽象类BaseMqttSubscriber用于多个Controller继承（可选）" class="headerlink" title="定义抽象类BaseMqttSubscriber用于多个Controller继承（可选）"></a>定义抽象类BaseMqttSubscriber用于多个Controller继承（可选）</h3><pre><code>public abstract class BaseMqttSubscriber {
+    protected Logger logger =LoggerFactory.getLogger(this.getClass());
+    @Value(&quot;TEST&quot;)
+    private String clientId;
+
+    public void setClientId(String clientId) {
+    this.clientId = clientId;
+    }
+
+    @Autowired
+    private ClientConfig clientConfig;
+
+    public void setClientConfig(ClientConfig clientConfig) {
+    this.clientConfig = clientConfig;
+    }
+
+
+    public RemoteClient getMqttClient() throws Exception {
+    clientConfig.setClientId(clientId);//override the clientId;
+    BasicRemoteClientFactory factory=new BasicRemoteClientFactory();
+    factory.setClientConfig(clientConfig);
+    return factory.getObject();
+    }
+    }
+</code></pre><h3 id="定义HelloController测试"><a href="#定义HelloController测试" class="headerlink" title="定义HelloController测试"></a>定义HelloController测试</h3><pre><code>package com.junye.test;
+    import java.util.HashMap;
+    import java.util.Map;
+    import javax.annotation.PostConstruct;
+    import org.eclipse.paho.client.mqttv3.MqttException;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+    @RestController
+    public class HelloController extends BaseMqttSubscriber{
+    @RequestMapping(&quot;/hello&quot;)
+    public Map&lt;String, Object&gt; index(String test,String test2) throws MqttException, Exception {
+
+    Map&lt;String , Object&gt; result=new HashMap&lt;String,Object&gt;();
+    result.put(&quot;test&quot;, test);
+    Demo demo=new Demo(&quot;junye&quot;, &quot;1&quot;);
+    result.put(&quot;Demo&quot;, demo);
+    this.getMqttClient().publish(&quot;/test&quot;, &quot;hahah&quot;, 2);
+
+    System.out.println(&quot;chenggong&quot;);
+    return result;
+    }
+    @PostConstruct
+    public void init() throws MqttException, Exception {
+    System.out.println(&quot;qidong&quot;);
+
+    this.getMqttClient().subscribe(&quot;/test&quot;, new OnMessageListener() {
+
+    @Override
+    public void handleMessage(String topic, String message)  {
+    System.out.println(&quot;test&quot;);
+    }
+    });    
+    }  
+    }
+</code></pre><h3 id="定义springboot入口"><a href="#定义springboot入口" class="headerlink" title="定义springboot入口"></a>定义springboot入口</h3><pre><code>package com.junye.test;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    @EnableAutoConfiguration
+    public class MainApplication {
+    public static void main(String[] args) {
+    SpringApplication.run(MainApplication.class, args);
+    }    
+    }
+</code></pre></div><div class="tags"><a href="/tags/正则表达式/">正则表达式</a></div><div class="post-nav"><a class="pre" href="/2018/04/24/正则表达式/">正则表达式</a><a class="next" href="/2018/04/23/算法/">算法</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/02/shiro/">shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/springboot/">springboot</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/20/easy-ui/">easy-ui</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/springmvc/">springmvc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/mybatis/">mybatis</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
