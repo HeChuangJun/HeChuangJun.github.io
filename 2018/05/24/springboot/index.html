@@ -1,35 +1,67 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>springboot | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">springboot</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">springboot</h1><div class="post-meta">May 24, 2018<span> | </span><span class="category"><a href="/categories/springboot/">springboot</a></span></div><div class="post-content"><p>最近在搞springboot顺便做一下笔记<br><a id="more"></a></p>
-<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>springboot其实包含了springmvc所以学起来和springmvc差不多</p>
+<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>springboot其实包含了springmvc许多的组件，还允许自动配置，省事</p>
 <h3 id="springboot2-0环境"><a href="#springboot2-0环境" class="headerlink" title="springboot2.0环境"></a>springboot2.0环境</h3><pre><code>Java 7、Spring Framework 4.1.5及以上
-</code></pre><h3 id="springboot2三大文件和配置"><a href="#springboot2三大文件和配置" class="headerlink" title="springboot2三大文件和配置"></a>springboot2三大文件和配置</h3><pre><code>src/main/java下的程序入口：Chapter1Application
+</code></pre><h3 id="springboot2-0三大文件和配置"><a href="#springboot2-0三大文件和配置" class="headerlink" title="springboot2.0三大文件和配置"></a>springboot2.0三大文件和配置</h3><pre><code>src/main/java下的程序入口：Chapter1Application
     src/main/resources下的配置文件：application.properties
-    src/test/下的测试入口：Chapter1ApplicationTests
     src/main/java下的web组件
     配置pom.xml
 </code></pre><h3 id="springboot2程序入门"><a href="#springboot2程序入门" class="headerlink" title="springboot2程序入门"></a>springboot2程序入门</h3><h4 id="创建maven项目，打包方式选择war，跳过骨架"><a href="#创建maven项目，打包方式选择war，跳过骨架" class="headerlink" title="创建maven项目，打包方式选择war，跳过骨架"></a>创建maven项目，打包方式选择war，跳过骨架</h4><h4 id="配置pom-xml（注意编译jdk版本和运行的jdk版本匹配）"><a href="#配置pom-xml（注意编译jdk版本和运行的jdk版本匹配）" class="headerlink" title="配置pom.xml（注意编译jdk版本和运行的jdk版本匹配）"></a>配置pom.xml（注意编译jdk版本和运行的jdk版本匹配）</h4><pre><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
     xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 
     http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.junye&lt;/groupId&gt;
-  &lt;artifactId&gt;testspringboot&lt;/artifactId&gt;
-  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-  &lt;packaging&gt;war&lt;/packaging&gt;
-  &lt;name&gt;testspringboot&lt;/name&gt;
-      &lt;description&gt;AAA&lt;/description&gt;
-        &lt;parent&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-        &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;com.junye&lt;/groupId&gt;
+    &lt;artifactId&gt;testspringboot&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;!--打包的方式为war，自动生成jar包--&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;name&gt;testspringboot&lt;/name&gt;
+    &lt;description&gt;AAA&lt;/description&gt;
+    &lt;!-- 定义公共资源版本 --&gt;
+    &lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;
     &lt;/parent&gt;
+    &lt;!--设置资源的版本--&gt;
+    &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+    &lt;java.version&gt;1.8&lt;/java.version&gt;
+    &lt;/properties&gt;
+
     &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-        &lt;/dependency&gt;
+    &lt;dependency&gt;
+    &lt;!-- 上边引入 parent，因此 下边无需指定版本，相当于配置了springmvc --&gt;
+    &lt;!-- 包含 mvc,aop 等jar资源 --&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;!--使用别的服务器，如undertow
+    &lt;exclusions&gt;
+    &lt;exclusion&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+    &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+    指定特定的服务器
+    &lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-boot-starter-undertow&lt;/artifactId&gt;
+    &lt;/dependency&gt;--&gt;
     &lt;/dependencies&gt;
-&lt;/project&gt;
-</code></pre><h3 id="src-main-java下的程序入口：Chapter1Application（必须）"><a href="#src-main-java下的程序入口：Chapter1Application（必须）" class="headerlink" title="src/main/java下的程序入口：Chapter1Application（必须）"></a>src/main/java下的程序入口：Chapter1Application（必须）</h3><pre><code>package com.junye.test;
+    &lt;build&gt;
+    &lt;!--指定springboot的maven插件--&gt;
+    &lt;plugins&gt;
+    &lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    &lt;/build&gt;
+    &lt;/project&gt;
+</code></pre><h3 id="src-main-java下的程序入口：Chapter1Application（必须）"><a href="#src-main-java下的程序入口：Chapter1Application（必须）" class="headerlink" title="src/main/java下的程序入口：Chapter1Application（必须）"></a>src/main/java下的程序入口：Chapter1Application（必须）</h3><pre><code>run中传入的名字必须与类名一致
+    package com.junye.test;
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
     @SpringBootApplication
@@ -43,32 +75,22 @@
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
-    @Controller
-    @RestController
+    @RestController//自动返回json数据
     public class HelloController {
     @RequestMapping(&quot;/hello&quot;)
     public String index() {
     return &quot;Hello World&quot;;
     }
     }
-完成上述步骤访问：http://localhost:8080/hello即可显示helloworld
-</code></pre><h3 id="src-test-下的测试入口：Chapter1ApplicationTests（非必须）"><a href="#src-test-下的测试入口：Chapter1ApplicationTests（非必须）" class="headerlink" title="src/test/下的测试入口：Chapter1ApplicationTests（非必须）"></a>src/test/下的测试入口：Chapter1ApplicationTests（非必须）</h3><pre><code>/**
-    * Spring Boot HelloWorldController 测试 - {@link HelloWorldController}
-    *
-    * Created by bysocket on 16/4/26.
-    */
-    public class HelloWorldControllerTest {
-    @Test
-    public void testSayHello() {
-    assertEquals(&quot;Hello,World!&quot;,new HelloWorldController().sayHello());
-    }
-    }
 </code></pre><h3 id="启动项目的方法"><a href="#启动项目的方法" class="headerlink" title="启动项目的方法"></a>启动项目的方法</h3><pre><code>Debug Run或者运行主函数或者maven的spring-boot：run
-</code></pre><h2 id="springboot参数接收"><a href="#springboot参数接收" class="headerlink" title="springboot参数接收"></a>springboot参数接收</h2><pre><code>@RequestMapping(&quot;/hello&quot;)//接收所有hello路径的请求
+    完成上述步骤访问：http://localhost:8080/hello即可显示helloworld
+</code></pre><h2 id="springboot参数接收与返回与springmvc一致"><a href="#springboot参数接收与返回与springmvc一致" class="headerlink" title="springboot参数接收与返回与springmvc一致"></a>springboot参数接收与返回与springmvc一致</h2><pre><code>@RequestMapping(&quot;/hello&quot;)//接收所有hello路径的请求
     public String index(参数名与接收的参数名一致) {
     return &quot;Hello World&quot;;
     }
-</code></pre><h3 id="指定前端url请求参数名称与方法名一致"><a href="#指定前端url请求参数名称与方法名一致" class="headerlink" title="指定前端url请求参数名称与方法名一致"></a>指定前端url请求参数名称与方法名一致</h3><h3 id="通过HttpServletRequest来获取前端页面参数"><a href="#通过HttpServletRequest来获取前端页面参数" class="headerlink" title="通过HttpServletRequest来获取前端页面参数"></a>通过HttpServletRequest来获取前端页面参数</h3><h3 id="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"><a href="#创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数" class="headerlink" title="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"></a>创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数</h3><h3 id="通过PathVariable注解来绑定请求路径的参数"><a href="#通过PathVariable注解来绑定请求路径的参数" class="headerlink" title="通过PathVariable注解来绑定请求路径的参数"></a>通过PathVariable注解来绑定请求路径的参数</h3><h3 id="通过RequestParam注解来获取"><a href="#通过RequestParam注解来获取" class="headerlink" title="通过RequestParam注解来获取"></a>通过RequestParam注解来获取</h3><h2 id="springboot返回参数"><a href="#springboot返回参数" class="headerlink" title="springboot返回参数"></a>springboot返回参数</h2><h2 id="Spring的发展"><a href="#Spring的发展" class="headerlink" title="Spring的发展"></a>Spring的发展</h2><h3 id="Spring1-x-时代"><a href="#Spring1-x-时代" class="headerlink" title="Spring1.x 时代"></a>Spring1.x 时代</h3><pre><code>在Spring1.x时代，都是通过xml文件配置bean，随着项目的不断扩大，
+</code></pre><h3 id="指定前端url请求参数名称与方法名一致"><a href="#指定前端url请求参数名称与方法名一致" class="headerlink" title="指定前端url请求参数名称与方法名一致"></a>指定前端url请求参数名称与方法名一致</h3><h3 id="通过HttpServletRequest来获取前端页面参数"><a href="#通过HttpServletRequest来获取前端页面参数" class="headerlink" title="通过HttpServletRequest来获取前端页面参数"></a>通过HttpServletRequest来获取前端页面参数</h3><h3 id="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"><a href="#创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数" class="headerlink" title="创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数"></a>创建一个JavaBean对象来封装表单参数或者是请求url路径中的参数</h3><h3 id="通过PathVariable注解来绑定请求路径的参数"><a href="#通过PathVariable注解来绑定请求路径的参数" class="headerlink" title="通过PathVariable注解来绑定请求路径的参数"></a>通过PathVariable注解来绑定请求路径的参数</h3><h3 id="通过RequestParam注解来获取"><a href="#通过RequestParam注解来获取" class="headerlink" title="通过RequestParam注解来获取"></a>通过RequestParam注解来获取</h3><h2 id="springboot返回参数"><a href="#springboot返回参数" class="headerlink" title="springboot返回参数"></a>springboot返回参数</h2><h3 id="返回jsp页面（undertow不支持jsp）"><a href="#返回jsp页面（undertow不支持jsp）" class="headerlink" title="返回jsp页面（undertow不支持jsp）"></a>返回jsp页面（undertow不支持jsp）</h3><pre><code>值得注意的是，当我们使用Spring Boot 2.0 想要返回页面而不是提供json或者xml数据接口的时候，
+    切记不能再使用@RestController了,只能使用@Controller.
+</code></pre><h2 id="Spring的发展"><a href="#Spring的发展" class="headerlink" title="Spring的发展"></a>Spring的发展</h2><h3 id="Spring1-x-时代"><a href="#Spring1-x-时代" class="headerlink" title="Spring1.x 时代"></a>Spring1.x 时代</h3><pre><code>在Spring1.x时代，都是通过xml文件配置bean，随着项目的不断扩大，
     需要将xml配置分放到不同的配置文件中，需要频繁的在java类和xml配置文件中切换。
 </code></pre><h3 id="Spring2-x时代"><a href="#Spring2-x时代" class="headerlink" title="Spring2.x时代"></a>Spring2.x时代</h3><pre><code>随着JDK 1.5带来的注解支持，Spring2.x可以使用注解对Bean进行申明和注入，
     大大的减少了xml配置文件，同时也大大简化了项目的开发。
@@ -78,169 +100,44 @@
 </code></pre><h3 id="Spring3-x到Spring4-x"><a href="#Spring3-x到Spring4-x" class="headerlink" title="Spring3.x到Spring4.x"></a>Spring3.x到Spring4.x</h3><pre><code>从Spring3.x开始提供了Java配置方式，使用Java配置方式可以更好的理解你配置的Bean，
     现在我们就处于这个时代，并且Spring4.x和Spring boot都推荐使用java配置的方式。
 </code></pre><h3 id="Spring的Java配置方式"><a href="#Spring的Java配置方式" class="headerlink" title="Spring的Java配置方式"></a>Spring的Java配置方式</h3><pre><code>Java配置是Spring4.x推荐的配置方式，可以完全替代xml配置。
-</code></pre><h2 id="Configuration和-Bean"><a href="#Configuration和-Bean" class="headerlink" title="@Configuration和@Bean"></a>@Configuration和@Bean</h2><pre><code>Spring的Java配置方式是通过 @Configuration 和 @Bean 这两个注解实现的：
-    @Configuration 作用于类上，相当于一个xml配置文件；
-    @Bean作用于方法上,相当于xml配置中的&lt;bean&gt;；
-</code></pre><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>该示例演示了通过Java配置的方式进行配置Spring，并且实现了Spring IOC功能。
-</code></pre><h4 id="创建工程以及导入依赖"><a href="#创建工程以及导入依赖" class="headerlink" title="创建工程以及导入依赖"></a>创建工程以及导入依赖</h4><pre><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
-    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 
-    http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-    &lt;groupId&gt;cn.itcast.springboot&lt;/groupId&gt;
-    &lt;artifactId&gt;itcast-springboot&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-    &lt;packaging&gt;war&lt;/packaging&gt;
-
-    &lt;dependencies&gt;
-    &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-    &lt;version&gt;4.3.7.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- 连接池 --&gt;
-    &lt;dependency&gt;
-    &lt;groupId&gt;com.jolbox&lt;/groupId&gt;
-    &lt;artifactId&gt;bonecp-spring&lt;/artifactId&gt;
-    &lt;version&gt;0.8.0.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-    &lt;build&gt;
-    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
-    &lt;plugins&gt;
-    &lt;!-- 资源文件拷贝插件 --&gt;
-    &lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
-    &lt;/configuration&gt;
-    &lt;/plugin&gt;
-    &lt;!-- java编译插件 --&gt;
-    &lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-    &lt;source&gt;1.7&lt;/source&gt;
-    &lt;target&gt;1.7&lt;/target&gt;
-    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
-    &lt;/configuration&gt;
-    &lt;/plugin&gt;
-    &lt;/plugins&gt;
-    &lt;pluginManagement&gt;
-    &lt;plugins&gt;
-    &lt;!-- 配置Tomcat插件 --&gt;
-    &lt;plugin&gt;
-    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
-    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.2&lt;/version&gt;
-    &lt;/plugin&gt;
-    &lt;/plugins&gt;
-    &lt;/pluginManagement&gt;
-    &lt;/build&gt;
-    &lt;/project&gt;
-</code></pre><h4 id="编写User对象"><a href="#编写User对象" class="headerlink" title="编写User对象"></a>编写User对象</h4><pre><code>public class User {
-    private String username;
-    private String password;
-    private Integer age;
-    set、get方法
-    }
-</code></pre><h4 id="编写UserDAO-用于模拟与数据库的交互"><a href="#编写UserDAO-用于模拟与数据库的交互" class="headerlink" title="编写UserDAO 用于模拟与数据库的交互"></a>编写UserDAO 用于模拟与数据库的交互</h4><pre><code>public class UserDAO {
-    public List&lt;User&gt; queryUserList(){
-    List&lt;User&gt; result = new ArrayList&lt;User&gt;();
-    // 模拟数据库的查询
-    for (int i = 0; i &lt; 10; i++) {
-    User user = new User();
-    user.setUsername(&quot;username_&quot; + i);
-    user.setPassword(&quot;password_&quot; + i);
-    user.setAge(i + 1);
-    result.add(user);
-    }
-    return result;
-    }
-    }
-</code></pre><h4 id="编写UserService-用于实现User数据操作业务逻辑"><a href="#编写UserService-用于实现User数据操作业务逻辑" class="headerlink" title="编写UserService 用于实现User数据操作业务逻辑"></a>编写UserService 用于实现User数据操作业务逻辑</h4><pre><code>@Service
-    public class UserService {
-    @Autowired // 注入Spring容器中的bean对象
-    private UserDAO userDAO;
-    public List&lt;User&gt; queryUserList() {
-    // 调用userDAO中的方法进行查询
-    return this.userDAO.queryUserList();
-    }
-    }
-</code></pre><h4 id="编写SpringConfig-用于实例化Spring容器"><a href="#编写SpringConfig-用于实例化Spring容器" class="headerlink" title="编写SpringConfig 用于实例化Spring容器"></a>编写SpringConfig 用于实例化Spring容器</h4><pre><code>@Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
-    @ComponentScan(basePackages = &quot;cn.itcast.springboot.javaconfig&quot;) //配置扫描包
+</code></pre><h2 id="spring的java配置"><a href="#spring的java配置" class="headerlink" title="spring的java配置"></a>spring的java配置</h2><h3 id="编写SpringConfig-用于实例化Spring容器，整个文件相当于applicationContext-xml"><a href="#编写SpringConfig-用于实例化Spring容器，整个文件相当于applicationContext-xml" class="headerlink" title="编写SpringConfig 用于实例化Spring容器，整个文件相当于applicationContext.xml"></a>编写SpringConfig 用于实例化Spring容器，整个文件相当于applicationContext.xml</h3><pre><code>@Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
+    @ComponentScan(basePackages = &quot;cn.itcast.springboot.javaconfig&quot;) //配置扫描包，扫描组件
+    //@PropertySource可以指定读取的配置文件，通过@Value注解获取值
+    @PropertySource(value= {&quot;classpath:jdbc.properties&quot;,&quot;xxxx&quot;},ignoreResourceNotFound=true)
     public class SpringConfig {
-
+    @Value(&quot;${jdbc.url}&quot;)
+    private String jdbcUrl;    
     @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的&lt;bean&gt;
     public UserDAO getUserDAO(){
     return new UserDAO(); // 直接new对象做演示
     }
-
-    }
-</code></pre><h4 id="编写测试方法-用于启动Spring容器"><a href="#编写测试方法-用于启动Spring容器" class="headerlink" title="编写测试方法 用于启动Spring容器"></a>编写测试方法 用于启动Spring容器</h4><pre><code>public class Main {
-    public static void main(String[] args) {
-    // 通过Java配置来实例化Spring容器
-    AnnotationConfigApplicationContext context = new 
-    AnnotationConfigApplicationContext(SpringConfig.class);
-
-    UserService userService = context.getBean(UserService.class);
-
-    List&lt;User&gt; list = userService.queryUserList();
-    for (User user : list) {
-    System.out.println(user.getUsername() + &quot;, &quot; + 
-    user.getPassword() + &quot;, &quot; + user.getPassword());
-    }        
-    context.destroy();// 销毁该容器
-    }
     }
 </code></pre><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><pre><code>使用Java代码就完美的替代xml配置文件，并且结构更加的清晰。
-</code></pre><h4 id="读取外部的资源配置文件"><a href="#读取外部的资源配置文件" class="headerlink" title="读取外部的资源配置文件"></a>读取外部的资源配置文件</h4><pre><code>通过@PropertySource可以指定读取的配置文件，通过@Value注解获取值，具体用法：
-    @Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
-    @ComponentScan(basePackages = &quot;cn.itcast.springboot&quot;) //配置扫描包
-    @PropertySource(value= {&quot;classpath:jdbc.properties&quot;})
-    public class SpringConfig {            
-        @Value(&quot;${jdbc.url}&quot;)
-        private String jdbcUrl;        
-    @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的&lt;bean&gt;
-    方法名作为bean的id
-        public UserDAO getUserDAO(){
-            return new UserDAO(); // 直接new对象做演示
-        }
-    }
-</code></pre><h4 id="如何配置多个配置文件？"><a href="#如何配置多个配置文件？" class="headerlink" title="如何配置多个配置文件？"></a>如何配置多个配置文件？</h4><pre><code>@PropertySource(value= {&quot;classpath:jdbc.properties&quot;,&quot;xxxx&quot;})
-</code></pre><h4 id="如果配置的配置文件不存在会怎么样？"><a href="#如果配置的配置文件不存在会怎么样？" class="headerlink" title="如果配置的配置文件不存在会怎么样？"></a>如果配置的配置文件不存在会怎么样？</h4><pre><code>@PropertySource(value= {&quot;classpath:jdbc.properties&quot;‘
-    ignoreResourceNotFound=true
-    })
-</code></pre><h4 id="配置数据库连接池"><a href="#配置数据库连接池" class="headerlink" title="配置数据库连接池"></a>配置数据库连接池</h4><pre><code>导入依赖：
+</code></pre><h2 id="spring4-0配置数据库连接池"><a href="#spring4-0配置数据库连接池" class="headerlink" title="spring4.0配置数据库连接池"></a>spring4.0配置数据库连接池</h2><pre><code>导入依赖：
     &lt;!-- 连接池 --&gt;
     &lt;dependency&gt;
     &lt;groupId&gt;com.jolbox&lt;/groupId&gt;
     &lt;artifactId&gt;bonecp-spring&lt;/artifactId&gt;
     &lt;version&gt;0.8.0.RELEASE&lt;/version&gt;
     &lt;/dependency&gt;
-</code></pre><h4 id="之前的Spring-xml配置："><a href="#之前的Spring-xml配置：" class="headerlink" title="之前的Spring xml配置："></a>之前的Spring xml配置：</h4><pre><code> &lt;!-- 定义数据源 --&gt;
-    &lt;bean id=&quot;dataSource&quot; class=&quot;com.jolbox.bonecp.BoneCPDataSource&quot;
-    destroy-method=&quot;close&quot;&gt;
-    &lt;!-- 数据库驱动 --&gt;
-    &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driverClassName}&quot; /&gt;
-    &lt;!-- 相应驱动的jdbcUrl --&gt;
-    &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot; /&gt;
-    &lt;!-- 数据库的用户名 --&gt;
-    &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
-    &lt;!-- 数据库的密码 --&gt;
-    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
-    &lt;!-- 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 --&gt;
-    &lt;property name=&quot;idleConnectionTestPeriod&quot; value=&quot;60&quot; /&gt;
-    &lt;!-- 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 --&gt;
-    &lt;property name=&quot;idleMaxAge&quot; value=&quot;30&quot; /&gt;
-    &lt;!-- 每个分区最大的连接数 --&gt;
-    &lt;!-- 判断依据：请求并发数--&gt;
-    &lt;property name=&quot;maxConnectionsPerPartition&quot; value=&quot;100&quot; /&gt;
-    &lt;!-- 每个分区最小的连接数 --&gt;
-    &lt;property name=&quot;minConnectionsPerPartition&quot; value=&quot;5&quot; /&gt;
-&lt;/bean&gt;
-</code></pre><h4 id="参考xml配置改造成java配置方式："><a href="#参考xml配置改造成java配置方式：" class="headerlink" title="参考xml配置改造成java配置方式："></a>参考xml配置改造成java配置方式：</h4><pre><code>@Value(&quot;${jdbc.url}&quot;)
+</code></pre><h3 id="之前的Spring-xml配置："><a href="#之前的Spring-xml配置：" class="headerlink" title="之前的Spring xml配置："></a>之前的Spring xml配置：</h3><pre><code>&lt;!-- 定义数据源 --&gt;
+   &lt;bean id=&quot;dataSource&quot; class=&quot;com.jolbox.bonecp.BoneCPDataSource&quot;
+   destroy-method=&quot;close&quot;&gt;
+   &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driverClassName}&quot; /&gt;
+   &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot; /&gt;
+   &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
+   &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
+   &lt;!-- 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 --&gt;
+   &lt;property name=&quot;idleConnectionTestPeriod&quot; value=&quot;60&quot; /&gt;
+   &lt;!-- 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 --&gt;
+   &lt;property name=&quot;idleMaxAge&quot; value=&quot;30&quot; /&gt;
+   &lt;!-- 每个分区最大的连接数 --&gt;
+   &lt;!-- 判断依据：请求并发数--&gt;
+   &lt;property name=&quot;maxConnectionsPerPartition&quot; value=&quot;100&quot; /&gt;
+   &lt;!-- 每个分区最小的连接数 --&gt;
+   &lt;property name=&quot;minConnectionsPerPartition&quot; value=&quot;5&quot; /&gt;
+   &lt;/bean&gt;
+</code></pre><h3 id="参考xml配置改造成java配置方式："><a href="#参考xml配置改造成java配置方式：" class="headerlink" title="参考xml配置改造成java配置方式："></a>参考xml配置改造成java配置方式：</h3><pre><code>@Value(&quot;${jdbc.url}&quot;)
     private String jdbcUrl;
 
     @Value(&quot;${jdbc.driverClassName}&quot;)
@@ -255,13 +152,9 @@
     @Bean(destroyMethod = &quot;close&quot;)
     public DataSource dataSource() {
     BoneCPDataSource boneCPDataSource = new BoneCPDataSource();
-    // 数据库驱动
     boneCPDataSource.setDriverClass(jdbcDriverClassName);
-    // 相应驱动的jdbcUrl
     boneCPDataSource.setJdbcUrl(jdbcUrl);
-    // 数据库的用户名
     boneCPDataSource.setUsername(jdbcUsername);
-    // 数据库的密码
     boneCPDataSource.setPassword(jdbcUsername);
     // 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0
     boneCPDataSource.setIdleConnectionTestPeriodInMinutes(60);
@@ -273,8 +166,7 @@
     boneCPDataSource.setMinConnectionsPerPartition(5);
     return boneCPDataSource;
     }
-</code></pre><p>思考： 如何使用该DataSource对象？</p>
-<h2 id="Spring-Boot（不配置则使用默认的）"><a href="#Spring-Boot（不配置则使用默认的）" class="headerlink" title="Spring Boot（不配置则使用默认的）"></a>Spring Boot（不配置则使用默认的）</h2><h3 id="什么是Spring-Boot"><a href="#什么是Spring-Boot" class="headerlink" title="什么是Spring Boot"></a>什么是Spring Boot</h3><img src="/2018/05/24/springboot/1.png" title="1.png">
+</code></pre><h2 id="Spring-Boot（不配置则使用默认的）"><a href="#Spring-Boot（不配置则使用默认的）" class="headerlink" title="Spring Boot（不配置则使用默认的）"></a>Spring Boot（不配置则使用默认的）</h2><h3 id="什么是Spring-Boot"><a href="#什么是Spring-Boot" class="headerlink" title="什么是Spring Boot"></a>什么是Spring Boot</h3><img src="/2018/05/24/springboot/1.png" title="1.png">
 <h3 id="Spring-Boot的优缺点"><a href="#Spring-Boot的优缺点" class="headerlink" title="Spring Boot的优缺点"></a>Spring Boot的优缺点</h3><img src="/2018/05/24/springboot/2.png" title="2.png">
 <h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><h4 id="设置spring-boot的parent"><a href="#设置spring-boot的parent" class="headerlink" title="设置spring boot的parent"></a>设置spring boot的parent</h4><pre><code>&lt;parent&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -314,10 +206,7 @@
     3、@Controller：标明这是一个SpringMVC的Controller控制器；
     4、main方法：在main方法中启动一个应用，即：这个应用的入口；
     4.3.5.启动应用
-    在Spring Boot项目中，启动的方式有两种，
-    一种是直接run Java Application
-    另外一种是通过Spring Boot的Maven插件运行。
-
+    在Spring Boot项目中，启动的方式有两种
     第一种：直接run as JavaAppliaction
     第二种：springboot：run
     看到如下信息就说明启动成功了：
@@ -331,14 +220,14 @@
     1.@SpringBootConfiguration：这是Spring Boot项目的配置注解，
     这也是一个组合注解：
 </code></pre><img src="/2018/05/24/springboot/4.png" title="4.png">
-<pre><code>在Spring Boot项目中推荐使用@ SpringBootConfiguration替代@Configuration（代替配置xml）
-    2.@EnableAutoConfiguration：启用自动配置，该注解会使Spring Boot根据项目中依赖的jar包自动配置项目的配置项：
-    a)如：我们添加了spring-boot-starter-web的依赖，
-    项目中也就会引入SpringMVC的依赖，Spring Boot就会自动配置tomcat和SpringMVC
-    b)根据这个改项目
+<pre><code>Spring Boot项目推荐使用@ SpringBootConfiguration替代@Configuration代替xml
+    @EnableAutoConfiguration启用自动配置使项目中依赖的jar包自动配置项目的配置项
+    如：我们添加了spring-boot-starter-web的依赖，
+    项目中也就会引入SpringMVC的依赖，同时自动配置tomcat和SpringMVC
+    可根据这个改项目
 </code></pre><img src="/2018/05/24/springboot/5.png" title="5.png">
 <img src="/2018/05/24/springboot/6.png" title="6.png">
-<pre><code>3.@ComponentScan：默认扫描@SpringBootApplication所在类的同级目录以及它的子目录。
+<pre><code>@ComponentScan：默认扫描@SpringBootApplication所在类的同级目录以及它的子目录。
 </code></pre><h3 id="关闭自动配置"><a href="#关闭自动配置" class="headerlink" title="关闭自动配置"></a>关闭自动配置</h3><pre><code>通过上述，我们得知，Spring Boot会根据项目中的jar包依赖，
     自动做出配置，Spring Boot支持的自动配置如下（非常多）：
 </code></pre><img src="/2018/05/24/springboot/7.png" title="7.png">
@@ -376,7 +265,7 @@
     logging.level.*= # Log levels severity mapping. 
     For instance `logging.level.org.springframework=DEBUG`
 </code></pre><h3 id="Spring-Boot的自动配置的原理"><a href="#Spring-Boot的自动配置的原理" class="headerlink" title="Spring Boot的自动配置的原理"></a>Spring Boot的自动配置的原理</h3><pre><code>Spring Boot在进行SpringApplication对象实例化时会加载
-    springboot-1.5。1.reales /META-INF/spring.factories文件，
+    springboot-1.5.1.realese /META-INF/spring.factories文件，
     将该配置文件中的配置载入到Spring容器。
 </code></pre><h4 id="Maven下载源码"><a href="#Maven下载源码" class="headerlink" title="Maven下载源码"></a>Maven下载源码</h4><pre><code>通过 dependency:sources 该命令可以
     下载该项目中所有的依赖的包的源码
@@ -421,7 +310,8 @@
     就会被Spring Boot自动加入到容器中。
     @Bean
     public StringHttpMessageConverter stringHttpMessageConverter(){
-    StringHttpMessageConverter converter  = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
+    StringHttpMessageConverter converter  
+    = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
     return converter;
     }
     默认配置：utf-8
@@ -469,7 +359,8 @@
     Exception ex) throws Exception {
     }
     };
-    //注册拦截器     registry.addInterceptor(handlerInterceptor).addPathPatterns(&quot;/**&quot;);
+    //注册拦截器     
+    registry.addInterceptor(handlerInterceptor).addPathPatterns(&quot;/**&quot;);
     }
 
     // 自定义消息转化器的第二种方法
@@ -674,26 +565,19 @@
 </code></pre><h3 id="设置扫描包"><a href="#设置扫描包" class="headerlink" title="设置扫描包"></a>设置扫描包</h3><img src="/2018/05/24/springboot/36.png" title="36.png">
 <h4 id="定义数据源"><a href="#定义数据源" class="headerlink" title="定义数据源"></a>定义数据源</h4><pre><code>@Value(&quot;${jdbc.url}&quot;)
     private String jdbcUrl;
-
     @Value(&quot;${jdbc.driverClassName}&quot;)
     private String jdbcDriverClassName;
-
     @Value(&quot;${jdbc.username}&quot;)
     private String jdbcUsername;
-
     @Value(&quot;${jdbc.password}&quot;)
     private String jdbcPassword;
-
     @Bean(destroyMethod = &quot;close&quot;)
+    //@Primary//设置优先
     public DataSource dataSource() {
         BoneCPDataSource boneCPDataSource = new BoneCPDataSource();
-        // 数据库驱动
         boneCPDataSource.setDriverClass(jdbcDriverClassName);
-        // 相应驱动的jdbcUrl
         boneCPDataSource.setJdbcUrl(jdbcUrl);
-        // 数据库的用户名
         boneCPDataSource.setUsername(jdbcUsername);
-        // 数据库的密码
         boneCPDataSource.setPassword(jdbcUsername);
         // 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0
         boneCPDataSource.setIdleConnectionTestPeriodInMinutes(60);
@@ -705,12 +589,58 @@
         boneCPDataSource.setMinConnectionsPerPartition(5);
         return boneCPDataSource;
     }
-</code></pre><h3 id="设置Mybatis和Spring-Boot整合"><a href="#设置Mybatis和Spring-Boot整合" class="headerlink" title="设置Mybatis和Spring Boot整合"></a>设置Mybatis和Spring Boot整合</h3><pre><code>Mybatis和Spring Boot的整合有两种方式：
-    第一种：使用mybatis官方提供的Spring Boot整合包实现，
-    地址：https://github.com/mybatis/spring-boot-starter
-    第二种：使用mybatis-spring整合的方式，也就是我们传统的方式
-    这里我们推荐使用第二种，因为这样我们可以很方便的控制Mybatis的各种配置。
-</code></pre><h4 id="首先，创建一个Mybatis的配置类："><a href="#首先，创建一个Mybatis的配置类：" class="headerlink" title="首先，创建一个Mybatis的配置类："></a>首先，创建一个Mybatis的配置类：</h4><pre><code>import javax.sql.DataSource;
+</code></pre><h2 id="Mybatis和Spring-Boot整合-两种方式"><a href="#Mybatis和Spring-Boot整合-两种方式" class="headerlink" title="Mybatis和Spring Boot整合(两种方式)"></a>Mybatis和Spring Boot整合(两种方式)</h2><h3 id="使用mybatis官方提供的Spring-Boot整合包实现，"><a href="#使用mybatis官方提供的Spring-Boot整合包实现，" class="headerlink" title="使用mybatis官方提供的Spring Boot整合包实现，"></a>使用mybatis官方提供的Spring Boot整合包实现，</h3><pre><code>地址：https://github.com/mybatis/spring-boot-starter
+    &lt;!--三包合一，包括mybatis、整合包和事务包--&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.3.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    @Mapper（在接口上面注解即可）或者直接扫描包
+    @MapperScan(basePackages= {&quot;com.junye.testspringbootMybaits&quot;})
+    @Transactional（service层上面注册）
+    java配置sqlfactorysession和数据源
+    @Bean
+    //@Primary//设置优先,多数据源的时候使用就是当遇到数据对接的时候用
+    public ComboPooledDataSource getComboPooledDataSource() throws PropertyVetoException{
+    ComboPooledDataSource cd=new ComboPooledDataSource();
+    cd.setDriverClass(&quot;com.mysql.cj.jdbc.Driver&quot;);
+    cd.setJdbcUrl(&quot;jdbc:mysql://localhost:3306/testmybatis?useSSL=true&amp;serverTimezone=GMT%2B8&quot;);
+    cd.setUser(&quot;root&quot;);
+    cd.setPassword(&quot;1105128664&quot;);
+    return cd;
+    }
+
+    @Bean(name=&quot;sqlSessionFactory&quot;)
+    public SqlSessionFactoryBean getSqlSessionFactoryBean() throws Exception{
+    SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
+    sf.setDataSource(getComboPooledDataSource());
+    sf.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath:match2/test/*.xml&quot;));
+    sf.setTypeAliasesPackage(&quot;com.junye.test&quot;);//设置包的别名
+    //下面的配置可有可无，毕竟设置包的别名已经设计好了
+    //sf.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(&quot;classpath:mybatis-configuration.xml&quot;));
+    return sf;
+    }
+</code></pre><h3 id="使用mybatis-spring整合的方式，也就是我们传统的方式"><a href="#使用mybatis-spring整合的方式，也就是我们传统的方式" class="headerlink" title="使用mybatis-spring整合的方式，也就是我们传统的方式"></a>使用mybatis-spring整合的方式，也就是我们传统的方式</h3><pre><code>这里我们推荐使用第二种，因为这样我们可以很方便的控制Mybatis的各种配置。
+    &lt;!--mybatis核心包--&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.2.8&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!--整合包--&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+    &lt;version&gt;1.2.2&lt;/version&gt;
+    &lt;/dependency&gt; 
+    &lt;!--整合事务--&gt;
+     &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    java配置类
+    import javax.sql.DataSource;
     import org.mybatis.spring.SqlSessionFactoryBean;
     import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
     import org.springframework.context.annotation.Bean;
@@ -718,32 +648,21 @@
     import org.springframework.core.io.Resource;
     import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
     import org.springframework.core.io.support.ResourcePatternResolver;
+    import org.mybatis.spring.mapper.MapperScannerConfigurer;
     @Configuration
     public class MyBatisConfig {
     @Bean
     @ConditionalOnMissingBean //当容器里没有指定的Bean的情况下创建该对象
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-    // 设置数据源
     sqlSessionFactoryBean.setDataSource(dataSource);
-    // 设置mybatis的主配置文件
     ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     Resource mybatisConfigXml = resolver.getResource(&quot;classpath:mybatis/mybatis-config.xml&quot;);
     sqlSessionFactoryBean.setConfigLocation(mybatisConfigXml);
-    // 设置别名包
     sqlSessionFactoryBean.setTypeAliasesPackage(&quot;com.taotao.cart.pojo&quot;);
     return sqlSessionFactoryBean;
     }
-    }
-</code></pre><h4 id="然后，创建Mapper接口的扫描类MapperScannerConfig："><a href="#然后，创建Mapper接口的扫描类MapperScannerConfig：" class="headerlink" title="然后，创建Mapper接口的扫描类MapperScannerConfig："></a>然后，创建Mapper接口的扫描类MapperScannerConfig：</h4><pre><code>import org.mybatis.spring.mapper.MapperScannerConfigurer;
-    import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.context.annotation.Configuration;
-    @Configuration
-    @AutoConfigureAfter(MyBatisConfig.class) //保证在MyBatisConfig实例化之后再实例化该类
-    public class MapperScannerConfig {
-
-    // mapper接口的扫描器
+    // mapper接口的扫描器，可用@MapperScan代替
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
     MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
@@ -751,12 +670,7 @@
     return mapperScannerConfigurer;
     }
     }
-</code></pre><h4 id="设置事务管理"><a href="#设置事务管理" class="headerlink" title="设置事务管理"></a>设置事务管理</h4><pre><code>在Spring Boot中推荐使用@Transactional注解来申明事务。
-    首先需要导入依赖：
-    &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
-    &lt;/dependency&gt;
+</code></pre><h3 id="设置事务管理"><a href="#设置事务管理" class="headerlink" title="设置事务管理"></a>设置事务管理</h3><pre><code>在Spring Boot中推荐使用@Transactional注解来申明事务。
     当引入jdbc依赖之后，Spring Boot会自动默认分别注入DataSourceTransactionManager
     或JpaTransactionManager，
     所以我们不需要任何额外配置就可以用@Transactional注解进行事务的使用。
@@ -966,7 +880,7 @@
 </code></pre><img src="/2018/05/24/springboot/53.png" title="53.png">
 <h4 id="打war包"><a href="#打war包" class="headerlink" title="打war包"></a>打war包</h4><h4 id="部署到tomcat"><a href="#部署到tomcat" class="headerlink" title="部署到tomcat"></a>部署到tomcat</h4><pre><code>解压apache-tomcat-7.0.57.tar.gz，将war包解压到webapps下的ROOT目录中，启动：
 </code></pre><h3 id="spring整合注册三大规范"><a href="#spring整合注册三大规范" class="headerlink" title="spring整合注册三大规范"></a>spring整合注册三大规范</h3><h4 id="注册Servlet"><a href="#注册Servlet" class="headerlink" title="注册Servlet"></a>注册Servlet</h4><pre><code>①使用ServletRegistrationBean注册
-    使用ServletRegistrationBean注册只需要在@Configuration类中加入即可，例如以下代码：
+    使用ServletRegistrationBean注册只需要在@Configuration类中加入即可
     @Configuration
     public class Registration{
     @Bean  
@@ -979,9 +893,10 @@
     }
     ②使用@WebServlet
     使用@WebServlet注册，需要在Servlet类上使用该注解即可，
-    但是需要在@Configuration类中使用Spring Boot提供的注解@ServletComponentScan扫描注册相应的Servlet。
+    但是需要在@Configuration类中使用Spring Boot提供的注解
+    @ServletComponentScan扫描注册相应的Servlet。
 </code></pre><h4 id="注册Filter"><a href="#注册Filter" class="headerlink" title="注册Filter"></a>注册Filter</h4><pre><code>①使用FilterRegistrationBean注册
-    使用FilterRegistrationBean注册Filter，只需要在@Configuration类中加入即可，例如以下代码：
+    使用FilterRegistrationBean注册Filter，只需要在@Configuration类中加入即可
     @Bean  
     public FilterRegistrationBean myFilter() {  
     FilterRegistrationBean myFilter = new FilterRegistrationBean();  
@@ -991,16 +906,21 @@
     }  
     ②使用@WebFilter
     使用@WebFilter注册，需要在Filter类上使用该注解即可，
-    但是需要在@Configuration类中使用Spring Boot提供的注解@ServletComponentScan扫描注册相应的Filter。
-</code></pre><h4 id="注册Listener"><a href="#注册Listener" class="headerlink" title="注册Listener"></a>注册Listener</h4><pre><code>①使用ServletListenerRegistrationBean注册
-    使用ServletListenerRegistrationBean注册Listener只需要在@Configuration类中加入即可，例如以下代码：
+    但是需要在@Configuration类中使用Spring Boot提供的注解
+    @ServletComponentScan扫描注册相应的Filter。
+</code></pre><h5 id="注意注册多个filter要自己一个个注册不要挤在一起"><a href="#注意注册多个filter要自己一个个注册不要挤在一起" class="headerlink" title="注意注册多个filter要自己一个个注册不要挤在一起"></a>注意注册多个filter要自己一个个注册不要挤在一起</h5><h4 id="注册Listener"><a href="#注册Listener" class="headerlink" title="注册Listener"></a>注册Listener</h4><pre><code>①使用ServletListenerRegistrationBean注册
+    使用ServletListenerRegistrationBean注册Listener只需要在@Configuration类中加入即可
     @Bean  
     public ServletListenerRegistrationBean&lt;MyListener&gt; myServletListener() {  
-    ServletListenerRegistrationBean&lt;MyListener&gt; myListener = new ServletListenerRegistrationBean&lt;MyListener&gt;();  
+    ServletListenerRegistrationBean&lt;MyListener&gt; myListener = 
+    new ServletListenerRegistrationBean&lt;MyListener&gt;();
     myListener.setListener(new MyListener());  
     return myListener;  
     }  
     ②使用@WebListener
     使用@WebListener注册，需要在Filter类上使用该注解即可，
-    但是需要在@Configuration类中使用Spring Boot提供的注解@ServletComponentScan扫描注册相应的Listener。
-</code></pre></div><div class="tags"><a href="/tags/springboot/">springboot</a></div><div class="post-nav"><a class="pre" href="/2018/06/02/shiro/">shiro</a><a class="next" href="/2018/05/20/easy-ui/">easy-ui</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/hexo/">hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/02/shiro/">shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/springboot/">springboot</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/20/easy-ui/">easy-ui</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/mysql/">mysql</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+    但是需要在@Configuration类中使用Spring Boot提供的注解
+    @ServletComponentScan扫描注册相应的Listener。
+</code></pre><h4 id="springboot设置session过期的时间"><a href="#springboot设置session过期的时间" class="headerlink" title="springboot设置session过期的时间"></a>springboot设置session过期的时间</h4><pre><code>springboot在application.properties设置session过期时间
+    server.session.timeout=120
+</code></pre></div><div class="tags"><a href="/tags/springboot/">springboot</a></div><div class="post-nav"><a class="pre" href="/2018/06/02/shiro/">shiro</a><a class="next" href="/2018/05/20/easy-ui/">easy-ui</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/swagger/">swagger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/hexo/">hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/02/shiro/">shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/springboot/">springboot</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/20/easy-ui/">easy-ui</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/16/svn/">svn</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/oracle/">oracle</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
