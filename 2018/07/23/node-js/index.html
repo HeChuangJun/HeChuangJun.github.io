@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>node.js | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">node.js</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">node.js</h1><div class="post-meta">Jul 23, 2018<span> | </span><span class="category"><a href="/categories/node-js/">node.js</a></span></div><div class="post-content"><p>node.js实现了javascript在服务器端运行，方便前端工程师与后端工程是协同开发<br><a id="more"></a></p>
+<h2 id="node-js介绍"><a href="#node-js介绍" class="headerlink" title="node.js介绍"></a>node.js介绍</h2><pre><code>官网：https://nodejs.org/
+    Node.js® is a JavaScript runtime built on Chrome&apos;s V8 JavaScript engine.
+    node.js可以像浏览器一样解析JavaScript，是JavaScript在服务器端的运行环境    
+    node.js只使用ecmascript,而不使用bom和dom，因为node.js不操作界面
+    node.js还有一个强大的工具npm，管理了所有与Javascrpit相关的包如jquery等
+</code></pre><h3 id="javascript在浏览器的引擎和node-js运行上的区别"><a href="#javascript在浏览器的引擎和node-js运行上的区别" class="headerlink" title="javascript在浏览器的引擎和node.js运行上的区别"></a>javascript在浏览器的引擎和node.js运行上的区别</h3><pre><code>浏览器：能进行bom和dom操作，不能操作文件
+    node.js：操作文件、运行服务等，但不能使用bom和dom
+</code></pre><h3 id="node-js的功能"><a href="#node-js的功能" class="headerlink" title="node.js的功能"></a>node.js的功能</h3><pre><code>1、web应用服务器
+    2、命令行工具（git（c）、hexo（node）、npm（node））
+</code></pre><h3 id="node-js和JavaScript的异同"><a href="#node-js和JavaScript的异同" class="headerlink" title="node.js和JavaScript的异同"></a>node.js和JavaScript的异同</h3><pre><code>node包括ecmascript、第三方模块、核心模块、用户自定义模块;
+    javascript包括ecmascript、bom和dom;
+</code></pre><h3 id="node-js安装"><a href="#node-js安装" class="headerlink" title="node.js安装"></a>node.js安装</h3><pre><code>使用msi安装：然后在cmd中输入node -v 有显示版本号说明安装成功
+</code></pre><h3 id="helloworld案例"><a href="#helloworld案例" class="headerlink" title="helloworld案例"></a>helloworld案例</h3><pre><code>在cmd或者gitBash或者windows的powershell下定位到
+    需要执行的js文件的目录下，然后node js文件名即可
+</code></pre><h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><pre><code>var fs=require(&apos;fs&apos;);//加载操作文件的核心模块
+    fs.readFlie(&apos;文件相对js文件的目录&apos;，function(error,data){
+    //error:成功null，失败:错误对象
+    //data:成功二进制文件内容，打印出来16进制，
+    //用toString()显示String 失败:undefined
+    if(error){
+        console.log(&apos;读取文件失败&apos;);
+    }else{
+        console.log(data.toString());
+    }
+
+    })
+</code></pre><h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><pre><code>var fs=require(&apos;fs&apos;);//加载操作文件的核心模块
+    fs.write(&apos;文件相对js文件的目录&apos;,&apos;文件内容&apos;,function(error){
+        //error:成功null，失败错误对象
+        if(error){
+            console.log(&apos;写文件失败&apos;);
+        }else{
+            console.log(&apos;写入文件成功&apos;);
+        }
+    })
+</code></pre><h3 id="http服务-核心"><a href="#http服务-核心" class="headerlink" title="http服务(核心)"></a>http服务(核心)</h3><pre><code>var http=require(&apos;http&apos;);//加载http的核心模块
+    var server =http.createServer();//创建web服务器
+    //注册request请求事件驱动
+    server.on(&apos;request&apos;,function(request，response){
+        //request.url https://localhost:8080/a→/a
+        //response.write可以多次
+        //但最后一定要写end，否则客户端会一直等待，
+        //不显示内容了
+        //response.write(&apos;哈哈哈&apos;)；
+        //response.end();
+        //以上两句代码可以替换为下面一句代码
+        //注意end方法只能传二进制和字符串数组
+        //字符串转成数组对象
+        //JSON.parse(&apos;[]&apos;);
+        //数组对象转成字符串
+        //JSON.stringify([]);
+        //if(request.url===&apos;/&apos;){
+            //请求字符串
+            //去除中文乱码，默认是utf-8，被浏览器的gbk解析成乱码
+            //response.setHeader(&apos;Context-Type&apos;,&apos;text/plain;charset=utf-8&apos;);
+            //response.end(&apos;哈啊哈哈&apos;);
+            //去除html字符串，则text/html即可
+            //请求页面
+            //response.setHeader(&apos;Context-Type&apos;,&apos;text/html;charset=utf-8&apos;);
+            //response.end(&apos;&lt;p&gt;hello&lt;a&gt;点我&lt;/a&gt;&lt;/p&gt;&apos;);
+            //请求图片,只需要返回二进制即可，因为除非你要进一步处理才toString
+            //response.setHeader(&apos;Context-Type&apos;,&apos;image/jpeg;charset=utf-8&apos;);
+            //response.end(data);
+
+        //}
+        //模仿apache访问静态资源
+        var dir=&apos;D:/Movie/www&apos;
+        var url=req.url
+        var fliePath=&apos;/index.html&apos;
+        if(url!=&apos;/&apos;){
+            filePath =url
+
+        }
+        var requestPath=dir+filePath
+    })
+    //启动服务器并绑定端口号
+    server.listen(端口号,function(){
+        console.log(&apos;服务器启动成功&apos;);        
+    });
+</code></pre><h3 id="node-js的模块系统"><a href="#node-js的模块系统" class="headerlink" title="node.js的模块系统"></a>node.js的模块系统</h3><pre><code>node.js三大模块：具名核心模块、第三方模块、用户自定义模块
+</code></pre><h3 id="require方法的作用："><a href="#require方法的作用：" class="headerlink" title="require方法的作用："></a>require方法的作用：</h3><pre><code>1.加载文件模块并执行里面的代码（同时执行两个js文件）
+    加载执行模块代码：require(&apos;./b.js&apos;);
+    使用用户自定义模块，相对路径必须加./，且.js可以省略        
+    node中没有全局作用域，只有模块作用域
+    大意：只使用require有关系的两个js文件不能相互访问变量和函数
+    只有exports出来了才能用
+    2.拿到被加载文件模块导出的接口对象export,test就是exports
+    需要在被加载文件中添加
+    exports.add=&apos;hello&apos;
+    在需要加载文件中
+    var test=require(&apos;./b.js&apos;);
+    test.add
+    在每个模块中都提供了一个对象：exports（默认为{}）
+    把需要被外部访问的成员放到export中即可破除原来的模块作用域限制
+</code></pre></div><div class="tags"><a href="/tags/node-js/">node.js</a></div><div class="post-nav"><a class="next" href="/2018/07/06/mqtt/">mqtt</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/23/node-js/">node.js</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/06/mqtt/">mqtt</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/18/websocket/">websocket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/swagger/">swagger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/hexo/">hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/02/shiro/">shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/springboot/">springboot</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/20/easy-ui/">easy-ui</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/19/面试题/">面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/maven/">maven</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
