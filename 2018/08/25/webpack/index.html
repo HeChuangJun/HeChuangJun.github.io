@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>webpack | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">webpack</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">webpack</h1><div class="post-meta">Aug 25, 2018<span> | </span><span class="category"><a href="/categories/webpack/">webpack</a></span></div><div class="post-content"><a id="more"></a>
+<h2 id="网站中引入的静态资源多了以后有什么问题？"><a href="#网站中引入的静态资源多了以后有什么问题？" class="headerlink" title="网站中引入的静态资源多了以后有什么问题？"></a>网站中引入的静态资源多了以后有什么问题？</h2><pre><code>网页加载速度慢，因为我们会发起许多静态资源的二次请求
+    要处理错综复杂的依赖关系
+</code></pre><h2 id="如何解决上面的问题"><a href="#如何解决上面的问题" class="headerlink" title="如何解决上面的问题"></a>如何解决上面的问题</h2><pre><code>合并、压缩、精灵兔、图片的base64编码
+    requirejs和webpack解决复杂的依赖关系
+</code></pre><h2 id="如何完美实现上诉的两种解决方案"><a href="#如何完美实现上诉的两种解决方案" class="headerlink" title="如何完美实现上诉的两种解决方案"></a>如何完美实现上诉的两种解决方案</h2><pre><code>使用Culp（基于task任务的）、webpack（基于这个项目构建）
+    借助webpack这个前端自动化构建工具，可以完美实现资源的合并、打包、压缩混淆等诸多功能
+</code></pre><h2 id="什么是webpack"><a href="#什么是webpack" class="headerlink" title="什么是webpack"></a>什么是webpack</h2><pre><code>webpack是前端的一个项目构建工具，基于node.js开发出来的一个前端工具
+</code></pre><h2 id="开发webpack的项目的结构"><a href="#开发webpack的项目的结构" class="headerlink" title="开发webpack的项目的结构"></a>开发webpack的项目的结构</h2><img src="/2018/08/25/webpack/webpack1.PNG" title="webpack1.PNG">
+<h2 id="webpack的安装"><a href="#webpack的安装" class="headerlink" title="webpack的安装"></a>webpack的安装</h2><pre><code>npm i webpack -g(安装node.js后再安装这个)
+    在项目的根目录中运行npm i webpack --save-dev安装到项目依赖中
+</code></pre><h2 id="webpack的使用"><a href="#webpack的使用" class="headerlink" title="webpack的使用"></a>webpack的使用</h2><pre><code>推荐在main.js中引入所有需要的包，那么其他页面只要引用webpack打包之后的js即可
+</code></pre><h3 id="webpack的打包"><a href="#webpack的打包" class="headerlink" title="webpack的打包"></a>webpack的打包</h3><pre><code>webpack .\src\main.js .\dist\bundle.js(导出main的js)
+</code></pre><h2 id="webpack的功能"><a href="#webpack的功能" class="headerlink" title="webpack的功能"></a>webpack的功能</h2><pre><code>webpack能够处理js文件的相互依赖关系
+    webpack能够处理js的兼容问题，把高级的、浏览器不能识别的语法转成浏览器能够正常识别的语法
+</code></pre><h2 id="webpack-config-js-放在项目的根目录下"><a href="#webpack-config-js-放在项目的根目录下" class="headerlink" title="webpack.config.js(放在项目的根目录下)"></a>webpack.config.js(放在项目的根目录下)</h2><pre><code>用于打包的时候不用指定webpack的打包出入口问题，只需简单输入webpack自动打包
+    const path = require(&apos;path&apos;);
+    module.exports ={
+        entry:path.join(__dirname,&apos;./src/main.js&apos;),//webpack打包的路径
+        output:{
+            path:path.join(__dirname,&apos;./dist&apos;),//webpack打包后输出的目录
+            filename:&apos;bundle.js&apos;//指定输出文件的名称
+        }
+    }
+</code></pre><h2 id="webpack-dev-server实现热部署（依赖webpack）"><a href="#webpack-dev-server实现热部署（依赖webpack）" class="headerlink" title="webpack-dev-server实现热部署（依赖webpack）"></a>webpack-dev-server实现热部署（依赖webpack）</h2><pre><code>安装：cnpm i webpack-dev-server -D 只能本地安装（不能直接使用webpack当做脚本使用：不是全局的）
+    使用：在package.json中声明script:{“dev”:&quot;webpack-dev-server&quot;}然后使用npm run dev
+webpack-dev-server打包生成的bundle.js,不是放在实际的物理磁盘上，而是放在内存中，在项目根目录中找不到
+bundle.js，他和根目录src等同级，所以我们引用budle.js使用根目录的bundle即可
+</code></pre><h2 id="webpack-dev-server常用命令参数（依赖webpack）"><a href="#webpack-dev-server常用命令参数（依赖webpack）" class="headerlink" title="webpack-dev-server常用命令参数（依赖webpack）"></a>webpack-dev-server常用命令参数（依赖webpack）</h2><pre><code>①在package.json中声明script:{“dev”:&quot;webpack-dev-server&quot;}
+“dev”:&quot;webpack-dev-server --open --port 3000 --contentBase src --hot&quot;
+--hot:代码修改浏览器自动刷新，且不会重新生成bundle.js，只是打个补丁就算了
+②在webpack.config.js中多加一项
+const webpack = require(&apos;webpack&apos;);
+devServer：{open：true，port：3000，contentBase：‘src’，hot：true}
+plugins:[
+    new webpack.HotModuleRepalcementPlugin()//新建一个热更新的模块对象
+]
+</code></pre><h2 id="webpack将html加入到内存中（插件，只要是插件都要在plugins中声明）"><a href="#webpack将html加入到内存中（插件，只要是插件都要在plugins中声明）" class="headerlink" title="webpack将html加入到内存中（插件，只要是插件都要在plugins中声明）"></a>webpack将html加入到内存中（插件，只要是插件都要在plugins中声明）</h2><pre><code>两个作用，在内存中生成内存页面和把打包好的bundle。js追加到页面中去
+安装 cnpm i html-webpack-plugins -D
+    然后在在webpack.config.js中多加一项
+    const htmlwebpackplugins = require(&apos;html-webpack-plugins&apos;)
+    plugins:[
+        new htmlwebpackplugins({//创建一个在htmk页面插件
+            template：path.join(__dirname,&apos;./src/index.html&apos;)//将制定页面生成到内存中
+            filename：‘index.html’
+
+        })
+    ]
+</code></pre><h2 id="处理非js文件"><a href="#处理非js文件" class="headerlink" title="处理非js文件"></a>处理非js文件</h2><pre><code>安装cnpm i style-loader css-loader less-loader sass-loader -D
+cnpm i less -D     cnpm i url-loader file-loader -D    
+然后在在webpack.config.js中多加一项
+    module：{//配置所有第三方模块加载器
+        rules：[//所有第三方模块的匹配规则
+            {test:/\.css$/,use:[&apos;style-loader&apos;,&apos;css-loader&apos;]}//配置匹配的规则
+            //从右向左调用
+            {test:/\.less$/,use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;less-loader&apos;]}//配置匹配的规则
+            {test:/\.scss$/,use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;sass-loader&apos;]}//配置匹配的规则
+            {test:/\.(jpg|png|gif|bmp|jpeg)$/,use:&apos;url-loader?limit=xxx&amp;name=[hash:8]-[name].[ext]&apos;]}//配置匹配的规则
+            url(./images/hahah.jpg)
+            //limit单位是字节，大于等于给定值不会转成base64，反之会转
+            name属性表示引用的图片名字，默认使用hash值，[name].[ext]用原来的名字和扩展名
+            名字如果一样会覆盖，以最后一次声明为准，hash表示使用hash值拼到文件名中
+            {test:/\.(ttf|eot|svg|woff|woff2)$/,use:[&apos;url-loader&apos;]}//处理字体文件
+        ]
+    }
+</code></pre><h2 id="引入样式"><a href="#引入样式" class="headerlink" title="引入样式"></a>引入样式</h2><pre><code>在node_module中使用包的时候不需要写node_module
+    package.json文件不能写注释，注意全局命令的使用必须得有包，node报错的时候重装依赖就行
+</code></pre><h2 id="ES6及以上的新语法的处理"><a href="#ES6及以上的新语法的处理" class="headerlink" title="ES6及以上的新语法的处理"></a>ES6及以上的新语法的处理</h2><pre><code>语法太新webpack处理不来，需要借助第三方loader来转换，然后把结果交给webpack打包到
+    bundle.js中
+    在webpack中，安装Babel的两套包
+    cnpm i label-core babel-loader babel-plugin-transform-runtime -D
+    cnpm i label-preset-env babel-preset-stage-0 -D
+    然后在在webpack.config.js中多加一项
+    plugins:[
+        {test:/\.js$/,use:[&apos;babel-loader&apos;]，exclude：/node_modules/}
+        //排除node_modules较少cpu消耗，不排除导致node_modules不能用
+    ]
+    在项目根目录中新建一个叫做.babelrc的Babel配置文件
+    {
+        &quot;presets&quot;:[&quot;env&quot;,&quot;stage-0&quot;]
+        &quot;plugins&quot;:[&quot;transform-runtime&quot;]
+    }
+</code></pre><h2 id="使用render函数渲染组件"><a href="#使用render函数渲染组件" class="headerlink" title="使用render函数渲染组件"></a>使用render函数渲染组件</h2><pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;p&gt;222222222&lt;/p&gt;///不显示
+&lt;/div&gt;
+var login={
+    template：‘&lt;h1&gt;这是登录组件&lt;/h1&gt;’
+}
+
+var vm = new Vue({
+    el:&apos;#app&apos;,
+    data:{},
+    methods:{},
+    render:function(creatElements){
+        //调用方法
+        return creatElements（login）;//替换el中的内容，所以222不显示，如果用component显示
+    }
+
+})
+</code></pre><h2 id="webpack与Vue连用"><a href="#webpack与Vue连用" class="headerlink" title="webpack与Vue连用"></a>webpack与Vue连用</h2><pre><code>①import Vue from &apos;vue&apos;//只是导入了runtime-only的方式，没有提供像网页那种使用方法（一般使用这个）
+    然后在在webpack.config.js中多加一项
+    resolve:{
+        alias:{
+            &quot;vue$&quot;:&quot;vue/dist/vue.js&quot;//设计被导入包的路径
+        }
+
+    }
+②import Vue from &apos;../node_modules/vue&apos;    //直接引入最全的vue包，能像原来页面开发那样开发（不推荐）
+</code></pre><h2 id="使用runtime-only的方式开发组件"><a href="#使用runtime-only的方式开发组件" class="headerlink" title="使用runtime-only的方式开发组件"></a>使用runtime-only的方式开发组件</h2><pre><code>先写login.vue文件
+&lt;template&gt;{{msg}}&lt;/template&gt;
+&lt;script&gt;
+export.default{
+    data(){//组件中的data
+        return {‘msg’：123}
+    },
+    methods:{
+        show(){
+        }
+    }
+}
+&lt;/srcipt&gt;
+&lt;style scoped lang=&quot;scss&quot;&gt;&lt;/style&gt;//声明style属性和scoped表示当前vue组件有效，其他无效
+然后在需要的地方导入login组件
+import login from ‘./login.vue’
+    //默认webpack不能打包.vue文件，需要安装相关的loader
+    cnpm i vue-loader vue-template-compiler -D
+    然后在在webpack.config.js中多加一项
+    plugins:[
+        {test:/\.vue$/,use:[&apos;vue-loader&apos;]}
+
+    ]
+    最后使用render渲染即可
+    render:function(creatElements){
+        //调用方法
+        return creatElements（login）;//替换el中的内容，所以222不显示，如果用component显示
+    }
+</code></pre><h2 id="node和es6导出导入成员的形式"><a href="#node和es6导出导入成员的形式" class="headerlink" title="node和es6导出导入成员的形式"></a>node和es6导出导入成员的形式</h2><pre><code>ES6中通过规范的形式，规定了ES6中如何导入和导出模块
+    ES6中导入模块，使用import 模块名称 from &apos;模块标识符&apos; import &apos;标识路径&apos;
+    ES6中使用export default 和export向外暴露成员
+    export var  test1= ‘假假按揭’;可以导出多个，接受的时候不能改名，可以按需接受可以用as改名
+    export default {‘msg’：123}//只能导出一个，接受能改名，
+    import abc，{test1，test2} from &apos;模块标识符&apos;
+    Node中使用var 名称 =require(&apos;模块标识符&apos;)
+    module.export和export暴露成员
+</code></pre><h2 id="webpack和vue-router显示的时候，把路由组件放在render中的页面，这样才能正常显示组件，否则被render覆盖看不见"><a href="#webpack和vue-router显示的时候，把路由组件放在render中的页面，这样才能正常显示组件，否则被render覆盖看不见" class="headerlink" title="webpack和vue-router显示的时候，把路由组件放在render中的页面，这样才能正常显示组件，否则被render覆盖看不见"></a>webpack和vue-router显示的时候，把路由组件放在render中的页面，这样才能正常显示组件，否则被render覆盖看不见</h2></div><div class="tags"><a href="/tags/webpack/">webpack</a></div><div class="post-nav"><a class="next" href="/2018/08/24/部署/">部署</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/25/webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/24/部署/">部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/json/">json</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/13/konckout-js/">konckout.js</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/09/vue-js/">vue.js</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/express/">express框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/03/系统测试/">系统测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/30/art-template/">art-template</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/linux安装Oracle/">linux安装Oracle</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

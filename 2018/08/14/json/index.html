@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>json | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">json</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">json</h1><div class="post-meta">Aug 14, 2018<span> | </span><span class="category"><a href="/categories/json/">json</a></span></div><div class="post-content"><p>json对象和js对象声明的非常相似，最近的ko.js使我对json对象有了新的认识<br><a id="more"></a></p>
+<h2 id="json的介绍"><a href="#json的介绍" class="headerlink" title="json的介绍"></a>json的介绍</h2><pre><code>JSON 指的是 JavaScript 对象表示法（JavaScript Object Notation）
+    JSON 是轻量级的文本数据交换格式
+    JSON 独立于语言：JSON 使用 Javascript语法来描述数据对象，但是 JSON 仍然独立于语言和平台。
+    JSON 解析器和 JSON 库支持许多不同的编程语言。 目前非常多的动态（PHP，JSP，.NET）编程语言都支持JSON。
+    JSON 具有自我描述性，更易理解
+</code></pre><h3 id="json对象的声明"><a href="#json对象的声明" class="headerlink" title="json对象的声明"></a>json对象的声明</h3><pre><code>var JSONObject= {
+    &quot;name&quot;:&quot;junye&quot;,
+    &quot;isvip&quot;:true, 
+    &quot;age&quot;:22,
+    &quot;hobby&quot;:[&quot;学习&quot;,&quot;敲代码，&quot;打游戏&quot;],
+    &quot;pet&quot;:{&quot;name&quot;:&quot;二哈&quot;,&quot;age&quot;:2},
+    &quot;description&quot;:nulll
+    };
+</code></pre><h3 id="json的值"><a href="#json的值" class="headerlink" title="json的值"></a>json的值</h3><pre><code>如domo中所示，json由键值对组成
+    json的值可以是数字，字符串，逻辑值，数组，对象和null
+</code></pre><h3 id="访问json对象的值"><a href="#访问json对象的值" class="headerlink" title="访问json对象的值"></a>访问json对象的值</h3><pre><code>var myObj, x;
+    myObj = { &quot;name&quot;:&quot;runoob&quot;, &quot;alexa&quot;:10000, &quot;site&quot;:null };
+    x = myObj.name;
+    x = myObj[&quot;name&quot;];
+</code></pre><h3 id="循环对象"><a href="#循环对象" class="headerlink" title="循环对象"></a>循环对象</h3><pre><code>var myObj = { &quot;name&quot;:&quot;runoob&quot;, &quot;alexa&quot;:10000, &quot;site&quot;:null };
+    for (x in myObj) {
+        document.getElementById(&quot;demo&quot;).innerHTML += x + &quot;&lt;br&gt;&quot;;
+        //document.getElementById(&quot;demo&quot;).innerHTML += myObj[x] + &quot;&lt;br&gt;&quot;;
+    }
+</code></pre><h3 id="嵌套-JSON-对象访问"><a href="#嵌套-JSON-对象访问" class="headerlink" title="嵌套 JSON 对象访问"></a>嵌套 JSON 对象访问</h3><pre><code>myObj = {
+    &quot;name&quot;:&quot;runoob&quot;,
+    &quot;alexa&quot;:10000,
+    &quot;sites&quot;: {
+        &quot;site1&quot;:&quot;www.runoob.com&quot;,
+        &quot;site2&quot;:&quot;m.runoob.com&quot;,
+        &quot;site3&quot;:&quot;c.runoob.com&quot;
+        }
+    }
+    x = myObj.sites.site1;
+    // 或者
+    x = myObj.sites[&quot;site1&quot;];
+</code></pre><h3 id="修改json对象的值"><a href="#修改json对象的值" class="headerlink" title="修改json对象的值"></a>修改json对象的值</h3><pre><code>myObj.sites.site1 = &quot;www.google.com&quot;;
+    myObj.sites[&quot;site1&quot;] = &quot;www.google.com&quot;;
+</code></pre><h3 id="删除对象属性"><a href="#删除对象属性" class="headerlink" title="删除对象属性"></a>删除对象属性</h3><pre><code>delete myObj.sites.site1;
+    delete myObj.sites[&quot;site1&quot;]
+</code></pre><h3 id="json数组（数组作为-JSON-对象）"><a href="#json数组（数组作为-JSON-对象）" class="headerlink" title="json数组（数组作为 JSON 对象）"></a>json数组（数组作为 JSON 对象）</h3><pre><code>[ &quot;Google&quot;, &quot;Runoob&quot;, &quot;Taobao&quot; ]
+</code></pre><h3 id="JSON-对象中的数组"><a href="#JSON-对象中的数组" class="headerlink" title="JSON 对象中的数组"></a>JSON 对象中的数组</h3><pre><code>{
+    &quot;name&quot;:&quot;网站&quot;,
+    &quot;num&quot;:3,
+    &quot;sites&quot;:[ &quot;Google&quot;, &quot;Runoob&quot;, &quot;Taobao&quot; ]
+    }
+    x = myObj.sites[0];
+</code></pre><h3 id="循环数组"><a href="#循环数组" class="headerlink" title="循环数组"></a>循环数组</h3><pre><code>for (i in myObj.sites) {
+    x += myObj.sites[i] + &quot;&lt;br&gt;&quot;;
+    }
+    for (i = 0; i &lt; myObj.sites.length; i++) {
+    x += myObj.sites[i] + &quot;&lt;br&gt;&quot;;
+    }
+</code></pre><h3 id="嵌套-JSON-对象中的数组"><a href="#嵌套-JSON-对象中的数组" class="headerlink" title="嵌套 JSON 对象中的数组"></a>嵌套 JSON 对象中的数组</h3><pre><code>myObj = {
+    &quot;name&quot;:&quot;网站&quot;,
+    &quot;num&quot;:3,
+    &quot;sites&quot;: [
+    { &quot;name&quot;:&quot;Google&quot;, &quot;info&quot;:[ &quot;Android&quot;, &quot;Google 搜索&quot;, &quot;Google 翻译&quot; ] },
+    { &quot;name&quot;:&quot;Runoob&quot;, &quot;info&quot;:[ &quot;菜鸟教程&quot;, &quot;菜鸟工具&quot;, &quot;菜鸟微信&quot; ] },
+    { &quot;name&quot;:&quot;Taobao&quot;, &quot;info&quot;:[ &quot;淘宝&quot;, &quot;网购&quot; ] }
+    ]
+    }
+    for (i in myObj.sites) {
+    x += &quot;&lt;h1&gt;&quot; + myObj.sites[i].name + &quot;&lt;/h1&gt;&quot;;
+    for (j in myObj.sites[i].info) {
+    x += myObj.sites[i].info[j] + &quot;&lt;br&gt;&quot;;
+    }
+    }
+</code></pre><h3 id="修改数组的值（myObj-sites-1-“Github”-）"><a href="#修改数组的值（myObj-sites-1-“Github”-）" class="headerlink" title="修改数组的值（myObj.sites[1] = “Github”;）"></a>修改数组的值（myObj.sites[1] = “Github”;）</h3><h3 id="删除数组的值（delete-myObj-sites-1-）"><a href="#删除数组的值（delete-myObj-sites-1-）" class="headerlink" title="删除数组的值（delete myObj.sites[1];）"></a>删除数组的值（delete myObj.sites[1];）</h3><h3 id="json文件"><a href="#json文件" class="headerlink" title="json文件"></a>json文件</h3><pre><code>JSON 文件的文件类型是 &quot;.json&quot;
+    JSON 文本的 MIME 类型是 &quot;application/json&quot;
+</code></pre><h3 id="json转换成对象JSON-parse-text-reviver"><a href="#json转换成对象JSON-parse-text-reviver" class="headerlink" title="json转换成对象JSON.parse(text[, reviver])"></a>json转换成对象JSON.parse(text[, reviver])</h3><pre><code>text:必需， 一个有效的 JSON 字符串。
+    reviver: 可选，一个转换结果的函数， 将为对象的每个成员调用此函数。
+</code></pre><h3 id="JSON-不允许包含函数，但你可以将函数作为字符串存储，之后再将字符串转换为函数。"><a href="#JSON-不允许包含函数，但你可以将函数作为字符串存储，之后再将字符串转换为函数。" class="headerlink" title="JSON 不允许包含函数，但你可以将函数作为字符串存储，之后再将字符串转换为函数。"></a>JSON 不允许包含函数，但你可以将函数作为字符串存储，之后再将字符串转换为函数。</h3><h3 id="json对象转换字符串JSON-stringify-value-replacer-space"><a href="#json对象转换字符串JSON-stringify-value-replacer-space" class="headerlink" title="json对象转换字符串JSON.stringify(value[, replacer[, space]])"></a>json对象转换字符串JSON.stringify(value[, replacer[, space]])</h3><pre><code>value:必需， 一个有效的 JSON 对象。
+    replacer:可选。用于转换结果的函数或数组。
+    如果 replacer 为函数，则 JSON.stringify 将调用该函数，并传入每个成员的键和值。
+    使用返回值而不是原始值。如果此函数返回 undefined，则排除成员。根对象的键是一个空字符串：&quot;&quot;。
+    如果 replacer 是一个数组，则仅转换该数组中具有键值的成员。成员的转换顺序与键在数组中的顺序一样。
+    当 value 参数也为数组时，将忽略 replacer数组。
+    space:可选，文本添加缩进、空格和换行符，如果space是一个数字，则返回值文本在每个级别缩进指定数目的空格，
+    如果 space 大于 10，则文本缩进10个空格。space有可以使用非数字，如：\t。
+</code></pre><h3 id="JSON-不允许包含函数，JSON-stringify-会删除-JavaScript-对象的函数，包括-key-和-value。"><a href="#JSON-不允许包含函数，JSON-stringify-会删除-JavaScript-对象的函数，包括-key-和-value。" class="headerlink" title="JSON 不允许包含函数，JSON.stringify()会删除 JavaScript 对象的函数，包括 key 和 value。"></a>JSON 不允许包含函数，JSON.stringify()会删除 JavaScript 对象的函数，包括 key 和 value。</h3><pre><code>我们可以在执行 JSON.stringify() 函数前将函数转换为字符串来避免以上问题的发生：
+</code></pre><h3 id="json中特殊的值function（重要）"><a href="#json中特殊的值function（重要）" class="headerlink" title="json中特殊的值function（重要）"></a>json中特殊的值function（重要）</h3><h2 id="注意json中的this指的是window，没有引用当前json的变量"><a href="#注意json中的this指的是window，没有引用当前json的变量" class="headerlink" title="注意json中的this指的是window，没有引用当前json的变量"></a>注意json中的this指的是window，没有引用当前json的变量</h2><pre><code>虽然json不允许包含函数，但是有时会看到大神使用在json中使用function
+</code></pre><h4 id="情况一：单独函数"><a href="#情况一：单独函数" class="headerlink" title="情况一：单独函数"></a>情况一：单独函数</h4><pre><code>vm={&quot;test&quot;:funtion(){});
+    vm.test;//返回function函数字符串
+    vm.test();//调用function函数并获取返回值
+    console.log(vm.test);//输出function函数字符串
+    console.log(vm.test());调用function函数并输出返回值
+</code></pre><h4 id="情况二：嵌套函数"><a href="#情况二：嵌套函数" class="headerlink" title="情况二：嵌套函数"></a>情况二：嵌套函数</h4><pre><code>var test=new function(){
+    var self = this;
+    self.test=function(a,b){
+        console.log(a+&quot;:&quot;+b);
+    }
+}
+vm={&quot;test&quot;:test.test{function(){},this});        
+console.log(vm.test);//输出函数字符串function(){}和window对象字符串并输出undefined    
+vm.test//没显示,获得test.test()函数的返回值undefined
+vm.test();//不是function
+console.log(vm.test);//输出undefined
+console.log(vm.test());//非函数
+</code></pre></div><div class="tags"><a href="/tags/json/">json</a></div><div class="post-nav"><a class="pre" href="/2018/08/24/部署/">部署</a><a class="next" href="/2018/08/13/konckout-js/">konckout.js</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/Java面向对象/" style="font-size: 15px;">Java面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/25/webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/24/部署/">部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/json/">json</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/13/konckout-js/">konckout.js</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/09/vue-js/">vue.js</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/express/">express框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/03/系统测试/">系统测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/30/art-template/">art-template</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/linux安装Oracle/">linux安装Oracle</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
