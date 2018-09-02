@@ -27,7 +27,7 @@ body {
 
 .body_container {
   padding: 0 60px;
-  max-width: 1150px;
+  max-width: 1450px;
   margin: 0 auto; }
 
 .content_container {
@@ -77,7 +77,6 @@ div {
   #header #nav-menu {
     margin: 10px 0 -1px;
     padding: 0;
-    position: absolute;
     right: 0;
     bottom: 0; }
     #header #nav-menu a {
@@ -801,7 +800,7 @@ figure.highlight,
     width: 100%; }
     figure.highlight .code pre,
     .codeblock .code pre {
-      max-width: 700px;
+      max-width: 900px;
       overflow-x: auto;
       overflow-y: hidden; }
   figure.highlight .line,
