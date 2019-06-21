@@ -1,209 +1,206 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>反射&amp;动态代理 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">反射&amp;动态代理</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">反射&amp;动态代理</h1><div class="post-meta">May 1, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>反射使用<br><a id="more"></a></p>
-<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h3 id="反射原理"><a href="#反射原理" class="headerlink" title="反射原理"></a>反射原理</h3><h3 id="类的加载步骤"><a href="#类的加载步骤" class="headerlink" title="类的加载步骤"></a>类的加载步骤</h3><pre><code>加载  指用类加载器将class文件读入内存，并为整个class文件创建一个Class对象
-    （任何类被使用时系统都会建立一个Class对象）
-    连接 验证 是否有正确的内部结构，并和其他类协调一致
-        准备 负责为类的静态成员分配内存，并设置默认初始化值
-        解析 将类的二进制数据中的符号引用替换为直接引用
-    初始化 
-</code></pre><h3 id="类加载到内存的时机"><a href="#类加载到内存的时机" class="headerlink" title="类加载到内存的时机"></a>类加载到内存的时机</h3><pre><code>创建类的实例
-    初始化某个类的子类
-    类的静态变量，或者为静态变量赋值
-    类的静态方法
-    使用反射方式来强制创建某个类或接口对应的java.lang.Class对象
-    直接使用java.exe命令来运行某个主类
-</code></pre><h3 id="类加载器（分类）负责将-class文件加载到内存中，并为之生成对应的Class对象"><a href="#类加载器（分类）负责将-class文件加载到内存中，并为之生成对应的Class对象" class="headerlink" title="类加载器（分类）负责将.class文件加载到内存中，并为之生成对应的Class对象"></a>类加载器（分类）负责将.class文件加载到内存中，并为之生成对应的Class对象</h3><pre><code>Bootstrap ClassLoader 根类加载器 /引导类加载器，
-    Java核心类的加载 比如System,String等。在JDK中JRE的lib目录下rt.jar文件中
-    Extension ClassLoader 扩展类加载器 
-    JRE的扩展目录中jar包的加载。在JDK中JRE的lib目录下ext目录
-    System ClassLoader 系统类加载器
-    JVM启动时加载来自java命令的class文件、classpath环境变量所指定的jar包和类路径
-</code></pre><h3 id="类加载器的获得"><a href="#类加载器的获得" class="headerlink" title="类加载器的获得"></a>类加载器的获得</h3><pre><code>ClassLoader 字节码对象.getClassLoader();
-    //getResource的参数路径相对classes（src）获得classes(src)下的任何的资源
-    String path =classLoader.getResource(&quot;com/a/jdbc.properties&quot;).getPath();
-    //classLoader.getResourceAsStream(&quot;&quot;);
-</code></pre><h2 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h2><pre><code>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；
-    对于任意一个对象，都能够调用它的任意一个方法和属性；
-    这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
-    自己的理解
-    类加载进入内存后产生.class字节码文件、该类的对象、.class字节码文件对应的class对象
-    获得class对象并利用其方法获得class文件所有的属性和方法然后就能执行创建对象，
-    调用构造方法，一般方法，设置属性值等操作，不用修改源码就能解决动态调用方法
-</code></pre><h3 id="反射的使用"><a href="#反射的使用" class="headerlink" title="反射的使用"></a>反射的使用</h3><h4 id="①获得class类对象对字节码文件的描述对象（有且只有一个）不能创建，只能获得"><a href="#①获得class类对象对字节码文件的描述对象（有且只有一个）不能创建，只能获得" class="headerlink" title="①获得class类对象对字节码文件的描述对象（有且只有一个）不能创建，只能获得"></a>①获得class类对象对字节码文件的描述对象（有且只有一个）不能创建，只能获得</h4><pre><code>Class对象无公共构造方法,加载类时由Java虚拟机和调用类加载器defineClass方法自动构造
-    通过Object类中的getObject()方法,必须明确Person类型.
-    Person p = new Person();   Class c = p.getClass();
-    通过 类名.class 获取到字节码文件对象（任意数据类型都具备一个class静态属性）
-    Class c2 = Person.class;        必须明确Person类型.
-    通过Class类中的方法（将完整类名作为字符串传递给Class类中的静态方法forName即可）
-    Class c3 = Class.forName(&quot;cn.junye.Person&quot;);
-    指定这种类型的字符串就行.扩展更强.不需要知道类.提供字符串,按照配置文件加载就行
-</code></pre><h4 id="②class类获得构造方法的方法及其返回封装好的Constructor类"><a href="#②class类获得构造方法的方法及其返回封装好的Constructor类" class="headerlink" title="②class类获得构造方法的方法及其返回封装好的Constructor类"></a>②class类获得构造方法的方法及其返回封装好的Constructor类</h4><pre><code>返回一个构造方法
-    public Constructor&lt;T&gt; getConstructor(Class&lt;?&gt;... parameterTypes) 
-    获取public修饰, 指定参数类型所对应的构造方法Xxx.class/null
-    public Constructor&lt;T&gt; getDeclaredConstructor(Class&lt;?&gt;... parameterTypes)
-    获取指定参数类型所对应的构造方法(包含私有的)
-    返回多个构造方法
-    public Constructor&lt;?&gt;[] getConstructors()获取所有public 修饰的构造方法
-    public Constructor&lt;?&gt;[] getDeclaredConstructors()获取所有构造方法(包含私有的)
-</code></pre><h4 id="③利用Constructor类创建对象的方法"><a href="#③利用Constructor类创建对象的方法" class="headerlink" title="③利用Constructor类创建对象的方法"></a>③利用Constructor类创建对象的方法</h4><pre><code>public T newInstance(Object... initargs)//传递实际参数/null
-</code></pre><h4 id="②class类获得成员变量的方法及其返回封装好的Field类"><a href="#②class类获得成员变量的方法及其返回封装好的Field类" class="headerlink" title="②class类获得成员变量的方法及其返回封装好的Field类"></a>②class类获得成员变量的方法及其返回封装好的Field类</h4><pre><code>返回一个成员变量
-    public Field getField(String name) 获取指定的 public修饰的变量
-    public Field getDeclaredField(String name) 获取指定的任意变量
-    返回多个成员变量
-    public Field[] getFields() 获取所有public 修饰的变量
-    public Field[] getDeclaredFields() 获取所有的 变量 (包含私有)
-</code></pre><h4 id="③利用Field类对属性进行赋值取值的方法（必须创建对象以传入方法）"><a href="#③利用Field类对属性进行赋值取值的方法（必须创建对象以传入方法）" class="headerlink" title="③利用Field类对属性进行赋值取值的方法（必须创建对象以传入方法）"></a>③利用Field类对属性进行赋值取值的方法（必须创建对象以传入方法）</h4><pre><code>public void set(Object obj, Object value)给指定对象的成员变量设置值
-    public Object get(Object obj)返回指定对象的成员变量值
-</code></pre><h4 id="②class类获得成员方法的方法及其返回封装好的Method类"><a href="#②class类获得成员方法的方法及其返回封装好的Method类" class="headerlink" title="②class类获得成员方法的方法及其返回封装好的Method类"></a>②class类获得成员方法的方法及其返回封装好的Method类</h4><pre><code>返回获取一个方法：
-    public Method getMethod(String name, Class&lt;?&gt;... parameterTypes)
-    获取public 修饰的方法
-    public Method getDeclaredMethod(String name, Class&lt;?&gt;... parameterTypes)
-    获取任意的方法，包含私有的
-    参数1: name 要查找的方法名称； 参数2： parameterTypes 该方法的参数类型
-    返回获取多个方法：
-    public Method[] getMethods() 获取本类与父类中所有public 修饰的方法
-    public Method[] getDeclaredMethods() 获取本类中所有的方法(包含私有的)
-</code></pre><h4 id="③利用Method类对象执行class文件中的成员方法相应的方法（必须创建对象以传入方法）"><a href="#③利用Method类对象执行class文件中的成员方法相应的方法（必须创建对象以传入方法）" class="headerlink" title="③利用Method类对象执行class文件中的成员方法相应的方法（必须创建对象以传入方法）"></a>③利用Method类对象执行class文件中的成员方法相应的方法（必须创建对象以传入方法）</h4><pre><code>public Object invoke(Object obj,  Object... args) 
-    执行指定对象obj中，当前Method对象所代表的方法，方法要传入的参数通过args指定
-</code></pre><h4 id="访问class内容时自动调用访问控制语言检查的方法"><a href="#访问class内容时自动调用访问控制语言检查的方法" class="headerlink" title="访问class内容时自动调用访问控制语言检查的方法"></a>访问class内容时自动调用访问控制语言检查的方法</h4><pre><code>AccessibleObject 是Field类、Method类、Constructor类的父类
-    暴力访问私有构造方法、一般方法、成员变量，在访问前设置，true为取消Java语言访问检查
-    public void setAccessible(boolean flag) throws SecurityException 
-</code></pre><h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><pre><code>符合一定格式的语法 @xxxx，代码级别的说明，与类、接口、枚举同一层次
-    注释：在阅读程序时清楚----给程序员看的
-    注解：给jvm看的，给机器看的
-    主要用于代替配置文件
-    编译检查、代码分析、编写文档
-</code></pre><h3 id="关于配置文件与注解开发的优缺点："><a href="#关于配置文件与注解开发的优缺点：" class="headerlink" title="关于配置文件与注解开发的优缺点："></a>关于配置文件与注解开发的优缺点：</h3><pre><code>注解优点：开发效率高 成本低  
-    注解缺点：耦合性大 并且不利于后期维护
-</code></pre><h3 id="常用的注解"><a href="#常用的注解" class="headerlink" title="常用的注解"></a>常用的注解</h3><pre><code>@Override：告知编译器此方法是覆盖父类的
-    @Deprecated：标注过时①安全问题②新的API取代
-    @SuppressWarnings（value）：压制警告
-    deprecation：忽略过时
-    rawtype：忽略类型安全
-    unused：忽略不使用
-    unchecked：忽略安全检查
-    null：忽略空指针
-    all：忽略所有
-    不同的注解只能在不同的位置使用(方法上、字段上、类上)
-</code></pre><h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><h4 id="编写一个注解"><a href="#编写一个注解" class="headerlink" title="编写一个注解"></a>编写一个注解</h4><pre><code>@Retention(xxx)
-    @Target(xxx)
-    public @interface Myanno{
-    String value();
-    int age() default 28;
-    }        
-</code></pre><h5 id="注解的属性："><a href="#注解的属性：" class="headerlink" title="注解的属性："></a>注解的属性：</h5><pre><code>语法：修饰符 返回值类型 属性名称()[default 值]; 修饰符默认public abstract
-    注意：如果属性的名字是value，并且注解的属性值有一个 那么在使用注解时可以省略value
-</code></pre><h5 id="注解属性返回值类型"><a href="#注解属性返回值类型" class="headerlink" title="注解属性返回值类型"></a>注解属性返回值类型</h5><pre><code>1.基本类型
-    2.String
-    3.枚举类型
-    4.注解类型
-    5.Class类型
-    6.以上类型的一维数组类型
-元注解：代表修饰注解的注解，限制定义的注解的特性,被元注解修饰过的注解才能被使用
-</code></pre><h5 id="Retention-xxx"><a href="#Retention-xxx" class="headerlink" title="@Retention(xxx)"></a>@Retention(xxx)</h5><pre><code>RetentionPolicy.SOURCE:注解在源码级别可见
-    RetentionPolicy.CLASS：注解在字节码文件级别可见
-    RetentionPolicy.RUNTIME：注解在整个运行阶段都可见
-    要想解析使用了注解的类 ， 那么该注解的Retention必须设置成Runtime
-</code></pre><h5 id="Target-xxx"><a href="#Target-xxx" class="headerlink" title="@Target(xxx)"></a>@Target(xxx)</h5><pre><code>代表注解修饰的范围：类上使用，方法上使用，字段上使用
-    Element.FIELD:字段上可用此注解
-    Element.METHOD:方法上可以用此注解
-    Element.TYPE:类/接口上可以使用此注解
-    Element.CONSTRUCTOR:构造方法上面可以用
-</code></pre><h4 id="解析使用了注解的类-实质：从注解中解析出属性值"><a href="#解析使用了注解的类-实质：从注解中解析出属性值" class="headerlink" title="解析使用了注解的类(实质：从注解中解析出属性值)"></a>解析使用了注解的类(实质：从注解中解析出属性值)</h4><pre><code>字节码对象存在获得注解相关的方法
-    boolean isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass) ：
-    判断该字节码对象身上是否使用该注解了
-    T getAnnotation(Class&lt;A&gt; annotationClass) ：
-    获得该字节码对象身上的注解对象                
-</code></pre><h4 id="使用注解-在类-方法-字段-上面是-XXX"><a href="#使用注解-在类-方法-字段-上面是-XXX" class="headerlink" title="使用注解:在类/方法/字段 上面是@XXX"></a>使用注解:在类/方法/字段 上面是@XXX</h4><pre><code>注解可以没有属性，如果有属性要用()如Myanno或Myanno()
-    属性格式：属性名=属性值，多个属性使用，分隔如Myanno(username=&quot;rose&quot;)
-    如果属性名为value，且当前只有一个属性，value可以省略
-    使用多个属性时，k的名称为value不能省略
-    如果属性类型为数组，格式为{1,2,3}如arrs={&quot;a&quot;&quot;b&quot;}
-    如果属性类型为数组，值只有一个{}可以省略如arrs=a
-    一个对象上，注解只能使用一次，不能重复使用        
-</code></pre><h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><h3 id="动态代理的产生"><a href="#动态代理的产生" class="headerlink" title="动态代理的产生"></a>动态代理的产生</h3><img src="/2018/05/01/反射/反射.png" title="反射.png">
-<h3 id="动态代理概念图解"><a href="#动态代理概念图解" class="headerlink" title="动态代理概念图解"></a>动态代理概念图解</h3><img src="/2018/05/01/反射/动态代理.png" title="动态代理.png">
-<h3 id="动态代理—-aop"><a href="#动态代理—-aop" class="headerlink" title="动态代理—-aop"></a>动态代理—-aop</h3><pre><code>JDK的Proxy方式实现的动态代理 目标对象必须有接口 没有接口不能实现动态代理
-    动态代理：不用手动编写一个代理对象，不需要一一编写与目标对象相同的方法，
-    这个过程，在运行时 的内存中动态生成代理对象。------字节码对象级别的代理对象
-    static Object newProxyInstance
-    (ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h) 
-    Object就是代理对象
-    loader：代表与目标对象相同的类加载器:UserServiceImpl.getClass().getClassLoader()
-    Class&lt;?&gt;[] interfaces：代表与目标对象实现的所有的接口字节码对象数组
-    目标对象类实例.getClass().getInterfaces();
-    new Class[]{UserService.class}
-    h：具体的代理的操作，InvocationHandler接口
-    接口方法Object invoke(Object proxy, Method method, Object[] args)
-    proxy：代理对象，
-    method：代理对象当前执行方法method.getName()\method.invoke(对象，实际参数)
-    args：方法实际参数
-</code></pre><h3 id="动态代理的使用"><a href="#动态代理的使用" class="headerlink" title="动态代理的使用"></a>动态代理的使用</h3><h4 id="目标接口"><a href="#目标接口" class="headerlink" title="目标接口"></a>目标接口</h4><pre><code>public interface TargetInterface {
-    public void method1();
-    public String method2();
-    public int method3(int x);
-    }
-</code></pre><h4 id="目标接口实现类"><a href="#目标接口实现类" class="headerlink" title="目标接口实现类"></a>目标接口实现类</h4><pre><code>public class Target implements TargetInterface{
-    @Override
-    public void method1() {
-    System.out.println(&quot;method1 running...&quot;);
-    }
-    @Override
-    public String method2() {
-    System.out.println(&quot;method2 running...&quot;);
-    return &quot;method2&quot;;
-    }
-    @Override
-    public int method3(int x) {
-    return x;
-    }
-    }
-</code></pre><h4 id="动态代理-1"><a href="#动态代理-1" class="headerlink" title="动态代理"></a>动态代理</h4><h5 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h5><pre><code>public static void main(String[] args) {
-    final Target target = new Target();
-    TargetInterface proxy = (TargetInterface) Proxy.newProxyInstance(
-    target.getClass().getClassLoader(), 
-    target.getClass().getInterfaces(), 
-    new InvocationHandler() {
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) 
-    throws Throwable {
-    Object invoke = method.invoke(target, args);//目标对象的相应方法
-    return invoke;
-    }
-    }
-    );
-    proxy.method1();//调用invoke目标对象method1方法 args：null 返回值null
-    //调用invoke目标对象method2方法 args:null 返回值method2
-    String method2 = proxy.method2();
-    //调用invoke目标对象method3方法 args:Object[]{100} 返回值100
-    int method3 = proxy.method3(100);
-    }
-</code></pre><h5 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h5><pre><code>public class ProxyTest {
-    @Test
-    public void test1(){
-    //获得动态的代理对象----在运行时 在内存中动态的为Target创建一个虚拟的代理对象
-    //objProxy是代理对象 根据参数确定到底是谁的代理对象
-    TargetInterface objProxy = (TargetInterface) Proxy.newProxyInstance(
-    Target.class.getClassLoader(), //与目标对象相同的类加载器
-    new Class[]{TargetInterface.class}, //目标对象接口字节码数组
-    new InvocationHandler() {
-    //invoke 代表的是执行代理对象的方法
-    @Override
-    //method：代表目标对象的方法字节码对象
-    //args:代表目标对象的响应的方法的参数
-    //被执行几次？看代理对象调用方法几次、代理对象调用接口相应方法 都是调用invoke方法
-    public Object invoke(Object proxy, Method method, Object[] args) 
-    throws Throwable {
-    System.out.println(&quot;目标方法前的逻辑&quot;);
-    //执行目标对象的方法，并返回目标对象方法执行后的结果
-    Object invoke = method.invoke(new Target(), args);
-    System.out.println(&quot;目标方法后的逻辑&quot;);
-    //retrun返回的值给代理对象
-    return invoke;
-    }
-    }
-    );
-    objProxy.method1();String method2 = objProxy.method2();
-    System.out.println(method2);
-    }
-    }
-</code></pre></div><div class="tags"><a href="/tags/反射-动态代理/">反射&amp;动态代理</a></div><div class="post-nav"><a class="pre" href="/2018/05/02/html/">html</a><a class="next" href="/2018/05/01/错误解决/">错误解决</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Jsp/" style="font-size: 15px;">Jsp</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/反射-动态代理/" style="font-size: 15px;">反射&动态代理</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/05/linux服务器搭建/">linux服务器搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/05/utils/">js utils</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>反射 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">反射</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">反射</h1><div class="post-meta">May 1, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>反射使用<br><a id="more"></a></p>
+<h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><h2 id="反射原理"><a href="#反射原理" class="headerlink" title="反射原理"></a>反射原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">反射机制</span><br><span class="line">在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；</span><br><span class="line">对于任意一个对象，都能够调用它的任意一个方法和属性;</span><br><span class="line">这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</span><br><span class="line">自己的理解</span><br><span class="line">类加载进入内存后产生.class字节码文件、该类的对象、.class字节码文件对应的class对象</span><br><span class="line">获得class对象并利用其方法获得class文件所有的属性和方法然后就能执行创建对象，</span><br><span class="line">调用构造方法，一般方法，设置属性值等操作，不用修改源码就能解决动态调用方法</span><br></pre></td></tr></table></figure>
+<img src="/2018/05/01/反射/反射.png" title="反射.png">
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">类加载器负责将.class文件加载到内存中，并为之生成对应的Class对象</span><br><span class="line">Class对象无公共构造方法,有且只有一个（不能创建，只能获得），</span><br><span class="line">加载类时由Java虚拟机和调用类加载器defineClass方法自动构造</span><br><span class="line">类的加载机制:全盘委托机制</span><br><span class="line">保证一个class文件只会被加载一次，形成一个Class对象。</span><br><span class="line">自定义类加载可以将一个class文件加载多次。</span><br><span class="line">一个class文件被两个类加载器加载将是两个对象</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类的加载步骤</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">指用类加载器将class文件读入内存，并为整个class文件创建一个Class对象</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">（任何类被使用时系统都会建立一个Class对象）</td>
+</tr>
+<tr>
+<td style="text-align:center">连接</td>
+<td style="text-align:center">①验证 是否有正确的内部结构，并和其他类协调一致</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">②准备 负责为类的静态成员分配内存，并设置默认初始化值</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">③解析 将类的二进制数据中的符号引用替换为直接引用</td>
+</tr>
+<tr>
+<td style="text-align:center">初始化</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类加载到内存的时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">创建类的实例</td>
+</tr>
+<tr>
+<td style="text-align:center">初始化某个类的子类</td>
+</tr>
+<tr>
+<td style="text-align:center">类的静态变量，或者为静态变量赋值</td>
+</tr>
+<tr>
+<td style="text-align:center">类的静态方法</td>
+</tr>
+<tr>
+<td style="text-align:center">使用反射方式来强制创建某个类或接口对应的java.lang.Class对象</td>
+</tr>
+<tr>
+<td style="text-align:center">直接使用java.exe命令来运行某个主类</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类加载器分类(超类ClassLoader)</th>
+<th style="text-align:center">作用</th>
+<th style="text-align:center">位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BootstrapClassLoader引导类加载器</td>
+<td style="text-align:center">Java核心类的加载(System,String)</td>
+<td style="text-align:center">JRE/lib/rt.jar</td>
+</tr>
+<tr>
+<td style="text-align:center">ExtensionClassLoader扩展类加载器</td>
+<td style="text-align:center">JRE的扩展目录jar包的加载</td>
+<td style="text-align:center">JRE/lib/ext/*.jar</td>
+</tr>
+<tr>
+<td style="text-align:center">AppClassLoader应用类加载器</td>
+<td style="text-align:center">三方jar包和自己编写的java文件</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Class对象常用ApI</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Class对象.getClassLoader();</td>
+<td style="text-align:center">获得Class对象的类加载器</td>
+</tr>
+<tr>
+<td style="text-align:center">classLoader.getResource(“相对src路径”).getPath();</td>
+<td style="text-align:center">获得classes(src)下的任何资源绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center">classLoader.getResourceAsStream(“”);</td>
+<td style="text-align:center">获得classes下(src)下的任何资源inputStream</td>
+</tr>
+</tbody>
+</table>
+<h2 id="反射的使用"><a href="#反射的使用" class="headerlink" title="反射的使用"></a>反射的使用</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">反射对象</th>
+<th style="text-align:center">方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">获得Class对象</td>
+<td style="text-align:center">类名 变量名 = new 类名();Class c1 = 变量名.getClass();</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Class c2 = 类名.class;(常用)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Class c3 = Class.forName(“完整类名”);(常用)</td>
+</tr>
+<tr>
+<td style="text-align:center">通过Class对象获得Constructor类</td>
+<td style="text-align:center">Constructor<t> getConstructor(Class&lt;?&gt;… parameterTypes);(public)</t></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Constructor<t> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes);(All)</t></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Constructor&lt;?&gt;[] getConstructors()(public)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Constructor&lt;?&gt;[] getDeclaredConstructors(All))</td>
+</tr>
+<tr>
+<td style="text-align:center">通过Constructor类创建对象</td>
+<td style="text-align:center">T newInstance(Object… initargs)(传递构造函数参数)</td>
+</tr>
+<tr>
+<td style="text-align:center">通过Class对象获得Field类</td>
+<td style="text-align:center">Field getField(String name);(本类及父类public)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Field getDeclaredField() (本类All)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Field[] getFields() (本类及父类public)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Field[] getDeclaredFields() ;(本类All)</td>
+</tr>
+<tr>
+<td style="text-align:center">通过class对象获得Method类</td>
+<td style="text-align:center">Method getMethod(String name, Class&lt;?&gt;… parameterTypes)(本类及父类public)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)(本类All)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Method[] getMethods() (本类及父类public)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Method[] getDeclaredMethods()  (本类All)</td>
+</tr>
+<tr>
+<td style="text-align:center">取消Constructor、Field、Method父类</td>
+<td style="text-align:center">void setAccessible(boolean flag) throws SecurityException(true取消)</td>
+</tr>
+<tr>
+<td style="text-align:center">AccessibleObject语言访问检查(允许访问私有)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">利用Field类对属性进行赋值取值</td>
+<td style="text-align:center">void set(Object obj,Object value)(obj传入实例化对象,静态属性则为null)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">Object get(Object obj)(obj传入实例化对象,静态属性则为null)</td>
+</tr>
+<tr>
+<td style="text-align:center">利用Method类执行成员方法</td>
+<td style="text-align:center">Object invoke(Object obj,Object… args)(obj传入实例化对象,静态方法则为null)</td>
+</tr>
+</tbody>
+</table>
+</div><div class="tags"><a href="/tags/反射/">反射</a></div><div class="post-nav"><a class="pre" href="/2018/05/02/html/">html</a><a class="next" href="/2018/05/01/错误解决/">错误解决</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javase/">javase</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/javase/" style="font-size: 15px;">javase</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
