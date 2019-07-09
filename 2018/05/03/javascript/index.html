@@ -1,98 +1,460 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>javascript | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">javascript</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">javascript</h1><div class="post-meta">May 3, 2018<span> | </span><span class="category"><a href="/categories/javascript/">javascript</a></span></div><div class="post-content"><p>javaScript<br><a id="more"></a></p>
 <h1 id="javaScript-重点"><a href="#javaScript-重点" class="headerlink" title="javaScript(重点)"></a>javaScript(重点)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">概念&amp;作用</span><br><span class="line">①编程语言②脚本语言（轻量级编程语言）用于开发交互式web页面</span><br><span class="line">（向HTML页面添加交互行为），③不需编译（解释性语言），</span><br><span class="line">直接嵌入HTML页面中，由浏览器执行</span><br><span class="line">HTML页面中嵌入动态文本、对浏览器事件响应，读写HTML元素，</span><br><span class="line">验证提交数据，检测访客数及访客的浏览信息等。使页面具有动态效果</span><br></pre></td></tr></table></figure>
-<h2 id="引入方式"><a href="#引入方式" class="headerlink" title="引入方式"></a>引入方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">内嵌式&lt;script type=&quot;text/javascript(默认，可省略)&quot;&gt;javascript代码&lt;/script&gt;</span><br><span class="line">外联式&lt;script type=&quot;text/javascript&quot; src=“1.js” charset=“utf-8”&gt;</span><br><span class="line">javascript代码&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="javaScript组成"><a href="#javaScript组成" class="headerlink" title="javaScript组成"></a>javaScript组成</h1><h2 id="ECMAScript（核心）"><a href="#ECMAScript（核心）" class="headerlink" title="ECMAScript（核心）"></a>ECMAScript（核心）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">变量定义（声明）</span><br><span class="line">变量 var 变量名[=值];</span><br><span class="line">(可以不声明，直接使用，默认值undefined、变量存在但没赋值)</span><br><span class="line">（变量弱类型：同一个变量可以存放不同类型的数据）</span><br><span class="line">如果在函数的内容用var定义，那么它是一个局部变量，</span><br><span class="line">如果没有使用var它是一个全局的</span><br><span class="line">严格区分大小写，注释与java相同</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">运算符</span><br><span class="line">js比较===全等，值和类型，相比java没有equals，null写成“”</span><br><span class="line">== 它在做比较的时候会进行自动转换。</span><br><span class="line">=== 它在做比较的时候不会进行自动转换。</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">基本数据类型</th>
-<th style="text-align:center">种类</th>
+<th style="text-align:center">javascript引入方式</th>
 <th style="text-align:center">说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">原始数据类型</td>
-<td style="text-align:center">number</td>
-<td style="text-align:center">（任何数字）</td>
+<td style="text-align:center">内嵌式</td>
+<td style="text-align:center">&lt;script type=”text/javascript(默认，可省略)”&gt;javascript代码&lt;/script&gt;</td>
 </tr>
 <tr>
+<td style="text-align:center">外联式</td>
+<td style="text-align:center">&lt;script type=”text/javascript” src=“1.js” charset=“utf-8”&gt;&lt;/script&gt;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">javaScript组成</th>
+<th style="text-align:center">基本语法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ECMAScript（核心）</td>
+<td style="text-align:center">变量定义</td>
+<td style="text-align:center">var 变量名[=值];(可以不声明，直接使用，默认值undefined、变量存在但没赋值)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">（变量弱类型：同一个变量可以存放不同类型的数据）</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">如果在函数的内容用var定义，那么它是一个局部变量，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">如果没有使用var它是一个全局的</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">严格区分大小写，注释与java相同</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">运算符</td>
+<td style="text-align:center">js比较===全等，值和类型，相比java没有equals，null写成””</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">== 它在做比较的时候会进行自动转换。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">=== 它在做比较的时候不会进行自动转换。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">基本数据类型</td>
+<td style="text-align:center">number（任何数字）</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center">string（“”‘’）</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center">boolean</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">null</td>
-<td style="text-align:center">（对象的默认值）</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">null（对象的默认值）</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">undefined</td>
-<td style="text-align:center">(变量无初始化时的默认值))</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">undefined(变量无初始化时的默认值))</td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
 <td style="text-align:center">引用数据类型</td>
 <td style="text-align:center">Number</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">String</td>
-<td style="text-align:center">match()找到一个或多个正则表达式的匹配.substr(a,b)从起始索引号提取字符串中指定数目的字符.substring(a,b)提取字符串中两个指定的索引号之间的字符。</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">String match()找到一个或多个正则表达式的匹配.substr(a,b)从起始索引号提取字符串中指定数目的字符.substring(a,b)提取字符串中两个指定的索引号之间的字符。</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">Boolean</td>
-<td style="text-align:center">new Boolean(value)value不写默认false</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Boolean new Boolean(value)value不写默认false</td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center">Array</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center">Boolean</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">Date</td>
-<td style="text-align:center">Date.getTime()返回1970年1月1日至今的毫秒数、解决浏览器缓存问题</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">DateDate.getTime()返回1970年1月1日至今的毫秒数、解决浏览器缓存问题</td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center">Math</td>
-<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">ReqExp</td>
-<td style="text-align:center">对象正则表达式对象</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">ReqExp对象正则表达式对象 ReqExp.test(要测的对象)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">普通函数</td>
+<td style="text-align:center">[window/element.onload/var 变量名=]function 函数名(参数,参数){函数体,return 返回值}</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">匿名函数</td>
+<td style="text-align:center">[window/element.onload/var 变量名=]function(参数,参数){函数体，return 返回值}</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">调用函数</td>
+<td style="text-align:center">函数名(参数，参数)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">事件(调用函数)</td>
+<td style="text-align:center">事件=“[return] 函数名([参数，参数])”</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onload 只能写一次并且放到body标签中</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onsubmit   写在form标签中，必须有返回值。return false不提交</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onclick、ondbclick</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onblur 表单校验，text离焦</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onfocus 表单校验，text获得焦点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onchange 二级联动、onkeydown搜索引擎</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onkeypress 搜索引擎</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onkeyup、onmousdown</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onmouseup、onmouseover鼠标悬空高亮问题</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">onmouseout鼠标离开、onmousemove</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">让按钮点击失效：onclick=”javascript:volid(0)”</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">event对象</td>
+<td style="text-align:center">clientX,鼠标指针水平坐标</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">clientY鼠标指针垂直坐标</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">keyCode返回键盘输入的ASCII码</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">preventDefault()阻止浏览器默认行为</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">stopPropagation()阻止事件传播</td>
+</tr>
+<tr>
+<td style="text-align:center">BOM浏览器对象</td>
+<td style="text-align:center">window对象</td>
+<td style="text-align:center">表示浏览器中打开的窗口,都是全局函数，window可省略</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">alert(“提示框提示信息”);confirm(“确认提示信息”);prompt(“提示信息框”);</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">location对象</td>
+<td style="text-align:center">包含相关当前的url信息 href</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">history（了解）</td>
+<td style="text-align:center">包含用户在浏览器窗口中访问过的url</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">history.go(-1);加载前一个连接等于history.back()；</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">history.go(1)；加载后一个链接，等效history.forward();</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">var xx=setInterval(function(),millisec)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">setInterval（“function()”,毫秒值)—-clearInterval(xx)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">setInterval（string,毫秒值）—-clearInterval(xx)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">setTimeout（code,millsec）—clearTimeout(xx)</td>
+</tr>
+<tr>
+<td style="text-align:center">DOM文档对象模型</td>
+<td style="text-align:center">Document对象</td>
+<td style="text-align:center">HTML文档，获得标签元素element对象</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getElementById(“id”)单个，唯一</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getElementsByTagName(“name”)需要遍历</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getElementsByName(“name”)复选框全选与全不选，用数组表示，多个。批量，需要遍历</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getElementById(“id”).value获取元素里面的值:字符串加“”，变量不加</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">createTextNode()创建文本节点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">createElement()创建元素节点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">write(“”);想页面写入内容</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">element对象</td>
+<td style="text-align:center">style.属性[=属性值]；获得[设置]样式</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">如果属性有多个单词使用“-”连接，则去掉“-”将后一个单词首字母大写</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">appendChild()向元素添加新的子节点，作为最后一个子节点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">removeChild()从元素中移除子节点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">replaceChild()替换元素中的子节点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">firstChild返回元素的首个子节点。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">lastChild返回元素的最后一个子元素。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">innerHTML设置或返回元素的内容 =””向页面某个元素写一段内容，将原有的东西覆盖</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">insertBefore()在指定的已有的子节点之前插入新节点。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">setAttribute(“属性名”)把指定属性设置或更改为指定值。非css</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getAttribute(“属性名”)返回元素节点的指定属性值。非css</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">attribute对象</td>
+<td style="text-align:center">标签属性</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">document.getElementById(“id”).value获得元素里面的值(显示的内容)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">this.setAttribute(name,value)给当前元素设置属性</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">this</td>
+<td style="text-align:center">表示函数当前操作的元素</td>
 </tr>
 </tbody>
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test检索字符串中指定的值。返回true或false。</span><br><span class="line">对变量或者值使用typeof运算符，则object是由引用或null返回的</span><br><span class="line">其他返回原始数据类型</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">函数</span><br><span class="line">普通函数[window/element.onload/var 变量名=]</span><br><span class="line">function 函数名(参数,参数)&#123;函数体,return 返回值&#125;</span><br><span class="line">匿名函数[window/element.onload/var 变量名=]</span><br><span class="line">function(参数,参数)&#123;函数体，return 返回值&#125;</span><br><span class="line">调用函数:函数名(参数，参数)</span><br></pre></td></tr></table></figure>
-<h2 id="事件-调用函数"><a href="#事件-调用函数" class="headerlink" title="事件(调用函数)"></a>事件(调用函数)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">事件=“[return] 函数名([参数，参数])”</span><br><span class="line">onload 只能写一次并且放到body标签中</span><br><span class="line">onsubmit   写在form标签中，必须有返回值。return false不提交</span><br><span class="line">onclick、ondbclick</span><br><span class="line">onblur 表单校验，text离焦</span><br><span class="line">onfocus 表单校验，text获得焦点</span><br><span class="line">onchange 二级联动、onkeydown搜索引擎</span><br><span class="line">onkeypress 搜索引擎</span><br><span class="line">onkeyup、onmousdown</span><br><span class="line">onmouseup、onmouseover鼠标悬空高亮问题</span><br><span class="line">onmouseout鼠标离开、onmousemove</span><br><span class="line">让按钮点击失效：onclick=”javascript:volid(0)”</span><br></pre></td></tr></table></figure>
-<h3 id="BOM浏览器对象模型（整个HTML页面内容）"><a href="#BOM浏览器对象模型（整个HTML页面内容）" class="headerlink" title="BOM浏览器对象模型（整个HTML页面内容）"></a>BOM浏览器对象模型（整个HTML页面内容）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window对象</span><br><span class="line">表示浏览器中打开的窗口</span><br><span class="line">	都是全局函数，window可省略</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">弹框的方法</span><br><span class="line">alert(“提示框提示信息”);</span><br><span class="line">confirm(&quot;确认提示信息&quot;);</span><br><span class="line">prompt(&quot;提示信息框&quot;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">定时器4</span><br><span class="line">setInterval（code,millisec）</span><br><span class="line">setInterval（“function()”,毫秒值）----clearInterval()</span><br><span class="line">setInterval（string,毫秒值）----clearInterval()</span><br><span class="line">返回一个可以传递给clearInterval（）</span><br><span class="line">从而取消对code的周期性执行值</span><br><span class="line">setTimeout（code,millsec）---clearTimeout()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location对象：包含相关当前的url信息 href</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history（了解）包含用户在浏览器窗口中访问过的url</span><br><span class="line">history.go(-1);加载前一个连接等于history.back()；</span><br><span class="line">history.go(1)；加载后一个链接，等效history.forward();</span><br></pre></td></tr></table></figure>
-<h3 id="DOM文档对象模型"><a href="#DOM文档对象模型" class="headerlink" title="DOM文档对象模型"></a>DOM文档对象模型</h3><pre><code>操作文档中的元素和内容，DOM树通过js相应的api实现
-</code></pre><img src="/2018/05/03/javascript/dom.png" title="dom.png">
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Document对象：HTML文档，获得标签元素element对象</span><br><span class="line">document.getElementById(“id”)单个，唯一</span><br><span class="line">document.getElementsByTagName(&quot;name&quot;)需要遍历</span><br><span class="line">document.getElementsByName(&quot;name&quot;)复选框全选与全不选，用数组表示，多个。批量，需要遍历</span><br><span class="line">document.getElementById(&quot;id&quot;).value获取元素里面的值:字符串加“”，变量不加</span><br><span class="line">document.createTextNode()创建文本节点：</span><br><span class="line">document.createElement()创建元素节点：</span><br><span class="line">document.write(&quot;&quot;);想页面写入内容</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">element对象：标签</span><br><span class="line">例：document.getElementById(“id”).innerHTML</span><br><span class="line">document.getElementById(“id”).style.属性=属性值；获得或设置！样式！	</span><br><span class="line">如果属性有多个单词使用“-”连接，则去掉“-”将后一个单词首字母大写，</span><br><span class="line">如background-color，backgroundcolor</span><br><span class="line">element.appendChild()向元素添加新的子节点，作为最后一个子节点。</span><br><span class="line">element.removeChild()从元素中移除子节点。</span><br><span class="line">element.replaceChild()替换元素中的子节点。</span><br><span class="line">element.firstChild返回元素的首个子节点。</span><br><span class="line">element.lastChild返回元素的最后一个子元素。</span><br><span class="line">element.innerHTML设置或返回元素的内容 =&quot;&quot;向页面某个元素写一段内容，将原有的东西覆盖</span><br><span class="line">element.insertBefore()在指定的已有的子节点之前插入新节点。</span><br><span class="line">element.setAttribute(“属性名”)把指定属性设置或更改为指定值。非css</span><br><span class="line">element.getAttribute(“属性名”)返回元素节点的指定属性值。非css</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">attribute对象：标签属性</span><br><span class="line">document.getElementById(“id”).value，获得元素里面的值(显示的内容)</span><br><span class="line">this.setAttribute(name,value)给当前元素设置属性</span><br></pre></td></tr></table></figure>
-<h1 id="javascript正则匹配"><a href="#javascript正则匹配" class="headerlink" title="javascript正则匹配"></a>javascript正则匹配</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String对象中match方法，str.match（）；</span><br><span class="line">	正则对象中的test方法 正则表达.test(要测的对象)</span><br></pre></td></tr></table></figure>
+<h3 id="BOM浏览器对象模型（整个HTML页面内容）"><a href="#BOM浏览器对象模型（整个HTML页面内容）" class="headerlink" title="BOM浏览器对象模型（整个HTML页面内容）"></a>BOM浏览器对象模型（整个HTML页面内容）</h3><p>操作文档中的元素和内容，DOM树通过js相应的api实现<br><img src="/2018/05/03/javascript/dom.png" title="dom.png"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">javascript正则匹配</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">String对象</td>
+<td style="text-align:center">match方法，str.match（）；</td>
+</tr>
+<tr>
+<td style="text-align:center">ReqExp对象</td>
+<td style="text-align:center">test方法 ReqExp.test(要测的对象)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">全局函数</th>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">转换</td>
+<td style="text-align:center">parseFloat()</td>
+<td style="text-align:center">解析一个字符串并返回一个浮点数</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">parseInt()</td>
+<td style="text-align:center">解析一个字符串并返回一个整数</td>
+</tr>
+<tr>
+<td style="text-align:center">执行</td>
+<td style="text-align:center">eval()</td>
+<td style="text-align:center">计算JavaScript字符串,并把它作为脚本运行</td>
+</tr>
+<tr>
+<td style="text-align:center">编码</td>
+<td style="text-align:center">encodeURI()</td>
+<td style="text-align:center">把字符串编码为URI</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">decodeURI()</td>
+<td style="text-align:center">解码某个编码的URI</td>
+</tr>
+</tbody>
+</table>
 <h1 id="转换成jq对象"><a href="#转换成jq对象" class="headerlink" title="转换成jq对象"></a>转换成jq对象</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq选择器.html();</span><br></pre></td></tr></table></figure>
 <h2 id="向页面输出3"><a href="#向页面输出3" class="headerlink" title="向页面输出3"></a>向页面输出3</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">弹窗：alert();……</span><br><span class="line">向浏览器中写入内容：document.write(“”)；</span><br><span class="line">向页面指定位置写入内容,innerHTML  （属性）</span><br></pre></td></tr></table></figure>
 <h2 id="js使用步骤"><a href="#js使用步骤" class="headerlink" title="js使用步骤"></a>js使用步骤</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">确定事件位置并绑定函数</span><br><span class="line">书写函数内容（获取元素和操作元素）</span><br><span class="line">在注意引号使用：双引号用于字符串和函数调用，</span><br><span class="line">双引号里面再有字符串则字符串用单引号</span><br></pre></td></tr></table></figure>
@@ -104,4 +466,4 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.forEach ( callbackfn [ , thisArg ] )</span><br><span class="line">	callbackfn 应该是个函数，它接受三个参数。</span><br><span class="line">		forEach 按照索引的升序，对数组里存在的每个元素调用一次 callbackfn。</span><br><span class="line">		callbackfn 只被实际存在的数组元素调用；它不会被缺少的数组元素调用。</span><br><span class="line"></span><br><span class="line">		如果提供了一个 thisArg 参数，它会被当作 this 值传给每个 callbackfn 调用。</span><br><span class="line">		如果没提供它，用 undefined 替代。</span><br><span class="line"></span><br><span class="line">		调用 callbackfn 时将传入三个参数：元素的值，元素的索引，和遍历的对象。</span><br><span class="line"></span><br><span class="line">		对 forEach 的调用不直接更改对象，但是对 callbackfn 的调用可能更改对象。</span><br><span class="line"></span><br><span class="line">		forEach 处理的元素范围是在首次调用 callbackfn 之前设定的。</span><br><span class="line">		在 forEach 调用开始后追加到数组里的元素们不会被 callbackfn 访问。</span><br><span class="line">		如果更改以存在数组元素，forEach 访问这些元素时的值会传给 </span><br><span class="line">		callbackfn；在 forEach 调用开始后删除的和之前被访问过的元素们是不访问的。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.filter ( callbackfn [ , thisArg ] )</span><br><span class="line">	callbackfn 应该是个函数，它接受三个参数并返回一个可转换为布尔值 true 和 false 的值。</span><br><span class="line">		filter 按照索引的升序，对数组里存在的每个元素调用一次 callbackfn，并用使 callbackfn 返回 true 的所有值构造一个新数组。</span><br><span class="line">		callbackfn 只被实际存在的数组元素调用；它不会被缺少的数组元素调用。</span><br><span class="line">		如果提供了一个 thisArg 参数，它会被当作 this 值传给每个 callbackfn 调用。如果没提供它，用 undefined 替代。</span><br><span class="line">		调用 callbackfn 时将传入三个参数：元素的值，元素的索引，和遍历的对象。</span><br><span class="line">		对 filter 的调用不直接更改对象，但是对 callbackfn 的调用可能更改对象。</span><br><span class="line">		filter 处理的元素范围是在首次调用 callbackfn 之前设定的。</span><br><span class="line">		在 filter 调用开始后追加到数组里的元素们不会被 callbackfn 访问。</span><br><span class="line">		如果更改以存在数组元素，filter 访问这些元素时的值会传给 </span><br><span class="line">		callbackfn；在 filter 调用开始后删除的和之前被访问过的元素们是不访问的。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//将指定的form表单中所有的输入项转为json数据，用于参数提交</span><br><span class="line">	$.fn.serializeJson=function()&#123;  </span><br><span class="line">            var serializeObj=&#123;&#125;;  </span><br><span class="line">            var array=this.serializeArray();</span><br><span class="line">            $(array).each(function()&#123;  </span><br><span class="line">                if(serializeObj[this.name])&#123;  </span><br><span class="line">                    if($.isArray(serializeObj[this.name]))&#123;  </span><br><span class="line">                        serializeObj[this.name].push(this.value);  </span><br><span class="line">                    &#125;else&#123;  </span><br><span class="line">                        serializeObj[this.name]=[serializeObj[this.name],this.value];  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;else&#123;  </span><br><span class="line">                    serializeObj[this.name]=this.value;   </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;);  </span><br><span class="line">            return serializeObj;  </span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用var p = $(&quot;#searchForm&quot;).serializeJson();</span><br></pre></td></tr></table></figure></div><div class="tags"><a href="/tags/javascript/">javascript</a></div><div class="post-nav"><a class="pre" href="/2018/05/04/jquery/">jquery</a><a class="next" href="/2018/05/02/css/">css</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javase/">javase</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/javase/" style="font-size: 15px;">javase</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用var p = $(&quot;#searchForm&quot;).serializeJson();</span><br></pre></td></tr></table></figure></div><div class="tags"><a href="/tags/javascript/">javascript</a></div><div class="post-nav"><a class="pre" href="/2018/05/04/jquery/">jquery</a><a class="next" href="/2018/05/02/css/">css</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/常用API/" style="font-size: 15px;">常用API</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/集合框架/" style="font-size: 15px;">集合框架</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
