@@ -1,11 +1,1293 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>Java基本语法 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Java基本语法</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Java基本语法</h1><div class="post-meta">Apr 23, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>从今天开始尽量每天上传自己的自学总结当是面试前的复习<br><a id="more"></a></p>
-<h1 id="Java开发环境的搭建"><a href="#Java开发环境的搭建" class="headerlink" title="Java开发环境的搭建"></a>Java开发环境的搭建</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Java概述</span><br><span class="line">Java是一门编程语言是用来编写软件的，主要有以下两种</span><br><span class="line">互联网：电商、P2P等等；企业级应用：ERP、CRM、BOS、OA</span><br><span class="line">Java跨平台（操作系统 （Windows，Linux，Mac））特性</span><br><span class="line">Java程序可以在任意操作系统上运行，一次编写到处运行</span><br><span class="line">实现跨平台需要依赖Java的虚拟机JVM（Java Virtual Machine）</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Java开发环境概述（Java程序运行需要的环境）</span><br><span class="line">JDK：Java Development Kit，程序员的电脑上安装JDK；JDK包含JRE</span><br><span class="line">JRE：Java Runtime Environment，Java运行环境，用户在电脑上安装JRE即可</span><br></pre></td></tr></table></figure>
-<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">编写Java源代码文件(扩展名为.java)</span><br><span class="line">使用最普通的文本编辑器编写，修改文件名称为HelloWorld.java</span><br><span class="line">注意文件名称的大小写。以及是否已经修改了文件的扩展名</span><br><span class="line">类名必须与源文件名称相同</span><br><span class="line">public class HelloWorld &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(&quot;HelloWorld&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">编译：通过编译器把源文件编译成字节码文件(扩展名为.class)</span><br><span class="line">编译器：JDK目录下的bin目录javac.exe</span><br><span class="line">编译命令为：D:\develop\Java\jdk1.7.0_72\bin\javac.exe D:\java\HelloWorld.java</span><br><span class="line">编译之后会在源文件同目录下生成字节码文件，字节码文件的扩展名为.class</span><br><span class="line">编译时控制台上不会有输出，如果有输出说明源代码有错误</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">运行：使用解释器来运行字节码文件</span><br><span class="line">D:\develop\Java\jdk1.7.0_72\bin\java.exe HelloWord；</span><br><span class="line">在运行HelloWorld.class文件时不能给出“.class”，切记！！！</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">配置环境变量（减少输入JDK的bin目录的麻烦）</span><br><span class="line">在DOS控制台中使用的程序只给出程序名称，而没有给出完整路径时，Windows系统会到Path变量保存的路径中查找程序</span><br><span class="line">鼠标右键点击计算机→属性→高级系统设置→环境变量→系统变量中的Path→编辑</span><br><span class="line">将JDK安装目录\bin路径配置到PATH变量中，用英文分号与其他变量隔开</span><br><span class="line">编译：D:/java/&gt;javac HelloWorld.java；</span><br><span class="line">运行：D:/java/&gt;java HelloWorld；</span><br></pre></td></tr></table></figure>
-<table>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>java基础语法 | 何创军的博客</title>
+  <meta name="keywords" content=" java基础语法 ">
+  <meta name="description" content="java基础语法 | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(80)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a style="border-right: 1px solid #fff; width: 49%"  class="about site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="80">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http协议/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-java基础语法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">java基础语法</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="javase">javase</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">java基础语法</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-02 21:57:51'>2018-04-23 16:40</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java开发环境的搭建"><span class="toc-text">java开发环境的搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#java概述"><span class="toc-text">java概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java开发环境概述（java程序运行需要的环境）"><span class="toc-text">java开发环境概述（java程序运行需要的环境）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HelloWorld程序"><span class="toc-text">HelloWorld程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置java环境变量（减少输入JDK的bin目录的麻烦）"><span class="toc-text">配置java环境变量（减少输入JDK的bin目录的麻烦）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注释、关键字与标识符"><span class="toc-text">注释、关键字与标识符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型分类：基本数据类型和引用数据类型"><span class="toc-text">数据类型分类：基本数据类型和引用数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#流程控制"><span class="toc-text">流程控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#顺序结构"><span class="toc-text">顺序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择结构"><span class="toc-text">选择结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环结构"><span class="toc-text">循环结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳转语句"><span class="toc-text">跳转语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"><span class="toc-text">数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h1 id="java开发环境的搭建"><a href="#java开发环境的搭建" class="headerlink" title="java开发环境的搭建"></a>java开发环境的搭建</h1><h2 id="java概述"><a href="#java概述" class="headerlink" title="java概述"></a>java概述</h2><pre><code>java是用来编写互联网(电商、P2P)和企业级应用(ERP、CRM、BOS、OA)等软件的一门编程语言
+java跨平台（操作系统 （Windows，Linux，Mac））特性
+java程序可以在任意操作系统上运行，一次编写到处运行
+实现跨平台需要依赖java的虚拟机JVM（java Virtual Machine）
+</code></pre><h2 id="java开发环境概述（java程序运行需要的环境）"><a href="#java开发环境概述（java程序运行需要的环境）" class="headerlink" title="java开发环境概述（java程序运行需要的环境）"></a>java开发环境概述（java程序运行需要的环境）</h2><pre><code>JDK：java Development Kit，程序员的电脑上安装JDK；JDK包含JRE
+JRE：java Runtime Environment，java运行环境，用户在电脑上安装JRE即可
+</code></pre><h2 id="HelloWorld程序"><a href="#HelloWorld程序" class="headerlink" title="HelloWorld程序"></a>HelloWorld程序</h2><pre><code>①编写java源代码文件
+用记事本新建文件并命名为HelloWorld.java
+类名必须与源文件名称完全相同(扩展名为.java)
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&quot;HelloWorld&quot;);
+    }
+}
+
+②编译：通过编译器把源文件编译成字节码文件(扩展名为.class)
+编译器：JDK目录下的bin目录javac.exe
+编译命令为：D:\develop\java\jdk1.7.0_72\bin\javac.exe D:\java\HelloWorld.java
+编译之后会在源文件同目录下生成字节码文件，字节码文件的扩展名为.class
+编译时控制台上不会有输出，如果有输出说明源代码有错误
+
+③运行：使用解释器来运行字节码文件
+D:\develop\java\jdk1.7.0_72\bin\java.exe HelloWord
+在运行HelloWorld.class文件时不能给出“.class”，切记！！！
+</code></pre><h2 id="配置java环境变量（减少输入JDK的bin目录的麻烦）"><a href="#配置java环境变量（减少输入JDK的bin目录的麻烦）" class="headerlink" title="配置java环境变量（减少输入JDK的bin目录的麻烦）"></a>配置java环境变量（减少输入JDK的bin目录的麻烦）</h2><pre><code>在DOS控制台中使用的程序只给出程序名称，而没有给出完整路径时，Windows系统会到Path变量保存的路径中查找程序
+鼠标右键点击计算机→属性→高级系统设置→环境变量→系统变量中的Path→编辑，将JDK安装目录\bin路径配置到PATH变量中，用英文分号与其他变量隔开
+编译：D:/java/&gt;javac HelloWorld.java；
+运行：D:/java/&gt;java HelloWorld；                
+</code></pre><h2 id="注释、关键字与标识符"><a href="#注释、关键字与标识符" class="headerlink" title="注释、关键字与标识符"></a>注释、关键字与标识符</h2><table>
 <thead>
 <tr>
 <th style="text-align:center">类别</th>
@@ -17,7 +1299,7 @@
 <tr>
 <td style="text-align:center">程序注释</td>
 <td style="text-align:center">对源码进行解释说明的文字</td>
-<td style="text-align:center">//单行注释、/<em>多行注释</em>/、/<strong>文档注释</strong>/</td>
+<td style="text-align:center">//单行注释、/*多行注释*/、/**文档注释**/</td>
 </tr>
 <tr>
 <td style="text-align:center">关键字</td>
@@ -56,13 +1338,15 @@
 </tr>
 </tbody>
 </table>
-<h1 id="数据类型分类：基本数据类型和引用数据类型（数组、类、接口）"><a href="#数据类型分类：基本数据类型和引用数据类型（数组、类、接口）" class="headerlink" title="数据类型分类：基本数据类型和引用数据类型（数组、类、接口）"></a>数据类型分类：基本数据类型和引用数据类型（数组、类、接口）</h1><table>
+<h1 id="数据类型分类：基本数据类型和引用数据类型"><a href="#数据类型分类：基本数据类型和引用数据类型" class="headerlink" title="数据类型分类：基本数据类型和引用数据类型"></a>数据类型分类：基本数据类型和引用数据类型</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">基本数据类型</th>
 <th style="text-align:center">八种</th>
 <th style="text-align:center">字节数</th>
 <th style="text-align:center">数据表示范围</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">包装类</th>
 </tr>
 </thead>
 <tbody>
@@ -70,121 +1354,85 @@
 <td style="text-align:center">整型</td>
 <td style="text-align:center">byte</td>
 <td style="text-align:center">1</td>
-<td style="text-align:center">-128～127 7次方</td>
+<td style="text-align:center">-2^7~2^7-1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Byte</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">short</td>
 <td style="text-align:center">2</td>
-<td style="text-align:center">-32768～32767 15次方</td>
+<td style="text-align:center">-2^15～2^15</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Short</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">int</td>
 <td style="text-align:center">4</td>
-<td style="text-align:center">-2147483648～2147483648 31次方</td>
+<td style="text-align:center">-2^31～2^31-1 31次方</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Integer</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">long</td>
 <td style="text-align:center">8</td>
-<td style="text-align:center">-263～263-1 63次方+L</td>
+<td style="text-align:center">-2^63～2^63-1 63次方+L</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Long</td>
 </tr>
 <tr>
 <td style="text-align:center">浮点型</td>
 <td style="text-align:center">float</td>
 <td style="text-align:center">4</td>
 <td style="text-align:center">-3.403E38～3.403E38 128次方～127次方+F 7位有效数字</td>
+<td style="text-align:center">0.0</td>
+<td style="text-align:center">Float</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">double</td>
 <td style="text-align:center">8</td>
 <td style="text-align:center">-1.798E308～1.798E308 1024次方～1023次方+D 16位~</td>
+<td style="text-align:center">0.0</td>
+<td style="text-align:center">Double</td>
 </tr>
 <tr>
 <td style="text-align:center">字符型</td>
 <td style="text-align:center">char</td>
 <td style="text-align:center">2</td>
 <td style="text-align:center">‘’包裹，只包含一字符，运算按ASCII码对应的整数运算</td>
+<td style="text-align:center">‘’</td>
+<td style="text-align:center">Character</td>
 </tr>
 <tr>
 <td style="text-align:center">布尔型</td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">true、false</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">数据类型</th>
-<th style="text-align:center">默认初始化值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">byte、short、int、long</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:center">float、double</td>
-<td style="text-align:center">0.0</td>
-</tr>
-<tr>
-<td style="text-align:center">char</td>
-<td style="text-align:center">一个空字符（空格），即’\u00000’</td>
-</tr>
-<tr>
-<td style="text-align:center">boolean</td>
 <td style="text-align:center">false</td>
+<td style="text-align:center">Boolean</td>
 </tr>
 <tr>
 <td style="text-align:center">引用数据类型</td>
+<td style="text-align:center">数组、类、接口</td>
+<td style="text-align:center"></td>
 <td style="text-align:center">null，表示变量不引用任何对象</td>
 </tr>
 </tbody>
 </table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">基本数据类型</th>
-<th style="text-align:center">对应的引用数据类型表示形式</th>
-<th style="text-align:center">基本数据类型</th>
-<th style="text-align:center">对应的引用数据类型表示形式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">byte</td>
-<td style="text-align:center">Byte</td>
-<td style="text-align:center">float</td>
-<td style="text-align:center">Float</td>
-</tr>
-<tr>
-<td style="text-align:center">short</td>
-<td style="text-align:center">Short</td>
-<td style="text-align:center">double</td>
-<td style="text-align:center">Double</td>
-</tr>
-<tr>
-<td style="text-align:center">Int</td>
-<td style="text-align:center">Integer</td>
-<td style="text-align:center">char</td>
-<td style="text-align:center">Character</td>
-</tr>
-<tr>
-<td style="text-align:center">long</td>
-<td style="text-align:center">Long</td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">Boolean</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本数据类型封装成对象，提供更多的基本数值的操作</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数据类型转换（布尔值除外）</span><br><span class="line">不同类型的变量可以在一起运算，但要先进行类型转换再运算</span><br><span class="line">范围小的数据类型值（如byte），可以直接转换为范围大的数据类型值（如int）</span><br><span class="line">范围大的数据类型值（如int），不可以直接转换为范围小的数据类型值（如byte）</span><br><span class="line">数据类型数据范围从小到大：byte -&gt; short -&gt; int -&gt; long -&gt; float -&gt; double</span><br><span class="line">自动类型转换：范围小的数据类型转换成范围大的数据类型</span><br><span class="line">格式：范围大的数据类型 变量 = 范围小的数据类型值；</span><br><span class="line">强制类型转换：范围大的数据类型转换成范围小的数据类型</span><br><span class="line">格式：范围小的数据类型  变量 = (范围小的数据类型) 范围大的数据类型值;</span><br><span class="line">多种类型数据混合运算时，系统自动将所有数据转换成容量最大的那一种数据类型再计算。</span><br></pre></td></tr></table></figure>
-<table>
+<pre><code>数据类型转换（布尔值除外）
+不同类型的变量可以在一起运算，但要先进行类型转换再运算
+范围小的数据类型值（如byte），可以直接转换为范围大的数据类型值（如int）
+范围大的数据类型值（如int），不可以直接转换为范围小的数据类型值（如byte）
+数据类型数据范围从小到大：byte -&gt; short -&gt; int -&gt; long -&gt; float -&gt; double
+自动类型转换：范围小的数据类型转换成范围大的数据类型
+格式：范围大的数据类型 变量 = 范围小的数据类型值；
+强制类型转换：范围大的数据类型转换成范围小的数据类型
+格式：范围小的数据类型  变量 = (范围小的数据类型) 范围大的数据类型值;
+多种类型数据混合运算时，系统自动将所有数据转换成容量最大的那一种数据类型再计算                                                                    
+</code></pre><h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><table>
 <thead>
 <tr>
 <th style="text-align:center">常量(不变的数据量)数据类型</th>
@@ -234,11 +1482,11 @@
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">默认的浮点类型是double类型所有没有后缀以及使用“D”后缀的小数都是double类型</td>
+<td style="text-align:center">所有无后缀以及使用“D”后缀的小数都是double类型</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">float类型常量必须添加“F”后缀</td>
+<td style="text-align:center">float类型常量必须添加“F”后缀，默认的浮点类型是double类型</td>
 </tr>
 <tr>
 <td style="text-align:center">字符类型</td>
@@ -254,10 +1502,17 @@
 </tr>
 </tbody>
 </table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原码：二进制数的有符号表示法，即最高位为符号位，</span><br><span class="line">反码：A：正数 与原码相同B：负数 符号位不变，数值位按位取反，0变1,1变0</span><br><span class="line">补码：A：正数 与原码相同B：负数 反码加1。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">变量:内存中装载数据的小盒子，用来存数据和取数据</span><br><span class="line">变量必须要有明确的类型，同时也要指定变量能装载多大的数据</span><br><span class="line">定义变量：数据类型  变量名  =  数据值；</span><br><span class="line">变量名是合法的标识符。在程序中可通过变量名来操作变量。给变量赋的值要与类型符合</span><br><span class="line"></span><br><span class="line">变量定义后可以不赋值，使用时再赋值。不赋值不能使用</span><br><span class="line">变量不可以重复定义</span><br><span class="line">变量使用时有作用域的限制</span><br></pre></td></tr></table></figure>
-<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运算符是用来计算数据的符号。数据为常量或变量。被运算符操作的数我们称为操作数。</span><br></pre></td></tr></table></figure>
-<table>
+<pre><code>原码：二进制数的有符号表示法，即最高位为符号位，
+反码：A：正数 与原码相同B：负数 符号位不变，数值位按位取反，0变1,1变0
+补码：A：正数 与原码相同B：负数 反码加1。
+</code></pre><h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><pre><code>变量:内存中装载数据的小盒子，用来存数据和取数据
+定义变量：数据类型  变量名  =  数据值；
+
+变量定义后可以不赋值，使用时再赋值。不赋值不能使用
+变量不可以重复定义
+变量使用时有作用域的限制                        
+</code></pre><h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><pre><code>运算符是用来计算数据的符号。数据为常量或变量。被运算符操作的数我们称为操作数。
+</code></pre><table>
 <thead>
 <tr>
 <th style="text-align:center">运算符</th>
@@ -268,11 +1523,7 @@
 <tbody>
 <tr>
 <td style="text-align:center">算术运算符</td>
-<td style="text-align:center">-(减、负号)、*</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">+(正号、加号、连接字符串)</td>
+<td style="text-align:center">-(减、负号)、*、+(正、加号、连接字符串)</td>
 <td>加法运算符在连接字符串时只有直接与字符串相加才会转成字符串</td>
 </tr>
 <tr>
@@ -283,12 +1534,7 @@
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">/</td>
-<td>当两边为整数时，取整数部分，舍余数，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td>当其中一边为浮点型时，按正常规则相除。0不能做除数</td>
+<td>均为整数则取整舍余，当其中一边为浮点型则按正常规则相除。除数不为0</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
@@ -397,6 +1643,7 @@
 </tr>
 </tbody>
 </table>
+<p><br></p>
 <table>
 <thead>
 <tr>
@@ -475,13 +1722,98 @@
 </tr>
 </tbody>
 </table>
-<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">①选择结构if</span><br><span class="line">if语句判断条件是一个布尔值，当判断条件为true时，&#123;&#125;中的执行语句才会执行</span><br><span class="line">	if (条件语句)&#123; </span><br><span class="line">		执行语句;</span><br><span class="line">		……</span><br><span class="line">	&#125;</span><br><span class="line">if…else语句指如果判断条件为true时，就进行某种处理，否则就进行另一种处理</span><br><span class="line">	if (判断条件)&#123;</span><br><span class="line">		执行语句1</span><br><span class="line">		……</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		执行语句2</span><br><span class="line">		……</span><br><span class="line">	&#125;//与三元运算符功能相似</span><br><span class="line">if…else if…else语句所有条件均未满足，else后面&#123;&#125;中的执行语句n+1会执行</span><br><span class="line">	if (判断条件1) &#123;</span><br><span class="line">		执行语句1</span><br><span class="line">	&#125; else if (判断条件2) &#123;</span><br><span class="line">		执行语句2</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	else if (判断条件n) &#123;</span><br><span class="line">		执行语句n</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		执行语句n+1</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">②选择结构switch</span><br><span class="line">if…else if…else语句来实现，但是由于判断条件比较多，实现起来代码过长，不便于阅读。</span><br><span class="line">	switch (表达式)&#123;</span><br><span class="line">	case 目标值1:</span><br><span class="line">		执行语句1</span><br><span class="line">		break;</span><br><span class="line">	case 目标值2:</span><br><span class="line">	case 目标值3:</span><br><span class="line">		执行语句2//多个条件满足</span><br><span class="line">		break;</span><br><span class="line">	．．．．．．</span><br><span class="line">	case 目标值n:</span><br><span class="line">		执行语句n</span><br><span class="line">		break;</span><br><span class="line">	default:</span><br><span class="line">		执行语句n+1</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">表达式的值为byte、short、int、char、enum枚举、String</span><br></pre></td></tr></table></figure>
-<h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">循环语句while</span><br><span class="line">	反复进行条件判断，条件成立，&#123;&#125;内的执行语句就会执行，直到条件不成立，while循环结束</span><br><span class="line">	while(循环条件表达式)&#123;//循环体</span><br><span class="line">		执行语句...</span><br><span class="line">		控制条件表达式;</span><br><span class="line">	&#125;</span><br><span class="line">循环语句do…while</span><br><span class="line">	do &#123;</span><br><span class="line">		执行语句………</span><br><span class="line">		控制条件表达式;</span><br><span class="line">	&#125; while(循环条件表达式);</span><br><span class="line">	循环体会无条件执行一次，然后再根据循环条件来决定是否继续执行</span><br><span class="line">循环语句for</span><br><span class="line">	一般用在循环次数已知的情况下</span><br><span class="line">	for（初始化表达式; 循环条件; 操作表达式）&#123;//1243243</span><br><span class="line">		执行语句</span><br><span class="line">		………</span><br><span class="line">	&#125;</span><br><span class="line">无限循环:while(true)&#123;&#125; 或for(;;)&#123;&#125;</span><br><span class="line">	无限循环存在的原因是并不知道循环多少次，而是根据某些条件，来控制循环</span><br><span class="line">循环嵌套:在一个循环语句的循环体中再定义一个循环语句的语法结构</span><br></pre></td></tr></table></figure>
-<h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">break语句</span><br><span class="line">在switch条件语句中时，终止某个case并跳出switch结构</span><br><span class="line">在循环语句中，作跳出本层循环语句，执行后面的代码</span><br><span class="line">标记：当break语句出现在嵌套循环中的内层循环时，它只能跳出内层循环，</span><br><span class="line">如果想使用break语句跳出外层循环则需要对外层循环添加   标记XXX：然后break XXX</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class BreakDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int i, j; // 定义两个循环变量</span><br><span class="line">		itcast: for (i = 1; i &lt;= 9; i++) &#123; // 外层循环</span><br><span class="line">			for (j = 1; j &lt;= i; j++) &#123; // 内层循环</span><br><span class="line">				if (i &gt; 4) &#123; // 判断i的值是否大于4</span><br><span class="line">					break itcast; // 跳出外层循环</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.print(&quot;*&quot;); // 打印*</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(&quot;\n&quot;); // 换行</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;//只打印了4个*</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">continue语句：终止本次循环，执行下一次循环</span><br><span class="line">continue语句后面也可以通过使用标记的方式结束本次外层循环，用法与break语句相似</span><br></pre></td></tr></table></figure>
-<h1 id="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"><a href="#数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）" class="headerlink" title="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"></a>数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）</h1><table>
+<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><pre><code>①选择结构if
+if语句判断条件是一个布尔值，当判断条件为true时，{}中的执行语句才会执行
+    if (条件语句){ 
+        执行语句;
+        ……
+    }
+if…else语句指如果判断条件为true时，就进行某种处理，否则就进行另一种处理
+    if (判断条件){
+        执行语句1
+        ……
+    }else{
+        执行语句2
+        ……
+    }//与三元运算符功能相似
+if…else if…else语句所有条件均未满足，else后面{}中的执行语句n+1会执行
+    if (判断条件1) {
+        执行语句1
+    } else if (判断条件2) {
+        执行语句2
+    }
+    ...
+    else if (判断条件n) {
+        执行语句n
+    } else {
+        执行语句n+1
+    }
+
+
+②选择结构switch
+if…else if…else语句来实现，但是由于判断条件比较多，实现起来代码过长，不便于阅读。
+    switch (表达式){//表达式的值为byte、short、int、char、enum枚举、String
+    case 目标值1:
+        执行语句1
+        break;
+    case 目标值2:
+    case 目标值3:
+        执行语句2//多个条件满足
+        break;
+    ．．．．．．
+    case 目标值n:
+        执行语句n
+        break;
+    default:
+        执行语句n+1
+        break;
+    }
+</code></pre><h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><pre><code>循环语句while
+    反复进行条件判断，条件成立，{}内的执行语句就会执行，直到条件不成立，while循环结束
+    while(循环条件表达式){//循环体
+        执行语句...
+        控制条件表达式;
+    }
+循环语句do…while
+    循环体会无条件执行一次，然后再根据循环条件来决定是否继续执行
+    do {
+        执行语句………
+        控制条件表达式;
+    } while(循环条件表达式);
+
+循环语句for
+    一般用在循环次数已知的情况下
+    for（初始化表达式; 循环条件; 操作表达式）{//1243243
+        执行语句
+        ………
+    }
+无限循环:while(true){} 或for(;;){}
+    无限循环存在的原因是并不知道循环多少次，而是根据某些条件，来控制循环
+循环嵌套:在一个循环语句的循环体中再定义一个循环语句的语法结构
+</code></pre><h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><pre><code>break语句
+在switch条件语句中时，终止某个case并跳出switch结构
+在循环语句中，作跳出本层循环语句，执行后面的代码
+标记：当break语句出现在嵌套循环中的内层循环时，它只能跳出内层循环，
+如果想使用break语句跳出外层循环则需要对外层循环添加   标记XXX：然后break XXX
+
+public class BreakDemo {
+    public static void main(String[] args) {
+        int i, j; // 定义两个循环变量
+        itcast: for (i = 1; i &lt;= 9; i++) { // 外层循环
+            for (j = 1; j &lt;= i; j++) { // 内层循环
+                if (i &gt; 4) { // 判断i的值是否大于4
+                    break itcast; // 跳出外层循环
+                }
+                System.out.print(&quot;*&quot;); // 打印*
+            }
+            System.out.print(&quot;\n&quot;); // 换行
+        }
+    }
+}//只打印了4个*
+
+continue语句：终止本次循环，执行下一次循环
+continue语句后面也可以通过使用标记的方式结束本次外层循环，用法与break语句相似
+</code></pre><h1 id="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"><a href="#数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）" class="headerlink" title="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"></a>数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">分类</th>
@@ -577,4 +1909,209 @@
 </tr>
 </tbody>
 </table>
-</div><div class="tags"><a href="/tags/Java基本语法/">Java基本语法</a></div><div class="post-nav"><a class="pre" href="/2018/04/23/算法/">算法</a><a class="next" href="/2018/04/22/计算机常识/">计算机常识</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/Collection/" style="font-size: 15px;">Collection</a> <a href="/tags/RegularExpression/" style="font-size: 15px;">RegularExpression</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#ajax','#注解','#boostrap','#art-template','#css','#windows','#dubbo','#缓存','#exception','#git','#express','#hexo','#html','#http协议','#图表库','#json','#linux','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#xml','#webpack','#动态代理','#前端','#开发规范','#排序算法','#异步编程','#系统测试','#计算机','#后端','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#jquery','#java基础语法','#jsp','#maven','#mycat','#mqtt','#nginx','#node.js','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#redis','#struts2','#面试题','#hibrenate','#solr','#WEB','#源码学习','#lucene','#spring','#oracle','#springmvc','#mybatis','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

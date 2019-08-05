@@ -1,575 +1,1816 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>mysql | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql</h1><div class="post-meta">May 14, 2018<span> | </span><span class="category"><a href="/categories/mysql/">mysql</a></span></div><div class="post-content"><p>mysql
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mysql | 何创军的博客</title>
+  <meta name="keywords" content=" mysql ">
+  <meta name="description" content="mysql | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(80)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a style="border-right: 1px solid #fff; width: 49%"  class="about site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="80">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http协议/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">mysql</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="数据库">数据库</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color1">mysql</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-05 10:35:55'>2018-05-14 20:55</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL5-7-sql语句不分大小写"><span class="toc-text">MySQL5.7(sql语句不分大小写</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多表查询"><span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql事务"><span class="toc-text">mysql事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadLocal：实现的是通过线程绑定的方式传递参数"><span class="toc-text">ThreadLocal：实现的是通过线程绑定的方式传递参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改root密码"><span class="toc-text">修改root密码</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mysql
 <a id="more"></a></p>
-<h2 id="MySQL5-7-sql语句不分大小写"><a href="#MySQL5-7-sql语句不分大小写" class="headerlink" title="MySQL5.7(sql语句不分大小写)"></a>MySQL5.7(sql语句不分大小写)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据库：文件系统、将数据按照指定格式储存起来，通过sql语句进行增删改查操作</span><br><span class="line">数据库管理系统DBMS用于操作和管理数据库的大型软件</span><br></pre></td></tr></table></figure>
-<h2 id="sql分类：结构化查询语言，关系型数据库语言国际标准"><a href="#sql分类：结构化查询语言，关系型数据库语言国际标准" class="headerlink" title="sql分类：结构化查询语言，关系型数据库语言国际标准"></a>sql分类：结构化查询语言，关系型数据库语言国际标准</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">分类</th>
-<th style="text-align:center">说明</th>
-<th style="text-align:center">作用</th>
-<th style="text-align:center">举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DML</td>
-<td style="text-align:center">数据库操作语言</td>
-<td style="text-align:center">对数据库中标的记录进行更新</td>
-<td style="text-align:center">insert、delete、update</td>
-</tr>
-<tr>
-<td style="text-align:center">DDL</td>
-<td style="text-align:center">数据库定义语言</td>
-<td style="text-align:center">定义数据库对象</td>
-<td style="text-align:center">create、alter、drop等</td>
-</tr>
-<tr>
-<td style="text-align:center">DQL</td>
-<td style="text-align:center">数据库查询语言</td>
-<td style="text-align:center">查询数据库中表的记录</td>
-<td style="text-align:center">select</td>
-</tr>
-<tr>
-<td style="text-align:center">DCL</td>
-<td style="text-align:center">数据库控制语言</td>
-<td style="text-align:center">定义数据库的访问权限和安全级别</td>
-<td style="text-align:center">grant等</td>
-</tr>
-</tbody>
-</table>
-<h2 id="mysql基本操作"><a href="#mysql基本操作" class="headerlink" title="mysql基本操作"></a>mysql基本操作</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">分类</th>
-<th style="text-align:center">操作</th>
-<th style="text-align:center">语句</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">操作mysql</td>
-<td style="text-align:center">启动服务</td>
-<td style="text-align:center">net start 数据库名;我的电脑→管理和应用程序→服务</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">停止服务</td>
-<td style="text-align:center">net stop mysql57(数据库名)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">登录</td>
-<td style="text-align:center">mysql -u 用户名 -p；/mysql - -host=ip地址 - -user=用户名 - -password=密码</td>
-</tr>
-<tr>
-<td style="text-align:center">数据库操作</td>
-<td style="text-align:center">添加数据库</td>
-<td style="text-align:center">create database 数据库名 [character set 字符集(gbk、utf8)] [collate 校对规则];(utf8)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查字符集对应的校对规则</td>
-<td style="text-align:center">show character set；</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看MySQL编码</td>
-<td style="text-align:center">SHOW VARIABLES LIKE ‘char%’;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查询字符集</td>
-<td style="text-align:center">show variables</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删除数据库</td>
-<td style="text-align:center">drop database 数据库名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">修改数据库名</td>
-<td style="text-align:center">rename database 新数据库名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">rename table 旧库名.表名 to 新库名.表名,旧库名.表名 to 新库名.表名…；</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">drop database 数据库名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">修改mysql的隔离级别</td>
-<td style="text-align:center">set session transaction isolation level</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看所有数据库</td>
-<td style="text-align:center">show databases;(先选择数据库才能进行表操作)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看当前操作的数据库</td>
-<td style="text-align:center">select database();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看数据库详细说明(编码)</td>
-<td style="text-align:center">show create database 数据库名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">使用数据库</td>
-<td style="text-align:center">use 数据库名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看数据库默认隔离级别</td>
-<td style="text-align:center">select @@tx_isolation</td>
-</tr>
-<tr>
-<td style="text-align:center">表操作</td>
-<td style="text-align:center">添加表</td>
-<td style="text-align:center">create table 表名(列名 类型(长度)<a href="s">约束</a>)[character 字符集 collate 校对规则]</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删除表</td>
-<td style="text-align:center">drop table 表名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">truncate table 表名;删表重建，auto_increment重新记录,删除的数据找不回</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">改表名</td>
-<td style="text-align:center">rename table 旧表名 to 新表名；</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">改表字符集</td>
-<td style="text-align:center">alter table 表名 character set 字符集;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看数据库的表</td>
-<td style="text-align:center">show tables;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看当前表的字符集;</td>
-<td style="text-align:center">show create table 表名;</td>
-</tr>
-<tr>
-<td style="text-align:center">列操作</td>
-<td style="text-align:center">增加列</td>
-<td style="text-align:center">alter table 表名 add 列名 类型（长度）[约束];</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">增加外键</td>
-<td style="text-align:center">alter table 从表 add [constraint 外键名(以_fk结尾)] </td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">foreign key (从表外键列名） references 主表 （主表主键）;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删除列</td>
-<td style="text-align:center">alter table 表名 drop 列名;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删外键</td>
-<td style="text-align:center">alter table 从表 drop foreign key 外键名称;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">改类型(长度)[约束]</td>
-<td style="text-align:center">alter table 表名 modify 列名 类型(长度)[约束]</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">改整个列</td>
-<td style="text-align:center">alter table 表名 change  旧列名 新列名 类型(长度)[约束]</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查看表结构（列）</td>
-<td style="text-align:center">desc 表名;</td>
-</tr>
-<tr>
-<td style="text-align:center">记录操作</td>
-<td style="text-align:center">添加记录</td>
-<td style="text-align:center">insert into 表名[(列名1，列名2，列名3…)]values(值1，值2，值3)(s)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删除记录</td>
-<td style="text-align:center">detele from 表名 [where 条件]逐条删除，auto_increment记录不清空，同一个事务可以找回数据</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">删除主键</td>
-<td style="text-align:center">alter table 表名 drop primary key;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">修改记录</td>
-<td style="text-align:center">update 表名 set 列名=值(s) [where 条件];</td>
-</tr>
-<tr>
-<td style="text-align:center">授权操作</td>
-<td style="text-align:center">创建用户</td>
-<td style="text-align:center">create user xiaolizi indentified by ‘ermazi’</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">授权</td>
-<td style="text-align:center">grant all on bos32.* to xiaolizi</td>
-</tr>
-</tbody>
-</table>
-<h2 id="mysql约束及数据类型"><a href="#mysql约束及数据类型" class="headerlink" title="mysql约束及数据类型"></a>mysql约束及数据类型</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">mysql约束分类</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">primary key</td>
-<td style="text-align:center">一张表只有一个，唯一非空</td>
-</tr>
-<tr>
-<td style="text-align:center">not null</td>
-<td style="text-align:center">非空</td>
-</tr>
-<tr>
-<td style="text-align:center">auto_increament</td>
-<td style="text-align:center">从1开始，自增，必须主键、类型必须int</td>
-</tr>
-<tr>
-<td style="text-align:center">unique</td>
-<td style="text-align:center">唯一、可多个null</td>
-</tr>
-<tr>
-<td style="text-align:center">check</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">foreign key</td>
-</tr>
-</tbody>
-</table>
-<img src="/2018/05/14/mysql/数据类型1.png" title="数据类型1.png">
-<img src="/2018/05/14/mysql/数据类型2.png" title="数据类型2.png">                    
-<h2 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sql语句执行先后</span><br><span class="line">聚合函数在WHERE之后执行 在WHERE判断条件里加入聚合函数是做不到的</span><br><span class="line">–第一步：执行FROM</span><br><span class="line">–第二步：WHERE条件过滤</span><br><span class="line">–第三步：GROUP BY分组</span><br><span class="line">–第四步：执行SELECT投影列</span><br><span class="line">–第五步：HAVING条件过滤</span><br><span class="line">–第六步：执行ORDER BY 排序</span><br><span class="line">查询思路，先思考要查的字段，再想从哪几个表中查到，然后分析条件</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">单表查询</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">select [distinct] */列名(s) [as] 别名(s) from 表名 [where条件 group by .. having 条件 order by …;]</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名&gt;、 &lt; 、&gt;=、&lt;=、=、！=、&lt;&gt;值;</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名 like ‘_值%’;’_‘单个字符，’%’多个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名 [not] in(值1，值2，值3);</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where Between 列名=值 and 列名=值;(闭区间)</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名 is [not] null</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名=值 or 列名=值;</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名=值 and 列名=值;</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where not 列名=值</td>
-</tr>
-<tr>
-<td style="text-align:center">select 列名 from 表名 order by 列名 asc/desc;(升序/降序)、多个字段时，相同的按第二个字段排，依次类推</td>
-</tr>
-<tr>
-<td style="text-align:center">select sum(列名) from 表名;</td>
-</tr>
-<tr>
-<td style="text-align:center">select avg(列名) from 表名;</td>
-</tr>
-<tr>
-<td style="text-align:center">select count（*） from 表名;不统计null的值</td>
-</tr>
-<tr>
-<td style="text-align:center">select max(列名)from 表名;每一个都小于/大于所有</td>
-</tr>
-<tr>
-<td style="text-align:center">select min(列名)from 表名;每一个都大于/小于所有</td>
-</tr>
-<tr>
-<td style="text-align:center">select 列名 from 表名 group by 列名;</td>
-</tr>
-<tr>
-<td style="text-align:center">select 列名 聚合函数 from 表名 group by 列名 having 条件；</td>
-</tr>
-<tr>
-<td style="text-align:center">select <em> from product limit a,b;a=（第几页-1）</em>b]是起始的位置，b是每页需要显示的条目数</td>
-</tr>
-<tr>
-<td style="text-align:center">select case when fenshu&gt;=90 then  ‘优秀’ when  fenshu&lt;80 then ‘合格’（else ‘合格’）end  [as] fenshu from t_grade</td>
-</tr>
-<tr>
-<td style="text-align:center">select concat(id,’的学号’，cardno,’的卡号’) from card;</td>
-</tr>
-</tbody>
-</table>
+<h2 id="MySQL5-7-sql语句不分大小写"><a href="#MySQL5-7-sql语句不分大小写" class="headerlink" title="MySQL5.7(sql语句不分大小写"></a>MySQL5.7(sql语句不分大小写</h2><details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            数据库概念
+        </div>
+    </summary>
+    <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+        数据库：本质是个文件系统、将数据按照指定格式储存起来，通过sql语句进行增删改查操作<br>
+        数据库管理系统DBMS用于操作和管理数据库的大型软件
+    </div>
+</details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                SQL分类
+            </div>
+        </summary>
+        <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+            SQL：结构化查询语言，关系型数据库语言国际标准<br>
+            DML：数据库操作语言-对数据库中标的记录进行更新(insert、delete、update)<br>
+            DDL：数据库定义语言-定义数据库对象(create、alter、drop等)<br>
+            DQL：数据库查询语言-查询数据库中表的记录(select)<br>
+            DCL：数据库控制语言-定义数据库的访问权限和安全级别(grant等)
+        </div><br>    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                约束与数据类型
+            </div>
+        </summary>
+        <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+            primary key一张表只有一个，唯一非空<br>
+            not null非空<br>
+            auto_increament从1开始，自增，必须主键、类型必须int<br>
+            unique唯一、可多个null<br>
+            check<br>
+            foreign key<br>
+        </div>
+        <img src="./../mysql/数据类型1.png" alt="">
+        <img src="./../mysql/数据类型2.png" alt="">
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                SQL基础
+            </div>
+        </summary>
+        <div style="padding-left:20px;">
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        mysql服务的启动与停止
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    启动服务:net start 数据库名;我的电脑→管理和应用程序→服务<br>
+                    停止服务:net stop 数据库名<br>
+                    登录mysql:mysql -u 用户名 -p 或者 mysql - -host=ip地址 - -user=用户名 - -password=密码<br>
+                </div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        数据库操作
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    添加数据库:create database 数据库名 [character set 字符集(gbk、utf8)] [collate 校对规则];(utf8)<br>
+                    查字符集对应的校对规则:show character set；<br>
+                    查看MySQL编码:SHOW VARIABLES LIKE ‘char%’;<br>
+                    查询字符集:show variables<br>
+                    删除数据库:drop database 数据库名;<br>
+                    修改数据库名:rename database 新数据库名;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;rename table 旧库名.表名 to 新库名.表名,旧库名.表名 to 新库名.表名…;drop database 数据库名;<br>
+                    修改mysql的隔离级别:set session transaction isolation level<br>
+                    查看所有数据库:show databases;(先选择数据库才能进行表操作)<br>
+                    查看当前操作的数据库:select database();<br>
+                    查看数据库详细说明(编码):show create database 数据库名;<br>
+                    使用数据库:use 数据库名;<br>
+                    查看数据库默认隔离级别:select @@tx_isolation<br>
+                </div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        表操作
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    添加表:create table 表名(列名 类型(长度)[约束] (s) )[character 字符集 collate 校对规则]<br>
+                    删除表:drop table 表名;truncate table 表名;删表重建，auto_increment重新记录,删除的数据找不回<br>
+                    改表名:rename table 旧表名 to 新表名;<br>
+                    改表字符集:alter table 表名 character set 字符集;<br>
+                    查看数据库的表:show tables;<br>
+                    查看当前表的字符集:show create table 表名;<br>
+                </div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        列操作
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    增加列:alter table 表名 add 列名 类型（长度）[约束];<br>
+                    增加外键:alter table 从表 add [constraint 外键名(以_fk结尾)] <br>
+                    foreign key (从表外键列名） references 主表 （主表主键）;<br>
+                    删除列:alter table 表名 drop 列名;<br>
+                    删外键:alter table 从表 drop foreign key 外键名称;<br>
+                    改类型(长度)[约束]:alter table 表名 modify 列名 类型(长度)[约束]<br>
+                    改整个列:alter table 表名 change  旧列名 新列名 类型(长度)[约束]<br>
+                    修改表的字符集:alter table 表名 character set 字符集;<br>
+                    查看表结构（列）:desc 表名;<br>
+                </div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        记录操作
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    添加记录:insert into 表名[(列名1，列名2，列名3…)] values(值1，值2，值3)(s)<br>
+                    删除记录:detele from 表名 [where 条件]逐条删除，auto_increment记录不清空，同一个事务可以找回数据<br>
+                    删除主键:alter table 表名 drop primary key;<br>
+                    修改记录:update 表名 set 列名=值(s) [where 条件];<br>
+                </div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        授权操作
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    创建用户create user xiaolizi indentified by ‘ermazi’<br>
+                    授权grant all on bos32.<em> to xiaolizi<br>
+                </em></div>
+            </details>
+            <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        单表查询
+                    </div>
+                </summary>
+                <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    select [distinct] \/列名(s) [as] 别名(s) from 表名 [where条件 group by .. having 条件 order by …;]<br>
+                    select * from 表名 where 列名&gt;、 &lt; 、&gt;=、&lt;=、=、！=、&lt;&gt;值;<br>
+                    select * from 表名 where 列名 like ‘_值%’;—–&gt;’_‘单个字符，’%’多个字符<br>
+                    select * from 表名 where 列名 [not] in(值1，值2，值3);<br>
+                    select * from 表名 where Between 列名=值 and 列名=值;(闭区间)<br>
+                    select * from 表名 where 列名 is [not] null<br>
+                    select * from 表名 where 列名=值 or 列名=值;<br>
+                    select * from 表名 where 列名=值 and 列名=值;<br>
+                    select * from 表名 where not 列名=值<br>
+                    select 列名 from 表名 order by 列名 asc/desc;(升序/降序)、多个字段时，相同的按第二个字段排，依次类推<br>
+                    select sum(列名) from 表名;<br>
+                    select avg(列名) from 表名;<br>
+                    select count（<em>） from 表名;不统计null的值<br>
+                    select max(列名)from 表名;每一个都小于/大于所有<br>
+                    select min(列名)from 表名;每一个都大于/小于所有<br>
+                    select 列名 from 表名 group by 列名;<br>
+                    select 列名 聚合函数 from 表名 group by 列名 having 条件；<br>
+                    select </em> from product limit a,b;a=（第几页-1）<em>b]是起始的位置，b是每页需要显示的条目数<br>
+                    select case when fenshu&gt;=90 then  ‘优秀’ when  fenshu&lt;80 then ‘合格’（else ‘合格’）end  [as] fenshu from t_grade<br>
+                    select concat(id,’的学号’，cardno,’的卡号’) from card;<br>
+
+                    sql语句执行先后<br>
+                    聚合函数在WHERE之后执行 在WHERE判断条件里加入聚合函数是做不到的<br>
+                    –第一步：执行FROM<br>
+                    –第二步：WHERE条件过滤<br>
+                    –第三步：GROUP BY分组<br>
+                    –第四步：执行SELECT投影列<br>
+                    –第五步：HAVING条件过滤<br>
+                    –第六步：执行ORDER BY 排序<br>
+                    查询思路，先思考要查的字段，再想从哪几个表中查到，然后分析条件<br><br>                </em></div>
+            </details>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                事务
+            </div>
+        </summary>
+        <details style="border:0px;padding-left:20px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        事务概念
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+                    一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败<br>
+                    保证一个事务中多次操作要么全部成功，要么全部失败
+                </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    事务特性
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                原子性（Atomicity）:事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生<br>
+                隔离性（Isolation）:指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，多个并发事务之间数据要相互隔离<br>
+                一致性（Consistency）:一个事务中，事务前后数据的完整性必须保持一致。<br>
+                持久性（Durability）:事务一旦被提交，它对数据库中数据的改变就是永久性的，即使数据库发生故障也不应该对其有任何影响。<br>
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    并发访问问题
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                脏读 : B事务读取到了A事务尚未提交的数据-要求B事务要读取A事务提交的数据<br>
+                不可重复读 : 一个事务中 两次读取的数据的内容不一致-unpdate<br>
+                幻读/虚读 : 一个事务中 两次读取的数据的数量不一致-insert、delete<br>
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    事务隔离级别
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                read uncommitted 读取尚未提交的数据 ：哪个问题都不能解决<br>
+                read committed 读取已经提交的数据 ：可以解决脏读 —- oracle默认的<br>
+                repeatable read 重读读取：可以解决脏读 和 不可重复读 —mysql默认的<br>
+                serializable串行化：可以解决 脏读 不可重复读 和 虚读—相当于锁表<br>
+                隔离级别的性能read uncommitted&gt;read committed&gt;repeatable read&gt;serialazable<br>
+                安全性read uncommitted&lt;read committed&lt;repeatable read&lt;serialazable<br>
+            </div>
+        </details>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                JDBC
+            </div>
+        </summary>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    JDBC概念
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                JDBC（Java Data Base Connectivity,java数据库连接）是一种用于执行SQL语句的Java API接口<br>
+                可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。是Java访问数据库的标准规范<br>
+                而JDBC驱动是数据库厂商对接口的实现，用来连接自己的数据库<br>
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    JDBC1(了解)
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                DirverManger.regisetDirver(new com.mysql.jdbc.Dirver());//1.注册驱动 注册了两次<br>
+                connection conn= DirverManger.getConnection    (jdbc:mysql://ip:port/数据库名，用户名，密码);//2.获得链接<br>
+                Statement stmt = con.createStatement();//3.获得语句执行平台 存在sql注入的问题 or ‘1=1’<br>
+                //int executeUpdate(String sql); –执行insert update delete语句.<br>
+                //ResultSet executeQuery(String sql); –执行select语句.<br>
+                //boolean execute(String sql); –执行select返回true 执行其他的语句返回false.<br>
+                String sql = “select  from users”<br>
+                ResultSet rs = stmt.executeQuery(sql);//4.执行sql语句<br>
+                while( rs.next() ){//5.处理结果集<br>
+                    &nbsp;&nbsp;&nbsp;Object getObject(int index) / Object getObject(String name) 获得任意对象<br>
+                    &nbsp;&nbsp;&nbsp;String getString(int index) / Object getObject(String name) 获得字符串<br>
+                    &nbsp;&nbsp;&nbsp;int getInt(int index) / Object getObject(String name) 获得整形<br>
+                    &nbsp;&nbsp;&nbsp;double getDouble(int index) / Object getObject(String name) 获得双精度浮点型<br>
+                }<br>
+                rs.close();//6.释放所有资源<br>
+                stmt.close();<br>
+                con.close();<br><br>            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    JDBC2(推荐)
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248);font-size:13px;">
+                Class.forName(“com.mysql.jdbc.Driver”);//1.注册驱动<br>
+                connection conn= DirverManger.getConnection    (jdbc:mysql://ip:port/数据库名，用户名，密码);//2.获得链接<br>
+                String sql = “select * from user where name = ?”;<br>
+                PreparedStatement psmt = conn.prepareStatement(sql);//3.获得预处理对象语句执行平台<br>
+                //void setXxx(int index, Xxx xx); –设置实际参数<br>
+                psmt.setString(1,’张三’);//4.设置实际参数<br>
+                //int executeUpdate(); –执行insert update delete语句.<br>
+                //ResultSet executeQuery(); –执行select语句.<br>
+                //boolean execute(); –执行select返回true 执行其他的语句返回false.<br>
+                ResultSet rs = psmt.executeQuery();//5.执行sql<br>
+                while( rs.next() ){//6.处理结果集<br>
+                    &nbsp;&nbsp;&nbsp;Object getObject(int index) / Object getObject(String name) 获得任意对象<br>
+                    &nbsp;&nbsp;&nbsp;String getString(int index) / Object getObject(String name) 获得字符串<br>
+                    &nbsp;&nbsp;&nbsp;int getInt(int index) / Object getObject(String name) 获得整形<br>
+                    &nbsp;&nbsp;&nbsp;double getDouble(int index) / Object getObject(String name) 获得双精度浮点型<br>
+                }<br>
+                rs.close();//7.释放所有资源<br>
+                stmt.close();<br>
+                con.close();<br>
+            </div>
+        </details>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                数据库工具类和连接池
+            </div>
+        </summary>
+        <div style="padding-left:40px;background-color:rgb(247, 248, 248);font-size:13px;">
+            DButils JDBC的简化开发工具包<br>
+            由于建立数据库连接是一个非常耗时耗资源的行为，所以通过连接池预先同数据库建立一些连接，<br>
+            放在内存中，应用程序需要建立数据库连接时直接到连接池中申请一个就行，用完后再放回去<br>
+            DBCP、C3p0<br>
+        </div>
+    </details>
+
+
+
+
+
 <h1 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">从表外键是对主表主键的引用、从表外键类型必须与主表主键类型一样</span><br><span class="line">从表不能添加(更新)，主表中不存在的数据。主表不能删除（更新），从表中已经使用的数据</span><br><span class="line">外键的目的是保证数据完整性</span><br><span class="line">表与表的关系</span><br><span class="line">一对一：可以创建成一张表</span><br><span class="line">一对多：部门与员工、客户和订单、分类和商品</span><br><span class="line">		从表（多）创建字段以作为外键指向主表（一）的主键</span><br><span class="line">多对多：</span><br><span class="line">		学生和课程、商品和订单、人和角色</span><br><span class="line">		建立中间表，至少两字段。作为从表，指向各方（多）的主键（拆成两个一对多）</span><br><span class="line">删除主表中与从表有关联关系的数据</span><br><span class="line">①解除主从表的约束关系</span><br><span class="line">②先删除从表中与主表有关系的数据，再删除主表中的数据</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">多表查询</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">隐式内连接select *from A,B where 条件</td>
-</tr>
-<tr>
-<td style="text-align:center">显示内连接select * from A [inner] join B on 条件</td>
-</tr>
-<tr>
-<td style="text-align:center">左外连接select <em> from A left outer join B on 条件==右外连接select </em> from B right outer join A on 条件</td>
-</tr>
-<tr>
-<td style="text-align:center">右外连接select <em> from A right outer join B on 条件==左外连接select </em> from B left outer join A on 条件</td>
-</tr>
-<tr>
-<td style="text-align:center">select * from 表名 where 列名=（select where 列名=值）;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sun提供的访问数据库的接口/规范（API）由工具类和接口组成，是接口如JDBC.sql.Drirver</span><br><span class="line">JDBC是接口，驱动是数据库厂商对接口的实现，用来连接自己的数据库</span><br><span class="line">jdbc 可以为多种关系数据库提供统一访问入口</span><br><span class="line">JDBC由一组JAVA工具类和接口组成</span><br><span class="line">mysql数据库驱动包是mysql-connector-java-5.1.39-bin.jar</span><br></pre></td></tr></table></figure>
-<h1 id="JDBC规范"><a href="#JDBC规范" class="headerlink" title="JDBC规范"></a>JDBC规范</h1><table>
-<thead>
-<tr>
-<th style="text-align:center">步骤</th>
-<th style="text-align:center">代码1</th>
-<th style="text-align:center">代码2(不推荐)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">注册驱动</td>
-<td style="text-align:center">Class.forName(“com.mysql.jdbc.Driver”);</td>
-<td style="text-align:center">DirverManger.regisetDirver(new com.mysql.jdbc.Dirver());注册两次</td>
-</tr>
-<tr>
-<td style="text-align:center">获得连接</td>
-<td style="text-align:center">connection conn= DirverManger.getConnection</td>
-<td style="text-align:center">(jdbc:mysql://ip:port/数据库名，用户名，密码);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">useUnicode连接数据库的过程的字节集是Unicode</td>
-<td style="text-align:center">characherEncoding连接数据库的过程的字节集编码为UTF-8</td>
-</tr>
-<tr>
-<td style="text-align:center">获得Statement</td>
-<td style="text-align:center">PreparedStatement pstmt = con.prepareStatement(sql);statement的子接口</td>
-<td style="text-align:center">Statement stmt = con.createStatement();sql攻击</td>
-</tr>
-<tr>
-<td style="text-align:center">执行sql语句</td>
-<td style="text-align:center">setXXX(int,T)将？换成实参</td>
-<td style="text-align:center">ResultSet rs = stmt.executeQuery(sql);select</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">ResultSet rs = pstmt.executeQuery();select</td>
-<td style="text-align:center">int executeUpdate(sql);insert 、update、detele</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int executeUpdate()执行insert update detele</td>
-<td style="text-align:center">boolean execute(sql)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean execute()执行select</td>
-<td style="text-align:center">true再getResultSet()获得查询结果false再int getUpdateCount()获得影响行数</td>
-</tr>
-<tr>
-<td style="text-align:center">结果集查询</td>
-<td style="text-align:center">while(rs.next()){T t=rs.getXxx(int index/String name)}</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">资源关闭</td>
-<td style="text-align:center">rs.close();stmt.close();con.close();</td>
-<td style="text-align:center">关闭的顺序是先得到的后关闭，后得到的先关闭。</td>
-</tr>
-</tbody>
-</table>
-<h1 id="连接池（C3P0连接池和DBCP连接池常用）：管理数据库连接"><a href="#连接池（C3P0连接池和DBCP连接池常用）：管理数据库连接" class="headerlink" title="连接池（C3P0连接池和DBCP连接池常用）：管理数据库连接"></a>连接池（C3P0连接池和DBCP连接池常用）：管理数据库连接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">由于建立数据库连接是一个非常耗时耗资源的行为，所以通过连接池预先同数据库建立一些连接，</span><br><span class="line">放在内存中，应用程序需要建立数据库连接时直接到连接池中申请一个就行，用完后再放回去</span><br></pre></td></tr></table></figure>
-<h1 id="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"><a href="#DBUtils：JDBC的简单开发工具包、简化了JDBC操作" class="headerlink" title="DBUtils：JDBC的简单开发工具包、简化了JDBC操作"></a>DBUtils：JDBC的简单开发工具包、简化了JDBC操作</h1><h2 id="mysql事务"><a href="#mysql事务" class="headerlink" title="mysql事务"></a>mysql事务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败</span><br><span class="line">保证一个事务中多次操作要么全部成功，要么全部失败</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">事务类型</th>
-<th style="text-align:center">说明</th>
-<th style="text-align:center">详细</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">默认事务</td>
-<td style="text-align:center">一条sql语句就是一个事务</td>
-<td style="text-align:center">默认就开启事务并提交事务</td>
-</tr>
-<tr>
-<td style="text-align:center">手动事务</td>
-<td style="text-align:center">开启事务</td>
-<td style="text-align:center">start transaction</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">事务提交</td>
-<td style="text-align:center">commit从开启事务到事务提交，中间所有的sql都认为有效\真正更新数据库</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">事务回滚</td>
-<td style="text-align:center">rollback从开启事务到事务回滚，中间所有的sql操作都认为无效数据库被更新</td>
-</tr>
-<tr>
-<td style="text-align:center">JDBC事务</td>
-<td style="text-align:center">默认是自动事务</td>
-<td style="text-align:center">执行sql语句：executeUpdate()每执行一次executeUpdate方法 代表事务自动提交</td>
-</tr>
-<tr>
-<td style="text-align:center">JDBC手动事务</td>
-<td style="text-align:center">开启事务</td>
-<td style="text-align:center">conn.setAutoComnmit(false);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">提交事务</td>
-<td style="text-align:center">conn.commit();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">回滚事务</td>
-<td style="text-align:center">conn.rollback();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">执行sql的connection与开启事务的</td>
-<td style="text-align:center">connnection必须是同一个才能对事务进行控制</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ThreadLocal：实现的是通过线程绑定的方式传递参数"><a href="#ThreadLocal：实现的是通过线程绑定的方式传递参数" class="headerlink" title="ThreadLocal：实现的是通过线程绑定的方式传递参数"></a>ThreadLocal：实现的是通过线程绑定的方式传递参数</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">事务特性</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">原子性（Atomicity）</td>
-<td style="text-align:center">事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生</td>
-</tr>
-<tr>
-<td style="text-align:center">隔离性（Isolation）</td>
-<td style="text-align:center">指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，多个并发事务之间数据要相互隔离</td>
-</tr>
-<tr>
-<td style="text-align:center">一致性（Consistency）</td>
-<td style="text-align:center">一个事务中，事务前后数据的完整性必须保持一致。</td>
-</tr>
-<tr>
-<td style="text-align:center">持久性（Durability）</td>
-<td style="text-align:center">事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">并发访问问题</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">脏读</td>
-<td style="text-align:center">B事务读取到了A事务尚未提交的数据-要求B事务要读取A事务提交的数据</td>
-</tr>
-<tr>
-<td style="text-align:center">不可重复读</td>
-<td style="text-align:center">一个事务中 两次读取的数据的内容不一致-unpdate</td>
-</tr>
-<tr>
-<td style="text-align:center">幻读/虚读</td>
-<td style="text-align:center">一个事务中 两次读取的数据的数量不一致-insert、delete</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">事务隔离级别</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">read uncommitted</td>
-<td style="text-align:center">读取尚未提交的数据 ：哪个问题都不能解决</td>
-</tr>
-<tr>
-<td style="text-align:center">read committed</td>
-<td style="text-align:center">读取已经提交的数据 ：可以解决脏读 —- oracle默认的</td>
-</tr>
-<tr>
-<td style="text-align:center">repeatable read</td>
-<td style="text-align:center">重读读取：可以解决脏读 和 不可重复读 —mysql默认的</td>
-</tr>
-<tr>
-<td style="text-align:center">serializable</td>
-<td style="text-align:center">串行化：可以解决 脏读 不可重复读 和 虚读—相当于锁表</td>
-</tr>
-<tr>
-<td style="text-align:center">隔离级别的性能</td>
-<td style="text-align:center">read uncommitted&gt;read committed&gt;repeatable read&gt;serialazable</td>
-</tr>
-<tr>
-<td style="text-align:center">安全性</td>
-<td style="text-align:center">read uncommitted&lt;read committed&lt;repeatable read&lt;serialazable</td>
-</tr>
-</tbody>
-</table>
-<h2 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">方法一:</span><br><span class="line">在my.ini的[mysqld]字段加入：skip-grant-tables</span><br><span class="line">重启mysql服务，这时的mysql不需要密码即可登录数据库 然后进入mysql</span><br><span class="line">mysql&gt;use mysql;</span><br><span class="line">mysql&gt;更新 user set password=password(&apos;新密码&apos;) WHERE User=&apos;root&apos;;</span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">运行之后最后去掉my.ini中的skip-grant-tables，重启mysqld即可</span><br></pre></td></tr></table></figure>
+<p>多表查询
+:-:
+隐式内连接select <em>from A,B where 条件
+显示内连接select </em> from A [inner] join B on 条件
+左外连接select <em> from A left outer join B on 条件==右外连接select </em> from B right outer join A on 条件
+右外连接select <em> from A right outer join B on 条件==左外连接select </em> from B left outer join A on 条件
+select * from 表名 where 列名=（select where 列名=值）;</p>
+<h2 id="mysql事务"><a href="#mysql事务" class="headerlink" title="mysql事务"></a>mysql事务</h2><p>事务类型说明详细
+:-: :-: :-: 
+默认事务一条sql语句就是一个事务默认就开启事务并提交事务 
+手动事务开启事务start transaction
+事务提交commit从开启事务到事务提交，中间所有的sql都认为有效\真正更新数据库
+事务回滚rollback从开启事务到事务回滚，中间所有的sql操作都认为无效数据库被更新
+JDBC事务默认是自动事务执行sql语句：executeUpdate()每执行一次executeUpdate方法 代表事务自动提交
+JDBC手动事务开启事务conn.setAutoComnmit(false);
+提交事务conn.commit();
+回滚事务conn.rollback();
+执行sql的connection与开启事务的connnection必须是同一个才能对事务进行控制</p>
+<h3 id="ThreadLocal：实现的是通过线程绑定的方式传递参数"><a href="#ThreadLocal：实现的是通过线程绑定的方式传递参数" class="headerlink" title="ThreadLocal：实现的是通过线程绑定的方式传递参数"></a>ThreadLocal：实现的是通过线程绑定的方式传递参数</h3><h2 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">方法一:</span><br><span class="line">在my.ini的[mysqld]字段加入：skip-grant-tables</span><br><span class="line">重启mysql服务，这时的mysql不需要密码即可登录数据库 然后进入mysql</span><br><span class="line">mysql&gt;use mysql;</span><br><span class="line">mysql&gt;更新 user set password=password(&apos;新密码&apos;) WHERE User=&apos;root&apos;;</span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">运行之后最后去掉my.ini中的skip-grant-tables，重启mysqld即可</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">方法二:</span><br><span class="line">不使用修改my.ini重启服务的方法，通过非服务方式</span><br><span class="line">加skip-grant-tables运行mysql来修改mysql密码</span><br><span class="line">停止mysql服务</span><br><span class="line">打开命令行窗口，在bin目录下使用mysqld-nt.exe启动，</span><br><span class="line">在命令行窗口执行: mysqld-nt --skip-grant-tables</span><br><span class="line">然后另外打开一个命令行窗口，登录mysql，此时无需输入mysql密码即可进入。</span><br><span class="line">按以上方法修改好密码后,关闭命令行运行mysql的那个窗口，</span><br><span class="line">此时即关闭了mysql，如果发现mysql仍在运行的话可以结束掉对应进程来关闭。</span><br><span class="line">启动mysql服务</span><br></pre></td></tr></table></figure>
-</div><div class="tags"><a href="/tags/mysql/">mysql</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/oracle/">oracle</a><a class="next" href="/2018/05/13/springmvc/">springmvc</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/Collection/" style="font-size: 15px;">Collection</a> <a href="/tags/RegularExpression/" style="font-size: 15px;">RegularExpression</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#ajax','#注解','#boostrap','#art-template','#css','#windows','#dubbo','#缓存','#exception','#git','#express','#hexo','#html','#http协议','#图表库','#json','#linux','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#xml','#webpack','#动态代理','#前端','#开发规范','#排序算法','#异步编程','#系统测试','#计算机','#后端','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#jquery','#java基础语法','#jsp','#maven','#mycat','#mqtt','#nginx','#node.js','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#redis','#struts2','#面试题','#hibrenate','#solr','#WEB','#源码学习','#lucene','#spring','#oracle','#springmvc','#mybatis','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

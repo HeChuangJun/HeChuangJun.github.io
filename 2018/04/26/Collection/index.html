@@ -1,398 +1,1850 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>Collection | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Collection</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Collection</h1><div class="post-meta">Apr 26, 2018<span> | </span><span class="category"><a href="/categories/JavaSE/">JavaSE</a></span></div><div class="post-content"><p>Collection<br><a id="more"></a></p>
-<h1 id="集合框架继承体系"><a href="#集合框架继承体系" class="headerlink" title="集合框架继承体系"></a>集合框架继承体系</h1><img src="/2018/04/26/Collection/集合框架1.jpg" title="（其中：点框为接口（...） 短横线框为抽象类（---） 实线为类 produce：依赖）">
-<h1 id="数据存储常用的结构"><a href="#数据存储常用的结构" class="headerlink" title="数据存储常用的结构"></a>数据存储常用的结构</h1><table>
-<thead>
-<tr>
-<th style="text-align:center">分类</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">堆栈</td>
-<td style="text-align:center">先进后出、栈的入口、出口的都是栈的顶端位置、压栈、弹栈</td>
-</tr>
-<tr>
-<td style="text-align:center">队列</td>
-<td style="text-align:center">先进先出、队列的入口、出口各占一侧</td>
-</tr>
-<tr>
-<td style="text-align:center">数组</td>
-<td style="text-align:center">查找元素快：通过索引快速访问指定位置的元素</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">增删元素慢：需要创建新数组，将指定新元素存储在指定索引位置，再把原数组元素根据索引，(不)复制到新数组对应索引的位置</td>
-</tr>
-<tr>
-<td style="text-align:center">链表</td>
-<td style="text-align:center">多个节点之间，通过地址进行连接</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">查找元素慢：想查找某个元素，需要通过连接的节点，依次向后查找指定元素</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">增删元素快：只需要修改连接下个元素的地址即可</td>
-</tr>
-</tbody>
-</table>
-<h1 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h1><table>
-<thead>
-<tr>
-<th style="text-align:center">比较项目</th>
-<th style="text-align:center">Map&lt;K,V&gt;</th>
-<th style="text-align:center">List<e></e></th>
-<th style="text-align:center">Set<e></e></th>
-<th>数组</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">长度大小</td>
-<td style="text-align:center">可变</td>
-<td style="text-align:center">可变</td>
-<td style="text-align:center">可变</td>
-<td>固定</td>
-</tr>
-<tr>
-<td style="text-align:center">元素类型</td>
-<td style="text-align:center">引用类型</td>
-<td style="text-align:center">引用类型</td>
-<td style="text-align:center">引用类型</td>
-<td>任何类型</td>
-</tr>
-<tr>
-<td style="text-align:center">存取顺序</td>
-<td style="text-align:center">无序</td>
-<td style="text-align:center">有序</td>
-<td style="text-align:center">无序</td>
-<td>无序</td>
-</tr>
-<tr>
-<td style="text-align:center">是否重复</td>
-<td style="text-align:center">键不重复，值可重复</td>
-<td style="text-align:center">不重复</td>
-<td style="text-align:center">可重复</td>
-<td>可重复</td>
-</tr>
-<tr>
-<td style="text-align:center">索引</td>
-<td style="text-align:center">无</td>
-<td style="text-align:center">有</td>
-<td style="text-align:center">有</td>
-<td>有</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">分类</th>
-<th style="text-align:center">说明</th>
-<th style="text-align:center">方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">接口Collecton&#60;E&gt;</td>
-<td style="text-align:center">添加对象</td>
-<td style="text-align:center">void add(Object obj)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">移除集合中指定的元素</td>
-<td style="text-align:center">boolean remove(Object o)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">清空集合中的所有元素、集合容器本身依然存在</td>
-<td style="text-align:center">void clear()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合中的元素,转成一个对象数组中的元素并返回</td>
-<td style="text-align:center">Object[] toArray()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">判断对象是否存在于集合中,对象存在返回true</td>
-<td style="text-align:center">boolean contains(Object o)</td>
-</tr>
-<tr>
-<td style="text-align:center">接口List&#60;E&gt;</td>
-<td style="text-align:center">将指定的元素，添加到该集合中的末尾</td>
-<td style="text-align:center">boolean add(Object element)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">在列表中插入指定元素</td>
-<td style="text-align:center">void add(int index,E element)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">移除列表中指定位置的元素, 返回的是被移除的元素</td>
-<td style="text-align:center">Object remove(int index)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">移除列表中第一次出现的元素, 返回的是被移除的元素</td>
-<td style="text-align:center">Object remove(Object element)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">指定元素替换集合中指定位置元素,返回更新前元素</td>
-<td style="text-align:center">Object set(int index, Object element)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">返回集合中指定位置的元素</td>
-<td style="text-align:center">Object get(int index)</td>
-</tr>
-<tr>
-<td style="text-align:center">ArrayList&#60;E&gt;</td>
-<td style="text-align:center">清空集合中所有元素</td>
-<td style="text-align:center">void clear()</td>
-</tr>
-<tr>
-<td style="text-align:center">数组结构</td>
-<td style="text-align:center">返回集合中的元素个数</td>
-<td style="text-align:center">int size()</td>
-</tr>
-<tr>
-<td style="text-align:center">LinkedList&#60;E&gt;</td>
-<td style="text-align:center">将指定元素插入此表开头</td>
-<td style="text-align:center">void addFirst(Element e);</td>
-</tr>
-<tr>
-<td style="text-align:center">链表、队列结构</td>
-<td style="text-align:center">将指定元素插入此表末尾</td>
-<td style="text-align:center">void addLast(Element e);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">移除并返回此列表的第一个元素</td>
-<td style="text-align:center">Element removeFirst();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">移除并返回此列表的最后一个元素</td>
-<td style="text-align:center">Element removeLast();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">将元素推入此列表所表示的堆栈</td>
-<td style="text-align:center">void push(Element e);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">从此列表堆栈出弹出一个元素</td>
-<td style="text-align:center">Element pop()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">返回此表的第一个元素</td>
-<td style="text-align:center">Element getFirst();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">返回此表的最后一个元素</td>
-<td style="text-align:center">Element getLast();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">如果列表不包含元素，则返回true</td>
-<td style="text-align:center">Boolean isEmpty()</td>
-</tr>
-<tr>
-<td style="text-align:center">Vector</td>
-<td style="text-align:center">将指定的组件添加到此向量的末尾</td>
-<td style="text-align:center">void addElement(Element Obj)</td>
-</tr>
-<tr>
-<td style="text-align:center">数组、枚举结构</td>
-<td style="text-align:center">返回指定索引处的组件</td>
-<td style="text-align:center">Element elementAt(int index)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">返回此向量组件的枚举（遍历）</td>
-<td style="text-align:center">Enumeration<e> elements()</e></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">测试此枚举是否包含更多的元素</td>
-<td style="text-align:center">boolean hasMoreElements()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">返回此枚举的下一个元素</td>
-<td style="text-align:center">Element nextElements()</td>
-</tr>
-<tr>
-<td style="text-align:center">Iterator接口</td>
-<td style="text-align:center">boolean hasNext()</td>
-<td style="text-align:center">如果仍有元素可以迭代，则返回 true</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">E next()</td>
-<td style="text-align:center">返回迭代的下一个元素</td>
-</tr>
-<tr>
-<td style="text-align:center">接口Set<e></e></td>
-<td style="text-align:center">存取无序，不重复</td>
-<td style="text-align:center">通过hashCode()与equals()方法判断重复元素</td>
-</tr>
-<tr>
-<td style="text-align:center">HashSet类</td>
-<td style="text-align:center">（数组机制）</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">LinkedHashSet</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">链表和哈希表组合，元素存取有序，不重复</td>
-</tr>
-<tr>
-<td style="text-align:center">接口Map&lt;K,V&gt;</td>
-<td style="text-align:center">V put(K key, V value)</td>
-<td style="text-align:center">把指定的键值添加到Map集合中返回null或替换前的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">V remove(Object key)</td>
-<td style="text-align:center">删除指定键对应的值，返回被删除元素的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">V get(Object key)</td>
-<td style="text-align:center">根据指定的键，在Map集合中获取对应的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Set<k>  keySet()</k></td>
-<td style="text-align:center">获取Map集合中所有的键，存储到Set集合中</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Set&lt;Map.Entry&lt;K,V&gt;&gt;  entrySet()</td>
-<td style="text-align:center">获取到Map集合中所有的键值对对象的集合(Set集合)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">K getKey()</td>
-<td style="text-align:center">返回与此项对应的键</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">V getValue()</td>
-<td style="text-align:center">返回与此项对应的值</td>
-</tr>
-<tr>
-<td style="text-align:center">HashMap&lt;K,V&gt;</td>
-<td style="text-align:center">哈希表结构,元素存取无序,</td>
-<td style="text-align:center">值重复,键重复则覆盖,要重写键的hashCode、equals方法</td>
-</tr>
-<tr>
-<td style="text-align:center">LinkedHashMap&lt;K,V&gt;</td>
-<td style="text-align:center">元素的存取有序,哈希表结构</td>
-<td style="text-align:center">值重复,键重复则覆盖,要重写键的hashCode,equals方法</td>
-</tr>
-</tbody>
-</table>
-<h2 id="集合方法判断集合元素唯一的原理"><a href="#集合方法判断集合元素唯一的原理" class="headerlink" title="集合方法判断集合元素唯一的原理"></a>集合方法判断集合元素唯一的原理</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">项目</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">ArryList</td>
-<td style="text-align:center">boolean contains(Object obj)默认根据equals方法中的==判断地址值是否一样</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">如果想根据内容判断是否为重复元素，需要重写元素的equals方法</td>
-</tr>
-<tr>
-<td style="text-align:center">HashSet、Map</td>
-<td style="text-align:center">boolean contains(Object o)默认先根据hashCode方法的hash值是否一样</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">然后根据equals方法中的==判断地址值是否一样</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">如果自定义类型想根据内容判断是否为重复元素，需要重写元素的hashcode和equals方法</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Java提供的包装类一般都重写了hashcode和equals方法，不需再重写</td>
-</tr>
-</tbody>
-</table>
-<h1 id="迭代器iterator接口"><a href="#迭代器iterator接口" class="headerlink" title="迭代器iterator接口"></a>迭代器iterator接口</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">接口collection&lt;E&gt;实现了iterator接口</span><br><span class="line">迭代器是不同集合元素的统一获取方式，与集合存储元素的方式、底层的数据结构无关</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">迭代实现原理</span><br><span class="line">boolean hasNext() 如果仍有元素可以迭代，则返回 true。</span><br><span class="line">E next() 返回迭代的下一个元素</span><br><span class="line">hasNext()方法中记录着cursor，cursor记录的索引值不等于集合的长度返回true,否则返回false，cursor初值为0</span><br><span class="line">next()方法作用:①返回cursor指向的当前元素 ②cursor++</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ArrayList迭代</span><br><span class="line">for (int i = 0; i &lt; list.size(); i++) &#123;</span><br><span class="line">	String str = list.get(i);</span><br><span class="line">&#125;</span><br><span class="line">for (Iterator&lt;String&gt; it2 = coll.iterator(); it2.hasNext();  ) &#123;</span><br><span class="line">	System.out.println(it2.next());</span><br><span class="line">&#125; </span><br><span class="line">Iterator&lt;String&gt; it=list.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">	String str=it.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vector枚举迭代</span><br><span class="line">Enumeration&lt;String&gt; en=list.elements();</span><br><span class="line">while(en.hasMoreElements()&#123;</span><br><span class="line">	String str=en.nextElement();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Map迭代</span><br><span class="line">①Entry键值对对象方式</span><br><span class="line">Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet = map.entrySet();</span><br><span class="line">Iterator&lt;Map.Entry&lt;String,String&gt;&gt; it =entrySet.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">	Map.Entry&lt;String,String&gt; entry = it.next();//得到每一对对应关系		</span><br><span class="line">	String key = entry.getKey();//通过每一对对应关系获取对应的key</span><br><span class="line">	String value = entry.getValue();//通过每一对对应关系获取对应的value</span><br><span class="line">	System.out.println(key+&quot;=&quot;+value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();  </span><br><span class="line">for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) &#123;  </span><br><span class="line">	System.out.println(&quot;Key=&quot; + entry.getKey() + &quot;,Value =&quot; +entry.getValue());  </span><br><span class="line">&#125;</span><br><span class="line">②遍历键找值方式</span><br><span class="line">Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">Set&lt;String&gt; keySet = map.keySet();</span><br><span class="line">Iterator&lt;String&gt; it =keySet.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">	String key = it.next();//得到每一个key</span><br><span class="line">	String value = map.get(key);//通过key获取对应的value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">集合迭代中的转型</span><br><span class="line">①集合中存储其实都是对象的地址</span><br><span class="line">②集合中可以存储基本数值吗？可以通过基本类型包装类，自动装箱操作存储</span><br><span class="line">③没指定&lt;&gt;时，元素存储时自动提升为Object。取出时要使用元素的特有内容，必须向下转型</span><br><span class="line">	如果集合中存放的是多个对象，这时进行向下转型会发生类型转换异常</span><br><span class="line">④Iterator接口使用&lt;&gt;控制迭代元素的类型就不需要强转了.获取到的元素直接就是元素类型</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Iterator的并发修改异常</span><br><span class="line">在迭代过程中，使用了集合的方法对元素进行操作。导致迭代器并不知道集合中的变化</span><br><span class="line">容易引发数据的不确定性</span><br><span class="line">并发修改异常解决办法：在迭代时，不要使用集合的方法操作元素。</span><br><span class="line">那么想要在迭代时对元素操作咋办？通过ListIterator迭代器操作元素是可以的，</span><br><span class="line">ListIterator的出现，解决了使用Iterator迭代过程中可能会发生的错误情况</span><br><span class="line">public class IteratorDemo &#123;</span><br><span class="line">	//在list集合迭代元素中，对元素进行判断，一旦条件满足就添加一个新元素</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">		list.add(&quot;abc1&quot;);</span><br><span class="line">		list.add(&quot;abc2&quot;);</span><br><span class="line">		Iterator&lt;String&gt; it = list.iterator();</span><br><span class="line">		while(it.hasNext())&#123;</span><br><span class="line">			String str = it.next();</span><br><span class="line">			if(&quot;abc2&quot;.equals(str))&#123;</span><br><span class="line">				list.add(&quot;itcast&quot;);// 该操作会导致程序出错</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(list);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">运行上述代码发生了错误 java.util.ConcurrentModificationException[并发修改异常]</span><br><span class="line">		这是什么原因呢？</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">增强for循环遍历数组或集合</span><br><span class="line">Collection实现了Iterable接口</span><br><span class="line">for( 数据类型  变量名 : 数组或者集合 )&#123;</span><br><span class="line">	sop(变量);//相当于直接每次循环将集合或者数组中的元素赋给变量</span><br><span class="line">&#125;</span><br><span class="line">好处: 代码少了,方便对容器遍历</span><br><span class="line">弊端: 没有索引,不能操作容器里面的元素</span><br><span class="line">int[] arr = &#123;3,1,9,0&#125;;</span><br><span class="line">for(int i : arr)&#123;</span><br><span class="line">	System.out.println(i+1);</span><br><span class="line">&#125;</span><br><span class="line">ArrayList&lt;Person&gt; array = new ArrayList&lt;Person&gt;();</span><br><span class="line">for(Person p : array)&#123;</span><br><span class="line">	System.out.println(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">泛型</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">泛型</td>
-<td style="text-align:center">指明了集合中存储数据的类型  &lt;数据类型&gt;(安全简单)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">在编译的时候检查类型安全,避免了迭代时类型强转的麻烦</td>
-</tr>
-<tr>
-<td style="text-align:center">泛型类</td>
-<td style="text-align:center">修饰符 class 类名&lt;代表泛型的变量&gt; {}</td>
-</tr>
-<tr>
-<td style="text-align:center">泛型方法</td>
-<td style="text-align:center">修饰符 &lt;代表泛型的变量&gt; 返回值类型 方法名(参数){} public <t> T[] toArray(T[] a){}</t></td>
-</tr>
-<tr>
-<td style="text-align:center">泛型接口</td>
-<td style="text-align:center">public interface List <e>{abstract boolean add(E e);}</e></td>
-</tr>
-<tr>
-<td style="text-align:center">通配符</td>
-<td style="text-align:center">Iterator&lt;?&gt; it = coll.iterator()泛型的通配,匹配所有的数据类型  ?</td>
-</tr>
-<tr>
-<td style="text-align:center">泛型的限定</td>
-<td style="text-align:center">&lt;? extends Employee&gt; 限制的是父类, 上限限定, 可以传递Employee,传递他的子类对象</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">&lt;? super   Employee&gt; 限制的是子类, 下限限定, 可以传递Employee,传递他的父类对象</td>
-</tr>
-<tr>
-<td style="text-align:center">Java伪泛型</td>
-<td style="text-align:center">泛型只在编译时存在,编译后就被擦除,在编译之前我们就可以限制集合的类型,起到作用</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">例如:ArrayList<string> al=new ArrayList<string>();编译后:ArrayList al=new ArrayList();</string></string></td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">动态获得子类的类型		</span><br><span class="line">//在父类(IBaseDaoImpl)的构造方法中动态获得entityClass字节码对象</span><br><span class="line">public IBaseDaoImpl() &#123;</span><br><span class="line">//获得T</span><br><span class="line">ParameterizedType Superclass = (ParameterizedType) this.getClass().getGenericSuperclass();</span><br><span class="line">//获得父类上声明的泛型数组</span><br><span class="line">Type[] actualTypeArguments = Superclass.getActualTypeArguments();</span><br><span class="line">entityClass=(Class&lt;T&gt;) actualTypeArguments[0];</span><br></pre></td></tr></table></figure>
-<h2 id="Collections集合工具类"><a href="#Collections集合工具类" class="headerlink" title="Collections集合工具类"></a>Collections集合工具类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static &lt;T&gt; void sort(List&lt;T&gt; list) 升序排序</span><br><span class="line">static void shuffle(List&lt;?&gt; list) 集合中的元素存储位置随机打乱</span><br></pre></td></tr></table></figure></div><div class="tags"><a href="/tags/Collection/">Collection</a></div><div class="post-nav"><a class="pre" href="/2018/04/27/IO/">IO</a><a class="next" href="/2018/04/25/API/">API</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/Collection/" style="font-size: 15px;">Collection</a> <a href="/tags/RegularExpression/" style="font-size: 15px;">RegularExpression</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>collection | 何创军的博客</title>
+  <meta name="keywords" content=" collection ">
+  <meta name="description" content="collection | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(80)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a style="border-right: 1px solid #fff; width: 49%"  class="about site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="80">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http协议/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-collection" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">collection</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="javase">javase</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color1">collection</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-04 17:49:22'>2018-04-26 22:43</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#集合框架"><span class="toc-text">集合框架</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>collection
+<a id="more"></a></p>
+<h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            集合与数组的异同
+        </div>
+    </summary>
+    <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+        数组的长度是固定的。集合的长度是可变的。集合中存储的元素必须是引用类型数据<br>
+        ①集合中存储其实都是对象的地址<br>
+        ②集合中可以存储基本数值吗？可以通过基本类型包装类，自动装箱操作存储<br>
+        ③没指定&#60;&gt;时，元素存储时自动提升为Object。取出时要使用元素的特有内容，必须向下转型<br>
+        如果集合中存放的是多个对象，这时进行向下转型会发生类型转换异常<br>
+        ④Iterator接口使用&#60;&gt;控制迭代元素的类型就不需要强转了.获取到的元素直接就是元素类型<br>
+    </div>
+</details>
+<details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            数据存储常用的结构
+        </div>
+    </summary>
+    <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+        堆栈:先进后出、栈的入口、出口的都是栈的顶端位置、压栈、弹栈<br>
+        队列:先进先出、队列的入口、出口各占一侧<br>
+        数组:查找元素快：通过索引快速访问指定位置的元素<br>
+        &emsp;&emsp;增删元素慢：需要创建新数组，将指定新元素存储在指定索引位置，再把原数组元素根据索引，(不)复制到新数组对应索引的位置<br>
+        链表:多个节点之间，通过地址进行连接<br>
+        &emsp;&emsp;查找元素慢：想查找某个元素，需要通过连接的节点，依次向后查找指定元素<br>
+        &emsp;&emsp;增删元素快：只需要修改连接下个元素的地址即可<br>
+    </div>
+</details>
+<details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            集合框架继承体系
+        </div>
+    </summary>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                java.lang.Object
+            </div>
+        </summary>
+        <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+            所有java类的超类
+        </div>
+    </details>
+        <details style="border:0px;padding-left:40px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    java.util.AbstractCollection&#60;E&gt; (implements java.util.Collection&#60;E&gt;)
+                </div>
+            </summary>
+            <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                void add(Object obj) 添加对象<br>
+                boolean remove(Object o) 移除集合中指定的元素<br>
+                void clear() 清空集合中的所有元素、集合容器本身依然存在<br>
+                Object[] toArray() 集合中的元素,转成一个对象数组中的元素并返回<br>
+                boolean contains(Object o) 判断对象是否存在于集合中,对象存在返回true<br>
+            </div>
+        </details>
+            <details style="border:0px;padding-left:60px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        java.util.AbstractList&#60;E&gt; (implements java.util.List&#60;E&gt;)
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                    void add(int index,E element) 在列表中插入指定元素 <br>
+                    Object remove(int index) 移除列表中指定位置的元素, 返回的是被移除的元素 <br>
+                    Object set(int index, Object element) 指定元素替换集合中指定位置元素,返回更新前元素<br>
+                    Object get(int index) 返回集合中指定位置的元素 <br>
+                </div>
+            </details>
+                <details style="border:0px;padding-left:80px;">
+                    <summary style="outline-width:0px;">
+                        <div style="display:inline;text-decoration:underline;">
+                            java.util.AbstractSequentialList&#60;E&gt;
+                        </div>
+                    </summary>
+                </details>
+                    <details style="border:0px;padding-left:100px;">
+                        <summary style="outline-width:0px;">
+                            <div style="display:inline;text-decoration:underline;">
+                                java.util.LinkedList&#60;E&gt;
+                            </div>
+                        </summary>
+                        <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                            链表、队列结构<br>
+                            void addFirst(Element e); 将指定元素插入此表开头 <br>
+                            void addLast(Element e); 将指定元素插入此表末尾 <br>
+                            Element removeFirst(); 移除并返回此列表的第一个元素 <br>
+                            Element removeLast(); 移除并返回此列表的最后一个元素 <br>
+                            void push(Element e); 将元素推入此列表所表示的堆栈 <br>
+                            Element pop() 从此列表堆栈出弹出一个元素 <br>
+                            Element getFirst(); 返回此表的第一个元素 <br>
+                            Element getLast(); 返回此表的最后一个元素 <br>
+                            Boolean isEmpty() 如果列表不包含元素，则返回<br>
+                        </div>
+                    </details>
+                <details style="border:0px;padding-left:80px;">
+                    <summary style="outline-width:0px;">
+                        <div style="display:inline;text-decoration:underline;">
+                            java.util.ArrayList&#60;E&gt;
+                        </div>
+                    </summary>
+                    <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                        数组结构、存取有序<br>
+                        int clear()返回集合大小<br>
+                    </div>
+                </details>
+                <details style="border:0px;padding-left:80px;">
+                    <summary style="outline-width:0px;">
+                        <div style="display:inline;text-decoration:underline;">
+                            java.util.Vector&#60;E&gt;
+                        </div>
+                    </summary>
+                    <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                        数组、枚举结构<br>
+                        void addElement(Element Obj) 将指定的组件添加到此向量的末尾<br>
+                        Element elementAt(int index) 返回指定索引处的组件<br>
+                        Enumeration<e> elements() 返回此向量组件的枚举（遍历）<br>
+                        boolean hasMoreElements() 测试此枚举是否包含更多的元素<br>
+                        Element nextElement() 返回此枚举的下一个元素<br>
+                    </e></div>
+                </details>
+            <details style="border:0px;padding-left:60px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        java.util.AbstractSet&#60;E&gt; (implements java.util.List&#60;E&gt;)
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                    boolean add(Object element) 将指定的元素，添加到该集合中的末尾 <br>
+                    void add(int index,E element) 在列表中插入指定元素 <br>
+                    Object remove(int index) 移除列表中指定位置的元素, 返回的是被移除的元素 <br>
+                    Object remove(Object element) 移除列表中第一次出现的元素, 返回的是被移除的元素 <br>
+                    Object set(int index, Object element) 指定元素替换集合中指定位置元素,返回更新前元素<br>
+                    Object get(int index) 返回集合中指定位置的元素 <br>
+                </div>
+            </details>
+                <details style="border:0px;padding-left:80px;">
+                    <summary style="outline-width:0px;">
+                        <div style="display:inline;text-decoration:underline;">
+                            java.util.HashSet&#60;E&gt;
+                        </div>
+                    </summary>
+                    <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                        （数组机制）存取无序
+                    </div>
+                </details>
+                    <details style="border:0px;padding-left:100px;">
+                        <summary style="outline-width:0px;">
+                            <div style="display:inline;text-decoration:underline;">
+                                java.util.LinkedHashSet&#60;E&gt;
+                            </div>
+                        </summary>
+                        <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                            链表和哈希表组合，元素存取有序，不重复
+                        </div>
+                    </details>
+        <details style="border:0px;padding-left:40px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    java.util.AbstractMap&#60;K,V&gt; (implements java.util.Map&#60;K,V&gt;)
+                </div>
+            </summary>
+            <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                Map中的集合不能包含重复的键，值可以重复；每个键只能对应一个值。<br>
+                V put(K key, V value)把指定的键值添加到Map集合中返回null或替换前的值<br>
+                V remove(Object key)删除指定键对应的值，返回被删除元素的值<br>
+                V get(Object key) 根据指定的键，在Map集合中获取对应的值<br>
+                Set<k>  keySet() 获取Map集合中所有的键，存储到Set集合中<br>
+                Set&lt;Map.Entry&lt;K,V&gt;&gt;  entrySet() 获取到Map集合中所有的键值对对象的集合(Set集合)<br>
+                K getKey() 返回与此项对应的键 <br>
+                V getValue()返回与此项对应的值 <br>
+            </k></div>
+        </details>
+            <details style="border:0px;padding-left:60px;">
+                <summary style="outline-width:0px;">
+                    <div style="display:inline;text-decoration:underline;">
+                        java.util.HashMap&#60;E&gt; 
+                    </div>
+                </summary>
+                <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                    哈希表结构,元素存取无序,值重复,键重复则覆盖,要重写键的hashCode、equals方法<br>
+                </div>
+            </details>
+                <details style="border:0px;padding-left:80px;">
+                    <summary style="outline-width:0px;">
+                        <div style="display:inline;text-decoration:underline;">
+                            java.util.LinkedHashMap&#60;E&gt; 
+                        </div>
+                    </summary>
+                    <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+                        元素的存取有序,哈希表结构,值重复,键重复则覆盖,要重写键的hashCode,equals方法<br>
+                    </div>
+                </details>
+    <details style="border:0px;padding-left:40px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                java.util.Collections
+            </div>
+        </summary>
+        <div style="padding-left:40px;background-color:rgb(247, 248, 248)">
+            static <t> void sort(List&#60;T&gt; list) 升序排序<br>
+            static void shuffle(List&#60;T&gt; list) 集合中的元素存储位置随机打乱<br>
+        </t></div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                集合contains方法判断集合元素唯一的原理
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            List:默认根据equals方法中的==判断地址值是否一样<br>
+            &emsp;&emsp;如果想根据内容判断是否为重复元素，需要重写元素的equals方法<br>
+            Set、Map:默认先根据hashCode方法的hash值是否一样，然后根据equals方法中的==判断地址值是否一样<br>
+            &emsp;&emsp;如果自定义类型想根据内容判断是否为重复元素，需要重写元素的hashcode和equals方法<br>
+            &emsp;&emsp;Java提供的包装类一般都重写了hashcode和equals方法，不需再重写<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                java.lang.Iterable&#60;T&gt;
+            </div>
+        </summary>
+        <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                ArrayList迭代
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            for (int i = 0; i &lt; list.size(); i++) {<br>
+            &emsp;&emsp;String str = list.get(i);<br>
+            }<br>
+            for (Iterator<string> it2 = coll.iterator(); it2.hasNext();  ) {<br>
+            &emsp;&emsp;System.out.println(it2.next());<br>
+            } <br>
+            Iterator<string> it=list.iterator();<br>
+            while(it.hasNext()){<br>
+            &emsp;&emsp;String str=it.next();<br>
+            }<br>
+        </string></string></div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    Vector枚举迭代
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                Enumeration<string> en=list.elements();<br>
+                while(en.hasMoreElements(){<br>
+                &emsp;&emsp;String str=en.nextElement();<br>
+                }<br>
+            </string></div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    Map迭代
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                ①Entry键值对对象方式<br>
+                Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();<br>
+                Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet = map.entrySet();<br>
+                Iterator&lt;Map.Entry&lt;String,String&gt;&gt; it =entrySet.iterator();<br>
+                while(it.hasNext()){<br>
+                &emsp;&emsp;Map.Entry&lt;String,String&gt; entry = it.next();//得到每一对对应关系<br>
+                &emsp;&emsp;String key = entry.getKey();//通过每一对对应关系获取对应的key<br>
+                &emsp;&emsp;String value = entry.getValue();//通过每一对对应关系获取对应的value<br>
+                &emsp;&emsp;System.out.println(key+”=”+value);<br>
+                }<br>
+
+                Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();  <br>
+                for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) { <br> 
+                &emsp;&emsp;System.out.println(“Key=” + entry.getKey() + “,Value =” +entry.getValue());  <br>
+                }<br>
+                ②遍历键找值方式<br>
+                Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();<br>
+                Set<string> keySet = map.keySet();<br>
+                Iterator<string> it =keySet.iterator();<br>
+                while(it.hasNext()){<br>
+                &emsp;&emsp;String key = it.next();//得到每一个key<br>
+                &emsp;&emsp;String value = map.get(key);//通过key获取对应的value<br>
+                }<br>
+            </string></string></div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    并发修改异常
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                在迭代的过程中使用了集合的方法对集合的元素进行操作会引发并发修改异常<br>
+                解决方法：①使用迭代器的方法操作元素②使用for循环操作元素<br>
+            </div>
+        </details>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                增强for
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            for(元素类型  变量名 : 数组或者集合 ){<br>
+            &emsp;&emsp;sop(变量);//相当于直接每次循环将集合或者数组中的元素赋给变量<br>
+            }<br>
+            好处: 代码少了,方便对容器遍历<br>
+            弊端: 没有索引,不能操作容器里面的元素<br>
+        </div>
+    </details>
+</details>
+<details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            泛型
+        </div>
+    </summary>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                泛型概念
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            指明了集合中存储数据的类型  &#60;数据类型&gt;(安全简单)<br>
+            在编译的时候检查类型安全,避免了迭代时类型强转的麻烦<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                泛型声明
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            泛型类 修饰符&emsp;class 类名&#60;代表泛型的变量&gt; {}<br>
+            泛型方法 修饰符 &#60;代表泛型的变量&gt; 返回值类型 方法名(参数){} public &#60;T&gt; T[] toArray(T[] a){} <br>
+            泛型接口 public interface List &#60;E&gt;{abstract boolean add(E e);}<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                通配符和泛型的限定
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            Iterator&lt;?&gt; it = coll.iterator()泛型的通配,匹配所有的数据类型 <br>
+            &lt;? extends Employee&gt; 限制的是父类, 上限限定, 可以传递Employee,传递他的子类对象<br>
+            &lt;? super   Employee&gt; 限制的是子类, 下限限定, 可以传递Employee,传递他的父类对象<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                Java伪泛型
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            泛型只在编译时存在,编译后就被擦除,在编译之前我们就可以限制集合的类型,起到作用<br>
+            例如:ArrayList&#60;String&gt; al=new ArrayList&#60;String&gt;();编译后:ArrayList al=new ArrayList();<br>
+        </div>
+    </details>
+</details>
+
+<pre><code>动态获得子类的类型        
+//在父类(IBaseDaoImpl)的构造方法中动态获得entityClass字节码对象
+public IBaseDaoImpl() {
+//获得T
+ParameterizedType Superclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+//获得父类上声明的泛型数组
+Type[] actualTypeArguments = Superclass.getActualTypeArguments();
+entityClass=(Class&lt;T&gt;) actualTypeArguments[0];
+</code></pre>
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#ajax','#注解','#boostrap','#art-template','#css','#windows','#dubbo','#缓存','#exception','#git','#express','#hexo','#html','#http协议','#图表库','#json','#linux','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#xml','#webpack','#动态代理','#前端','#开发规范','#排序算法','#异步编程','#系统测试','#计算机','#后端','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#jquery','#java基础语法','#jsp','#maven','#mycat','#mqtt','#nginx','#node.js','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#redis','#struts2','#面试题','#hibrenate','#solr','#WEB','#源码学习','#lucene','#spring','#oracle','#springmvc','#mybatis','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

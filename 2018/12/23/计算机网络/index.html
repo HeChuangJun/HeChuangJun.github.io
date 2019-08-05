@@ -1,4 +1,1265 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>计算机网络 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">计算机网络</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">计算机网络</h1><div class="post-meta">Dec 23, 2018<span> | </span><span class="category"><a href="/categories/network/">network</a></span></div><div class="post-content"><p>计算机网络基础<br><a id="more"></a></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>计算机网络 | 何创军的博客</title>
+  <meta name="keywords" content=" 计算机 ">
+  <meta name="description" content="计算机网络 | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(80)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a style="border-right: 1px solid #fff; width: 49%"  class="about site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="80">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http协议/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">计算机网络</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="计算机">计算机</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">计算机</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-01 22:13:25'>2018-12-23 11:30</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络概述"><span class="toc-text">网络概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的功能"><span class="toc-text">计算机网络的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的概念"><span class="toc-text">计算机网络的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网的组成"><span class="toc-text">因特网的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网的边缘部分通信"><span class="toc-text">因特网的边缘部分通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网的通信方式"><span class="toc-text">因特网的通信方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网核心部分的通信"><span class="toc-text">因特网核心部分的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网中的通信方式"><span class="toc-text">因特网中的通信方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的性能指标"><span class="toc-text">计算机网络的性能指标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络体系结构"><span class="toc-text">计算机网络体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五层协议的体系结构"><span class="toc-text">五层协议的体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实体、协议、服务和服务访问点"><span class="toc-text">实体、协议、服务和服务访问点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#物理层"><span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层的主要任务"><span class="toc-text">物理层的主要任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通信系统的基础知识"><span class="toc-text">通信系统的基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有关信道的几个基本概念"><span class="toc-text">有关信道的几个基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信道的极限容量"><span class="toc-text">信道的极限容量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层下面的传输媒体"><span class="toc-text">物理层下面的传输媒体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信道复用技术"><span class="toc-text">信道复用技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据链路层"><span class="toc-text">数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据链路层使用的信道类型"><span class="toc-text">数据链路层使用的信道类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用点对点信道的数据链路层"><span class="toc-text">使用点对点信道的数据链路层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据协议层协议的三个问题"><span class="toc-text">数据协议层协议的三个问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#点对点协议PPP-数据链路层使用最广泛的协议"><span class="toc-text">点对点协议PPP(数据链路层使用最广泛的协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PPP协议的帧格式"><span class="toc-text">PPP协议的帧格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PPP协议的工作状态"><span class="toc-text">PPP协议的工作状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用广播信道的数据链路层"><span class="toc-text">使用广播信道的数据链路层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以太网的两个标准"><span class="toc-text">以太网的两个标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSMA-CD协议"><span class="toc-text">CSMA/CD协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集线器的特点"><span class="toc-text">集线器的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以太网的MAC层"><span class="toc-text">以太网的MAC层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展的以太网-从网络层看来还是一个网络"><span class="toc-text">扩展的以太网(从网络层看来还是一个网络)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络层"><span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络层提供的服务（数据包服务）"><span class="toc-text">网络层提供的服务（数据包服务）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网际协议ip"><span class="toc-text">网际协议ip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类的ip地址"><span class="toc-text">分类的ip地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip数据报"><span class="toc-text">ip数据报</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip层分组转发的流程"><span class="toc-text">ip层分组转发的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#划分子网"><span class="toc-text">划分子网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CIDR构成超网"><span class="toc-text">CIDR构成超网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络控制报文协议-ICMP（为了更有效地转发ip数据报和提交交付成功的机会）"><span class="toc-text">网络控制报文协议 ICMP（为了更有效地转发ip数据报和提交交付成功的机会）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网的路由选择协议"><span class="toc-text">因特网的路由选择协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部网关协议RIP-Routing-Information-Protocol"><span class="toc-text">内部网关协议RIP(Routing Information Protocol)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RIP2协议的报文格式"><span class="toc-text">RIP2协议的报文格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部网关协议OSPF-OpenShortest-Path-First"><span class="toc-text">内部网关协议OSPF(OpenShortest Path First)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OSPF的基本操作"><span class="toc-text">OSPF的基本操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#外部网关协议BGP"><span class="toc-text">外部网关协议BGP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路由器的构成"><span class="toc-text">路由器的构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN"><span class="toc-text">VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络地址转换NAT-Network-Address-Translation"><span class="toc-text">网络地址转换NAT (Network Address Translation)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运输层"><span class="toc-text">运输层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#运输层的概述"><span class="toc-text">运输层的概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运输层的主要协议"><span class="toc-text">运输层的主要协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP和UDP区别"><span class="toc-text">TCP和UDP区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运输层的端口"><span class="toc-text">运输层的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户数据报协议UDP"><span class="toc-text">用户数据报协议UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP概述"><span class="toc-text">UDP概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP的主要特点"><span class="toc-text">UDP的主要特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP的首部格式"><span class="toc-text">UDP的首部格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP计算检验和"><span class="toc-text">UDP计算检验和</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输控制协议TCP概述"><span class="toc-text">传输控制协议TCP概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP的连接"><span class="toc-text">TCP的连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可靠传输的工作原理"><span class="toc-text">可靠传输的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#停止等待协议"><span class="toc-text">停止等待协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#连续ARQ协议"><span class="toc-text">连续ARQ协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP报文段的首部格式"><span class="toc-text">TCP报文段的首部格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP可靠传输的实现"><span class="toc-text">TCP可靠传输的实现</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>计算机网络基础
+<a id="more"></a></p>
 <h2 id="网络概述"><a href="#网络概述" class="headerlink" title="网络概述"></a>网络概述</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网络包括：电信网络、有限电视网络和计算机网络</span><br></pre></td></tr></table></figure>
 <h2 id="计算机网络的功能"><a href="#计算机网络的功能" class="headerlink" title="计算机网络的功能"></a>计算机网络的功能</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连通性:计算机网络使上网用户之间可以交换信息</span><br><span class="line">共享性:资源共享、信息共享、软件共享、也可以是硬件共享</span><br></pre></td></tr></table></figure>
 <h2 id="计算机网络的概念"><a href="#计算机网络的概念" class="headerlink" title="计算机网络的概念"></a>计算机网络的概念</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">网络由若干节点(计算机、集线器、交换机和路由器等)和连接这些节点的链路组成</span><br><span class="line">网络和网络可以通过路由器互连起来，构成更大的网络，互联网就是“网络的网络”，连接在网络的上的计算机都称为主机</span><br><span class="line">网络吧许多计算机连在一起，而因特网则把许多的网络连接在一起</span><br></pre></td></tr></table></figure>
@@ -68,7 +1329,12 @@
 <h2 id="CSMA-CD协议"><a href="#CSMA-CD协议" class="headerlink" title="CSMA/CD协议"></a>CSMA/CD协议</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.最早的以太网是将许多计算机都连接到一根总线上：</span><br><span class="line">（1）总线的特点是：当一台计算机发送数据时，总线上的所有计算机都检测到这个数据，这种就是广播通信方式；</span><br><span class="line">（2）为了实现在总线上的一对一通信，可以使每一台计算机的适配器拥有一个与其他适配器都不同的地址，</span><br><span class="line">当数据帧中的目的地址与适配器ROM中存放的硬件地址一致时，该适配器才能接收到这个数据帧；</span><br><span class="line">（3）人们通常把局域网上的计算机称为“主机”，“工作站”，“站点”或“站”</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2.以太网为了通信方便采取的措施：</span><br><span class="line">（1）采用较为灵活的无连接的工作方式，即不必先建立连接就可以直接发送数据，适配器对发送的数据帧不进行编号，也不要求对方发回确认。</span><br><span class="line">以太网提供的服务是尽最大努力的交付，即不可靠的交付；</span><br><span class="line">对有差错帧是否需要重传则由高层来决定，但以太网并不知道这个重传帧，而是当做新的数据帧来发送；</span><br><span class="line">总线上只要有一台计算机在发送数据，总线的传输资源就会被占用，在同一时间只能允许一台计算机发送数据；</span><br><span class="line">以太网采用的解决冲突的方法是：CSMA/CD，载波监听多点接入/碰撞检测</span><br><span class="line">（2）以太网发送的数据都是使用曼彻斯特编码的信号。</span><br><span class="line">二进制基带数字信号通常就是高，低电压交替出现的信号；</span><br><span class="line">曼彻斯特编码:1是“前高后低”，而0是“前低后高”；</span><br><span class="line">曼彻斯特编码的缺点是，它所占的频带宽度比原始的基带信号增加了一倍（因为每秒传送的码元加倍了）；</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">3.CSMA/CD协议的要点：</span><br><span class="line">（1）“多点接入”：就是说明这是总线型网络，许多计算机以多点接入的方式连接在一根总线上。协议的实质是“载波监听”和“碰撞检测”；</span><br><span class="line">（2）“载波监听”：检测信道；不管在发送前，还是在发送中，每个站都必须不停地检测信道。</span><br><span class="line">在发送前检测信道，是为了获得发送权，如果检测出已经有其他站在发送，则自己就暂时不许发送数据，必须等到信道变为空闲时才能发送；</span><br><span class="line">在发送中检测信道，是为了及时发现有没有其他站的发送和本站发送的碰撞；这就成为配装检测</span><br><span class="line">（3）“碰撞检测”：边发送边监听；</span><br><span class="line">即适配器边发送数据边检测信道上的信号电压的变化情况，以便判断自己在发送数据时其他站是否也在发送数据；</span><br><span class="line">当几个站同时在总线上发送数据时，总线上的信号电压变化幅度将会增大（相互叠加），当适配器检测到的信号电压变化幅度超过一定的门限值时，</span><br><span class="line">就认为总线上至少有两个站同时在发送数据，表明产生了碰撞；</span><br><span class="line">（4）电磁波在1Km电缆的传播时延约为5us；</span><br><span class="line">（5）在局域网分析中，常把总线上的单程，端到端传播时延记为r，</span><br><span class="line">A发送数据后最迟要经过多久时间才能知道自己发送的数据和其他站发送的数据有碰撞，这个时间最多为2r（两倍的总线端到端的传播时延）</span><br><span class="line">（6）显然，在使用CSMA/CD协议时，一个站不可能同时进行发送和接收（但必须边发送边监听）。</span><br><span class="line">因此，使用CSMA/CD协议的以太网不可能进行全双工通信而只能进行半双工通信（双向交替通信）；</span><br><span class="line">（7）每一个站在自己发送数据之后的一小段时间内，存在着遭遇碰撞的可能性，这一小段时间是不确定的，它取决于另一个发送数据的站到本站的距离</span><br><span class="line">（8）最先发送数据帧的A站，在发送数据帧后至多经过时间2r就可知道所发送的数据帧是否遭受到碰撞；</span><br><span class="line">因此，以太网端到端往返时间2r称为争用期（碰撞窗口）；经过争用期还没有检测到碰撞，才能肯定这次发送不会发送碰撞；</span><br><span class="line">（9）以太网采用截断二进制指数退避算法来确定碰撞后重传的时机；</span><br><span class="line">截断二进制指数退避算法：让发生碰撞的站停止发送数据后，不是等待信道变为空闲后就立即再发送数据，而是推迟（退避）一个随机的时间</span><br><span class="line">基本退避时间为争用期2r，具体的争用时间是51.2us；</span><br><span class="line">从离散的整数集合【0,1...，（2k-1）】中随机取出一个数，记为r。重传应推后的时间就是r倍的争用期；</span><br><span class="line">K为碰撞次数时。K=Min[重传次数，10]，当重传次数超过10时，K就不在增大而是一直等于10；</span><br><span class="line">当重传达16次仍不能成功时，则丢弃该帧，并向高层报告</span><br><span class="line">（10）适配器每发送一个新的帧，就要执行一次CSMA/CD算法，适配器对过去发送过的碰撞没有记忆功能；</span><br><span class="line">（11）为了避免在发送完毕之前没有检测出碰撞：</span><br><span class="line">**以太网规定一个最短帧长64字节，即512bit，通过填充使帧长不小于64字节；</span><br><span class="line">**对于10Mb/s以太网，发送512bit的时间需要51.2us，也就是上面提到的争用期；</span><br><span class="line">**凡是长度小于64字节的帧都是由于冲突而异常中止的无效帧，只要收到了这种无效帧，就应当立即将其丢弃；</span><br><span class="line">（12）信号在以太网上传播1Km大约需要5us，以太网最大的端到端时延必须小于争用期的一半（即25.6us），</span><br><span class="line">这相当于以太网的最大端到端长度约为5Km，实际上以太网覆盖范围远没有这么大；</span><br><span class="line">（13）强化碰撞：就是当发送数据的站一旦发现了碰撞时，除了立即停止发送数据外，还要再继续发送32比特或48比特的人为干扰信号，</span><br><span class="line">以便让所有用户都知道现在已经发送了碰撞；</span><br><span class="line">（14）CSMA/CD协议的要点归纳：</span><br><span class="line">①准备发送：适配器从网络层获得一个分组，加上以太网的首部和尾部，组成以太网帧，放入适配器的缓存中，但在发送之前，必须先检测信道；</span><br><span class="line">②检测信道：若检测到信道忙，则应不停地检测，一直等待信道转为空闲。若检测到信道空闲，并在96比特时间内信道保持空闲，就发送这个帧；</span><br><span class="line">③在发送过程中仍不停地检测信道，即网络适配器要边发送边监听，这里只有两种可能性：</span><br><span class="line">④一是发送成功：在争用期内一直没有检测到碰撞，这个帧肯定能够发送成功；</span><br><span class="line">⑤二是发送失败：在争用期内检测到碰撞，这是立即停止发送数据，并按照规定发送人为干扰信号；</span><br><span class="line">适配器接着就执行指数退避算法，等待r倍512比特时间后，</span><br><span class="line">返回步骤2，继续检测信道；但若重传16次还不能成功，则停止重传而向上报错；</span><br><span class="line">⑥以太网每发送完一帧，一定要把已发送的帧暂时保留一下。</span><br></pre></td></tr></table></figure>
-<h2 id="集线器的特点"><a href="#集线器的特点" class="headerlink" title="集线器的特点"></a>集线器的特点</h2><p>以太网现在使用双绞线，采用星型拓补，在星型的中心增加了可靠性很高的设备—集线器<br>使用集线器的以太网在逻辑上仍然是一个总线网，各站共享逻辑上的总线，使用的依然是CSMA/CD协议，原理和总线结构时一样。<br>一个集线器上有许多接口。每个接口通过RJ-45插头与主机相连。<br>集线器工作在物理层，接口的作用就是简单的转发比特，不进行碰撞检测，碰撞检测是主机的网卡进行的。<br>集线器采用了专门的芯片，进行自适应串音回波抵消，这样就可以使接口转发出去的较强信号不至于对该接口接收到的较弱信号产生干扰。<br>每个比特在转发之前还要进行再生整型并重新定时。</p>
+<h2 id="集线器的特点"><a href="#集线器的特点" class="headerlink" title="集线器的特点"></a>集线器的特点</h2><p>以太网现在使用双绞线，采用星型拓补，在星型的中心增加了可靠性很高的设备—集线器
+使用集线器的以太网在逻辑上仍然是一个总线网，各站共享逻辑上的总线，使用的依然是CSMA/CD协议，原理和总线结构时一样。
+一个集线器上有许多接口。每个接口通过RJ-45插头与主机相连。
+集线器工作在物理层，接口的作用就是简单的转发比特，不进行碰撞检测，碰撞检测是主机的网卡进行的。
+集线器采用了专门的芯片，进行自适应串音回波抵消，这样就可以使接口转发出去的较强信号不至于对该接口接收到的较弱信号产生干扰。
+每个比特在转发之前还要进行再生整型并重新定时。</p>
 <h2 id="以太网的MAC层"><a href="#以太网的MAC层" class="headerlink" title="以太网的MAC层"></a>以太网的MAC层</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在局域网中，硬件地址又称为物理地址或者MAC地址（因为这种地址用在MAC帧中）。 </span><br><span class="line">IEEE 802标准为局域网规定了一种48位的全球地址，是局域网上的每一台计算机中固化在网卡的ROM中的地址。</span><br><span class="line">实质mac地址在适配器上，更换适配器就更换了mac地址</span><br><span class="line"></span><br><span class="line">注：这里的MAC地址，其实更像是显示世界中的名字，MAC地址就是网卡的名字。另外，实际情况是如果连接在局域网上的主机或者路由器安装有多个适配器，</span><br><span class="line">那么这样的主机就有多个MAC地址，所以再准确一点说，这种地址应当是某个接口的标识符。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">硬件地址的分配标准：</span><br><span class="line">MAC地址由6个字节组成</span><br><span class="line">组织唯一标识符（OUI）或者称为公司标识符（地址块）：由MAC地址的前24位构成，是由IEEE的注册管理结构RA分配给网卡生产商的。</span><br><span class="line">扩展标识符：由MAC地址的后24位组成，由厂家自己分配，只要保证成产出的网卡地址没有重复就行。</span><br><span class="line">由上面两个符组成额48位地址称为EUI-48，EUI表示扩展的唯一标识符</span><br><span class="line">注：路由器通过网卡连接到局域网，网卡上的地址就用来标记路由器的接口地址，实际中路由器需要用到几个接口，就需要多少个网卡。</span><br><span class="line">网卡具有过滤功能，当它从网络上收到一个MAC帧就开始用硬件检查MAC帧中的目的地址，如果是发往本站的就收下，</span><br><span class="line">如果不是就丢弃，不做其他处理。这样做不浪费主机的处理机和内存资源。</span><br><span class="line">所谓的“发往本站的帧”还包含以下三种帧：</span><br><span class="line">单播帧（一对一）。即收到的帧的MAC地址与本站的硬件地址相同</span><br><span class="line">广播帧（一对全体）。即发送给本局域网上所有站点的帧（全1地址）</span><br><span class="line">多播帧（一对多）。即发送给本局域网上一部分站点的帧</span><br><span class="line">但是，网卡还有一个工作模式，就是混杂方式，处于这个工作方式的网卡只要发现有帧在以太网上传播，就会悄悄的接收下来。</span><br><span class="line">这可以作为一种窃听方式，另外也可以作为网络维护和管理人员改善网络的一种工具。</span><br></pre></td></tr></table></figure>
 <img src="/2018/12/23/计算机网络/7.png" title="7.png">
@@ -321,4 +1587,209 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">下面有6个控制位说明本报文段的性质，它们的意义见下面的(7)～(12)。</span><br><span class="line">(7)紧急URG (URGent):当URG=1时，表明紧急指针字段有效。它告诉系统此报文段中有紧急数据，</span><br><span class="line">应尽快传送（相当于高优先级的数据），而不要按原来的排队顺序来传送。</span><br><span class="line">当URG置1时，发送应用进程就告诉发送方的TCP有紧急数据要传送。</span><br><span class="line">于是发送方TCP就把紧急数据插入到本报文段数据的最前面，</span><br><span class="line">而在紧急数据后面的数据仍是普通数据。这时要与首部中紧急指针(Urgent Pointer)字段配合使用。</span><br><span class="line">(8)确认ACK (ACKnowlegment)    仅当ACK=1时确认号字段才有效。</span><br><span class="line">当ACK=0时，确认号无赦。TCP规定，在连接建立后所有传送的报文段都必须把ACK置1。</span><br><span class="line">(9)推送PSH (PuSH)  当两个应用进程进行交互式的通信时，</span><br><span class="line">有时在一端的应用进程希望在键入一个命令后立即就能够收到对方的响应。</span><br><span class="line">在这种情况下，TCP就可以使用推送(push)操作。这时，发送方TCP把PSH置1，</span><br><span class="line">并立即创建一个报文段发送出去。接收方TCP收到PSH：l的报文段，</span><br><span class="line">就尽快地（即“推送”向前）交付接收应用进程，</span><br><span class="line">而不再等到整个缓存都填满了后再向上交付。</span><br><span class="line">(10)复位RST (ReSeT)  当RST=1时，表明TCP连接中出现严重差错（如由于主机崩溃或其他原因），</span><br><span class="line">必须释放连接，然后再重新建立运输连接。RST置1还用来拒绝一个非法的报文段或拒绝打开一个连接。</span><br><span class="line">RST也可称为重建位或重置位。</span><br><span class="line">(11)同步SYN (SYNchronization)  在连接建立时用来同步序号。当SYN=l而ACK=0时，</span><br><span class="line">表明这是一个连接请求报文段。对方若同意建立连接，则应在响应的报文段中使SYN=1和ACK=1。</span><br><span class="line">因此，SYN置为1就表示这是一个连接请求或连接接受报文。</span><br><span class="line">(12)终止FIN (FINis，意思是“完”、“终”)  用来释放一个连接。</span><br><span class="line">当FIN=l时，表明此报文段的发送方的数据已发送完毕，并要求释放运输连接。</span><br><span class="line">(13)窗口:占2字节。窗口值是【0, 216—1】之间的整数。窗口指的是发送本报文段的一方的接收窗口（而不是自己的发送窗口）。</span><br><span class="line">窗口值告诉对方：从本报文段首部中的确认号算起，接收方目前允许对方发送的数据量。</span><br><span class="line">之所以要有这个限制，是因为接收方的数据缓存空间是有限的。</span><br><span class="line">总之，窗口值作为接收方让发送方设置其发送窗口的依据。</span><br><span class="line">例如，设确认号是701，窗口字段是1 000。</span><br><span class="line">这就表明，从701号算起，发送此报文段的一方还有接收1 000个字节数据（字节序号是701～1700）的接收缓存空间。</span><br><span class="line">总之，应当记住：窗口字段明确指出了现在允许对方发送的数据量。窗口值是经常在动态变化着</span><br><span class="line">(14)检验和：占2字节。检验和字段检验的范围包括首部和教据这两部分。</span><br><span class="line">和UDP用户数据报一样，在计算检验和时，要在TCP报文段的前面加上12字节的伪首部。</span><br><span class="line">伪首部的格式与UDP用户数据报的伪首部一样。但应把伪首部第4个字段中的17改为6（TCP的协议号是6），</span><br><span class="line">把第5字段中的UDP长度改为TCP长度。接收方收到此报文段后，仍要加上这个伪首部来计算检验和。</span><br><span class="line">若使用IPv6，则相应的伪首部也要改变。</span><br><span class="line">(15)紧急指针:占2字节。紧急指针仅在URG=1时才有意义，它指出本报文段中的紧急数据的字节数（紧急数据结束后就是普通数据）。</span><br><span class="line">因此，紧急指针指出了紧急数据的末尾在报文段中的位置。</span><br><span class="line">当所有紧急数据都处理完时，TCP就告诉应用程序恢复到正常操作。值得注意的是，即使窗口为零时也可发送紧急数据。</span><br><span class="line">(16)选项:长度可变，最长可达40字节。当没有使用“选项”时，TCP的首部长度是20字节。</span><br><span class="line">TCP最初只规定了一种选项， MSS5131-124MLC即最大报文段长度MSS (Maximum Segment Size) [RFC879]。</span><br><span class="line">	请注意MSS这个名词的含义。MSS是每一个TCP报文段中的数据字段的最大长度。数据字段加上TCP首部才等于整个的TCP报文段。</span><br><span class="line">所以MSS并不是整个TCP报文段的最大长度，丽是“TCP报文段长度减去TCP首部长度”。</span><br><span class="line">为什么要规定一个最大报文段长度MSS呢？这并不是考虑接收方的接收缓存可能放不卜TCP报文段中的数据。</span><br><span class="line">实际上，MSS与接收窗口值没有关系。我们知道，TCP报文段的数据部分，至少要加上40字节的首部</span><br><span class="line">（TCP首部20字节和lP首部20字节，这里都还没有考虑首部中的选项部分），才能组装成一个IP数据报。</span><br><span class="line">	若选择较小的MSS长度，网络的利用率就降低。</span><br><span class="line">设想在极端的情况下，当TCP报文段只含有1字节的数据时，</span><br><span class="line">在IP层传输的数据报的开销至少有40字节（包括TCP报文段的首部和IP数据报的首部）。这样，</span><br><span class="line">对网络的利用率就不会超过l/41。到了数据链路层还要加上一些开销。但反过来，若TCP报文段非常长，</span><br><span class="line">那么在lP层传输时就有可能要分解成多个短数据报片。</span><br><span class="line">在终点要把收到的各个短数据报片装配成原来的TCP报文段。</span><br><span class="line">当传输出错时还要进行重传。这些也都会使开销增大。</span><br><span class="line">	因此，MSS应尽可能大些，只要在IP层传输时不需要分片就行。</span><br><span class="line">由于IP数据报所经历的路径是动态变化的，因此在这条路径上确定的不需要的分片的MSS，</span><br><span class="line">如果改走另一条路径就可能需要进行分片。因此最佳的MSS是很难确定的。</span><br><span class="line">在连接过程中，双方都把自己能够支持的MSS写入这一字段，以后就按照这个数值传输数据，</span><br><span class="line">两个传送方向可以有不同的MSS值。若主机未填写这一项，则MSS的默认值是536字节长。</span><br><span class="line">因此，所有在互联网上的主机都应该接受的报文段长度是536+20（固定首部长度）=556字节。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">随着因特网的发展，又陆续增加了几个选项。如窗口扩大选项、时间戳选项等[RFC1323]。</span><br><span class="line">以后又增加了有关选择确认(SACK)选项[RFC 2018]。这些选项的位置都在图5-14所示的“选项”字段中。</span><br><span class="line">窗口扩大选项是为了扩大窗口。我们知道，</span><br><span class="line">TCP首部中窗口字段长度是16位，因此最大的窗口大小为64 K字节（见下一节）。</span><br><span class="line">虽然这对早期的网络是足够用的，但对于包含卫星信道的网络㈢，</span><br><span class="line">传播时延和带宽都很大，要获得高吞吐率需要更大的窗口大小。</span><br><span class="line">窗口扩大选项占3字节，其中有一个字节表示移位值S。</span><br><span class="line">新的窗口值等于TCP首部中的窗口位数以16增大到(16+S)。</span><br><span class="line">移位值允许使用的最大值是14，相当于窗口最大值增大到2(16 +14) -1=230—l。</span><br><span class="line">窗口扩大选项可以在双方初始建立TCP连接时进行协商。如果连接的某一端实现了窗口扩大，</span><br><span class="line">当它不再需要扩大其窗口时，可发送S=O的选项，使窗口大小回到16。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	时间戳选项占10字节，其中最主要的字段时间戳值字段（4字节）和时间戳回送回答字段（4字节）。</span><br><span class="line">时间戳选项有以下两个功能：</span><br><span class="line">	第一，用来计算往返时间RTT（见本章5.6.3节）。发送方在发送报文段时把当前时钟的时间值放入时间戳字段，</span><br><span class="line">接收方在确认该报文段时把时间戳字段值复制到时间戳回送回答字段。</span><br><span class="line">因此，发送方在收到确认报文后，可以准确地计算出RTT来。</span><br><span class="line">	第二，用于处理TCP序号超过232的情况，这又称为防止序号绕回PAWS (ProtectAgainst Wrapped Sequence numbers)。</span><br><span class="line">我们知道，序号只有32位，而每增加232个序号就会重复使用原来用过的序号。当使用高速网络时，</span><br><span class="line">在一次TCP连接的数据传送中序号很可能会被重复使用。例如，若用1 Gb/s的速率发送报文段，</span><br><span class="line">则不到35秒钟数据字节的序号就会重复。为了使接收方能够把新的报文段祁迟到很久的报文段区分开，</span><br><span class="line">可以在报文段中加上这种时间戳。</span><br></pre></td></tr></table></figure>
-<h3 id="TCP可靠传输的实现"><a href="#TCP可靠传输的实现" class="headerlink" title="TCP可靠传输的实现"></a>TCP可靠传输的实现</h3></div><div class="tags"><a href="/tags/network/">network</a></div><div class="post-nav"><a class="pre" href="/2019/05/01/高并发/">高并发</a><a class="next" href="/2018/12/02/mycat/">mycat</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/Collection/" style="font-size: 15px;">Collection</a> <a href="/tags/RegularExpression/" style="font-size: 15px;">RegularExpression</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<h3 id="TCP可靠传输的实现"><a href="#TCP可靠传输的实现" class="headerlink" title="TCP可靠传输的实现"></a>TCP可靠传输的实现</h3>
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#ajax','#注解','#boostrap','#art-template','#css','#windows','#dubbo','#缓存','#exception','#git','#express','#hexo','#html','#http协议','#图表库','#json','#linux','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#xml','#webpack','#动态代理','#前端','#开发规范','#排序算法','#异步编程','#系统测试','#计算机','#后端','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#jquery','#java基础语法','#jsp','#maven','#mycat','#mqtt','#nginx','#node.js','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#redis','#struts2','#面试题','#hibrenate','#solr','#WEB','#源码学习','#lucene','#spring','#oracle','#springmvc','#mybatis','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

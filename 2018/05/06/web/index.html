@@ -1,580 +1,2009 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>WEB | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">WEB</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">WEB</h1><div class="post-meta">May 6, 2018<span> | </span><span class="category"><a href="/categories/JavaEE/">JavaEE</a></span></div><div class="post-content"><p>WEB<br><a id="more"></a></p>
-<h1 id="WEB-三大规范servlet、filter、listener"><a href="#WEB-三大规范servlet、filter、listener" class="headerlink" title="WEB(三大规范servlet、filter、listener)"></a>WEB(三大规范servlet、filter、listener)</h1><h2 id="request客户端发送的参数-到服务器端都是字符串"><a href="#request客户端发送的参数-到服务器端都是字符串" class="headerlink" title="request客户端发送的参数 到服务器端都是字符串"></a>request客户端发送的参数 到服务器端都是字符串</h2><h3 id="WEB对象所有API"><a href="#WEB对象所有API" class="headerlink" title="WEB对象所有API"></a>WEB对象所有API</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">servlet(处理请求并完成响应的java类)</th>
-<th style="text-align:center">API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">实现Servlet接口,覆盖service方法</td>
-<td style="text-align:center">init(ServletConfig)创建</td>
-</tr>
-<tr>
-<td style="text-align:center">配置web.xml</td>
-<td style="text-align:center">service（ServletRequest request,ServletResponse response）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">destory()销毁</td>
-</tr>
-<tr>
-<td style="text-align:center">继承HttpServlet类,覆盖doGet和doPost(常用)</td>
-<td style="text-align:center">init()</td>
-</tr>
-<tr>
-<td style="text-align:center">配置web.xml</td>
-<td style="text-align:center">doGet(HttpServletRequest request,HttpServletResponse response)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">doPost(HttpServletRequest request,HttpServletResponse response)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">destroy()</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">request</th>
-<th style="text-align:center">API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">获得请求行</td>
-<td style="text-align:center">String getContextPath()获得”/“+web应用名称,例如/WEB15_request</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getMethod()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getRequestURI()获得相对web应用地址/WEB15_request/line</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getRequestURL()获得绝对路径<a href="http://localhost:8080/WEB15_request/line" target="_blank" rel="noopener">http://localhost:8080/WEB15_request/line</a></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getRemoteAddr()获得访问的客户端IP地址</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getQueryString()get提交url地址后的参数字符串username=lisi&amp;password=123</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getProtocol();获取请求行中的协议名和版本</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getServletPath();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getRemotePort();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getRemoteHost();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getLocalAddr();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getLocalName();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getLocalHost();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int getLocalPort();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getServerName();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int getServerPort();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getScheme();//获取请求协议名</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer getRequestURL();</td>
-</tr>
-<tr>
-<td style="text-align:center">获得请求头</td>
-<td style="text-align:center">String getHeader（String name）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Enumeration getHeaders(String name)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Enumeration getHeaderNames()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Long getDateHeader(String name)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int getIntHeader(String name)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getContentType()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int getContentLength()</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getCharacterEncoding()</td>
-</tr>
-<tr>
-<td style="text-align:center">获得请求体</td>
-<td style="text-align:center">String getParameter(String name) 多个只获得一个，没有则返回null</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Map&lt;String,String[]&gt; getParameterMap()获得指定参数名对应的所有键值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String[] getParameterValues（String name）获得指定参数名对应的所有值（少用）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Enumeration getParameterNames()</td>
-</tr>
-<tr>
-<td style="text-align:center">解决乱码</td>
-<td style="text-align:center">post乱码：request.setCharacterEncoding(“UTF-8”);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">get乱码:String parameter=new String(parameter.getbytes(“iso8859-1”),”utf-8”);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">浏览器的中文用UTF-8编码，而HTTP协议只用iSO8859-1解码，所以乱码，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">只需获得中文的以ISO8859-1编码的字节码就可以用UTF-8解码以获得中文</td>
-</tr>
-<tr>
-<td style="text-align:center">转发</td>
-<td style="text-align:center">request.getRequestDispatcher(”/?”).forward(req,resp);</td>
-</tr>
-<tr>
-<td style="text-align:center">域对象</td>
-<td style="text-align:center">Object setAttribute (String name, Object o)set注意名字相同时则覆盖</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getAttribute(String name)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void removeAttribute(String name)</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">HttpServletresponse</th>
-<th style="text-align:center">API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">设置响应行</td>
-<td style="text-align:center">void setStatus(int sc)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void sendError(int sc,[String messge])</td>
-</tr>
-<tr>
-<td style="text-align:center">设置响应头(值不重复)</td>
-<td style="text-align:center">void addHeader(String name, String value)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setHeader(String name, String value);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">设置定时刷新的头:setHeader(“refresh”, “5;url=<a href="http://www.baidu.com&quot;)" target="_blank" rel="noopener">http://www.baidu.com&quot;)</a>;</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void addIntHeader(String name, int value)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setIntHeader(String name, int value)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void addDateHeader(String name, long date)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setDateHeader(String name, long date)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setContentLength(int len)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setContentType(String type)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setLocale(Locale loc)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void setCharacterEncoding(String charset)</td>
-</tr>
-<tr>
-<td style="text-align:center">设置响应体(不能同时用)</td>
-<td style="text-align:center">getWriter().write(“<b></b>“)字符串，可以插入标签</td>
-</tr>
-<tr>
-<td style="text-align:center">因为getWriter()之前已调用getOutputStream()</td>
-<td style="text-align:center">getOutputStream().write(byte[] bytes)</td>
-</tr>
-<tr>
-<td style="text-align:center">中文乱码</td>
-<td style="text-align:center">setHeader(“content-Type”,”text/html;charset=utf-8”)</td>
-</tr>
-<tr>
-<td style="text-align:center">重定向</td>
-<td style="text-align:center">sendRedirect(“/WEB14/servlet2”);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">setStatus(302);setHeader(“Location”, “/WEB14/servlet2”);</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">ServletContext</th>
-<th style="text-align:center">API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">获得ServletContext</td>
-<td style="text-align:center">ServletConfig.getServletContext();</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">this.getServletContext();（推荐）</td>
-</tr>
-<tr>
-<td style="text-align:center">获得web.xml全局的初始化参数</td>
-<td style="text-align:center">getInitParameter(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center">域对象(整个web应用)</td>
-<td style="text-align:center">void setAtrribute(String name,Object obj);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Object getAttribute(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void removeAttribute(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center">WebContext目录内任何资源绝对路径</td>
-<td style="text-align:center">String getRealPath(String path);//:/WEB-INF/</td>
-</tr>
-<tr>
-<td style="text-align:center">以/开头path相对WebContext目录</td>
-<td style="text-align:center">InputStream xxx.class.getResourceAsStream(String path);//:/WEB-INF/</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">ServletConfig(servlet对象的配置信息)</th>
-<th style="text-align:center">API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">获得该servlet在web.xml上的name</td>
-<td style="text-align:center">String getServletName();</td>
-</tr>
-<tr>
-<td style="text-align:center">获得该servlet的初始化的参数</td>
-<td style="text-align:center">String getInitParameter(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Enumeration getInitParameterNames();</td>
-</tr>
-<tr>
-<td style="text-align:center">获得Servletcontext对象</td>
-<td style="text-align:center">ServletContext getServletContext();</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">cookie</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">创建Cookie</td>
-<td style="text-align:center">Cookie cookie = new Cookie(name,value)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie会以响应头的形式发送给客户端：set-cookie:”name=zhengsan”</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">不能存储中文、它是浏览器缓存的一部分</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">数据存储在客户端本地，减少服务器端的存储的压力</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">安全性不好，客户端可以清除cookie,有大小和个数的限制</td>
-</tr>
-<tr>
-<td style="text-align:center">持久化时间</td>
-<td style="text-align:center">cookie.setMaxAge(秒)不设置cookie会存储在浏览器的内存中，随浏览器关闭销毁(会话级别cookie)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">设置cookie信息会被持久化到浏览器的磁盘文件里，过期浏览器自动删除(持久级别cookie)</td>
-</tr>
-<tr>
-<td style="text-align:center">请求时cookie被携带路径</td>
-<td style="text-align:center">cookie.setPath();不设置，cookie信息会在访问产生该cookie的web资源所在的路径都携带cookie信息，会覆盖</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie.setPath(“/WEB”);访问WEB应用中的任何资源都携带cookie</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie.setPath(“/WEB/cookieServlet”);访问WEB16中的cookieServlet时才携带cookie信息</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie.setPath(“/“);代表访问tomcat下所有的web项目的cookie信息</td>
-</tr>
-<tr>
-<td style="text-align:center">向客户端发送cookie</td>
-<td style="text-align:center">response.addCookie(Cookie cookie);//如果路径和名称一样，两次add会覆盖</td>
-</tr>
-<tr>
-<td style="text-align:center">获得客户端的cookie</td>
-<td style="text-align:center">Cookie[] cookies = request.getCookies();</td>
-</tr>
-<tr>
-<td style="text-align:center">获得cookie的键值</td>
-<td style="text-align:center">cookie.getName();cookie.getValue();</td>
-</tr>
-<tr>
-<td style="text-align:center">删除cookie</td>
-<td style="text-align:center">Cookie cookie = new Cookie(“name”,””);//将cookie的name设置与删除的cookie一致</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie.setPath(“/WEB16”);//将path设置成与要删除cookie的path一致</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">cookie.setMaxAge(0);//设置时间是0;response.addCookie(cookie);</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">session</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">获得Session</td>
-<td style="text-align:center">request.getSession([boolean create])</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">将数据存储到服务器端，安全性相对好，增加服务器的压力</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">session会为每个客户端都创建一块内存空间存储客户的数据</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">但客户端需要每次都携带一个标识ID去服务器中寻找属于自己的内存空间。</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">所以说Session的实现是基于Cookie，Session需要借助于Cookie存储客户的</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">唯一性标识JSESSIONID来辨别是哪个客户端</td>
-</tr>
-<tr>
-<td style="text-align:center">获得sessionid</td>
-<td style="text-align:center">String getId()</td>
-</tr>
-<tr>
-<td style="text-align:center">获得新建session时与1970年1月1月0点时间差毫秒</td>
-<td style="text-align:center">long getCreationTime()</td>
-</tr>
-<tr>
-<td style="text-align:center">获得最后一次session时与1970年1月1月0点时间差毫秒</td>
-<td style="text-align:center">long getLastAccessedTime()</td>
-</tr>
-<tr>
-<td style="text-align:center">设置session空闲时间</td>
-<td style="text-align:center">void setMaxInactiveInterval(int interval)</td>
-</tr>
-<tr>
-<td style="text-align:center">获得servletcontext</td>
-<td style="text-align:center">ServletContext getServletContext()</td>
-</tr>
-<tr>
-<td style="text-align:center">session域</td>
-<td style="text-align:center">void setAttribute(String name,Object obj);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Object getAttribute(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void removeAttribute(String name);</td>
-</tr>
-<tr>
-<td style="text-align:center">销毁session</td>
-<td style="text-align:center">invalidate();</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">WEB对象生命周期</th>
-<th style="text-align:center">创建</th>
-<th style="text-align:center">销毁</th>
-<th style="text-align:center">域的作用范围</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">servlet(多个)</td>
-<td style="text-align:center">init第一次访问创建、service每次请求都会执行</td>
-<td style="text-align:center">destory服务器关闭、项目被移除</td>
-</tr>
-<tr>
-<td style="text-align:center">request(多个)</td>
-<td style="text-align:center">创建:访问时创建、域的作用范围:一次请求中</td>
-<td style="text-align:center">销毁：响应结束</td>
-<td style="text-align:center">一次请求中</td>
-</tr>
-<tr>
-<td style="text-align:center">ServletContext(只有一个)</td>
-<td style="text-align:center">web应用被加载（服务器启动或发布web应用（前提，服务器启动状态））</td>
-<td style="text-align:center">web应用被卸载（服务器关闭，移除该web应用）</td>
-<td style="text-align:center">整个web应用</td>
-</tr>
-<tr>
-<td style="text-align:center">session</td>
-<td style="text-align:center">第一次执行getsession获得session、没有则创建</td>
-<td style="text-align:center">非正常关闭服务器（正常关闭session被序列化）</td>
-<td style="text-align:center">一次会话中</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">session过期，默认时间30分钟，调用invalidate方法</td>
-</tr>
-<tr>
-<td style="text-align:center">filer</td>
-<td style="text-align:center">服务器启动时</td>
-<td style="text-align:center">服务器关闭</td>
-<td style="text-align:center">每次访问被拦截目标资源，过滤器doFilter方法执行</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">重定向</th>
-<th style="text-align:center">转发</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">可以访问外部网站</td>
-<td style="text-align:center">只能访问内部资源</td>
-</tr>
-<tr>
-<td style="text-align:center">地址栏的地址变化</td>
-<td style="text-align:center">地址不变</td>
-</tr>
-<tr>
-<td style="text-align:center">两次请求</td>
-<td style="text-align:center">转发一次请求</td>
-</tr>
-<tr>
-<td style="text-align:center">路径加工程名</td>
-<td style="text-align:center">路径不加工程名</td>
-</tr>
-<tr>
-<td style="text-align:center">性能较好</td>
-<td style="text-align:center">性能较弱</td>
-</tr>
-</tbody>
-</table>
-<h3 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h3><img src="/2018/05/06/web/request.png" title="request.png">
-<h2 id="response"><a href="#response" class="headerlink" title="response"></a>response</h2><h3 id="关于设置中文乱码问题（了解）"><a href="#关于设置中文乱码问题（了解）" class="headerlink" title="关于设置中文乱码问题（了解）"></a>关于设置中文乱码问题（了解）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">浏览器中文的乱码原因:</span><br><span class="line">response缓冲区的默认编码是iso8859-1，此码表中没有中文，且浏览器解析编码是GBK</span><br><span class="line">其中任何一个地方编码解码不一致导致乱码</span><br><span class="line">通过response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span><br><span class="line">不仅可以指定浏览器解析页面时的编码，同时也内含setCharacterEncoding(&quot;UTF-8&quot;)的功能</span><br></pre></td></tr></table></figure>
-<h2 id="文件下载：实质：文件拷贝"><a href="#文件下载：实质：文件拷贝" class="headerlink" title="文件下载：实质：文件拷贝"></a>文件下载：实质：文件拷贝</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前端配置</span><br><span class="line">&lt;a href=&quot;/WEB14/downloadServlet?filename=a.flv&quot;&gt;a.flv&lt;/a&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">服务器端</span><br><span class="line">String filename = request.getParameter(&quot;filename&quot;);//a.flv</span><br><span class="line">[filename = new String(filename.getBytes(&quot;ISO8859-1&quot;),&quot;UTF-8&quot;);//美女.jpg]</span><br><span class="line">//①要下载的这个文件的类型-----客户端通过文件的MIME类型去区分类型</span><br><span class="line">response.setContentType(this.getServletContext().getMimeType(filename));</span><br><span class="line">//获取文件的绝对路径</span><br><span class="line">String path = this.getServletContext().getRealPath(&quot;/download/&quot;+filename);</span><br><span class="line"></span><br><span class="line">[//获得请求头中的User-Agent</span><br><span class="line">String agent = request.getHeader(&quot;User-Agent&quot;);</span><br><span class="line">//根据不同浏览器进行不同的编码</span><br><span class="line">String filenameEncoder = &quot;&quot;;</span><br><span class="line">if (agent.contains(&quot;MSIE&quot;)) &#123;</span><br><span class="line">// IE浏览器</span><br><span class="line">filename = URLEncoder.encode(filename, &quot;utf-8&quot;);</span><br><span class="line">filename = filename.replace(&quot;+&quot;, &quot; &quot;);</span><br><span class="line">&#125; else if (agent.contains(&quot;Firefox&quot;)) &#123;</span><br><span class="line">// 火狐浏览器</span><br><span class="line">BASE64Encoder base64Encoder = new BASE64Encoder();</span><br><span class="line">filename = &quot;=?utf-8?B?&quot;</span><br><span class="line">		+ base64Encoder.encode(filename.getBytes(&quot;utf-8&quot;)) + &quot;?=&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">// 其它浏览器</span><br><span class="line">filename = URLEncoder.encode(filename, &quot;utf-8&quot;);				</span><br><span class="line">&#125;</span><br><span class="line">其中agent就是请求头User-Agent的值]</span><br><span class="line">//②告诉客户端该文件不是直接解析 而是以附件形式打开(下载)</span><br><span class="line">response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot;+filename);</span><br><span class="line"></span><br><span class="line">//获得该文件的输入流</span><br><span class="line">InputStream in = new FileInputStream(path);</span><br><span class="line">//获得输出流---通过response获得的输出流 用于向客户端写内容</span><br><span class="line">ServletOutputStream out = response.getOutputStream();</span><br><span class="line">int len = 0;</span><br><span class="line">byte[] buffer = new byte[1024];</span><br><span class="line">while((len=in.read(buffer))&gt;0)&#123;</span><br><span class="line">	out.write(buffer, 0, len);</span><br><span class="line">&#125;</span><br><span class="line">in.close();</span><br><span class="line">//out.close();</span><br><span class="line"></span><br><span class="line">中文文件乱码：不同的浏览器默认对下载文件的编码方式不同，</span><br><span class="line">ie是UTF-8编码方式，而火狐浏览器是Base64编码方式。</span><br><span class="line">解决浏览器兼容性问题的首要任务是要辨别访问者是ie还是火狐（其他），</span><br><span class="line">通过Http请求体中的User-Agent属性可以辨别</span><br></pre></td></tr></table></figure>
-<h1 id="web-xml配置"><a href="#web-xml配置" class="headerlink" title="web.xml配置"></a>web.xml配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">	&lt;servlet-name&gt;xxx&lt;/servlet-name&gt;</span><br><span class="line">	&lt;servlet-class&gt;xxx.xxx&lt;/servlet-class&gt;</span><br><span class="line">	&lt;!--启动先后 正整数，越小被创建的优先级越高--&gt;</span><br><span class="line">	&lt;load-on-startup&gt;3&lt;/load-on-startup&gt;</span><br><span class="line">	&lt;!--servlet的初始化参数--&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;url&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;xxx&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">	&lt;servlet-name&gt;QuickStartServlet&lt;/servlet-name&gt;</span><br><span class="line">	&lt;!--完全匹配:访问的资源与配置的资源完全相同&lt;url-pattern&gt;/LoginServlet&lt;/url-pattern&gt;--&gt;</span><br><span class="line">	&lt;!--目录匹配:./当前路径 ../上一级 格式：/虚拟的目录../* *代表任意&lt;url-pattern&gt;/LoginServlet/*&lt;/url-pattern&gt;--&gt;</span><br><span class="line">	&lt;!--扩展名匹配 格式：*.扩展名 &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;--&gt;</span><br><span class="line">	&lt;!--客户端路径写工程名,服务端路径不写工程名--&gt;</span><br><span class="line">	&lt;!--（默认）缺省Servlet：将url-pattern配置一个/，代表该servlet是缺省的servlet(默认访问的路径)--&gt;</span><br><span class="line">	&lt;!--客户端地址添加web应用的名称，重定向,而服务器端的地址不需添加web应用的名称 转发--&gt;</span><br><span class="line">	&lt;url-pattern&gt;/quickStartServlet&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;!--主页设置--&gt;</span><br><span class="line">&lt;welcome-file-list&gt;</span><br><span class="line">	&lt;welcome-file&gt;login.html&lt;/welcome-file&gt;</span><br><span class="line">&lt;/welcome-file-list&gt;</span><br><span class="line">&lt;!--serveletcofig和servletContext的初始化参数--&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">	&lt;param-name&gt;driver&lt;/param-name&gt;</span><br><span class="line">	&lt;param-value&gt;com.mysql.jdbc.Driver&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;!--session时间--&gt;</span><br><span class="line">&lt;session-config&gt;</span><br><span class="line">	&lt;session-timeout&gt;30&lt;/session-timeout&gt;</span><br><span class="line">&lt;/session-config&gt;</span><br></pre></td></tr></table></figure></div><div class="tags"><a href="/tags/WEB/">WEB</a></div><div class="post-nav"><a class="pre" href="/2018/05/07/JSP/">JSP</a><a class="next" href="/2018/05/05/boostrap/">boostrap</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/activemq/">activemq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ajax/">ajax</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/art-template/">art-template</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dubbo/">dubbo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/easy-ui/">easy-ui</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hibernate/">hibernate</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaSE/">javaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jquery/">jquery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/json/">json</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/konckout-js/">konckout.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux服务器搭建/">linux服务器搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-js/">node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quartz/">quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shiro/">shiro</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/solr/">solr</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springboot/">springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts2/">struts2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swagger/">swagger</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/utils/">utils</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue-js/">vue.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webservice/">webservice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/websocket/">websocket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/xml/">xml</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表库/">图表库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发规范/">开发规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/异步编程/">异步编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务器/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码学习/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/线程/">线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/缓存/">缓存</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机常识/">计算机常识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件开发/">软件开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/错误解决/">错误解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/图表库/" style="font-size: 15px;">图表库</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/反射/" style="font-size: 15px;">反射</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/排序算法/" style="font-size: 15px;">排序算法</a> <a href="/tags/计算机常识/" style="font-size: 15px;">计算机常识</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/软件开发/" style="font-size: 15px;">软件开发</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/JSP/" style="font-size: 15px;">JSP</a> <a href="/tags/javaSE/" style="font-size: 15px;">javaSE</a> <a href="/tags/easy-ui/" style="font-size: 15px;">easy-ui</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/Java基本语法/" style="font-size: 15px;">Java基本语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/WEB/" style="font-size: 15px;">WEB</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/konckout-js/" style="font-size: 15px;">konckout.js</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/network/" style="font-size: 15px;">network</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/Collection/" style="font-size: 15px;">Collection</a> <a href="/tags/RegularExpression/" style="font-size: 15px;">RegularExpression</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/动态代理/">动态代理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/17/annotation/">annotation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/开发规范/">开发规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/07/dos常用命令/">dos常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/线程相关类源码学习/">线程相关类源码学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/01/高并发/">高并发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/23/计算机网络/">计算机网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/mycat/">mycat</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/02/Freemarker/">freemarker</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WEB | 何创军的博客</title>
+  <meta name="keywords" content=" WEB ">
+  <meta name="description" content="WEB | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(80)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a style="border-right: 1px solid #fff; width: 49%"  class="about site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="80">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http协议/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-web" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">WEB</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="javaee">javaee</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">WEB</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-05 11:46:13'>2018-05-06 15:21</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WEB-三大规范servlet、filter、listener"><span class="toc-text">WEB(三大规范servlet、filter、listener)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#request客户端发送的参数-到服务器端都是字符串"><span class="toc-text">request客户端发送的参数 到服务器端都是字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB对象所有API"><span class="toc-text">WEB对象所有API</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WEB
+<a id="more"></a></p>
+<h1 id="WEB-三大规范servlet、filter、listener"><a href="#WEB-三大规范servlet、filter、listener" class="headerlink" title="WEB(三大规范servlet、filter、listener)"></a>WEB(三大规范servlet、filter、listener)</h1><h2 id="request客户端发送的参数-到服务器端都是字符串"><a href="#request客户端发送的参数-到服务器端都是字符串" class="headerlink" title="request客户端发送的参数 到服务器端都是字符串"></a>request客户端发送的参数 到服务器端都是字符串</h2><h3 id="WEB对象所有API"><a href="#WEB对象所有API" class="headerlink" title="WEB对象所有API"></a>WEB对象所有API</h3><details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            javaee接口继承体系
+        </div>
+    </summary>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.Servlet
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            servlet用于获取请求数据、处理请求、完成响应<br>
+            servlet接口方法，使用servlet可以实现这个接口并配置web.xml，但是不推荐<br>
+            init(ServletConfig config);//servlet对象创建的时候执行ServletConfig:代表的是该servlet对象的配置信息<br>
+            service(ServletRequest request,ServletResponse response);//每次请求都会执行<br>
+            destroy();//servlet销毁的时候执行
+        </div>
+    </details>
+    <details style="border:0px;padding-left:40px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.http.HttpServlet类
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            使用servlet可以继承HttpServlet并复写HttpServlet类的doGet、doPost方法并配置web.xml<br>
+            init();//servlet对象创建的时候执行<br>
+            doGet(HttpServletRequest request,HttpServletResponse response);//每次get请求都会执行<br>
+            doPost(HttpServletRequest request,HttpServletResponse response);//每次post请求都会执行<br>
+            destroy();//servlet销毁的时候执行<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.ServletRequest
+            </div>
+        </summary>
+    </details>
+    <details style="border:0px;padding-left:40px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.http.HttpServletRequest
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            获得请求行<br>
+            String getContextPath()获得”/“+web应用名称,例如/WEB15_request<br>
+            String getMethod()<br>
+            String getRequestURI()获得相对web应用地址/WEB15_request/line<br>
+            String getRequestURL()获得绝对路径<a href="http://localhost:8080/WEB15_request/line" target="_blank" rel="noopener">http://localhost:8080/WEB15_request/line</a><br>
+            String getRemoteAddr()获得访问的客户端IP地址<br>
+            String getQueryString()get提交url地址后的参数字符串username=lisi&amp;password=123<br>
+            String getProtocol();获取请求行中的协议名和版本<br>
+            String getServletPath();<br>
+            String getRemotePort();<br>
+            String getRemoteHost();<br>
+            String getLocalAddr();<br>
+            String getLocalName();<br>
+            String getLocalHost();<br>
+            int getLocalPort();<br>
+            String getServerName();<br>
+            int getServerPort();<br>
+            String getScheme();//获取请求协议名<br>
+            StringBuffer getRequestURL();<br>
+            获得请求头<br>
+            String getHeader（String name）<br>
+            Enumeration getHeaders(String name)<br>
+            Enumeration getHeaderNames()<br>
+            Long getDateHeader(String name)<br>
+            int getIntHeader(String name)<br>
+            String getContentType()<br>
+            int getContentLength()<br>
+            String getCharacterEncoding()<br>
+            获得请求体<br>
+            String getParameter(String name) 多个只获得一个，没有则返回null<br>
+            Map&lt;String,String[]&gt; getParameterMap()获得指定参数名对应的所有键值<br>
+            String[] getParameterValues（String name）获得指定参数名对应的所有值（少用）<br>
+            Enumeration getParameterNames()<br>
+            解决乱码post乱码<br>
+            request.setCharacterEncoding(“UTF-8”);<br>
+            get乱码<br>
+            String parameter=new String(parameter.getbytes(“iso8859-1”),”utf-8”);<br>
+            浏览器的中文用UTF-8编码，而HTTP协议只用iSO8859-1解码，所以乱码，<br>
+            只需获得中文的以ISO8859-1编码的字节码就可以用UTF-8解码以获得中文<br>
+            转发request.getRequestDispatcher(”/?”).forward(req,resp);<br>
+            域对象<br>
+            Object setAttribute (String name, Object o)set注意名字相同时则覆盖<br>
+            String getAttribute(String name)<br>
+            void removeAttribute(String name)<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.ServletResponse
+            </div>
+        </summary>
+    </details>
+    <details style="border:0px;padding-left:40px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.http.HttpServletResponse
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            设置响应行<br>
+            void setStatus(int sc)<br>
+            void sendError(int sc,[String messge])<br>
+            设置响应头(值不重复)<br>
+            void addHeader(String name, String value)<br>
+            void setHeader(String name, String value);<br>
+            设置定时刷新的头:setHeader(“refresh”, “5;url=<a href="http://www.baidu.com&quot;)" target="_blank" rel="noopener">http://www.baidu.com&quot;)</a>; <br>
+            void addIntHeader(String name, int value) <br>
+            void setIntHeader(String name, int value)<br>
+            void addDateHeader(String name, long date) <br>
+            void setDateHeader(String name, long date) <br>
+            void setContentLength(int len)<br>
+            void setContentType(String type)<br>
+            void setLocale(Locale loc)<br>
+            void setCharacterEncoding(String charset)<br>
+            设置响应体(不能同时用)<br>
+            getWriter().write(“”)字符串，可以插入标签<br>
+            getOutputStream().write(byte[] bytes)<br>
+            因为getWriter()之前已调用getOutputStream(),故两者不能同时使用<br>
+            setHeader(“content-Type”,”text/html;charset=utf-8”);中文乱码<br>
+            sendRedirect(“/WEB14/servlet2”);重定向<br>
+            setStatus(302);setHeader(“Location”, “/WEB14/servlet2”);<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:40px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                文件下载
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            前端配置<br>
+            &#60;a href=”/WEB14/downloadServlet?filename=a.flv”&gt;a.flv&#60;/a&gt;<br>
+            服务器端<br>
+            String filename = request.getParameter(“filename”);//a.flv<br>
+            [filename = new String(filename.getBytes(“ISO8859-1”),”UTF-8”);//美女.jpg]<br>
+            //①要下载的这个文件的类型—–客户端通过文件的MIME类型去区分类型<br>
+            response.setContentType(this.getServletContext().getMimeType(filename));<br>
+            //获取文件的绝对路径<br>
+            String path = this.getServletContext().getRealPath(“/download/“+filename);<br>
+
+            [//获得请求头中的User-Agent<br>
+            String agent = request.getHeader(“User-Agent”);<br>
+            //根据不同浏览器进行不同的编码<br>
+            String filenameEncoder = “”;<br>
+            if (agent.contains(“MSIE”)) {<br>
+            // IE浏览器<br>
+            &emsp;&emsp;filename = URLEncoder.encode(filename, “utf-8”);<br>
+            &emsp;&emsp;filename = filename.replace(“+”, “ “);<br>
+            } else if (agent.contains(“Firefox”)) {<br>
+            // 火狐浏览器<br>
+            &emsp;&emsp;BASE64Encoder base64Encoder = new BASE64Encoder();<br>
+            &emsp;&emsp;filename = “=?utf-8?B?” + base64Encoder.encode(filename.getBytes(“utf-8”)) + “?=”;<br>
+            } else {<br>
+            // 其它浏览器<br>
+            &emsp;&emsp;filename = URLEncoder.encode(filename, “utf-8”);<br>
+            }<br>
+            其中agent就是请求头User-Agent的值]<br>
+            //②告诉客户端该文件不是直接解析 而是以附件形式打开(下载)<br>
+            response.setHeader(“Content-Disposition”, “attachment;filename=”+filename);<br>
+
+            //获得该文件的输入流<br>
+            InputStream in = new FileInputStream(path);<br>
+            //获得输出流—通过response获得的输出流 用于向客户端写内容<br>
+            ServletOutputStream out = response.getOutputStream();<br>
+            int len = 0;<br>
+            byte[] buffer = new byte[1024];<br>
+            while((len=in.read(buffer))&gt;0){<br>
+            &emsp;&emsp;out.write(buffer, 0, len);<br>
+            }<br>
+            in.close();<br>
+            //out.close();<br>
+            中文文件乱码：不同的浏览器默认对下载文件的编码方式不同，<br>
+            ie是UTF-8编码方式，而火狐浏览器是Base64编码方式。<br>
+            解决浏览器兼容性问题的首要任务是要辨别访问者是ie还是火狐（其他），<br>
+            通过Http请求体中的User-Agent属性可以辨别<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.ServletContext
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            获得ServletContext<br>
+            ServletConfig.getServletContext();<br>
+            this.getServletContext();（推荐）<br>
+            获得web.xml全局的初始化参数<br>
+            getInitParameter(String name);<br>
+            域对象(整个web应用)<br>
+            void setAtrribute(String name,Object obj);<br>
+            Object getAttribute(String name);<br>
+            void removeAttribute(String name);<br>
+            WebContext目录内任何资源绝对路径<br>
+            String getRealPath(String path);//:/WEB-INF/<br>
+            以/开头path相对WebContext目录InputStream xxx.class.getResourceAsStream(String path);//:/WEB-INF/<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.ServletConfig
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            获得该servlet在web.xml上的name<br>
+            String getServletName();<br>
+            获得该servlet的初始化的参数<br>
+            String getInitParameter(String name);<br>
+            Enumeration getInitParameterNames();<br>
+            获得Servletcontext对象<br>
+            ServletContext getServletContext();<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.http.Cookie类
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            创建CookieCookie cookie = new Cookie(name,value)<br>
+            cookie会以响应头的形式发送给客户端：set-cookie:”name=zhengsan” 不能存储中文、它是浏览器缓存的一部分<br>
+            数据存储在客户端本地，减少服务器端的存储的压力，安全性不好，客户端可以清除cookie,有大小和个数的限制<br>
+            持久化时间cookie.setMaxAge(秒);不设置cookie会存储在浏览器的内存中，随浏览器关闭销毁(会话级别cookie)<br>
+            设置cookie信息会被持久化到浏览器的磁盘文件里，过期浏览器自动删除(持久级别cookie)<br>
+            请求时cookie被携带路径<br>
+            cookie.setPath();不设置，cookie信息会在访问产生该cookie的web资源所在的路径都携带cookie信息，会覆盖<br>
+            cookie.setPath(“/WEB”);访问WEB应用中的任何资源都携带cookie<br>
+            cookie.setPath(“/WEB/cookieServlet”);访问WEB16中的cookieServlet时才携带cookie信息<br>
+            cookie.setPath(“/“);代表访问tomcat下所有的web项目的cookie信息<br>
+            向客户端发送cookie<br>
+            response.addCookie(Cookie cookie);//如果路径和名称一样，两次add会覆盖<br>
+            获得客户端的cookie<br>
+            Cookie[] cookies = request.getCookies();<br>
+            获得cookie的键值<br>
+            cookie.getName();cookie.getValue();<br>
+            删除cookie<br>
+            Cookie cookie = new Cookie(“name”,””);//将cookie的name设置与删除的cookie一致<br>
+            cookie.setPath(“/WEB16”);//将path设置成与要删除cookie的path一致<br>
+            cookie.setMaxAge(0);//设置时间是0;<br>
+            response.addCookie(cookie);<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.http.HttpSession
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            session将数据存储到服务器端，安全性相对好，增加服务器的压力，没有大小和个数限制<br>
+            session会为每个客户端都创建一块内存空间存储客户的数据,但客户端需要每次都携带一个标识ID去服务器中寻找属于自己的内存空间。<br>
+            所以说Session的实现是基于Cookie，Session需要借助于Cookie存储客户的唯一性标识JSESSIONID来辨别是哪个客户端<br>
+            获得Session<br>
+            request.getSession([boolean create])<br>
+            获得sessionid<br>
+            String getId()<br>
+            设置session空闲时间<br>
+            void setMaxInactiveInterval(int interval)<br>
+            获得servletcontext<br>
+            ServletContext getServletContext()<br>
+            session域<br>
+            void setAttribute(String name,Object obj);<br>
+            Object getAttribute(String name);<br>
+            void removeAttribute(String name);<br>
+            销毁session<br>
+            void invalidate();<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                java.util.EventListener
+            </div>
+        </summary>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.ServletContextListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                contextInitialized(ServlertContextEvent sre)<br>
+                contextDestroyed(ServlertContextEvent sre)<br>
+                ServletContext context = ServlertContextEvent.getServletContext();<br>
+                ①初始化：对象、数据、加载数据库驱动，连接池的初始化<br>
+                ②加载一些初始化的配置文件 — spring的配置文件<br>
+                ③任务调度—-定时器—-Timer/TimerTask<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.http.HttpSessionListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                sessionCreated(HttpSessionEvent se);<br>
+                sessionDestroyed(HttpSessionEvent se);<br>
+                Session session = HttpSessionEvent.getSession();<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.ServletRequestListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                requestInitialized(ServlertRequestEvent sre);<br>
+                requestDestroyed(ServlertRequestEvent sre);<br>
+                ServletContext context = ServlertRequestEvent.getServletContext();<br>
+                ServlertReque request = ServlertRequestEvent.getServletRequest();<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.ServletContextAttributeListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                attributeAdded(ServletContextAttributeEvent event);<br>
+                attributeRemoved(ServletContextAttributeEvent event);<br>
+                attributeReplaced(ServletContextAttributeEvent event);<br>
+                String name = ServletContextAttributeEvent.getName()<br>
+                String value = ServletContextAttributeEvent.getValue()<br>
+                SevletContext context = ServletContextAttributeEvent.getSevletContext()<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.http.HttpSessionAttributeListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                attributeAdded(HttpSessionBindingEvent event);<br>
+                attributeRemoved(HttpSessionBindingEvent event);<br>
+                attributeReplaced(HttpSessionBindingEvent event);<br>
+                String name = HttpSessionBindingEvent.getName()<br>
+                String value = HttpSessionBindingEvent.getValue()<br>
+                Session session = HttpSessionBindingEvent.getSession()<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.ServletRequestAttributeListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                attributeAdded(ServletRequestAttributEvent srae);<br>
+                attributeRemoved(ServletRequestAttributEvent srae);<br>
+                attributeReplaced(ServletRequestAttributEvent srae);<br>
+                String name = ServletRequestAttributEvent.getName()<br>
+                String value = ServletRequestAttributEvent.getValue()<br>
+                SevletContext context = ServletRequestAttributEvent.getSevletContext()<br>
+                ServletRequest request = ServletRequestAttributEvent.getServletRequest()<br>
+                需要web.xml注册
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.http.HttpSessionBindingListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                valueBound(HttpSessionBindingEvent event)绑定:对象被放到session域<br>
+                valueUnbound(HttpSessionBindingEvent event)解绑:对象从session域中移除<br>
+                javaBean实现HttpSessionBindingListener接口,不需web.xml配置<br>
+                String name = HttpSessionBindingEvent.getName()<br>
+                String value = HttpSessionBindingEvent.getValue()<br>
+                Session session = HttpSessionBindingEvent.getSession()<br>
+            </div>
+        </details>
+        <details style="border:0px;padding-left:20px;">
+            <summary style="outline-width:0px;">
+                <div style="display:inline;text-decoration:underline;">
+                    javax.servlet.http.HttpSessionActivationListener
+                </div>
+            </summary>
+            <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+                sessionWillPassivate(HttpSessionEvent se); session钝化前执行（session从内存到硬盘）<br>
+                sessionDidActivate(HttpSessionEvent se); session活化后执行（session从硬盘到内存）<br>
+                javaBean实现HttpSessionActivationListener接口,在META-INF创建context.xml文件,不需web.xml配置<br>
+                &lt;Context&gt;<br>
+                &emsp;&emsp;&lt;Manager className=”org.apache.catalina.session.PersistentManager” maxIdleSwap=”1”&gt;钝化时间<br>
+                &emsp;&emsp;&lt;Store className=”org.apache.catalina.session.FileStore” directory=”test” /&gt;<br>
+                &emsp;&emsp;配置钝化的对象文件在%tomcat%/work/catalina/localhost/项目名称/钝化文件名.ser(test)<br>
+                &lt;/Manager&gt;&lt;/Context&gt;|
+            </div>
+        </details>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                javax.servlet.Filter
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            filter是对客户端访问资源的过滤，符合条件放行，不符合条件不放行，<br>
+            并且可以对目标资源访问前后进行逻辑处理，运行在服务器端的程序，<br>
+            先于与之相关的Servlet或jsp前运行，对请求资源过滤的功能,可以处理请求和响应<br>
+            ①公共代码的提取②对request和response中的方法进行增强(装饰者模式/动态代理)<br>
+            ③进行权限控制④自动登录，解决全局乱码，屏蔽非法文字，响应数据压缩<br>
+            实现Filter接口并实现所有方法,配置web.xml<br>
+            init(Filterconfig filterconfig);过滤器初始化方法<br>
+            doFilter(ServletRequest,SevletResponse,FilterChain)每次访问这个资源都会执行该方法<br>
+            destory()：销毁方法 关闭服务器时<br>
+            Filterconfig方法<br>
+            getFilterName返回 <filter-name> 元素的设置值<br>
+            getServletContext返回ServletContext对象的引用<br>
+            getInitParameter返回在web.xml中Filter初始化的参数值<br>
+            getInitParameterNames返回一个 Enumeration 集合对象<br>
+            FilterChain方法<br>
+            放行请求chain.doFilter(request, response);<br>
+        </filter-name></div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                web.xml配置
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            &#60;servlet&gt;<br>
+            &emsp;&emsp;&#60;servlet-name&gt;QuickStartServlet&#60;/servlet-name&gt;<br>
+            &emsp;&emsp;&#60;servlet-class&gt;xxx.xxx&#60;/servlet-class&gt;<br>
+            &emsp;&emsp;&#60;load-on-startup&gt;3&#60;/load-on-startup&gt;启动先后 正整数，越小被创建的优先级越高<br>
+            &emsp;&emsp;&#60;init-param&gt;<br>
+            &emsp;&emsp;&emsp;&emsp;&#60;param-name&gt;url&#60;/param-name&gt;servlet的初始化参数<br>
+            &emsp;&emsp;&emsp;&emsp;&#60;param-value&gt;xxx&#60;/param-value&gt;<br>
+            &emsp;&emsp;&#60;/init-param&gt;<br>
+            &#60;/servlet&gt;<br>
+            &#60;servlet-mapping&gt;<br>
+            &emsp;&emsp;&#60;servlet-name&gt;QuickStartServlet&#60;/servlet-name&gt;<br>
+            &emsp;&emsp;完全匹配:访问的资源与配置的资源完全相同&#60;url-pattern&gt;/LoginServlet&#60;/url-pattern&gt;<br>
+            &emsp;&emsp;目录匹配:./当前路径 ../上一级 格式：/虚拟的目录../* *代表任意&#60;url-pattern&gt;/LoginServlet/*&#60;/url-pattern&gt;<br>
+            &emsp;&emsp;扩展名匹配:*.扩展名 &#60;url-pattern&gt;*.jsp&#60;/url-pattern&gt;<br>
+            &emsp;&emsp;（默认）缺省Servlet：将url-pattern配置一个/，代表该servlet是缺省的servlet(默认访问的路径)<br>
+            &emsp;&emsp;客户端地址添加web应用的名称，重定向,而服务器端的地址不需添加web应用的名称 转发<br>
+            &emsp;&emsp;&#60;url-pattern&gt;/quickStartServlet&#60;/url-pattern&gt;<br>
+            &#60;/servlet-mapping&gt;<br>
+            主页设置<br>
+            &#60;welcome-file-list&gt;<br>
+            &emsp;&emsp;&#60;welcome-file&gt;login.html&#60;/welcome-file&gt;<br>
+            &#60;/welcome-file-list&gt;<br>
+            serveletcofig和servletContext的初始化参数<br>
+            &#60;context-param&gt;<br>
+            &emsp;&emsp;&#60;param-name&gt;driver&#60;/param-name&gt;<br>
+            &emsp;&emsp;&#60;param-value&gt;com.mysql.jdbc.Driver&#60;/param-value&gt;<br>
+            &#60;/context-param&gt;<br>
+            &emsp;&emsp;session时间<br>
+            &#60;session-config&gt;<br>
+            &emsp;&emsp;&#60;session-timeout&gt;30&#60;/session-timeout&gt;<br>
+            &#60;/session-config&gt;<br>
+            &#60;filter&gt;<br>
+            &emsp;&emsp;&lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;<br>
+            &emsp;&emsp;&lt;filter-class&gt;com.ithiema.web.filter.EncodingFilter&lt;/filter-class&gt;<br>
+            &lt;/filter&gt;<br>
+            &lt;filter-mapping&gt;<br>
+            &emsp;&emsp;&lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;<br>
+            &emsp;&emsp;&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br>
+            &lt;/filter-mapping&gt;<br>
+            注意：url-pattern可以使用servlet-name替代，也可以混用<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                mail
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            邮件的客户端：可以只安装在电脑上的也可以是网页形式的<br>
+            邮件服务器：起到邮件的接受与推送的作用<br>
+            接受邮件的协议POP3邮局协议:邮件客户端软件与POP3服务器通讯规则 IMAP 端口号110<br>
+            发送邮件的协议SMTP邮件协议:邮件客户端软件与SMTP服务及两台SMTP服务器之间的通讯规则，端口号25<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                中文乱码原因
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            http协议默认采用ISO-8859编码发送的数据，解码发到服务器的数据<br>
+            不同的浏览器接收和发送数据取决于浏览器类型，通过Http请求体中的User-Agent属性可以辨别<br>
+            而中文在ISO-8859编码表中是不存在的，所以必须设置浏览器和服务端的编码都是utf-8才能解决中文乱码问题<br>
+        </div>
+    </details>
+    <details style="border:0px;padding-left:20px;">
+        <summary style="outline-width:0px;">
+            <div style="display:inline;text-decoration:underline;">
+                转发与重定向的区别
+            </div>
+        </summary>
+        <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+            重定向:可以访问外部网站,转发:只能访问内部资源<br>
+            地址栏的地址；变化地址不变<br>
+            两次请求；一次请求<br>
+            路径加工程名；路径不加工程名<br>
+            性能较好；性能较弱<br>
+        </div>
+    </details>
+</details>
+
+
+<details style="border:0px;padding-left:0px;">
+    <summary style="outline-width:0px;">
+        <div style="display:inline;text-decoration:underline;">
+            javaee对象生命周期
+        </div>
+    </summary>
+    <div style="padding-left:20px;background-color:rgb(247, 248, 248)">
+        servlet:(多个)、init第一次访问servlet创建、service每次请求都会执行、destory服务器关闭、项目被移除<br>
+        request:(多个)、访问sevlet时创建、销毁：响应结束、域的作用范围:一次请求中<br>
+        ServletContext:(一个)、web应用被加载、web应用被卸载、域的作用范围:整个web应用<br>
+        session:(多个)，第一次执行getsession获得session、没有则创建、非正常关闭服务器（正常关闭session被序列化）<br>
+        &emsp;&emsp;session过期，默认时间30分钟，调用invalidate方法，域的作用范围:一次会话中<br>
+        filer:(多个)服务器启动、服务器关闭、每次访问被拦截目标资源，过滤器doFilter方法执行<br>
+    </div>
+</details>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#ajax','#注解','#boostrap','#art-template','#css','#windows','#dubbo','#缓存','#exception','#git','#express','#hexo','#html','#http协议','#图表库','#json','#linux','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#xml','#webpack','#动态代理','#前端','#开发规范','#排序算法','#异步编程','#系统测试','#计算机','#后端','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#jquery','#java基础语法','#jsp','#maven','#mycat','#mqtt','#nginx','#node.js','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#redis','#struts2','#面试题','#hibrenate','#solr','#WEB','#源码学习','#lucene','#spring','#oracle','#springmvc','#mybatis','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
