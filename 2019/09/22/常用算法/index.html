@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>常用算法 | 何创军的博客</title>
+  <meta name="keywords" content=" 数据结构和算法 ">
+  <meta name="description" content="常用算法 | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(94)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(24)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构和算法">数据结构和算法<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="94">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">数据结构和算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">软件开发</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/哈希表/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="哈希表">哈希表</span>
+            <span class="post-date" title="2019-09-22 10:43:35">2019/09/22</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/11/11/多路查找树/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="多路查找树">多路查找树</span>
+            <span class="post-date" title="2019-11-11 18:54:55">2019/11/11</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/常用算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="常用算法">常用算法</span>
+            <span class="post-date" title="2019-09-22 10:44:17">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/09/09/架构设计/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="架构设计">架构设计</span>
+            <span class="post-date" title="2019-09-09 17:24:21">2019/09/09</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/数据结构和算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="数据结构和算法概述">数据结构和算法概述</span>
+            <span class="post-date" title="2019-09-22 10:42:02">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/稀疏数组和队列/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="稀疏数组和队列">稀疏数组和队列</span>
+            <span class="post-date" title="2019-09-22 10:42:19">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/29/设计模式/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2019-05-29 21:57:12">2019/05/29</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/递归/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="递归">递归</span>
+            <span class="post-date" title="2019-09-22 10:42:56">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/29/软件工程/"
+           data-tag="软件开发"
+           data-author="" >
+            <span class="post-title" title="软件工程">软件工程</span>
+            <span class="post-date" title="2018-10-29 19:46:21">2018/10/29</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/图/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="图">图</span>
+            <span class="post-date" title="2019-09-22 10:43:56">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/查找算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="查找算法">查找算法</span>
+            <span class="post-date" title="2019-09-22 10:43:24">2019/09/22</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/排序算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="排序算法">排序算法</span>
+            <span class="post-date" title="2019-09-22 10:43:13">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/链表/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="链表">链表</span>
+            <span class="post-date" title="2019-09-22 10:42:33">2019/09/22</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/树结构的基础部分/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="树结构的基础部分">树结构的基础部分</span>
+            <span class="post-date" title="2019-09-22 10:43:48">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/栈/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="栈">栈</span>
+            <span class="post-date" title="2019-09-22 10:42:46">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/11/10/树结构实际应用/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="树结构实际应用">树结构实际应用</span>
+            <span class="post-date" title="2019-11-10 17:48:57">2019/11/10</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-常用算法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">常用算法</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="数据结构和算法">数据结构和算法</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color3">数据结构和算法</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-12 20:05:03'>2019-09-22 10:44</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#二分查找算法-非递归-介绍"><span class="toc-text">二分查找算法(非递归)介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分治算法"><span class="toc-text">分治算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态规划算法"><span class="toc-text">动态规划算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KMP算法"><span class="toc-text">KMP算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#贪心算法"><span class="toc-text">贪心算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#普里姆算法"><span class="toc-text">普里姆算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#克鲁斯卡尔算法"><span class="toc-text">克鲁斯卡尔算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#迪杰斯特拉算法"><span class="toc-text">迪杰斯特拉算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#弗洛伊德-Floyd-算法介绍"><span class="toc-text">弗洛伊德(Floyd)算法介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#马踏棋盘算法"><span class="toc-text">马踏棋盘算法</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="二分查找算法-非递归-介绍"><a href="#二分查找算法-非递归-介绍" class="headerlink" title="二分查找算法(非递归)介绍"></a>二分查找算法(非递归)介绍</h1><pre><code>前面我们讲过了二分查找算法，是使用递归的方式，下面我们讲解二分查找算法的非递归方式
+二分查找法只适用于从有序的数列中进行查找(比如数字和字母等)，将数列排序后再进行查找
+二分查找法的运行时间为对数时间O(㏒₂n) ，即查找到需要的目标位置最多只需要㏒₂n步，
+假设从[0,99]的队列(100个数，即n=100)中寻到目标数30，则需要查找步数为㏒₂100 , 即最多需要查找7次( 2^6 &lt; 100 &lt; 2^7)
+
+二分查找代码实现
+public class BinarySearchNoRecur {
+
+    public static void main(String[] args) {
+        //测试
+        int[] arr = {1,3, 8, 10, 11, 67, 100};
+        int index = binarySearch(arr, 100);
+        System.out.println(&quot;index=&quot; + index);//
+    }
+
+    //二分查找的非递归实现
+    /**
+    * @param arr 待查找的数组, arr是升序排序
+    * @param target 需要查找的数
+    * @return 返回对应下标，-1表示没有找到
+    */
+    public static int binarySearch(int[] arr, int target) {
+
+        int left = 0;
+        int right = arr.length - 1;
+        while(left &lt;= right) { //说明继续查找
+            int mid = (left + right) / 2;
+            if(arr[mid] == target) {
+                return mid;
+            } else if ( arr[mid] &gt; target) {
+                right = mid - 1;//需要向左边查找
+            } else {
+                left = mid + 1; //需要向右边查找
+            }
+        }
+        return -1;
+    }
+}
+</code></pre><h1 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h1><pre><code>分治法是一种很重要的算法。字面上的解释是“分而治之”，
+就是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，
+原问题的解即子问题的解的合并。这个技巧是很多高效算法的基础，如排序算法(快速排序，归并排序)，傅立叶变换(快速傅立叶变换)……
+
+分治算法可以求解的一些经典问题
+二分搜索\大整数乘法\棋盘覆盖\合并排序\快速排序\线性时间选择\最接近点对问题\循环赛日程表\汉诺塔
+
+分治算法的基本步骤
+分治法在每一层递归上都有三个步骤：
+分解：将原问题分解为若干个规模较小，相互独立，与原问题形式相同的子问题
+解决：若子问题规模较小而容易被解决则直接解，否则递归地解各个子问题
+合并：将各个子问题的解合并为原问题的解。
+
+汉诺塔的传说
+汉诺塔：汉诺塔（又称河内塔）问题是源于印度一个古老传说的益智玩具。
+大梵天创造世界的时候做了三根金刚石柱子，在一根柱子上从下往上按照大小顺序摞着64片黄金圆盘。
+大梵天命令婆罗门把圆盘从下面开始按大小顺序重新摆放在另一根柱子上。
+并且规定，在小圆盘上不能放大圆盘，在三根柱子之间一次只能移动一个圆盘。
+
+汉诺塔游戏思路
+如果是有一个盘， A-&gt;C 
+如果我们有 n &gt;= 2 情况，我们总是可以看做是两个盘 1.最下边的盘 2. 上面的盘
+先把 最上面的盘 A-&gt;B
+把最下边的盘 A-&gt;C
+把B塔的所有盘 从 B-&gt;C
+
+汉诺塔代码实现
+public class Hanoitower {
+
+    public static void main(String[] args) {
+        hanoiTower(10, &apos;A&apos;, &apos;B&apos;, &apos;C&apos;);
+    }
+
+    //汉诺塔的移动的方法
+    //使用分治算法
+
+    public static void hanoiTower(int num, char a, char b, char c) {
+        //如果只有一个盘
+        if(num == 1) {
+            System.out.println(&quot;第1个盘从 &quot; + a + &quot;-&gt;&quot; + c);
+        } else {
+            //如果我们有 n &gt;= 2 情况，我们总是可以看做是两个盘 1.最下边的一个盘 2. 上面的所有盘
+            //1. 先把 最上面的所有盘 A-&gt;B， 移动过程会使用到 c
+            hanoiTower(num - 1, a, c, b);
+            //2. 把最下边的盘 A-&gt;C
+            System.out.println(&quot;第&quot; + num + &quot;个盘从 &quot; + a + &quot;-&gt;&quot; + c);
+            //3. 把B塔的所有盘 从 B-&gt;C , 移动过程使用到 a塔  
+            hanoiTower(num - 1, b, a, c);
+        }
+    }
+}
+</code></pre><h1 id="动态规划算法"><a href="#动态规划算法" class="headerlink" title="动态规划算法"></a>动态规划算法</h1><pre><code>动态规划算法介绍
+动态规划(Dynamic Programming)算法的核心思想是：将大问题划分为小问题进行解决，从而一步步获取最优解的处理算法
+动态规划算法与分治算法类似，其基本思想也是将待求解问题分解成若干个子问题，先求解子问题，然后从这些子问题的解得到原问题的解。
+与分治法不同的是，适合于用动态规划求解的问题，经分解得到子问题往往不是互相独立的。
+( 即下一个子阶段的求解是建立在上一个子阶段的解的基础上，进行进一步的求解)
+动态规划可以通过填表的方式来逐步推进，得到最优解.
+
+应用场景-背包问题
+背包问题：有一个背包，容量为4磅 ， 现有如下物品
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">物品</th>
+<th style="text-align:center">重量</th>
+<th style="text-align:center">价格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">吉他(G)</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1500</td>
+</tr>
+<tr>
+<td style="text-align:center">音响(S)</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">3000</td>
+</tr>
+<tr>
+<td style="text-align:center">电脑(L)</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2000</td>
+</tr>
+</tbody>
+</table>
+<pre><code>1.要求达到的目标为装入的背包的总价值最大，并且重量不超出
+2，要求装入的物品不能重复
+思路分析和图解
+1.背包问题主要是指一个给定容量的背包、若干具有一定价值和重量的物品，如何选择物品放入背包使物品的价值最大。
+2.其中又分01背包和完全背包(完全背包指的是：每种物品都有无限件可用)
+3.这里的问题属于01背包，即每个物品最多放一个。而无限背包可以转化为01背包。
+4.算法的主要思想，利用动态规划来解决。每次遍历到的第i个物品，
+根据w[i]和v[i]来确定是否需要将该物品放入背包中。即对于给定的n个物品，
+设v[i]、w[i]分别为第i个物品的价值和重量，C为背包的容量。
+再令v[i][j]表示在前i个物品中能够装入容量为j的背包中的最大价值。则我们有下面的结果：
+(1)  v[i][0]=v[0][j]=0; //表示 填入表 第一行和第一列是0
+(2) 当w[i]&gt; j 时：v[i][j]=v[i-1][j]   // 当准备加入新增的商品的容量大于 当前背包的容量时，就直接使用上一个单元格的装入策略
+(3) 当j&gt;=w[i]时： v[i][j]=max{v[i-1][j], v[i]+v[i-1][j-w[i]]}  
+// 当 准备加入的新增的商品的容量小于等于当前背包的容量,
+// 装入的方式:
+v[i-1][j]： 就是上一个单元格的装入的最大值
+v[i] : 表示当前商品的价值 
+v[i-1][j-w[i]] ： 装入i-1商品，到剩余空间j-w[i]的最大值
+当j&gt;=w[i]时： v[i][j]=max{v[i-1][j], v[i]+v[i-1][j-w[i]]} : 
+
+
+
+//代码实现
+public class KnapsackProblem {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        int[] w = {1, 4, 3};//物品的重量
+        int[] val = {1500, 3000, 2000}; //物品的价值 这里val[i] 就是前面讲的v[i]
+        int m = 4; //背包的容量
+        int n = val.length; //物品的个数
+
+
+
+        //创建二维数组，
+        //v[i][j] 表示在前i个物品中能够装入容量为j的背包中的最大价值
+        int[][] v = new int[n+1][m+1];
+        //为了记录放入商品的情况，我们定一个二维数组
+        int[][] path = new int[n+1][m+1];
+
+        //初始化第一行和第一列, 这里在本程序中，可以不去处理，因为默认就是0
+        for(int i = 0; i &lt; v.length; i++) {
+            v[i][0] = 0; //将第一列设置为0
+        }
+        for(int i=0; i &lt; v[0].length; i++) {
+            v[0][i] = 0; //将第一行设置0
+        }
+
+
+        //根据前面得到公式来动态规划处理
+        for(int i = 1; i &lt; v.length; i++) { //不处理第一行 i是从1开始的
+            for(int j=1; j &lt; v[0].length; j++) {//不处理第一列, j是从1开始的
+                //公式
+                if(w[i-1]&gt; j) { // 因为我们程序i 是从1开始的，因此原来公式中的 w[i] 修改成 w[i-1]
+                    v[i][j]=v[i-1][j];
+                } else {
+                    //说明:
+                    //因为我们的i 从1开始的， 因此公式需要调整成
+                    //v[i][j]=Math.max(v[i-1][j], val[i-1]+v[i-1][j-w[i-1]]);
+                    //v[i][j] = Math.max(v[i - 1][j], val[i - 1] + v[i - 1][j - w[i - 1]]);
+                    //为了记录商品存放到背包的情况，我们不能直接的使用上面的公式，需要使用if-else来体现公式
+                    if(v[i - 1][j] &lt; val[i - 1] + v[i - 1][j - w[i - 1]]) {
+                        v[i][j] = val[i - 1] + v[i - 1][j - w[i - 1]];
+                        //把当前的情况记录到path
+                        path[i][j] = 1;
+                    } else {
+                        v[i][j] = v[i - 1][j];
+                    }
+
+                }
+            }
+        }
+
+        //输出一下v 看看目前的情况
+        for(int i =0; i &lt; v.length;i++) {
+            for(int j = 0; j &lt; v[i].length;j++) {
+                System.out.print(v[i][j] + &quot; &quot;);
+            }
+            System.out.println();
+        }
+
+        System.out.println(&quot;============================&quot;);
+        //输出最后我们是放入的哪些商品
+        //遍历path, 这样输出会把所有的放入情况都得到, 其实我们只需要最后的放入
+//        for(int i = 0; i &lt; path.length; i++) {
+//            for(int j=0; j &lt; path[i].length; j++) {
+//                if(path[i][j] == 1) {
+//                    System.out.printf(&quot;第%d个商品放入到背包\n&quot;, i);
+//                }
+//            }
+//        }
+
+        //动脑筋
+        int i = path.length - 1; //行的最大下标
+        int j = path[0].length - 1;  //列的最大下标
+        while(i &gt; 0 &amp;&amp; j &gt; 0 ) { //从path的最后开始找
+            if(path[i][j] == 1) {
+                System.out.printf(&quot;第%d个商品放入到背包\n&quot;, i); 
+                j -= w[i-1]; //w[i-1]
+            }
+            i--;
+        }
+
+    }
+
+}
+</code></pre><h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><pre><code>应用场景-字符串匹配问题
+字符串匹配问题：：
+有一个字符串 str1= &quot;&quot;硅硅谷 尚硅谷你尚硅 尚硅谷你尚硅谷你尚硅你好&quot;&quot;，和一个子串 str2=&quot;尚硅谷你尚硅你&quot;
+现在要判断 str1 是否含有 str2, 如果存在，就返回第一次出现的位置, 如果没有，则返回-1
+
+暴力匹配算法
+如果用暴力匹配的思路，并假设现在str1匹配到 i 位置，子串str2匹配到 j 位置，则有:
+如果当前字符匹配成功（即str1[i] == str2[j]），则i++，j++，继续匹配下一个字符
+如果失配（即str1[i]! = str2[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。
+用暴力方法解决的话就会有大量的回溯，每次只移动一位，若是不匹配，移动到下一位接着判断，浪费了大量的时间。(不可行!)
+暴力匹配算法实现.
+
+代码实现
+public class ViolenceMatch {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        //测试暴力匹配算法
+        String str1 = &quot;硅硅谷 尚硅谷你尚硅 尚硅谷你尚硅谷你尚硅你好&quot;;
+        String str2 = &quot;尚硅谷你尚硅你~&quot;;
+        int index = violenceMatch(str1, str2);
+        System.out.println(&quot;index=&quot; + index);
+
+    }
+
+    // 暴力匹配算法实现
+    public static int violenceMatch(String str1, String str2) {
+        char[] s1 = str1.toCharArray();
+        char[] s2 = str2.toCharArray();
+
+        int s1Len = s1.length;
+        int s2Len = s2.length;
+
+        int i = 0; // i索引指向s1
+        int j = 0; // j索引指向s2
+        while (i &lt; s1Len &amp;&amp; j &lt; s2Len) {// 保证匹配时，不越界
+
+            if(s1[i] == s2[j]) {//匹配ok
+                i++;
+                j++;
+            } else { //没有匹配成功
+                //如果失配（即str1[i]! = str2[j]），令i = i - (j - 1)，j = 0。
+                i = i - (j - 1);
+                j = 0;
+            }
+        }
+
+        //判断是否匹配成功
+        if(j == s2Len) {
+            return i - j;
+        } else {
+            return -1;
+        }
+    }
+
+}
+
+KMP算法介绍
+KMP是一个解决模式串在文本串是否出现过，如果出现过，最早出现的位置的经典算法
+Knuth-Morris-Pratt 字符串查找算法，简称为 “KMP算法”，常用于在一个文本串S内查找一个模式串P 的出现位置，
+这个算法由Donald Knuth、Vaughan Pratt、James H. Morris三人于1977年联合发表，故取这3人的姓氏命名此算法.
+KMP方法算法就利用之前判断过信息，通过一个next数组，保存模式串中前后最长公共子序列的长度，
+每次回溯时，通过next数组找到，前面匹配过的位置，省去了大量的计算时间
+参考资料：https://www.cnblogs.com/ZuoAndFutureGirl/p/9028287.html 
+代码实现
+public class KMPAlgorithm {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        String str1 = &quot;BBC ABCDAB ABCDABCDABDE&quot;;
+        String str2 = &quot;ABCDABD&quot;;
+        //String str2 = &quot;BBC&quot;;
+
+        int[] next = kmpNext(&quot;ABCDABD&quot;); //[0, 1, 2, 0]
+        System.out.println(&quot;next=&quot; + Arrays.toString(next));
+
+        int index = kmpSearch(str1, str2, next);
+        System.out.println(&quot;index=&quot; + index); // 15了
+
+
+    }
+
+    //写出我们的kmp搜索算法
+    /**
+    * 
+    * @param str1 源字符串
+    * @param str2 子串
+    * @param next 部分匹配表, 是子串对应的部分匹配表
+    * @return 如果是-1就是没有匹配到，否则返回第一个匹配的位置
+    */
+    public static int kmpSearch(String str1, String str2, int[] next) {
+
+        //遍历 
+        for(int i = 0, j = 0; i &lt; str1.length(); i++) {
+
+            //需要处理 str1.charAt(i) ！= str2.charAt(j), 去调整j的大小
+            //KMP算法核心点, 可以验证...
+            while( j &gt; 0 &amp;&amp; str1.charAt(i) != str2.charAt(j)) {
+                j = next[j-1]; 
+            }
+
+            if(str1.charAt(i) == str2.charAt(j)) {
+                j++;
+            }            
+            if(j == str2.length()) {//找到了 // j = 3 i 
+                return i - j + 1;
+            }
+        }
+        return  -1;
+    }
+
+    //获取到一个字符串(子串) 的部分匹配值表
+    public static  int[] kmpNext(String dest) {
+        //创建一个next 数组保存部分匹配值
+        int[] next = new int[dest.length()];
+        next[0] = 0; //如果字符串是长度为1 部分匹配值就是0
+        for(int i = 1, j = 0; i &lt; dest.length(); i++) {
+            //当dest.charAt(i) != dest.charAt(j) ，我们需要从next[j-1]获取新的j
+            //直到我们发现 有  dest.charAt(i) == dest.charAt(j)成立才退出
+            //这时kmp算法的核心点
+            while(j &gt; 0 &amp;&amp; dest.charAt(i) != dest.charAt(j)) {
+                j = next[j-1];
+            }
+
+            //当dest.charAt(i) == dest.charAt(j) 满足时，部分匹配值就是+1
+            if(dest.charAt(i) == dest.charAt(j)) {
+                j++;
+            }
+            next[i] = j;
+        }
+        return next;
+    }
+}
+</code></pre><h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><pre><code>贪婪算法(贪心算法)是指在对问题进行求解时，在每一步选择中都采取最好或者最优(即最有利)的选择，从而希望能够导致结果是最好或者最优的算法
+贪婪算法所得到的结果不一定是最优的结果(有时候会是最优解)，但是都是相对近似(接近)最优解的结果
+贪心算法注意事项和细节
+贪婪算法所得到的结果不一定是最优的结果(有时候会是最优解)，但是都是相对近似(接近)最优解的结果
+比如上题的算法选出的是K1, K2, K3, K5，符合覆盖了全部的地区
+但是我们发现 K2, K3,K4,K5 也可以覆盖全部地区，如果K2 的使用成本低于K1,那么我们上题的 K1, K2, K3, K5 虽然是满足条件，但是并不是最优的.
+
+
+假设存在如下表的需要付费的广播台，以及广播台信号可以覆盖的地区。 如何选择最少的广播台，让所有的地区都可以接收到信号
+广播台    覆盖地区
+K1    &quot;北京&quot;, &quot;上海&quot;, &quot;天津&quot;
+K2    &quot;广州&quot;, &quot;北京&quot;, &quot;深圳&quot;
+K3    &quot;成都&quot;, &quot;上海&quot;, &quot;杭州&quot;
+K4    &quot;上海&quot;, &quot;天津&quot;
+K5    &quot;杭州&quot;, &quot;大连&quot;
+如何找出覆盖所有地区的广播台的集合呢，使用穷举法实现,列出每个可能的广播台的集合，这被称为幂集。
+假设总的有n个广播台，则广播台的组合总共有2ⁿ -1 个,假设每秒可以计算10个子集， 如图:
+广播台数量n    子集总数2ⁿ    需要的时间
+5    32    3.2秒
+10    1024    102.4秒
+32    4294967296    13.6年
+100    1.26*100³º     4x10²³年
+
+使用贪婪算法，效率高:
+目前并没有算法可以快速计算得到准备的值， 使用贪婪算法，则可以得到非常接近的解，并且效率高。选择策略上，因为需要覆盖全部地区的最小集合:
+1.遍历所有的广播电台, 找到一个覆盖了最多未覆盖的地区的电台(此电台可能包含一些已覆盖的地区，但没有关系） 
+2.将这个电台加入到一个集合中(比如ArrayList), 想办法把该电台覆盖的地区在下次比较时去掉。
+3.重复第1步直到覆盖了全部的地区
+//代码实现
+public class GreedyAlgorithm {
+
+    public static void main(String[] args) {
+        //创建广播电台,放入到Map
+        HashMap&lt;String,HashSet&lt;String&gt;&gt; broadcasts = new HashMap&lt;String, HashSet&lt;String&gt;&gt;();
+        //将各个电台放入到broadcasts
+        HashSet&lt;String&gt; hashSet1 = new HashSet&lt;String&gt;();
+        hashSet1.add(&quot;北京&quot;);
+        hashSet1.add(&quot;上海&quot;);
+        hashSet1.add(&quot;天津&quot;);
+
+        HashSet&lt;String&gt; hashSet2 = new HashSet&lt;String&gt;();
+        hashSet2.add(&quot;广州&quot;);
+        hashSet2.add(&quot;北京&quot;);
+        hashSet2.add(&quot;深圳&quot;);
+
+        HashSet&lt;String&gt; hashSet3 = new HashSet&lt;String&gt;();
+        hashSet3.add(&quot;成都&quot;);
+        hashSet3.add(&quot;上海&quot;);
+        hashSet3.add(&quot;杭州&quot;);
+
+
+        HashSet&lt;String&gt; hashSet4 = new HashSet&lt;String&gt;();
+        hashSet4.add(&quot;上海&quot;);
+        hashSet4.add(&quot;天津&quot;);
+
+        HashSet&lt;String&gt; hashSet5 = new HashSet&lt;String&gt;();
+        hashSet5.add(&quot;杭州&quot;);
+        hashSet5.add(&quot;大连&quot;);
+
+        //加入到map
+        broadcasts.put(&quot;K1&quot;, hashSet1);
+        broadcasts.put(&quot;K2&quot;, hashSet2);
+        broadcasts.put(&quot;K3&quot;, hashSet3);
+        broadcasts.put(&quot;K4&quot;, hashSet4);
+        broadcasts.put(&quot;K5&quot;, hashSet5);
+
+        //allAreas 存放所有的地区
+        HashSet&lt;String&gt; allAreas = new HashSet&lt;String&gt;();
+        allAreas.add(&quot;北京&quot;);
+        allAreas.add(&quot;上海&quot;);
+        allAreas.add(&quot;天津&quot;);
+        allAreas.add(&quot;广州&quot;);
+        allAreas.add(&quot;深圳&quot;);
+        allAreas.add(&quot;成都&quot;);
+        allAreas.add(&quot;杭州&quot;);
+        allAreas.add(&quot;大连&quot;);
+
+        //创建ArrayList, 存放选择的电台集合
+        ArrayList&lt;String&gt; selects = new ArrayList&lt;String&gt;();
+
+        //定义一个临时的集合， 在遍历的过程中，存放遍历过程中的电台覆盖的地区和当前还没有覆盖的地区的交集
+        HashSet&lt;String&gt; tempSet = new HashSet&lt;String&gt;();
+
+        //定义给maxKey ， 保存在一次遍历过程中，能够覆盖最大未覆盖的地区对应的电台的key
+        //如果maxKey 不为null , 则会加入到 selects
+        String maxKey = null;
+        while(allAreas.size() != 0) { // 如果allAreas 不为0, 则表示还没有覆盖到所有的地区
+            //每进行一次while,需要
+            maxKey = null;
+
+            //遍历 broadcasts, 取出对应key
+            for(String key : broadcasts.keySet()) {
+                //每进行一次for
+                tempSet.clear();
+                //当前这个key能够覆盖的地区
+                HashSet&lt;String&gt; areas = broadcasts.get(key);
+                tempSet.addAll(areas);
+                //求出tempSet 和   allAreas 集合的交集, 交集会赋给 tempSet
+                tempSet.retainAll(allAreas);
+                //如果当前这个集合包含的未覆盖地区的数量，比maxKey指向的集合地区还多
+                //就需要重置maxKey
+                // tempSet.size() &gt;broadcasts.get(maxKey).size()) 体现出贪心算法的特点,每次都选择最优的
+                if(tempSet.size() &gt; 0 &amp;&amp; 
+                        (maxKey == null || tempSet.size() &gt;broadcasts.get(maxKey).size())){
+                    maxKey = key;
+                }
+            }
+            //maxKey != null, 就应该将maxKey 加入selects
+            if(maxKey != null) {
+                selects.add(maxKey);
+                //将maxKey指向的广播电台覆盖的地区，从 allAreas 去掉
+                allAreas.removeAll(broadcasts.get(maxKey));
+            }
+
+        }
+
+        System.out.println(&quot;得到的选择结果是&quot; + selects);//[K1,K2,K3,K5]
+    }
+}
+</code></pre><h1 id="普里姆算法"><a href="#普里姆算法" class="headerlink" title="普里姆算法"></a>普里姆算法</h1><pre><code>最小生成树
+最小生成树(Minimum Cost Spanning Tree)，简称MST。
+1.给定一个带权的无向连通图,如何选取一棵生成树,使树上所有边上权的总和为最小,这叫最小生成树 
+2.N个顶点，一定有N-1条边
+3,包含全部顶点
+4,N-1条边都在图中
+举例说明(如图:)
+求最小生成树的算法主要是普里姆算法和克鲁斯卡尔算法
+</code></pre><img src="/2019/09/22/常用算法/1.png" title="1.png">
+<pre><code>普利姆(Prim)算法求最小生成树，也就是在包含n个顶点的连通图中，找出只有(n-1)条边包含所有n个顶点的连通子图，也就是所谓的极小连通子图
+
+1.设G=(V,E)是连通网，T=(U,D)是最小生成树，V,U是顶点集合，E,D是边的集合 
+2.若从顶点u开始构造最小生成树，则从集合V中取出顶点u放入集合U中，标记顶点v的visited[u]=1
+3.若集合U中顶点ui与集合V-U中的顶点vj之间存在边，则寻找这些边中权值最小的边，但不能构成回路，将顶点vj加入集合U中，将边（ui,vj）加入集合D中，标记visited[vj]=1
+重复步骤②，直到U与V相等，即所有顶点都被标记为访问过，此时D中有n-1条边
+</code></pre><img src="/2019/09/22/常用算法/2.png" title="2.png">
+<pre><code>public class PrimAlgorithm {
+
+    public static void main(String[] args) {
+        //测试看看图是否创建ok
+        char[] data = new char[]{&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;,&apos;E&apos;,&apos;F&apos;,&apos;G&apos;};
+        int verxs = data.length;
+        //邻接矩阵的关系使用二维数组表示,10000这个大数，表示两个点不联通
+        int [][]weight=new int[][]{
+            {10000,5,7,10000,10000,10000,2},
+            {5,10000,10000,9,10000,10000,3},
+            {7,10000,10000,10000,8,10000,10000},
+            {10000,9,10000,10000,10000,4,10000},
+            {10000,10000,8,10000,10000,5,4},
+            {10000,10000,10000,4,5,10000,6},
+            {2,3,10000,10000,4,6,10000},};
+
+        //创建MGraph对象
+        MGraph graph = new MGraph(verxs);
+        //创建一个MinTree对象
+        MinTree minTree = new MinTree();
+        minTree.createGraph(graph, verxs, data, weight);
+        //输出
+        minTree.showGraph(graph);
+        //测试普利姆算法
+        minTree.prim(graph, 1);// 
+    }
+
+}
+
+//创建最小生成树-&gt;村庄的图
+class MinTree {
+    //创建图的邻接矩阵
+    /**
+    * 
+    * @param graph 图对象
+    * @param verxs 图对应的顶点个数
+    * @param data 图的各个顶点的值
+    * @param weight 图的邻接矩阵
+    */
+    public void createGraph(MGraph graph, int verxs, char data[], int[][] weight) {
+        int i, j;
+        for(i = 0; i &lt; verxs; i++) {//顶点
+            graph.data[i] = data[i];
+            for(j = 0; j &lt; verxs; j++) {
+                graph.weight[i][j] = weight[i][j];
+            }
+        }
+    }
+
+    //显示图的邻接矩阵
+    public void showGraph(MGraph graph) {
+        for(int[] link: graph.weight) {
+            System.out.println(Arrays.toString(link));
+        }
+    }
+
+    //编写prim算法，得到最小生成树
+    /**
+    * 
+    * @param graph 图
+    * @param v 表示从图的第几个顶点开始生成&apos;A&apos;-&gt;0 &apos;B&apos;-&gt;1...
+    */
+    public void prim(MGraph graph, int v) {
+        //visited[] 标记结点(顶点)是否被访问过
+        int visited[] = new int[graph.verxs];
+        //visited[] 默认元素的值都是0, 表示没有访问过
+//        for(int i =0; i &lt;graph.verxs; i++) {
+//            visited[i] = 0;
+//        }
+
+        //把当前这个结点标记为已访问
+        visited[v] = 1;
+        //h1 和 h2 记录两个顶点的下标
+        int h1 = -1;
+        int h2 = -1;
+        int minWeight = 10000; //将 minWeight 初始成一个大数，后面在遍历过程中，会被替换
+        for(int k = 1; k &lt; graph.verxs; k++) {//因为有 graph.verxs顶点，普利姆算法结束后，有 graph.verxs-1边
+
+            //这个是确定每一次生成的子图 ，和哪个结点的距离最近
+            for(int i = 0; i &lt; graph.verxs; i++) {// i结点表示被访问过的结点
+                for(int j = 0; j&lt; graph.verxs;j++) {//j结点表示还没有访问过的结点
+                    if(visited[i] == 1 &amp;&amp; visited[j] == 0 &amp;&amp; graph.weight[i][j] &lt; minWeight) {
+                        //替换minWeight(寻找已经访问过的结点和未访问过的结点间的权值最小的边)
+                        minWeight = graph.weight[i][j];
+                        h1 = i;
+                        h2 = j;
+                    }
+                }
+            }
+            //找到一条边是最小
+            System.out.println(&quot;边&lt;&quot; + graph.data[h1] + &quot;,&quot; + graph.data[h2] + &quot;&gt; 权值:&quot; + minWeight);
+            //将当前这个结点标记为已经访问
+            visited[h2] = 1;
+            //minWeight 重新设置为最大值 10000
+            minWeight = 10000;
+        }
+
+    }
+}
+
+class MGraph {
+    int verxs; //表示图的节点个数
+    char[] data;//存放结点数据
+    int[][] weight; //存放边，就是我们的邻接矩阵
+
+    public MGraph(int verxs) {
+        this.verxs = verxs;
+        data = new char[verxs];
+        weight = new int[verxs][verxs];
+    }
+}
+</code></pre><h1 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h1><pre><code>某城市新增7个站点(A, B, C, D, E, F, G) ，现在需要修路把7个站点连通
+各个站点的距离用边线表示(权) ，比如 A – B 距离 12公里
+问：如何修路保证各个站点都能连通，并且总的修建公路总里程最短?
+克鲁斯卡尔(Kruskal)算法，是用来求加权连通图的最小生成树的算法。
+基本思想：按照权值从小到大的顺序选择n-1条边，并保证这n-1条边不构成回路
+具体做法：首先构造一个只含n个顶点的森林，然后依权值从小到大从连通网中选择边加入到森林中，并使森林中不产生回路，直至森林变成一棵树为止
+</code></pre><p>public class KruskalCase {</p>
+<pre><code>private int edgeNum; //边的个数
+private char[] vertexs; //顶点数组
+private int[][] matrix; //邻接矩阵
+//使用 INF 表示两个顶点不能连通
+private static final int INF = Integer.MAX_VALUE;
+
+public static void main(String[] args) {
+    char[] vertexs = {&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos;};
+    //克鲁斯卡尔算法的邻接矩阵  
+      int matrix[][] = {
+      /*A*//*B*//*C*//*D*//*E*//*F*//*G*/
+/*A*/ {   0,  12, INF, INF, INF,  16,  14},
+/*B*/ {  12,   0,  10, INF, INF,   7, INF},
+/*C*/ { INF,  10,   0,   3,   5,   6, INF},
+/*D*/ { INF, INF,   3,   0,   4, INF, INF},
+/*E*/ { INF, INF,   5,   4,   0,   2,   8},
+/*F*/ {  16,   7,   6, INF,   2,   0,   9},
+/*G*/ {  14, INF, INF, INF,   8,   9,   0}}; 
+      //大家可以在去测试其它的邻接矩阵，结果都可以得到最小生成树.
+
+      //创建KruskalCase 对象实例
+      KruskalCase kruskalCase = new KruskalCase(vertexs, matrix);
+      //输出构建的
+      kruskalCase.print();
+      kruskalCase.kruskal();
+
+}
+
+//构造器
+public KruskalCase(char[] vertexs, int[][] matrix) {
+    //初始化顶点数和边的个数
+    int vlen = vertexs.length;
+
+    //初始化顶点, 复制拷贝的方式
+    this.vertexs = new char[vlen];
+    for(int i = 0; i &lt; vertexs.length; i++) {
+        this.vertexs[i] = vertexs[i];
+    }
+
+    //初始化边, 使用的是复制拷贝的方式
+    this.matrix = new int[vlen][vlen];
+    for(int i = 0; i &lt; vlen; i++) {
+        for(int j= 0; j &lt; vlen; j++) {
+            this.matrix[i][j] = matrix[i][j];
+        }
+    }
+    //统计边的条数
+    for(int i =0; i &lt; vlen; i++) {
+        for(int j = i+1; j &lt; vlen; j++) {
+            if(this.matrix[i][j] != INF) {
+                edgeNum++;
+            }
+        }
+    }
+
+}
+public void kruskal() {
+    int index = 0; //表示最后结果数组的索引
+    int[] ends = new int[edgeNum]; //用于保存&quot;已有最小生成树&quot; 中的每个顶点在最小生成树中的终点
+    //创建结果数组, 保存最后的最小生成树
+    EData[] rets = new EData[edgeNum];
+
+    //获取图中 所有的边的集合 ， 一共有12边
+    EData[] edges = getEdges();
+    System.out.println(&quot;图的边的集合=&quot; + Arrays.toString(edges) + &quot; 共&quot;+ edges.length); //12
+
+    //按照边的权值大小进行排序(从小到大)
+    sortEdges(edges);
+
+    //遍历edges 数组，将边添加到最小生成树中时，判断是准备加入的边否形成了回路，如果没有，就加入 rets, 否则不能加入
+    for(int i=0; i &lt; edgeNum; i++) {
+        //获取到第i条边的第一个顶点(起点)
+        int p1 = getPosition(edges[i].start); //p1=4
+        //获取到第i条边的第2个顶点
+        int p2 = getPosition(edges[i].end); //p2 = 5
+
+        //获取p1这个顶点在已有最小生成树中的终点
+        int m = getEnd(ends, p1); //m = 4
+        //获取p2这个顶点在已有最小生成树中的终点
+        int n = getEnd(ends, p2); // n = 5
+        //是否构成回路
+        if(m != n) { //没有构成回路
+            ends[m] = n; // 设置m 在&quot;已有最小生成树&quot;中的终点 &lt;E,F&gt; [0,0,0,0,5,0,0,0,0,0,0,0]
+            rets[index++] = edges[i]; //有一条边加入到rets数组
+        }
+    }
+    //&lt;E,F&gt; &lt;C,D&gt; &lt;D,E&gt; &lt;B,F&gt; &lt;E,G&gt; &lt;A,B&gt;。
+    //统计并打印 &quot;最小生成树&quot;, 输出  rets
+    System.out.println(&quot;最小生成树为&quot;);
+    for(int i = 0; i &lt; index; i++) {
+        System.out.println(rets[i]);
+    }
+
+
+}
+
+//打印邻接矩阵
+public void print() {
+    System.out.println(&quot;邻接矩阵为: \n&quot;);
+    for(int i = 0; i &lt; vertexs.length; i++) {
+        for(int j=0; j &lt; vertexs.length; j++) {
+            System.out.printf(&quot;%12d&quot;, matrix[i][j]);
+        }
+        System.out.println();//换行
+    }
+}
+
+/**
+ * 功能：对边进行排序处理, 冒泡排序
+ * @param edges 边的集合
+ */
+private void sortEdges(EData[] edges) {
+    for(int i = 0; i &lt; edges.length - 1; i++) {
+        for(int j = 0; j &lt; edges.length - 1 - i; j++) {
+            if(edges[j].weight &gt; edges[j+1].weight) {//交换
+                EData tmp = edges[j];
+                edges[j] = edges[j+1];
+                edges[j+1] = tmp;
+            }
+        }
+     }
+}
+/**
+ * 
+ * @param ch 顶点的值，比如&apos;A&apos;,&apos;B&apos;
+ * @return 返回ch顶点对应的下标，如果找不到，返回-1
+ */
+private int getPosition(char ch) {
+    for(int i = 0; i &lt; vertexs.length; i++) {
+        if(vertexs[i] == ch) {//找到
+            return i;
+        }
+    }
+    //找不到,返回-1
+    return -1;
+}
+/**
+ * 功能: 获取图中边，放到EData[] 数组中，后面我们需要遍历该数组
+ * 是通过matrix 邻接矩阵来获取
+ * EData[] 形式 [[&apos;A&apos;,&apos;B&apos;, 12], [&apos;B&apos;,&apos;F&apos;,7], .....]
+ * @return
+ */
+private EData[] getEdges() {
+    int index = 0;
+    EData[] edges = new EData[edgeNum];
+    for(int i = 0; i &lt; vertexs.length; i++) {
+        for(int j=i+1; j &lt;vertexs.length; j++) {
+            if(matrix[i][j] != INF) {
+                edges[index++] = new EData(vertexs[i], vertexs[j], matrix[i][j]);
+            }
+        }
+    }
+    return edges;
+}
+/**
+ * 功能: 获取下标为i的顶点的终点(), 用于后面判断两个顶点的终点是否相同
+ * @param ends ： 数组就是记录了各个顶点对应的终点是哪个,ends 数组是在遍历过程中，逐步形成
+ * @param i : 表示传入的顶点对应的下标
+ * @return 返回的就是 下标为i的这个顶点对应的终点的下标, 一会回头还有来理解
+ */
+private int getEnd(int[] ends, int i) { // i = 4 [0,0,0,0,5,0,0,0,0,0,0,0]
+    while(ends[i] != 0) {
+        i = ends[i];
+    }
+    return i;
+}
+</code></pre><p>}</p>
+<p>//创建一个类EData ，它的对象实例就表示一条边
+class EData {
+    char start; //边的一个点
+    char end; //边的另外一个点
+    int weight; //边的权值
+    //构造器
+    public EData(char start, char end, int weight) {
+        this.start = start;
+        this.end = end;
+        this.weight = weight;
+    }
+    //重写toString, 便于输出边信息
+    @Override
+    public String toString() {
+        return “EData [&lt;” + start + “, “ + end + “&gt;= “ + weight + “]”;
+    }</p>
+<p>}</p>
+<h1 id="迪杰斯特拉算法"><a href="#迪杰斯特拉算法" class="headerlink" title="迪杰斯特拉算法"></a>迪杰斯特拉算法</h1><p>战争时期，胜利乡有7个村庄(A, B, C, D, E, F, G) ，现在有六个邮差，从G点出发，需要分别把邮件分别送到 A, B, C , D, E, F 六个村庄
+各个村庄的距离用边线表示(权) ，比如 A – B 距离 5公里
+问：如何计算出G村庄到 其它各个村庄的最短距离? 
+如果从其它点出发到各个点的最短距离又是多少?
+迪杰斯特拉(Dijkstra)算法是典型最短路径算法，用于计算一个结点到其他结点的最短路径。 它的主要特点是以起始点为中心向外层层扩展(广度优先搜索思想)，直到扩展到终点为止。
+迪杰斯特拉(Dijkstra)算法过程</p>
+<p>设置出发顶点为v，顶点集合V{v1,v2,vi…}，v到V中各顶点的距离构成距离集合Dis，Dis{d1,d2,di…}，Dis集合记录着v到图中各顶点的距离(到自身可以看作0，v到vi距离对应为di)
+从Dis中选择值最小的di并移出Dis集合，同时移出V集合中对应的顶点vi，此时的v到vi即为最短路径</p>
+<p>更新Dis集合，更新规则为：比较v到V集合中顶点的距离值，与v通过vi到V集合中顶点的距离值，保留值较小的一个(同时也应该更新顶点的前驱节点为vi，表明是通过vi到达的)
+重复执行两步骤，直到最短路径顶点为目标顶点即可结束
+package com.atguigu.dijkstra;</p>
+<p>import java.util.Arrays;</p>
+<p>public class DijkstraAlgorithm {</p>
+<pre><code>public static void main(String[] args) {
+    char[] vertex = { &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos; };
+    //邻接矩阵
+    int[][] matrix = new int[vertex.length][vertex.length];
+    final int N = 65535;// 表示不可以连接
+    matrix[0]=new int[]{N,5,7,N,N,N,2};  
+    matrix[1]=new int[]{5,N,N,9,N,N,3};  
+    matrix[2]=new int[]{7,N,N,N,8,N,N};  
+    matrix[3]=new int[]{N,9,N,N,N,4,N};  
+    matrix[4]=new int[]{N,N,8,N,N,5,4};  
+    matrix[5]=new int[]{N,N,N,4,5,N,6};  
+    matrix[6]=new int[]{2,3,N,N,4,6,N};
+    //创建 Graph对象
+    Graph graph = new Graph(vertex, matrix);
+    //测试, 看看图的邻接矩阵是否ok
+    graph.showGraph();
+    //测试迪杰斯特拉算法
+    graph.dsj(2);//C
+    graph.showDijkstra();
+
+
+}
+</code></pre><p>}</p>
+<p>class Graph {
+    private char[] vertex; // 顶点数组
+    private int[][] matrix; // 邻接矩阵
+    private VisitedVertex vv; //已经访问的顶点的集合</p>
+<pre><code>// 构造器
+public Graph(char[] vertex, int[][] matrix) {
+    this.vertex = vertex;
+    this.matrix = matrix;
+}
+
+//显示结果
+public void showDijkstra() {
+    vv.show();
+}
+
+// 显示图
+public void showGraph() {
+    for (int[] link : matrix) {
+        System.out.println(Arrays.toString(link));
+    }
+}
+
+//迪杰斯特拉算法实现
+/**
+ * 
+ * @param index 表示出发顶点对应的下标
+ */
+public void dsj(int index) {
+    vv = new VisitedVertex(vertex.length, index);
+    update(index);//更新index顶点到周围顶点的距离和前驱顶点
+    for(int j = 1; j &lt;vertex.length; j++) {
+        index = vv.updateArr();// 选择并返回新的访问顶点
+        update(index); // 更新index顶点到周围顶点的距离和前驱顶点
+    } 
+}
+
+
+
+//更新index下标顶点到周围顶点的距离和周围顶点的前驱顶点,
+private void update(int index) {
+    int len = 0;
+    //根据遍历我们的邻接矩阵的  matrix[index]行
+    for(int j = 0; j &lt; matrix[index].length; j++) {
+        // len 含义是 : 出发顶点到index顶点的距离 + 从index顶点到j顶点的距离的和 
+        len = vv.getDis(index) + matrix[index][j];
+        // 如果j顶点没有被访问过，并且 len 小于出发顶点到j顶点的距离，就需要更新
+        if(!vv.in(j) &amp;&amp; len &lt; vv.getDis(j)) {
+            vv.updatePre(j, index); //更新j顶点的前驱为index顶点
+            vv.updateDis(j, len); //更新出发顶点到j顶点的距离
+        }
+    }
+}
+</code></pre><p>}</p>
+<p>// 已访问顶点集合
+class VisitedVertex {
+    // 记录各个顶点是否访问过 1表示访问过,0未访问,会动态更新
+    public int[] already_arr;
+    // 每个下标对应的值为前一个顶点下标, 会动态更新
+    public int[] pre_visited;
+    // 记录出发顶点到其他所有顶点的距离,比如G为出发顶点，就会记录G到其它顶点的距离，会动态更新，求的最短距离就会存放到dis
+    public int[] dis;</p>
+<pre><code>//构造器
+/**
+ * 
+ * @param length :表示顶点的个数 
+ * @param index: 出发顶点对应的下标, 比如G顶点，下标就是6
+ */
+public VisitedVertex(int length, int index) {
+    this.already_arr = new int[length];
+    this.pre_visited = new int[length];
+    this.dis = new int[length];
+    //初始化 dis数组
+    Arrays.fill(dis, 65535);
+    this.already_arr[index] = 1; //设置出发顶点被访问过
+    this.dis[index] = 0;//设置出发顶点的访问距离为0
+
+}
+/**
+ * 功能: 判断index顶点是否被访问过
+ * @param index
+ * @return 如果访问过，就返回true, 否则访问false
+ */
+public boolean in(int index) {
+    return already_arr[index] == 1;
+}
+
+/**
+ * 功能: 更新出发顶点到index顶点的距离
+ * @param index
+ * @param len
+ */
+public void updateDis(int index, int len) {
+    dis[index] = len;
+}
+/**
+ * 功能: 更新pre这个顶点的前驱顶点为index顶点
+ * @param pre
+ * @param index
+ */
+public void updatePre(int pre, int index) {
+    pre_visited[pre] = index;
+}
+/**
+ * 功能:返回出发顶点到index顶点的距离
+ * @param index
+ */
+public int getDis(int index) {
+    return dis[index];
+}
+
+
+/**
+ * 继续选择并返回新的访问顶点， 比如这里的G 完后，就是 A点作为新的访问顶点(注意不是出发顶点)
+ * @return
+ */
+public int updateArr() {
+    int min = 65535, index = 0;
+    for(int i = 0; i &lt; already_arr.length; i++) {
+        if(already_arr[i] == 0 &amp;&amp; dis[i] &lt; min ) {
+            min = dis[i];
+            index = i;
+        }
+    }
+    //更新 index 顶点被访问过
+    already_arr[index] = 1;
+    return index;
+}
+
+//显示最后的结果
+//即将三个数组的情况输出
+public void show() {
+
+    System.out.println(&quot;==========================&quot;);
+    //输出already_arr
+    for(int i : already_arr) {
+        System.out.print(i + &quot; &quot;);
+    }
+    System.out.println();
+    //输出pre_visited
+    for(int i : pre_visited) {
+        System.out.print(i + &quot; &quot;);
+    }
+    System.out.println();
+    //输出dis
+    for(int i : dis) {
+        System.out.print(i + &quot; &quot;);
+    }
+    System.out.println();
+    //为了好看最后的最短距离，我们处理
+    char[] vertex = { &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos; };
+    int count = 0;
+    for (int i : dis) {
+        if (i != 65535) {
+            System.out.print(vertex[count] + &quot;(&quot;+i+&quot;) &quot;);
+        } else {
+            System.out.println(&quot;N &quot;);
+        }
+        count++;
+    }
+    System.out.println();
+
+}
+</code></pre><p>}</p>
+<h1 id="弗洛伊德-Floyd-算法介绍"><a href="#弗洛伊德-Floyd-算法介绍" class="headerlink" title="弗洛伊德(Floyd)算法介绍"></a>弗洛伊德(Floyd)算法介绍</h1><p>和Dijkstra算法一样，弗洛伊德(Floyd)算法也是一种用于寻找给定的加权图中顶点间最短路径的算法。该算法名称以创始人之一、1978年图灵奖获得者、斯坦福大学计算机科学系教授罗伯特·弗洛伊德命名
+弗洛伊德算法(Floyd)计算图中各个顶点之间的最短路径
+迪杰斯特拉算法用于计算图中某一个顶点到其他顶点的最短路径。
+弗洛伊德算法 VS 迪杰斯特拉算法：迪杰斯特拉算法通过选定的被访问顶点，求出从出发访问顶点到其他顶点的最短路径；弗洛伊德算法中每一个顶点都是出发访问点，所以需要将每一个顶点看做被访问顶点，求出从每一个顶点到其他顶点的最短路径
+弗洛伊德(Floyd)算法图解分析</p>
+<p>设置顶点vi到顶点vk的最短路径已知为Lik，顶点vk到vj的最短路径已知为Lkj，顶点vi到vj的路径为Lij，则vi到vj的最短路径为：min((Lik+Lkj),Lij)，vk的取值为图中所有顶点，则可获得vi到vj的最短路径
+至于vi到vk的最短路径Lik或者vk到vj的最短路径Lkj，是以同样的方式获得</p>
+<p>弗洛伊德(Floyd)算法图解分析-举例说明</p>
+<p>package com.atguigu.floyd;</p>
+<p>import java.util.Arrays;</p>
+<p>public class FloydAlgorithm {</p>
+<pre><code>public static void main(String[] args) {
+    // 测试看看图是否创建成功
+    char[] vertex = { &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos; };
+    //创建邻接矩阵
+    int[][] matrix = new int[vertex.length][vertex.length];
+    final int N = 65535;
+    matrix[0] = new int[] { 0, 5, 7, N, N, N, 2 };
+    matrix[1] = new int[] { 5, 0, N, 9, N, N, 3 };
+    matrix[2] = new int[] { 7, N, 0, N, 8, N, N };
+    matrix[3] = new int[] { N, 9, N, 0, N, 4, N };
+    matrix[4] = new int[] { N, N, 8, N, 0, 5, 4 };
+    matrix[5] = new int[] { N, N, N, 4, 5, 0, 6 };
+    matrix[6] = new int[] { 2, 3, N, N, 4, 6, 0 };
+
+    //创建 Graph 对象
+    Graph graph = new Graph(vertex.length, matrix, vertex);
+    //调用弗洛伊德算法
+    graph.floyd();
+    graph.show();
+}
+</code></pre><p>}</p>
+<p>// 创建图
+class Graph {
+    private char[] vertex; // 存放顶点的数组
+    private int[][] dis; // 保存，从各个顶点出发到其它顶点的距离，最后的结果，也是保留在该数组
+    private int[][] pre;// 保存到达目标顶点的前驱顶点</p>
+<pre><code>// 构造器
+/**
+ * 
+ * @param length
+ *            大小
+ * @param matrix
+ *            邻接矩阵
+ * @param vertex
+ *            顶点数组
+ */
+public Graph(int length, int[][] matrix, char[] vertex) {
+    this.vertex = vertex;
+    this.dis = matrix;
+    this.pre = new int[length][length];
+    // 对pre数组初始化, 注意存放的是前驱顶点的下标
+    for (int i = 0; i &lt; length; i++) {
+        Arrays.fill(pre[i], i);
+    }
+}
+
+// 显示pre数组和dis数组
+public void show() {
+
+    //为了显示便于阅读，我们优化一下输出
+    char[] vertex = { &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos; };
+    for (int k = 0; k &lt; dis.length; k++) {
+        // 先将pre数组输出的一行
+        for (int i = 0; i &lt; dis.length; i++) {
+            System.out.print(vertex[pre[k][i]] + &quot; &quot;);
+        }
+        System.out.println();
+        // 输出dis数组的一行数据
+        for (int i = 0; i &lt; dis.length; i++) {
+            System.out.print(&quot;(&quot;+vertex[k]+&quot;到&quot;+vertex[i]+&quot;的最短路径是&quot; + dis[k][i] + &quot;) &quot;);
+        }
+        System.out.println();
+        System.out.println();
+
+    }
+
+}
+
+//弗洛伊德算法, 比较容易理解，而且容易实现
+public void floyd() {
+    int len = 0; //变量保存距离
+    //对中间顶点遍历， k 就是中间顶点的下标 [A, B, C, D, E, F, G] 
+    for(int k = 0; k &lt; dis.length; k++) { // 
+        //从i顶点开始出发 [A, B, C, D, E, F, G]
+        for(int i = 0; i &lt; dis.length; i++) {
+            //到达j顶点 // [A, B, C, D, E, F, G]
+            for(int j = 0; j &lt; dis.length; j++) {
+                len = dis[i][k] + dis[k][j];// =&gt; 求出从i 顶点出发，经过 k中间顶点，到达 j 顶点距离
+                if(len &lt; dis[i][j]) {//如果len小于 dis[i][j]
+                    dis[i][j] = len;//更新距离
+                    pre[i][j] = pre[k][j];//更新前驱顶点
+                }
+            }
+        }
+    }
+}
+</code></pre><p>}</p>
+<h1 id="马踏棋盘算法"><a href="#马踏棋盘算法" class="headerlink" title="马踏棋盘算法"></a>马踏棋盘算法</h1><pre><code>马踏棋盘算法也被称为骑士周游问题
+将马随机放在国际象棋的8×8棋盘Board[0～7][0～7]的某个方格中，马按走棋规则(马走日字)进行移动。要求每个方格只进入一次，走遍棋盘上全部64个方格
+游戏演示: http://www.4399.com/flash/146267_2.htm 
+
+1.马踏棋盘问题(骑士周游问题)实际上是图的深度优先搜索(DFS)的应用。（还能用贪心算法优化）
+2.如果使用回溯（就是深度优先搜索）来解决，假如马儿踏了53个点，
+如图：走到了第53个，坐标（1,0），发现已经走到尽头，没办法，那就只能回退了，
+查看其他的路径，就在棋盘上不停的回溯…… ，思路分析+代码实现
+
+//代码实现
+public class HorseChessboard {
+
+    private static int X; // 棋盘的列数
+    private static int Y; // 棋盘的行数
+    //创建一个数组，标记棋盘的各个位置是否被访问过
+    private static boolean visited[];
+    //使用一个属性，标记是否棋盘的所有位置都被访问
+    private static boolean finished; // 如果为true,表示成功
+
+    public static void main(String[] args) {
+        System.out.println(&quot;骑士周游算法，开始运行~~&quot;);
+        //测试骑士周游算法是否正确
+        X = 8;
+        Y = 8;
+        int row = 1; //马儿初始位置的行，从1开始编号
+        int column = 1; //马儿初始位置的列，从1开始编号
+        //创建棋盘
+        int[][] chessboard = new int[X][Y];
+        visited = new boolean[X * Y];//初始值都是false
+        //测试一下耗时
+        long start = System.currentTimeMillis();
+        traversalChessboard(chessboard, row - 1, column - 1, 1);
+        long end = System.currentTimeMillis();
+        System.out.println(&quot;共耗时: &quot; + (end - start) + &quot; 毫秒&quot;);
+
+        //输出棋盘的最后情况
+        for(int[] rows : chessboard) {
+            for(int step: rows) {
+                System.out.print(step + &quot;\t&quot;);
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+    * 完成骑士周游问题的算法
+    * @param chessboard 棋盘
+    * @param row 马儿当前的位置的行 从0开始 
+    * @param column 马儿当前的位置的列  从0开始
+    * @param step 是第几步 ,初始位置就是第1步 
+    */
+    public static void traversalChessboard(int[][] chessboard, int row, int column, int step) {
+        chessboard[row][column] = step;
+        //row = 4 X = 8 column = 4 = 4 * 8 + 4 = 36
+        visited[row * X + column] = true; //标记该位置已经访问
+        //获取当前位置可以走的下一个位置的集合 
+        ArrayList&lt;Point&gt; ps = next(new Point(column, row));
+        //对ps进行排序,排序的规则就是对ps的所有的Point对象的下一步的位置的数目，进行非递减排序
+        sort(ps);
+        //遍历 ps
+        while(!ps.isEmpty()) {
+            Point p = ps.remove(0);//取出下一个可以走的位置
+            //判断该点是否已经访问过
+            if(!visited[p.y * X + p.x]) {//说明还没有访问过
+                traversalChessboard(chessboard, p.y, p.x, step + 1);
+            }
+        }
+        //判断马儿是否完成了任务，使用   step 和应该走的步数比较 ， 
+        //如果没有达到数量，则表示没有完成任务，将整个棋盘置0
+        //说明: step &lt; X * Y  成立的情况有两种
+        //1. 棋盘到目前位置,仍然没有走完
+        //2. 棋盘处于一个回溯过程
+        if(step &lt; X * Y &amp;&amp; !finished ) {
+            chessboard[row][column] = 0;
+            visited[row * X + column] = false;
+        } else {
+            finished = true;
+        }
+
+    }
+
+    /**
+    * 功能： 根据当前位置(Point对象)，计算马儿还能走哪些位置(Point)，并放入到一个集合中(ArrayList), 最多有8个位置
+    * @param curPoint
+    * @return
+    */
+    public static ArrayList&lt;Point&gt; next(Point curPoint) {
+        //创建一个ArrayList
+        ArrayList&lt;Point&gt; ps = new ArrayList&lt;Point&gt;();
+        //创建一个Point
+        Point p1 = new Point();
+        //表示马儿可以走5这个位置
+        if((p1.x = curPoint.x - 2) &gt;= 0 &amp;&amp; (p1.y = curPoint.y -1) &gt;= 0) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走6这个位置
+        if((p1.x = curPoint.x - 1) &gt;=0 &amp;&amp; (p1.y=curPoint.y-2)&gt;=0) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走7这个位置
+        if ((p1.x = curPoint.x + 1) &lt; X &amp;&amp; (p1.y = curPoint.y - 2) &gt;= 0) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走0这个位置
+        if ((p1.x = curPoint.x + 2) &lt; X &amp;&amp; (p1.y = curPoint.y - 1) &gt;= 0) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走1这个位置
+        if ((p1.x = curPoint.x + 2) &lt; X &amp;&amp; (p1.y = curPoint.y + 1) &lt; Y) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走2这个位置
+        if ((p1.x = curPoint.x + 1) &lt; X &amp;&amp; (p1.y = curPoint.y + 2) &lt; Y) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走3这个位置
+        if ((p1.x = curPoint.x - 1) &gt;= 0 &amp;&amp; (p1.y = curPoint.y + 2) &lt; Y) {
+            ps.add(new Point(p1));
+        }
+        //判断马儿可以走4这个位置
+        if ((p1.x = curPoint.x - 2) &gt;= 0 &amp;&amp; (p1.y = curPoint.y + 1) &lt; Y) {
+            ps.add(new Point(p1));
+        }
+        return ps;
+    }
+
+    //根据当前这个一步的所有的下一步的选择位置，进行非递减排序, 减少回溯的次数
+    public static void sort(ArrayList&lt;Point&gt; ps) {
+        ps.sort(new Comparator&lt;Point&gt;() {
+
+            @Override
+            public int compare(Point o1, Point o2) {
+                // TODO Auto-generated method stub
+                //获取到o1的下一步的所有位置个数
+                int count1 = next(o1).size();
+                //获取到o2的下一步的所有位置个数
+                int count2 = next(o2).size();
+                if(count1 &lt; count2) {
+                    return -1;
+                } else if (count1 == count2) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+
+        });
+    }
+}
+</code></pre>
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#注解','#ajax','#MongoDB','#art-template','#boostrap','#css','#windows','#dubbo','#exception','#express','#缓存','#图表库','#git','#hexo','#html','#http协议','#json','#jsp','#linux','#正则表达式','#quartz','#shiro','#swagger','#javascript','#webpack','#vue.js','#xml','#数据结构和算法','#动态代理','#开发规范','#异步编程','#前端','#后端','#排序算法','#系统测试','#计算机','#部署','#软件开发','#错误解决','#FastDFS','#activemq','#api','#easy-ui','#utils','#java基础语法','#jquery','#maven','#mqtt','#mycat','#nginx','#reflect','#redis','#node.js','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#konckout.js','#linux服务器搭建','#mysql','#struts2','#面试题','#hibrenate','#lucene','#solr','#WEB','#源码学习','#mybatis','#oracle','#spring','#springmvc','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
