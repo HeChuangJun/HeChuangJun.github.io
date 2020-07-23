@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>操作系统之基础篇 | 何创军的博客</title>
+  <meta name="keywords" content=" 计算机 ">
+  <meta name="description" content="操作系统之基础篇 | 何创军的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="个人简历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="resume">
+<meta property="og:url" content="http://yoursite.com/resume/index.html">
+<meta property="og:site_name" content="何创军的博客">
+<meta property="og:description" content="个人简历">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-22T11:12:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resume">
+<meta name="twitter:description" content="个人简历">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>何创军</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/HeChuangJun" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:1105128664@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(128)</small></div></li>
+    
+        
+            
+            <li><div data-rel="javaee">javaee<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="设计模式">设计模式<small>(24)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(18)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="javase">javase<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="中间件">中间件<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="博客">博客<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="版本管理">版本管理<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="后端">后端<small>(22)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="数据结构和算法">数据结构和算法<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机">计算机<small>(12)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="网址收藏">网址收藏<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="面试题">面试题<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="手记">手记<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="128">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">freemarker</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">MongoDB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">设计模式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ajax</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">注解</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">boostrap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">art-template</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">css</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">缓存</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">dubbo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">exception</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">git</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">express</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">http协议</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">图表库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">html</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">json</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">quartz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">shiro</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">正则表达式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">swagger</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">javascript</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">vue.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">webpack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态代理</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">数据结构和算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">前端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">开发规范</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">异步编程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">计算机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后端</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">排序算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统测试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">网址收藏</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">面试题</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">错误解决</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">部署</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">FastDFS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">activemq</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">api</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">easy-ui</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">java基础语法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">jquery</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">utils</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">mqtt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">nginx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mycat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">node.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">redis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">reflect</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">socket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">svn</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">webservice</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">websocket</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">多线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">面向对象</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">collection</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">io</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux服务器搭建</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">konckout.js</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hibrenate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lucene</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">solr</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">WEB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">源码学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">mybatis</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">oracle</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">springmvc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">线程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">springboot</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class="设计模式 "
+           href="/2020/01/01/设计模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式">设计模式</span>
+            <span class="post-date" title="2020-01-01 23:59:59">2020/01/01</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/21/单例模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="单例模式">单例模式</span>
+            <span class="post-date" title="2019-12-21 20:20:40">2019/12/21</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/29/工厂模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="工厂模式">工厂模式</span>
+            <span class="post-date" title="2019-12-29 16:34:42">2019/12/29</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/29/原型模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="原型模式">原型模式</span>
+            <span class="post-date" title="2019-12-29 18:39:47">2019/12/29</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/29/建造者模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="建造者模式">建造者模式</span>
+            <span class="post-date" title="2019-12-29 21:45:13">2019/12/29</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/29/适配器模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="适配器模式">适配器模式</span>
+            <span class="post-date" title="2019-12-29 22:40:08">2019/12/29</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/桥接模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="桥接模式">桥接模式</span>
+            <span class="post-date" title="2019-12-30 10:51:47">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/装饰者模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="装饰者模式">装饰者模式</span>
+            <span class="post-date" title="2019-12-30 13:54:49">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/组合模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="组合模式">组合模式</span>
+            <span class="post-date" title="2019-12-30 14:09:39">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/外观模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="外观模式">外观模式</span>
+            <span class="post-date" title="2019-12-30 14:09:48">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/享元模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="享元模式">享元模式</span>
+            <span class="post-date" title="2019-12-30 14:09:57">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/代理模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="代理模式">代理模式</span>
+            <span class="post-date" title="2019-12-30 14:10:10">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/模板方法模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="模板方法模式">模板方法模式</span>
+            <span class="post-date" title="2019-12-30 14:10:34">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/命令模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="命令模式">命令模式</span>
+            <span class="post-date" title="2019-12-30 23:20:29">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/访问者模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="访问者模式">访问者模式</span>
+            <span class="post-date" title="2019-12-30 23:20:52">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/迭代器模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="迭代器模式">迭代器模式</span>
+            <span class="post-date" title="2019-12-30 23:21:03">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/观察者模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="观察者模式">观察者模式</span>
+            <span class="post-date" title="2019-12-30 23:21:22">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2018/01/01/中介者模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="中介者模式">中介者模式</span>
+            <span class="post-date" title="2018-01-01 23:59:59">2018/01/01</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/备忘录模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="备忘录模式">备忘录模式</span>
+            <span class="post-date" title="2019-12-30 23:21:39">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/解释器模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="解释器模式">解释器模式</span>
+            <span class="post-date" title="2019-12-30 23:21:51">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/状态模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="状态模式">状态模式</span>
+            <span class="post-date" title="2019-12-30 23:21:59">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/策略模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="策略模式">策略模式</span>
+            <span class="post-date" title="2019-12-30 23:22:12">2019/12/30</span>
+        </a>
+        
+        <a id="top" class="设计模式 "
+           href="/2019/12/30/责任链模式/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="责任链模式">责任链模式</span>
+            <span class="post-date" title="2019-12-30 23:22:25">2019/12/30</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/04/19/操作系统/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="操作系统">操作系统</span>
+            <span class="post-date" title="2020-04-19 15:08:28">2020/04/19</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/03/20/计算机网络之应用层篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络之应用层篇">计算机网络之应用层篇</span>
+            <span class="post-date" title="2020-03-20 21:07:51">2020/03/20</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/03/19/计算机网络之传输层/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络之传输层">计算机网络之传输层</span>
+            <span class="post-date" title="2020-03-19 22:22:58">2020/03/19</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/03/15/计算机网络之网络层篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络之网络层篇">计算机网络之网络层篇</span>
+            <span class="post-date" title="2020-03-15 20:08:05">2020/03/15</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/03/15/计算机网络之概述篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络之概述篇">计算机网络之概述篇</span>
+            <span class="post-date" title="2020-03-15 14:47:48">2020/03/15</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/03/02/操作系统提升篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="操作系统提升篇">操作系统提升篇</span>
+            <span class="post-date" title="2020-03-02 19:39:25">2020/03/02</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/02/29/操作系统之基础篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="操作系统之基础篇">操作系统之基础篇</span>
+            <span class="post-date" title="2020-02-29 21:15:53">2020/02/29</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/02/29/计算机组成原理之计算篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理之计算篇">计算机组成原理之计算篇</span>
+            <span class="post-date" title="2020-02-29 16:38:57">2020/02/29</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2020/02/27/计算机组成原理之组成篇/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理之组成篇">计算机组成原理之组成篇</span>
+            <span class="post-date" title="2020-02-27 20:58:33">2020/02/27</span>
+        </a>
+        
+        <a  class="网址收藏 "
+           href="/2020/02/17/网址收藏/"
+           data-tag="网址收藏"
+           data-author="" >
+            <span class="post-title" title="网址收藏">网址收藏</span>
+            <span class="post-date" title="2020-02-17 16:21:37">2020/02/17</span>
+        </a>
+        
+        <a  class="面试题 "
+           href="/2020/01/12/设计模式面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="设计模式面试题">设计模式面试题</span>
+            <span class="post-date" title="2020-01-12 15:53:49">2020/01/12</span>
+        </a>
+        
+        <a  class="设计模式 "
+           href="/2019/12/23/UML/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="UML">UML</span>
+            <span class="post-date" title="2019-12-23 19:08:06">2019/12/23</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/11/11/多路查找树/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="多路查找树">多路查找树</span>
+            <span class="post-date" title="2019-11-11 18:54:55">2019/11/11</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/11/10/树结构实际应用/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="树结构实际应用">树结构实际应用</span>
+            <span class="post-date" title="2019-11-10 17:48:57">2019/11/10</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/常用算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="常用算法">常用算法</span>
+            <span class="post-date" title="2019-09-22 10:44:17">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/图/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="图">图</span>
+            <span class="post-date" title="2019-09-22 10:43:56">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/树结构的基础部分/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="树结构的基础部分">树结构的基础部分</span>
+            <span class="post-date" title="2019-09-22 10:43:48">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/哈希表/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="哈希表">哈希表</span>
+            <span class="post-date" title="2019-09-22 10:43:35">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/查找算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="查找算法">查找算法</span>
+            <span class="post-date" title="2019-09-22 10:43:24">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/排序算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="排序算法">排序算法</span>
+            <span class="post-date" title="2019-09-22 10:43:13">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/递归/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="递归">递归</span>
+            <span class="post-date" title="2019-09-22 10:42:56">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/栈/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="栈">栈</span>
+            <span class="post-date" title="2019-09-22 10:42:46">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/链表/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="链表">链表</span>
+            <span class="post-date" title="2019-09-22 10:42:33">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/稀疏数组和队列/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="稀疏数组和队列">稀疏数组和队列</span>
+            <span class="post-date" title="2019-09-22 10:42:19">2019/09/22</span>
+        </a>
+        
+        <a  class="数据结构和算法 "
+           href="/2019/09/22/数据结构和算法/"
+           data-tag="数据结构和算法"
+           data-author="" >
+            <span class="post-title" title="数据结构和算法概述">数据结构和算法概述</span>
+            <span class="post-date" title="2019-09-22 10:42:02">2019/09/22</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/09/09/架构设计/"
+           data-tag="后端"
+           data-author="" >
+            <span class="post-title" title="架构设计">架构设计</span>
+            <span class="post-date" title="2019-09-09 17:24:21">2019/09/09</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2019/08/05/html/"
+           data-tag="html"
+           data-author="" >
+            <span class="post-title" title="html">html</span>
+            <span class="post-date" title="2019-08-05 16:33:19">2019/08/05</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/18/动态代理/"
+           data-tag="动态代理"
+           data-author="" >
+            <span class="post-title" title="动态代理">动态代理</span>
+            <span class="post-date" title="2019-06-18 21:47:10">2019/06/18</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2019/06/17/annotation/"
+           data-tag="注解"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2019-06-17 22:00:02">2019/06/17</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/06/07/开发规范/"
+           data-tag="开发规范"
+           data-author="" >
+            <span class="post-title" title="开发规范">开发规范</span>
+            <span class="post-date" title="2019-06-07 19:11:39">2019/06/07</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/06/07/dos/"
+           data-tag="windows"
+           data-author="" >
+            <span class="post-title" title="dos">dos</span>
+            <span class="post-date" title="2019-06-07 18:30:38">2019/06/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/04/线程相关类源码学习/"
+           data-tag="源码学习"
+           data-author="" >
+            <span class="post-title" title="线程相关类源码学习">线程相关类源码学习</span>
+            <span class="post-date" title="2019-05-04 16:49:33">2019/05/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2019/05/01/高并发/"
+           data-tag="线程"
+           data-author="" >
+            <span class="post-title" title="高并发">高并发</span>
+            <span class="post-date" title="2019-05-01 11:41:30">2019/05/01</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机网络/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机网络">计算机网络</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/12/23/计算机组成原理之概论/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理之概论">计算机组成原理之概论</span>
+            <span class="post-date" title="2018-12-23 11:30:14">2018/12/23</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/12/02/mycat/"
+           data-tag="mycat"
+           data-author="" >
+            <span class="post-title" title="mycat">mycat</span>
+            <span class="post-date" title="2018-12-02 11:02:57">2018/12/02</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/12/02/Freemarker/"
+           data-tag="freemarker"
+           data-author="" >
+            <span class="post-title" title="freemarker">freemarker</span>
+            <span class="post-date" title="2018-12-02 09:50:48">2018/12/02</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/11/05/linux服务器搭建/"
+           data-tag="linux服务器搭建"
+           data-author="" >
+            <span class="post-title" title="linux服务器搭建">linux服务器搭建</span>
+            <span class="post-date" title="2018-11-05 17:16:18">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/05/utils/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="js utils">js utils</span>
+            <span class="post-date" title="2018-11-05 09:39:53">2018/11/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/05/java utils/"
+           data-tag="utils"
+           data-author="" >
+            <span class="post-title" title="java utils">java utils</span>
+            <span class="post-date" title="2018-11-05 09:12:48">2018/11/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/11/04/highcharts/"
+           data-tag="图表库"
+           data-author="" >
+            <span class="post-title" title="highcharts">highcharts</span>
+            <span class="post-date" title="2018-11-04 23:01:54">2018/11/04</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/11/04/quartz/"
+           data-tag="quartz"
+           data-author="" >
+            <span class="post-title" title="quartz">quartz</span>
+            <span class="post-date" title="2018-11-04 23:01:22">2018/11/04</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/11/04/ehcahe/"
+           data-tag="缓存"
+           data-author="" >
+            <span class="post-title" title="ehcache">ehcache</span>
+            <span class="post-date" title="2018-11-04 22:51:03">2018/11/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/08/activemq/"
+           data-tag="activemq"
+           data-author="" >
+            <span class="post-title" title="activemq">activemq</span>
+            <span class="post-date" title="2018-10-08 21:24:30">2018/10/08</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/07/solr/"
+           data-tag="solr"
+           data-author="" >
+            <span class="post-title" title="solr">solr</span>
+            <span class="post-date" title="2018-10-07 10:33:06">2018/10/07</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/10/06/lucene/"
+           data-tag="lucene"
+           data-author="" >
+            <span class="post-title" title="lucene">lucene</span>
+            <span class="post-date" title="2018-10-06 19:30:00">2018/10/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/10/05/富文本编辑器/"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="富文本编辑器">富文本编辑器</span>
+            <span class="post-date" title="2018-10-05 09:29:12">2018/10/05</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/FastDFS/"
+           data-tag="FastDFS"
+           data-author="" >
+            <span class="post-title" title="FastDFS">FastDFS</span>
+            <span class="post-date" title="2018-10-04 10:18:09">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/04/nginx/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="nginx">nginx</span>
+            <span class="post-date" title="2018-10-04 07:32:35">2018/10/04</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/10/03/dubbo/"
+           data-tag="dubbo"
+           data-author="" >
+            <span class="post-title" title="dubbo">dubbo</span>
+            <span class="post-date" title="2018-10-03 09:17:16">2018/10/03</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/09/25/webservice/"
+           data-tag="webservice"
+           data-author="" >
+            <span class="post-title" title="webservice">webservice</span>
+            <span class="post-date" title="2018-09-25 15:12:29">2018/09/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/17/vuex/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vuex">vuex</span>
+            <span class="post-date" title="2018-09-17 09:05:59">2018/09/17</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/09/04/异步编程/"
+           data-tag="异步编程"
+           data-author="" >
+            <span class="post-title" title="异步编程">异步编程</span>
+            <span class="post-date" title="2018-09-04 20:38:02">2018/09/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/25/webpack/"
+           data-tag="webpack"
+           data-author="" >
+            <span class="post-title" title="webpack">webpack</span>
+            <span class="post-date" title="2018-08-25 20:35:03">2018/08/25</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/09/vue-js/"
+           data-tag="vue.js"
+           data-author="" >
+            <span class="post-title" title="vue.js">vue.js</span>
+            <span class="post-date" title="2018-08-09 20:48:40">2018/08/09</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/08/06/MongoDB/"
+           data-tag="MongoDB"
+           data-author="" >
+            <span class="post-title" title="MongoDB">MongoDB</span>
+            <span class="post-date" title="2018-08-06 16:51:39">2018/08/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/08/05/express/"
+           data-tag="express"
+           data-author="" >
+            <span class="post-title" title="express框架">express框架</span>
+            <span class="post-date" title="2018-08-05 19:52:55">2018/08/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/art-template/"
+           data-tag="art-template"
+           data-author="" >
+            <span class="post-title" title="art-template">art-template</span>
+            <span class="post-date" title="2018-07-30 20:17:43">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/30/node-js/"
+           data-tag="node.js"
+           data-author="" >
+            <span class="post-title" title="node.js">node.js</span>
+            <span class="post-date" title="2018-07-30 09:34:15">2018/07/30</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/07/29/konckout-js/"
+           data-tag="konckout.js"
+           data-author="" >
+            <span class="post-title" title="konckout.js">konckout.js</span>
+            <span class="post-date" title="2018-07-29 09:53:19">2018/07/29</span>
+        </a>
+        
+        <a  class="中间件 "
+           href="/2018/07/06/mqtt/"
+           data-tag="mqtt"
+           data-author="" >
+            <span class="post-title" title="mqtt">mqtt</span>
+            <span class="post-date" title="2018-07-06 16:28:40">2018/07/06</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/24/部署/"
+           data-tag="部署"
+           data-author="" >
+            <span class="post-title" title="部署">部署</span>
+            <span class="post-date" title="2018-06-24 23:13:01">2018/06/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/18/websocket/"
+           data-tag="websocket"
+           data-author="" >
+            <span class="post-title" title="websocket">websocket</span>
+            <span class="post-date" title="2018-06-18 11:09:55">2018/06/18</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/16/swagger/"
+           data-tag="swagger"
+           data-author="" >
+            <span class="post-title" title="swagger">swagger</span>
+            <span class="post-date" title="2018-06-16 16:28:47">2018/06/16</span>
+        </a>
+        
+        <a  class="博客 "
+           href="/2018/06/16/hexo/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo">hexo</span>
+            <span class="post-date" title="2018-06-16 11:33:35">2018/06/16</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/14/json/"
+           data-tag="json"
+           data-author="" >
+            <span class="post-title" title="json">json</span>
+            <span class="post-date" title="2018-06-14 20:25:35">2018/06/14</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/03/系统测试/"
+           data-tag="系统测试"
+           data-author="" >
+            <span class="post-title" title="系统测试">系统测试</span>
+            <span class="post-date" title="2018-06-03 22:37:22">2018/06/03</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/06/03/git和github/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git和github">git和github</span>
+            <span class="post-date" title="2018-06-03 10:21:12">2018/06/03</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/06/02/shiro/"
+           data-tag="shiro"
+           data-author="" >
+            <span class="post-title" title="shiro">shiro</span>
+            <span class="post-date" title="2018-06-02 23:34:32">2018/06/02</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/24/springboot/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="springboot">springboot</span>
+            <span class="post-date" title="2018-05-24 22:25:53">2018/05/24</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/20/easy-ui/"
+           data-tag="easy-ui"
+           data-author="" >
+            <span class="post-title" title="easy-ui">easy-ui</span>
+            <span class="post-date" title="2018-05-20 16:56:12">2018/05/20</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/19/面试题/"
+           data-tag="面试题"
+           data-author="" >
+            <span class="post-title" title="面试题">面试题</span>
+            <span class="post-date" title="2018-05-19 08:54:13">2018/05/19</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/17/maven/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven">maven</span>
+            <span class="post-date" title="2018-05-17 09:50:23">2018/05/17</span>
+        </a>
+        
+        <a  class="版本管理 "
+           href="/2018/05/16/svn/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn">svn</span>
+            <span class="post-date" title="2018-05-16 20:43:11">2018/05/16</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/15/oracle/"
+           data-tag="oracle"
+           data-author="" >
+            <span class="post-title" title="oracle">oracle</span>
+            <span class="post-date" title="2018-05-15 20:56:07">2018/05/15</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/14/mysql/"
+           data-tag="mysql"
+           data-author="" >
+            <span class="post-title" title="mysql">mysql</span>
+            <span class="post-date" title="2018-05-14 20:55:44">2018/05/14</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/13/springmvc/"
+           data-tag="springmvc"
+           data-author="" >
+            <span class="post-title" title="springmvc">springmvc</span>
+            <span class="post-date" title="2018-05-13 20:09:43">2018/05/13</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/12/mybatis/"
+           data-tag="mybatis"
+           data-author="" >
+            <span class="post-title" title="mybatis">mybatis</span>
+            <span class="post-date" title="2018-05-12 20:09:29">2018/05/12</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/11/spring/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2018-05-11 09:50:46">2018/05/11</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/10/struts2/"
+           data-tag="struts2"
+           data-author="" >
+            <span class="post-title" title="struts2">struts2</span>
+            <span class="post-date" title="2018-05-10 09:50:35">2018/05/10</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/09/hibernate/"
+           data-tag="hibrenate"
+           data-author="" >
+            <span class="post-title" title="hibernate">hibernate</span>
+            <span class="post-date" title="2018-05-09 09:50:05">2018/05/09</span>
+        </a>
+        
+        <a  class="数据库 "
+           href="/2018/05/08/redis/"
+           data-tag="redis"
+           data-author="" >
+            <span class="post-title" title="redis">redis</span>
+            <span class="post-date" title="2018-05-08 20:56:28">2018/05/08</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2018/05/08/linux/"
+           data-tag="linux"
+           data-author="" >
+            <span class="post-title" title="linux">linux</span>
+            <span class="post-date" title="2018-05-08 20:18:41">2018/05/08</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/08/ajax/"
+           data-tag="ajax"
+           data-author="" >
+            <span class="post-title" title="ajax">ajax</span>
+            <span class="post-date" title="2018-05-08 17:28:36">2018/05/08</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/07/jsp/"
+           data-tag="jsp"
+           data-author="" >
+            <span class="post-title" title="jsp">jsp</span>
+            <span class="post-date" title="2018-05-07 16:31:36">2018/05/07</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/06/web/"
+           data-tag="WEB"
+           data-author="" >
+            <span class="post-title" title="WEB">WEB</span>
+            <span class="post-date" title="2018-05-06 15:21:52">2018/05/06</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/05/boostrap/"
+           data-tag="boostrap"
+           data-author="" >
+            <span class="post-title" title="boostrap">boostrap</span>
+            <span class="post-date" title="2018-05-05 19:42:14">2018/05/05</span>
+        </a>
+        
+        <a  class="javaee "
+           href="/2018/05/05/http/"
+           data-tag="http协议"
+           data-author="" >
+            <span class="post-title" title="http协议">http协议</span>
+            <span class="post-date" title="2018-05-05 15:24:48">2018/05/05</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/05/05/xml/"
+           data-tag="xml"
+           data-author="" >
+            <span class="post-title" title="xml">xml</span>
+            <span class="post-date" title="2018-05-05 15:24:23">2018/05/05</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/04/jquery/"
+           data-tag="jquery"
+           data-author="" >
+            <span class="post-title" title="jquery">jquery</span>
+            <span class="post-date" title="2018-05-04 15:48:39">2018/05/04</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/03/javascript/"
+           data-tag="javascript"
+           data-author="" >
+            <span class="post-title" title="javascript">javascript</span>
+            <span class="post-date" title="2018-05-03 15:48:28">2018/05/03</span>
+        </a>
+        
+        <a  class="前端 "
+           href="/2018/05/02/css/"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="css">css</span>
+            <span class="post-date" title="2018-05-02 16:29:04">2018/05/02</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/05/01/reflect/"
+           data-tag="reflect"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2018-05-01 22:45:02">2018/05/01</span>
+        </a>
+        
+        <a  class="手记 "
+           href="/2018/05/01/错误解决/"
+           data-tag="错误解决"
+           data-author="" >
+            <span class="post-title" title="错误解决">错误解决</span>
+            <span class="post-date" title="2018-05-01 21:34:38">2018/05/01</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/30/socket/"
+           data-tag="socket"
+           data-author="" >
+            <span class="post-title" title="socket">socket</span>
+            <span class="post-date" title="2018-04-30 22:44:55">2018/04/30</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/29/exception/"
+           data-tag="exception"
+           data-author="" >
+            <span class="post-title" title="exception">exception</span>
+            <span class="post-date" title="2018-04-29 22:44:34">2018/04/29</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/28/多线程/"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程">多线程</span>
+            <span class="post-date" title="2018-04-28 22:44:22">2018/04/28</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/27/io/"
+           data-tag="io"
+           data-author="" >
+            <span class="post-title" title="io">io</span>
+            <span class="post-date" title="2018-04-27 22:44:09">2018/04/27</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/26/collection/"
+           data-tag="collection"
+           data-author="" >
+            <span class="post-title" title="collection">collection</span>
+            <span class="post-date" title="2018-04-26 22:43:54">2018/04/26</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/25/api/"
+           data-tag="api"
+           data-author="" >
+            <span class="post-title" title="api">api</span>
+            <span class="post-date" title="2018-04-25 22:27:45">2018/04/25</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/面向对象/"
+           data-tag="面向对象"
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2018-04-24 21:30:55">2018/04/24</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/24/regularexpression/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-04-24 16:28:40">2018/04/24</span>
+        </a>
+        
+        <a  class="后端 "
+           href="/2018/04/23/算法/"
+           data-tag="排序算法"
+           data-author="" >
+            <span class="post-title" title="算法">算法</span>
+            <span class="post-date" title="2018-04-23 20:26:13">2018/04/23</span>
+        </a>
+        
+        <a  class="javase "
+           href="/2018/04/23/java基础语法/"
+           data-tag="java基础语法"
+           data-author="" >
+            <span class="post-title" title="java基础语法">java基础语法</span>
+            <span class="post-date" title="2018-04-23 16:40:42">2018/04/23</span>
+        </a>
+        
+        <a  class="计算机 "
+           href="/2018/04/22/计算机常识/"
+           data-tag="计算机"
+           data-author="" >
+            <span class="post-title" title="计算机常识">计算机常识</span>
+            <span class="post-date" title="2018-04-22 20:19:07">2018/04/22</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-操作系统之基础篇" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">操作系统之基础篇</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="计算机">计算机</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">计算机</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-19 15:10:23'>2020-02-29 21:15</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统演进"><span class="toc-text">操作系统演进</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统概览"><span class="toc-text">操作系统概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进程管理之进程实体"><span class="toc-text">进程管理之进程实体</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux进程管理"><span class="toc-text">linux进程管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#作业管理之进程调度"><span class="toc-text">作业管理之进程调度</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#作业管理之死锁"><span class="toc-text">作业管理之死锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储管理之内存分配与回收"><span class="toc-text">存储管理之内存分配与回收</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储管理之段页式存储管理（进程）"><span class="toc-text">存储管理之段页式存储管理（进程）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储管理之虚拟内存"><span class="toc-text">存储管理之虚拟内存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux的存储管理"><span class="toc-text">linux的存储管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统的文件管理"><span class="toc-text">操作系统的文件管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux文件的基本操作"><span class="toc-text">linux文件的基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux的文件系统"><span class="toc-text">linux的文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作系统的设备管理"><span class="toc-text">操作系统的设备管理</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="操作系统演进"><a href="#操作系统演进" class="headerlink" title="操作系统演进"></a>操作系统演进</h1><img src="/2020/02/29/操作系统之基础篇/1.PNG" title="1.PNG">
+<pre><code>多道程序设计
+    早起批处理系统只能一次处理一个任务
+    多道程序设计使得批处理系统可以一次处理多个任务
+    多道程序设计是指在计算机内存中同时存放多个程序
+    多道程序在计算机的管理程序之下互相穿插运行
+    对多道程序的管理是操作系统的重要功能
+</code></pre><h1 id="操作系统概览"><a href="#操作系统概览" class="headerlink" title="操作系统概览"></a>操作系统概览</h1><pre><code>操作系统的诞生解决了什么问题？
+    操作系统的出现解决了计算机操作难度大、计算机资源利用效率低等问题
+什么是批处理操作系统，它有什么特点？
+    批处理操作系统的特点是批量输入任务，有效提升计算机资源利用率。
+什么是分时操作系统，它有什么特点？
+    分时操作系统是指分时复用计算机资源的操作系统，可以多个用户使用一台计算机，多个程序分时共享计算机资源。
+what&amp;why
+    操作系统是指管理计算机硬件和软件资源的计算机程序（是软件）
+    管理配置内存、决定资源供需顺序、控制输入输出设备等
+    操作系统提供让用户和系统交互的操作界面
+    ios、安卓、windows、linux
+    管理硬件、提供用户交互的软件系统
+
+    不可能直接操作计算机硬件
+    设备种类繁多复杂，需要统一界面
+    操作系统的简易性使得更多人能够使用计算机
+操作系统基本功能
+    操作系统统一管理计算机资源,用户无需面向硬件接口编程
+    操作系统实现了对计算机资源的抽象（ 网络资源、处理器资源、存储器资源、IO设备资源、文件资源）
+    操作系统提供了用户与计算机之间的接口,图像窗口形式、命令形式、系统调用形式、应用程序
+操作系统相关概念
+    并发性：
+        并行：两个或多个事件可以在同一个时刻发生
+        并发：两个或多个事件可以在同一个时间间隔发生
+</code></pre><img src="/2020/02/29/操作系统之基础篇/2.PNG" title="2.PNG">
+<pre><code>共享性：
+    表现
+        计算机资源可以同时提供给多个用户、多道程序使用
+    操作系统中的资源可供多个并发的程序共同使用（共享）
+    多个程序可以同时使用主存资源
+    资源共享根据属性可以分为
+        互斥共享形式
+            当资源被程序A占用时、其他想用的话只能等待
+            只有进程A使用完以后，其他进程才可以使用该资源
+            打印机
+        同时访问形式
+            某种资源在一段时间内并发地被多个程序访问
+            这种同时是宏观的，从宏观上去看是该资源可以被同时访问
+            不能并行
+            磁盘（够快看不出来）
+    虚拟性
+        操作系统可以把计算机的物理实体转变为若干个逻辑实体以提供多个用户、多道程序使用
+
+        把一个物理实体转变为若干个逻辑实体
+        物理实体真实存在，逻辑实体是虚拟的
+        虚拟的技术主要有
+            时分复用技术
+                资源在时间上进行复用，不同程序并发使用
+                多道程序分时使用计算机的硬件资源
+                提高资源的利用率
+                    虚拟处理器技术：
+                        借助多道程序设计技术
+                        为每个程序建立进程
+                        多个程序分时复用处理器
+                    虚拟设备技术
+                        物理设备虚拟为多个逻辑设备
+                        每个程序占用一个逻辑设备
+                        多个程序通过逻辑设备并发访问
+            空分复用技术
+                实现虚拟磁盘、虚拟内存
+                提高资源利用率、提升编程效率
+                    虚拟磁盘技术
+                        物理磁盘虚拟为逻辑磁盘 
+                        C、D、E盘
+                        使用起来更安全、方便
+                    虚拟内存技术
+                        在逻辑上扩大程序的存储容量
+                        使用比实际内存更大的容量
+                        大大提升编程效率
+            异步性
+                进程以不可预知的速度向前推进。内存中的每个进程何时执行,何时暂停,以怎样的速度向前推进,每道程序总共需要多少时间才能完成等，都是不可预知的。
+
+                在多道程序环境下，允许多个进程并发执行
+                进程在使用资源时可能需要等待或放弃
+                进程的执行并不是一气呵成的，而是走走停停的形式推进
+                进程以不可预知的速度向前推进、何时执行、何时暂停、何时完成不知道
+</code></pre><h1 id="进程管理之进程实体"><a href="#进程管理之进程实体" class="headerlink" title="进程管理之进程实体"></a>进程管理之进程实体</h1><pre><code>为什么需要进程
+    没有配置操作系统之前，资源属于当前运行的程序
+    配置了操作系统之后，引入多道程序设计的概念
+    合理的隔离资源、运行环境、提升资源利用率
+
+    进程是系统进行资源分配和调度的基本单位
+    进程作为程序独立运行的载体保障程序正常执行
+    进程的存在使得操作系统资源的利用率大幅提升
+    有了进程，用户的逻辑程序才能够在操作系统中独立、正常的执行；并使得计算机资源可以高效利用。
+进程的实体表现为一片存储空间（进程控制块）
+</code></pre><img src="/2020/02/29/操作系统之基础篇/3.PNG" title="3.PNG">
+<pre><code>标识符
+    唯一标记一个进程、用于区别其他进程
+状态
+    标记进程的状态：如运行态
+程序计数器
+    进程即将被执行的下一条指令的地址
+内存指针
+    程序代码、进程数据相关指针
+上下文数据
+    进程执行时处理器存储的数据
+IO状态信息
+    被进程IO操作所占用的文件列表
+记账信息
+    使用处理器时间、时钟数总和
+</code></pre><img src="/2020/02/29/操作系统之基础篇/4.PNG" title="4.PNG">
+<pre><code>进程控制块PCB(Process Control Block)
+    PCB是系统中存放进程的管理和控制信息的数据结构，有了PCB，操作系统才可以控制进程的运行。
+    用于描述和控制进程运行的通用数据结构
+    记录进程当前状态和控制进程运行的全部信息
+    PCB使得进程是能够独立运行的基本单位
+    PCB是操作系统进行调度经常会被读取的信息
+    PCB是常驻内存的，存放在系统专门开辟的PCB区域内
+进程与线程
+    进程（Process）
+        进程是系统进行资源分配和调度的基本单位
+    线程（Thread）
+        线程是操作系统进行运行调度的最小单位
+        包含在进程之中，是进程中实际运行工作的单位
+        一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
+
+        一个进程可以并发多个线程，每个线程执行不同的任务
+    进程的线程共享进程资源
+    一个进程可以有多个线程
+</code></pre><img src="/2020/02/29/操作系统之基础篇/5.PNG" title="5.PNG">
+<pre><code>进程管理之五状态模型
+    创建
+        分配PCB-&gt;插入就绪队列
+        创建进程时拥有PCB但其他资源尚未就绪的状态称为创建状态
+        操作系统提供fork函数接口创建进程
+    就绪
+        当进程被分配到除CPU以外所有必要的资源后
+        只要再获得CPU的使用权，就可以立即运行
+        其他资源都准备好，就差CPU资源的状态为就绪状态
+        在一个系统中多个处于就绪状态的进程通常排成一个队列（就绪队列）
+    执行状态
+        进程获得CPU，其程序正在执行称为执行状态
+        在单处理机中，在某个时刻只能有一个进程是处于执行状态
+    阻塞（阻塞队列）
+        进程因某种原因：
+            如其他设备未就绪而无法继续运行
+            从而放弃CPU的状态称为阻塞状态
+    终止
+        系统清理-&gt;PCB归还
+        进程结束由系统清理或者归还PCB的状态称为终止状态
+</code></pre><img src="/2020/02/29/操作系统之基础篇/6.PNG" title="6.PNG">
+<pre><code>进程管理之进程同步
+    什么是进程同步？为什么需要进程间的同步
+        缓存区是临界资源
+</code></pre><img src="/2020/02/29/操作系统之基础篇/7.PNG" title="7.PNG">
+<img src="/2020/02/29/操作系统之基础篇/8.PNG" title="8.PNG">
+<img src="/2020/02/29/操作系统之基础篇/9.PNG" title="9.PNG">
+<img src="/2020/02/29/操作系统之基础篇/10.PNG" title="10.PNG">
+<img src="/2020/02/29/操作系统之基础篇/11.PNG" title="11.PNG"> 
+<img src="/2020/02/29/操作系统之基础篇/12.PNG" title="12.PNG"> 
+<img src="/2020/02/29/操作系统之基础篇/13.PNG" title="13.PNG"> 
+<pre><code>    根源问题是：彼此相互之间没有通信
+        如果生产者通知消费者我已经完成一件生产
+        哲学家向旁边的哲学家说我要进餐了
+    进程间的同步
+        解决对竞争资源在多进程进行使用次序的协调
+        使得并发执行的多个进程之间可以有效使用资源和相互合作
+进程间同步的原则
+    临界资源
+        指的是一些虽作为共享资源却又无法同时被多个线程共同访问的共享资源
+        当有进程在使用临界资源时，其他进程必须依据操作系统的同步机制等待占用进程释放该资源才可重新竞争使用共享资源
+    原则
+        空闲让进：资源无占用，允许使用
+        忙则等待：资源有占用，请求进程等待
+        有限等待：保证有限等待时间能够使用资源
+        让权等待：等待时，进程需要让出CPU（运行状态-》阻塞状态）
+    进程间的同步方法
+        消息队列
+        共享存储
+        信号量
+        Unix域套接字
+线程同步
+    进程内多线程也需要同步
+    线程同步的方法
+        互斥量
+        读写锁
+        自旋锁
+        条件变量
+</code></pre><h1 id="linux进程管理"><a href="#linux进程管理" class="headerlink" title="linux进程管理"></a>linux进程管理</h1><pre><code>linux进程的相关概念
+    进程的类型
+        前台进程
+            正在运行并且占用终端的进程
+
+            终端Shell 前台进程就是具有终端，可以和用户交互的进程
+        后台进程
+            与前台进程相对，没有占用终端的就是后台进程
+            后台程序基本上不和用户交互，优先级比前台进程低
+            将需要执行的命令以“&amp;” 符号结束
+        守护进程
+            守护（daemon）进程是特殊的后台进程
+            很多守护进程在系统引导的时候启动，一直运行直到系统关闭
+            进程名字以“d”结尾的一般都是守护进程（如crond、httpd、sshd、mysqlId）
+    进程的标记
+        进程ID
+            进程ID是进程的唯一标记，每个进程拥有不同的ID
+            进程ID表现为一个非负整数，最大值由操作系统限定
+            操作系统提供fork函数接口创建进程
+            进程A调用fork接口 创建进程B
+            进程B调用fork接口 创建进程C
+            进程A（父进程）与进程B（子进程）是父子进程关系
+            进程的父子关系可以通过pstree命令查看
+            id为0的进程为idle进程，是系统创建的第一个进程
+            id为1的进程为init进程，是0号进程的子进程，完成系统的初始化
+            init进程是所有用户进程的祖先进程
+        进程的状态标记
+            map ps （和上面的进程的状态一样）
+</code></pre><img src="/2020/02/29/操作系统之基础篇/14.PNG" title="14.PNG"> 
+<pre><code>操作linux进程的相关命令
+    ps命令
+        常用于显示当前进程的状态
+        常配合aux参数或ef参数和grep命令检索特定进程
+        ps -aux 列出进程信息
+        ps -u 用户名 查看用户名的进程
+        ps -aux | grep &apos;进程名&apos; 查看特定进程
+        ps -ef --forest 查看进程树（父子进程）
+        ps -aux --sort=-pcpu 按cpu使用频率排序CPU进程
+        ps -aux --sort=-pmem 按内存使用频率排序CPU进程
+    top命令
+        top 查看进程状态
+    kill命令
+        发送指定信号给进程
+        kill -l 查看操作系统支持的信号
+        kill -9 进程id 删除进程 无条件终止进程
+</code></pre><h1 id="作业管理之进程调度"><a href="#作业管理之进程调度" class="headerlink" title="作业管理之进程调度"></a>作业管理之进程调度</h1><pre><code>进程调度指计算机通过决策决定哪个就绪进程可以获得CPU使用权
+    多道程序设计：
+        保留旧进程的运行信息，清除旧进程
+        选择新进程，准备运行环境并分配CPU
+    就绪队列的排队机制
+        将就绪进程按照一定的方式排成队列，以便调度程序可以最快找到就绪进程
+    选择运行进程的委派机制
+        调度程序以一定的策略选择就绪进程，将CPU资源分配给它
+    新老进程的上下文切换机制
+</code></pre><img src="/2020/02/29/操作系统之基础篇/15.PNG" title="15.PNG">
+<pre><code>老进程没执行完
+    非抢占式调度
+        处理器一旦分配给某个进程，就让该进程一直使用下去
+        调度程序不以任何原因抢占正在被使用的处理器
+        直到进程完成工作或因为IO阻塞才会让出处理器
+    抢占式调度
+        允许调度程序以一定的策略暂停当前运行的进程
+        保存好旧进程的上下文信息，分配处理器给新进程
+</code></pre><img src="/2020/02/29/操作系统之基础篇/16.PNG" title="16.PNG">
+<pre><code>抢占式进程调度算法
+    先来先服务算法
+    短进程优先调度算法
+        调度程序优先选择就绪队列中估计运行时间最短的进程
+        不利于长作业进程的进行
+    高优先权优先调度算法
+        进程附带优先权，调度程序优先选择权重高的进程
+        使得紧迫的任务可以优先处理
+    时间片轮转调度算法
+        按先来先服务的原则排列就绪进程
+        每次从队列头部去除待执行进程，分配一个时间片执行
+        是相对公平的调度算法，但不能保证及时响应用户
+</code></pre><h1 id="作业管理之死锁"><a href="#作业管理之死锁" class="headerlink" title="作业管理之死锁"></a>作业管理之死锁</h1><pre><code>死锁
+    死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象
+    若无外力作用，他们都将无法推进下去，此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程
+死锁的产生
+    竞争资源
+        共享资源数量不满足各个进程的需求
+        各个进程之间发生资源竞争导致死锁
+</code></pre><img src="/2020/02/29/操作系统之基础篇/17.PNG" title="17.PNG">
+<pre><code>进程的调度不当
+</code></pre><img src="/2020/02/29/操作系统之基础篇/18.PNG" title="18.PNG">
+<pre><code>死锁的四个必要条件
+    互斥条件
+        进程对资源的使用是排他性的使用
+        某资源只能由一个进程使用，其他进程需要使用只能等待
+    请求保持条件
+        进程至少保持一个资源，又提出新的资源请求
+        新资源被占用，请求被阻塞
+        被阻塞的进程不释放自己保持的资源
+    不可剥夺条件
+        进程获得资源在未完成使用前不能被剥夺
+        获得的资源只能由进程自身释放
+    环路等待条件
+</code></pre><img src="/2020/02/29/操作系统之基础篇/19.PNG" title="19.PNG">
+<pre><code>死锁的处理
+    预防死锁的方法
+        摒弃请求保持条件
+            系统规定进程运行之前，一次性申请所有需要的资源
+            进程在运行期间不会提出资源请求，从而摒弃请求保持条件
+        摒弃不可剥夺条件
+            当一个进程请求新的资源得不到满足时，必须释放占有资源
+            进程运行时占有的资源可以被释放，意味着可以被剥夺
+        摒弃环路等待条件
+            可用资源线性排序，申请必须按照需要递增申请
+            线性申请不再形成环路，从而摒弃了环路等待条件    
+    银行家的算法
+        是一个可操作的著名的避免操作系统死锁的算法
+        以银行借贷系统分配策略为基础的算法
+</code></pre><img src="/2020/02/29/操作系统之基础篇/20.PNG" title="20.PNG">
+<h1 id="存储管理之内存分配与回收"><a href="#存储管理之内存分配与回收" class="headerlink" title="存储管理之内存分配与回收"></a>存储管理之内存分配与回收</h1><pre><code>确保计算机足够的内存处理数据
+确保程序可以从内存中获取一部分内存使用
+确保程序可以归还使用后的内存以供其他程序使用
+内存分配的过程
+    单一连续分配（最简单）
+        只能在单用户、单进程的操作系统中使用
+    固定分区分配
+        支持多道程序的最简单的存储分配方式
+        内存空间被划分为若干固定大小的区域
+        每个分区只提供给一个程序使用，互不干扰
+    动态分区分配
+        根据进程实际需要，动态分配内存空间
+        相关数据结构、分配算法
+</code></pre><img src="/2020/02/29/操作系统之基础篇/21.PNG" title="21.PNG">           
+<img src="/2020/02/29/操作系统之基础篇/22.PNG" title="22.PNG"> 
+<pre><code>动态分配算法：
+    首次适应算法（FF算法）
+        分配内存时从开始顺序查找适合内存区
+        若没有合适的空闲区，则该次分配失败
+        每次从头部开始，使得头部地址空间不断被划分
+        改进循环适应算法：从上次开始
+    最佳适应算法（BF算法）
+        要求空闲区链表按照容量大小排序
+        遍历空闲区链表找到最佳合适空闲区
+</code></pre><img src="/2020/02/29/操作系统之基础篇/23.PNG" title="23.PNG">     
+<pre><code>快速适应算法（QF算法）
+</code></pre><img src="/2020/02/29/操作系统之基础篇/24.PNG" title="24.PNG">
+<pre><code>内存回收的过程
+</code></pre><img src="/2020/02/29/操作系统之基础篇/25.PNG" title="25.PNG">
+<img src="/2020/02/29/操作系统之基础篇/26.PNG" title="26.PNG">
+<img src="/2020/02/29/操作系统之基础篇/27.PNG" title="27.PNG">
+<img src="/2020/02/29/操作系统之基础篇/28.PNG" title="28.PNG">
+<h1 id="存储管理之段页式存储管理（进程）"><a href="#存储管理之段页式存储管理（进程）" class="headerlink" title="存储管理之段页式存储管理（进程）"></a>存储管理之段页式存储管理（进程）</h1><pre><code>操作系统是如何管理进程的空间的呢
+页式存储管理
+</code></pre><img src="/2020/02/29/操作系统之基础篇/29.PNG" title="29.PNG">
+<pre><code>页是指连续等长的一片内存
+将进程逻辑空间等分成若干大小的页面
+相应的把物理内存空间分成与页面大小的物理块
+以页面为单位的把进程空间存进物理内存中分散的物理块
+缺点：有一段连续的逻辑分布在多个页面中，将大大降低执行效率
+</code></pre><img src="/2020/02/29/操作系统之基础篇/30.PNG" title="30.PNG">
+<img src="/2020/02/29/操作系统之基础篇/31.PNG" title="31.PNG">
+<img src="/2020/02/29/操作系统之基础篇/32.PNG" title="32.PNG">
+<pre><code>现代计算机系统可以支持非常大的逻辑地址空间（2^32-2^64）
+页表变得非常大，要占用非常大的内存空间
+    如，具有32位逻辑地址空间的分页系统，规定页面大小为4kb
+    则在每个进程页表中的页表项可达1M（2^20）个，如果每个页表项占用1Byte
+    故每个进程仅仅页表就要占用1MB的内存空间
+</code></pre><img src="/2020/02/29/操作系统之基础篇/33.PNG" title="33.PNG">
+<pre><code>段式存储管理
+    段是指连续不等长的一片内存
+    将进程逻辑空间划分成若干段（非等分）
+    段的长度由连续的长度决定
+    主函数main、子函数X、子函数Y等
+</code></pre><img src="/2020/02/29/操作系统之基础篇/34.PNG" title="34.PNG">
+<pre><code>    段式存储和页式存储管理都离散地管理了进程的逻辑空间
+    页是物理单位，段是逻辑单位
+    分页是为了合理利用空间，分段是满足用户要求
+    页的大小由硬件固定，段长度可动态变化
+    页表信息是一维的，段表信息是二维的
+段页式存储管理
+    分页可以有效提高内存利用率（虽然存在页内碎片）
+    分段可以更好满足用户需求
+    两者结合
+    先将逻辑空间按段式管理分成若干段,再把段内空间按页式管理等分成若干页
+    页地址分成页号、页内偏移
+    段地址分成段号、段内偏移
+    段页地址分成段号、段内页号、页内地址
+</code></pre><img src="/2020/02/29/操作系统之基础篇/35.PNG" title="35.PNG">
+<h1 id="存储管理之虚拟内存"><a href="#存储管理之虚拟内存" class="headerlink" title="存储管理之虚拟内存"></a>存储管理之虚拟内存</h1><pre><code>一个游戏几十G，物理内存只有4G，游戏怎么运行
+虚拟内存概述
+    虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），
+    而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。
+
+    有些进程实际需要的内存很大，超过物理内存的容量
+    多道程序设计，使得每个进程可用物理内存更加稀缺
+    不可能无线增加物理内存，物理内存总有不够的时候
+    虚拟内存时操作系统内存管理的关键技术
+    使得多道程序运行和大程序运行称为现实
+    把程序使用内存划分，将部分暂时不适用的内存放置在辅存
+程序的局部性原理
+    局部性原理是指CPU访问存储器时，无论是存取指令还是存取数据，所访问的存储大院都趋于聚集在一个较小的连续区域中
+    程序运行时，无需全部装入内存，装载部分即可
+    如果访问也不在内存，则发出缺页中断，发起页面置换
+    从用户层面看，程序拥有很大的空间，即使虚拟内存
+    虚拟内存时间是对物理内存的补充，速度接近内存，成本接近辅存
+虚拟内存的置换算法
+    先进先出算法（FIFO）
+    最不经常使用算法（LFU）
+    最近最少使用算法（LRU）
+    替换策略发生在缓存-主存层次、主存-辅存层次
+    缓存-主存层次的替换策略主要是为了解决速度问题
+    主存-辅存层次主要是为了解决容量问题
+</code></pre><img src="/2020/02/29/操作系统之基础篇/36.PNG" title="36.PNG">
+<img src="/2020/02/29/操作系统之基础篇/37.PNG" title="37.PNG">
+<h1 id="linux的存储管理"><a href="#linux的存储管理" class="headerlink" title="linux的存储管理"></a>linux的存储管理</h1><pre><code>Buddy内存管理算法
+    基于计算机处理二进制的优势具有极高的效率
+    算法主要为了解决内存外碎片的问题
+    内存内碎片问题转化为内存内碎片问题
+    提升了内存利用效率
+    努力让内存分配与相邻内存合并能快速进行
+</code></pre><img src="/2020/02/29/操作系统之基础篇/38.PNG" title="38.PNG">
+<img src="/2020/02/29/操作系统之基础篇/39.PNG" title="39.PNG">
+<pre><code>内存分配原则
+    向上取整为2的幂的大小 70k-》128k
+伙伴系统
+    伙伴指的是内存的伙伴
+    一片连续内存的伙伴是相邻的另一片大小一样的连续内存
+流程
+    创建一系列空闲块链表，每一种都是2的幂
+</code></pre><img src="/2020/02/29/操作系统之基础篇/40.PNG" title="40.PNG">
+<img src="/2020/02/29/操作系统之基础篇/41.PNG" title="41.PNG">
+<img src="/2020/02/29/操作系统之基础篇/42.PNG" title="42.PNG">
+<img src="/2020/02/29/操作系统之基础篇/43.PNG" title="43.PNG">
+<pre><code>linux交换空间
+    交换空间（Swap）是磁盘的一个分区（速度慢，不能频繁使用）
+    linux物理内存满时，会把一些内存交换至Swap空间
+    Swap空间是初始化系统时配置的
+    作用
+        冷启动内存依赖（把少用的内存放这。释放更多物理内存）
+        系统睡眠依赖（系统睡眠内存数据）
+        大进程空间依赖（物理内存不够时）
+</code></pre><img src="/2020/02/29/操作系统之基础篇/44.PNG" title="44.PNG">
+<h1 id="操作系统的文件管理"><a href="#操作系统的文件管理" class="headerlink" title="操作系统的文件管理"></a>操作系统的文件管理</h1><pre><code>文件的逻辑结构
+    逻辑结构的文件类型
+</code></pre><img src="/2020/02/29/操作系统之基础篇/45.PNG" title="45.PNG">
+<pre><code>    有结构文件(Excel文件、Word文件、PDF文件、JPG文件等)
+        文件内容由定长记录和可变长记录组成
+        定长记录存储文件格式、文件描述等结构化数据项
+        可变长记录存储文件具体内容
+    无结构文件（流式文件 exe文件、dll文件、so文件）
+        文件内容以字节为单位
+    顺序文件
+        按顺序存放在存储介质中的文件
+        磁带的存储特性使得磁带文件只能存储顺序文件
+        顺序文件是所有逻辑文件当中存储效率最高的
+        顺序文件的增删改无效率
+    索引文件
+        可变长文件不适合使用顺序文件格式存储
+        索引文件是为了解决可以变长文件存储而发明的一种文件格式
+        索引文件需要需要配合索引表完成存储的操作
+辅存的存储空间分配
+    辅存的分配方式
+</code></pre><img src="/2020/02/29/操作系统之基础篇/46.PNG" title="46.PNG">
+<pre><code>连续分配
+    顺序读取文件内容非常容易，速度快
+    对存储要求高，要求满足容量的连续存储空间
+链接分配
+    可以将文件存储在离散的盘块中
+    需要额外的存储空间存储文件的盘块链接顺序
+    隐式链接：
+        下一个链接指向存储在当盘块内
+        适合顺序访问，随机访问效率很低
+        可靠性差，任何一个链接出问题都影响整个文件
+    显式链接分配
+</code></pre><img src="/2020/02/29/操作系统之基础篇/48.PNG" title="48.PNG">
+<pre><code>        FAT不支持高效存储（FAT记录项多）
+        检索是FAT表占用较大的存储空间（需要将整个FAT加载到内存）
+索引分配(ext文件)
+    将文件的所有盘块集中存储（索引）
+    读取某个文件时，将文件索引读取进内存即可
+    每个文件拥有一个索引块，记录所有盘块信息
+    索引分配方式支持直接访问盘块
+    文件较大时，索引分配方式具有明显优势
+</code></pre><img src="/2020/02/29/操作系统之基础篇/49.PNG" title="49.PNG">
+<pre><code>存储空间分配（数据结构）
+    空闲表
+</code></pre><img src="/2020/02/29/操作系统之基础篇/50.PNG" title="50.PNG">                
+<pre><code>空闲链表
+    空闲链表法把所有空闲盘区组成一个空闲链表
+    每个链表节点存储空闲盘块和空闲的数目
+位示图
+    维护成本低
+    可以非常容易找到空闲盘块
+    使用0/1比特位，占用空间小
+</code></pre><img src="/2020/02/29/操作系统之基础篇/51.PNG" title="51.PNG">
+<pre><code>目录管理
+    目录树
+        使得任何文件或目录只有唯一路径
+</code></pre><img src="/2020/02/29/操作系统之基础篇/52.PNG" title="52.PNG">
+<h1 id="linux文件的基本操作"><a href="#linux文件的基本操作" class="headerlink" title="linux文件的基本操作"></a>linux文件的基本操作</h1><pre><code>linux目录
+</code></pre><img src="/2020/02/29/操作系统之基础篇/53.PNG" title="53.PNG">   
+<img src="/2020/02/29/操作系统之基础篇/54.PNG" title="54.PNG">
+<pre><code>相对路径
+绝对路径
+linux文件常用操作
+linux文件类型
+</code></pre><img src="/2020/02/29/操作系统之基础篇/55.PNG" title="55.PNG">
+<h1 id="linux的文件系统"><a href="#linux的文件系统" class="headerlink" title="linux的文件系统"></a>linux的文件系统</h1><pre><code>文件系统概览
+    FAT（File Allocation Table）
+    FAT16、FAT32等，微软Dos/Windows使用的文件系统
+    使用一张表保存盘块的信息
+
+    NTFS（new Technology File System）
+    WindowsNT环境的文件系统
+    NTFS对FAT进行了改进，取代了旧的文件系统
+
+    EXT2/3/4（数字表示第几代）
+    EXT(Extended file system):扩展文件系统
+    linux文件系统
+EXT文件系统
+    Boot Sector：启动扇区，安装开机管理程序
+    Block Group：块组，存储数据的实际位置
+</code></pre><img src="/2020/02/29/操作系统之基础篇/56.PNG" title="56.PNG">
+<img src="/2020/02/29/操作系统之基础篇/57.PNG" title="57.PNG">
+<img src="/2020/02/29/操作系统之基础篇/58.PNG" title="58.PNG">        
+<pre><code>Inode
+    文件名不是存放在Inode节点上的，而是存放在目录的Inode节点
+    列出目录文件的时候无需加载文件的Inode
+    每个文件或者文件夹都有一个Inode，Inode可以理解为是文件或文件夹的“身份证”，Inode存储着文件索引节点编号、文件类型、文件权限、文件物理地址的关键信息
+</code></pre><img src="/2020/02/29/操作系统之基础篇/59.PNG" title="59.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/60.PNG" title="60.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/61.PNG" title="61.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/62.PNG" title="62.PNG">  
+<h1 id="操作系统的设备管理"><a href="#操作系统的设备管理" class="headerlink" title="操作系统的设备管理"></a>操作系统的设备管理</h1><pre><code>广义的IO设备
+    对CPU而言，凡是对CPU进行数据输入/输出的都是输入/输出设备
+</code></pre><img src="/2020/02/29/操作系统之基础篇/63.PNG" title="63.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/64.PNG" title="64.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/65.PNG" title="65.PNG">  
+<img src="/2020/02/29/操作系统之基础篇/66.PNG" title="66.PNG">  
+<pre><code>IO设备的缓存区（CPU与IO设备速率不匹配）
+    减少CPU处理IO请求的频率
+    提高CPU与IO设备之间的并行性
+    专用缓冲区只适用于特定的IO进程
+    当这样的IO进程比较多时，对内存的消耗也很大
+    操作系统划出可供多个进程使用的公共缓冲区，称为缓冲池
+SPOOLing技术（虚拟设备技术）
+    关于慢速字符设备如何与计算机主机交换信息的一种技术，利用高速共享设备将低速的独享设备模拟为高速的共享设备，逻辑上，系统为每一个用户都分配了一台独立的高速独享设备
+    把同步调用低速调用改为异步调用
+    在输入、输出之间增加了排队存储环境（输入井、输出井）
+    SPOOLing负责输入输出井与低速设备之间的调度
+    逻辑上，进程直接与高速设备交互，减少了进程的等待时间
+</code></pre>
+      
+       
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">-</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#freemarker','#MongoDB','#设计模式','#ajax','#注解','#boostrap','#art-template','#css','#windows','#缓存','#dubbo','#exception','#hexo','#git','#express','#http协议','#图表库','#html','#json','#linux','#jsp','#quartz','#shiro','#正则表达式','#swagger','#javascript','#vue.js','#webpack','#xml','#动态代理','#数据结构和算法','#前端','#开发规范','#异步编程','#计算机','#后端','#排序算法','#系统测试','#网址收藏','#面试题','#错误解决','#部署','#FastDFS','#activemq','#api','#easy-ui','#java基础语法','#jquery','#utils','#maven','#mqtt','#nginx','#mycat','#node.js','#redis','#reflect','#socket','#svn','#webservice','#websocket','#多线程','#面向对象','#collection','#io','#linux服务器搭建','#konckout.js','#mysql','#struts2','#hibrenate','#lucene','#solr','#WEB','#源码学习','#mybatis','#oracle','#spring','#springmvc','#线程','#springboot',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
