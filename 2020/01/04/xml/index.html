@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>xml | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">xml</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">xml</h1><div class="post-meta">Jan 4, 2020<span> | </span><span class="category"><a href="/categories/其他/">其他</a></span></div><div class="post-content"><h1 id="xml介绍"><a href="#xml介绍" class="headerlink" title="xml介绍"></a>xml介绍</h1><ul>
+<li>xml:Extensible Markup Language 可扩展的标记语言，标签可自定义，其他与Html相似</li>
+<li>用作:配置文件/存放数据<a id="more"></a>
+</li>
+</ul>
+<h1 id="xml语法"><a href="#xml语法" class="headerlink" title="xml语法:"></a>xml语法:</h1><ul>
+<li>文档声明:必须从文档的0行0列位置开始;必须以&#60;?xml开头，以?&gt;结束;<ul>
+<li>&#60;?xml version=”1.0” encoding=”UTF-8”?&gt;</li>
+<li>文档声明只有三个属性<ul>
+<li>1.version：指定xml文档版本，必须属性，只选1.0版</li>
+<li>2.encoding：指定当前文档的编码，可选属性，默认值是utf-8;</li>
+<li>3.standalone:指定文档独立性，可选属性，默认值为yes，表示当前文档是独立的文档；no表示当前文档不是独立文档，依赖外部文件    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>元素<ul>
+<li>&#60;servlet&gt;</li>
+<li>普通元素的结构由开始标签，元素体，结束标签组成&#60;a&gt;&#60;/a&gt;</li>
+<li>元素体可以是元素或者文本&#60;a&gt;&#60;b&gt;文本&#60;/b&gt;&#60;/a&gt;</li>
+<li>空元素只有开始标签，无结束标签，元素必须自己闭合&#60;c/&gt;</li>
+<li>元素命名区分大小写，不能空格冒号，不建议各种xml开头</li>
+<li>格式化良好的xml有一个根元素</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>&#60;web-app version=”2.5”&gt;</li>
+<li>位于元素的开始标签中，属性=属性值</li>
+<li>属性值必须单引号或者双引</li>
+<li>一个元素可以有n个不同名属性</li>
+<li>属性名不能空格冒号，必须字母开头</li>
+</ul>
+</li>
+<li>注释 &#60;!–注释–&gt;</li>
+</ul>
+<img src="/2020/01/04/xml/xml转义字符.png" title="xml转义字符.png">
+<ul>
+<li>&#60;![CDATA[需要大量转义字符原来的字符]]&gt;</li>
+</ul>
+<h1 id="xml约束"><a href="#xml约束" class="headerlink" title="xml约束"></a>xml约束</h1><h2 id="DTD约束"><a href="#DTD约束" class="headerlink" title="DTD约束"></a>DTD约束</h2><ul>
+<li><p>文档类型定义，约束XML元素及其子元素的名称及顺序、属性等</p>
+</li>
+<li><p>文档声明：&#60;?xml version=”1.0” encoding=”UTF-8”?&gt;后面</p>
+<ul>
+<li>内部DTD:&#60;!DOCTYPE 根标签名  [语法….]&gt;只对当前的xml有效</li>
+<li>外部DTD–本地文件:&#60;!DOCTYPE 根标签名 SYSTEM “xxxx.dtd”&gt;</li>
+<li>外部DTD–网络:&#60;!DOCTYPE 根标签名 PUBLIC “名称” “路径”&gt;一般由框架提供</li>
+</ul>
+</li>
+<li><p>元素声明&#60;!ELEMENT 标签名 [符号|约束]&gt;</p>
+<ul>
+<li>&#60;!ELEMENT hibernate-mapping (meta*)&gt;</li>
+<li>符号：？+ *  , | ()   “文嘉兴”</li>
+<li>约束：#PCDATA 表示内容是文本不是子标签</li>
+<li>后面没加符号的表示有且只有一次，()分组并指示子元素个数及顺序</li>
+</ul>
+</li>
+</ul>
+<img src="/2020/01/04/xml/dtd元素声明.png" title="dtd元素声明.png">
+<ul>
+<li>属性声明&#60;!ATTLIST 标签名 属性描述 属性描述2 …&gt;<ul>
+<li>&#60;!ATTLIST hibernate-mapping schema CDATA #IMPLIED&gt;    </li>
+<li>属性描述<ul>
+<li>属性名：自定义</li>
+<li>属性类型：CDATA ，ID ，枚举（xx|）</li>
+<li>属性约束：#REQUIRED （必须） #IMPLIED（可选）            </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Schema约束"><a href="#Schema约束" class="headerlink" title="Schema约束"></a>Schema约束</h2><ul>
+<li><p>比DTD功能强、扩展名为xsd、支持命名空间、数据类型更完善</p>
+</li>
+<li><p>命名空间(解决多个xsd的元素和属性名冲突的问题)</p>
+<ul>
+<li>给schema文档起一个名称，只是建议采用是url进行命名。是不是官方文档看那个url</li>
+<li>能在xml中区别多个约束文档中，重名的元素、属性等内容。        </li>
+<li>缺省命名空间（默认）:&#60;xxx xmlns=””   &gt;使用元素或属性时不加前缀&#60;xxx&gt;</li>
+<li>显示命名空间:&#60;xsd xmlns:别名=””&gt;使用元素或属性时加前缀&#60;别名:xxx&gt;</li>
+<li>只要url一样，两种声明方式一样</li>
+</ul>
+</li>
+<li><p>文档声明</p>
+<ul>
+<li>&#60;xxx xmlns=”….”xmlns:xsi=”<a href="http://www.w3.org/2001/XMLSchema-instance&quot;" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema-instance&quot;</a> xsi:schemaLocation=”名称  路径   名称2 路径2  …..”&gt;  …..</li>
+<li>&#60;web-app xmlns=”<a href="http://www.example.org/web-app_2_5&quot;" target="_blank" rel="noopener">http://www.example.org/web-app_2_5&quot;</a> 自定义文档命名空间（包名）
+xmlns:xsi=”<a href="http://www.w3.org/2001/XMLSchema-instance&quot;（官方文档命名空间）" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema-instance&quot;（官方文档命名空间）</a>
+xsi:schemaLocation=”<a href="http://www.example.org/web-app_2_5" target="_blank" rel="noopener">http://www.example.org/web-app_2_5</a> web-app_2_5.xsd” 使用了官方文档的自定义文档位置属性（包里面的具体类）version=”2.5”&gt;</li>
+</ul>
+</li>
+</ul>
+<h2 id="xml解析"><a href="#xml解析" class="headerlink" title="xml解析"></a>xml解析</h2><ul>
+<li>DOM解析<ul>
+<li>将xml文档加载到内存形成树结构，形成Document对象<ul>
+<li>优点:元素与元素有结构关系，能CRUD，</li>
+<li>缺点：文档太大易内存溢出</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SAX解析<ul>
+<li>事件驱动的方式逐行边读边解析，每执行一行都触发相应的事件<ul>
+<li>优点：文档大也不内存溢出，速度快</li>
+<li>缺点：只读，不能CRUD，运行后释放资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PULL:安卓内置的xml解析方式，类似sax（了解）</li>
+</ul>
+<h2 id="解析开发包"><a href="#解析开发包" class="headerlink" title="解析开发包"></a>解析开发包</h2><img src="/2020/01/04/xml/xml解析开发包.png" title="xml解析开发包.png">
+<h2 id="DOM解析原理及结构模型"><a href="#DOM解析原理及结构模型" class="headerlink" title="DOM解析原理及结构模型"></a>DOM解析原理及结构模型</h2><ul>
+<li>原理:将整个xml文档加载到内存，生成一个DOM树并获得Document对象以完成DOM操作</li>
+</ul>
+<img src="/2020/01/04/xml/dom解析原理.png" title="xdom解析原理.png">
+</div><div class="tags"><a href="/tags/xml/">xml</a></div><div class="post-nav"><a class="pre" href="/2020/01/12/设计模式面试题/">设计模式面试题</a><a class="next" href="/2020/01/04/hibernate/">hibernate</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

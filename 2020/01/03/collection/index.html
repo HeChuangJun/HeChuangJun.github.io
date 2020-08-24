@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>collection | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">collection</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">collection</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><p>collection
+<a id="more"></a></p>
+<h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><ul>
+<li><a href="#jump1">集合与数组的异同</a></li>
+<li><a href="#jump2">数据存储常用的结构</a></li>
+<li><a href="#jump3">集合框架继承体系</a></li>
+<li><a href="#jump301">java.lang.Object</a>:所有类的超类</li>
+<li><a href="#jump302"> java.util.AbstractCollection<e> (implements java.util.Collection<e>)</e></e></a><ul>
+<li><a href="#jump303">java.util.AbstractList<e> (implements java.util.List<e>)</e></e></a><ul>
+<li><a href="#jump304"> java.util.AbstractSequentialList<e></e></a><ul>
+<li><a href="#jump305"> java.util.LinkedList<e></e></a></li>
+</ul>
+</li>
+<li><a href="#jump306"> java.util.ArrayList<e></e></a></li>
+<li><a href="#jump307">java.util.Vector<e></e></a></li>
+</ul>
+</li>
+<li><a href="#jump308"> java.util.AbstractSet<e> (implements java.util.List<e>)</e></e></a><ul>
+<li><a href="#jump309"> java.util.HashSet<e></e></a><ul>
+<li><a href="#jump310">java.util.LinkedHashSet<e></e></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jump311">java.util.AbstractMap&lt;K,V&gt; (implements java.util.Map&lt;K,V&gt;)</a><ul>
+<li><a href="#jump312">java.util.HashMap<e></e></a><ul>
+<li><a href="#jump313">java.util.LinkedHashMap<e></e></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jump314">java.util.Collections</a></li>
+<li><a href="#jump4">集合contains方法判断集合元素唯一的原理</a></li>
+<li><a href="#jump5">java.lang.Iterable<t></t></a></li>
+<li><a href="#jump6">泛型</a></li>
+<li><a href="#jump7">动态获得子类的类型</a></li>
+</ul>
+<h3 id="集合与数组的异同"><a href="#集合与数组的异同" class="headerlink" title="集合与数组的异同"></a><span id="jump1">集合与数组的异同</span></h3><ul>
+<li>数组的长度是固定的。集合的长度是可变的。集合中存储的元素必须是引用类型数据</li>
+<li>集合中存储其实都是对象的地址</li>
+<li>集合中可以存储基本数值吗？可以通过基本类型包装类，自动装箱操作存储</li>
+<li>没指定&lt;&gt;时，元素存储时自动提升为Object。取出时要使用元素的特有内容，必须向下转型</li>
+<li>如果集合中存放的是多个对象，这时进行向下转型会发生类型转换异常</li>
+<li>Iterator接口使用&lt;&gt;控制迭代元素的类型就不需要强转了.获取到的元素直接就是元素类型</li>
+</ul>
+<h3 id="数据存储常用的结构"><a href="#数据存储常用的结构" class="headerlink" title="数据存储常用的结构"></a><span id="jump2">数据存储常用的结构</span></h3><ul>
+<li>堆栈:先进后出、栈的入口、出口的都是栈的顶端位置、压栈、弹栈</li>
+<li>队列:先进先出、队列的入口、出口各占一侧</li>
+<li>数组:查找元素快：通过索引快速访问指定位置的元素</li>
+<li>增删元素慢：需要创建新数组，将指定新元素存储在指定索引位置，再把原数组元素根据索引，(不)复制到新数组对应索引的位置</li>
+<li>链表:多个节点之间，通过地址进行连接</li>
+<li>查找元素慢：想查找某个元素，需要通过连接的节点，依次向后查找指定元素</li>
+<li>增删元素快：只需要修改连接下个元素的地址即可</li>
+</ul>
+<h3 id="集合框架继承体系"><a href="#集合框架继承体系" class="headerlink" title="集合框架继承体系"></a><span id="jump3">集合框架继承体系</span></h3><h3 id="java-lang-Object：所有java类的超类"><a href="#java-lang-Object：所有java类的超类" class="headerlink" title="java.lang.Object：所有java类的超类"></a><span id="jump301">java.lang.Object：所有java类的超类</span></h3><h3 id="java-util-AbstractCollection-implements-java-util-Collection"><a href="#java-util-AbstractCollection-implements-java-util-Collection" class="headerlink" title="java.util.AbstractCollection (implements java.util.Collection)"></a><span id="jump302">java.util.AbstractCollection<e> (implements java.util.Collection<e>)</e></e></span></h3><ul>
+<li>void add(Object obj) 添加对象</li>
+<li>boolean remove(Object o) 移除集合中指定的元素</li>
+<li>void clear() 清空集合中的所有元素、集合容器本身依然存在</li>
+<li>Object[] toArray() 集合中的元素,转成一个对象数组中的元素并返回</li>
+<li>boolean contains(Object o) 判断对象是否存在于集合中,对象存在返回true</li>
+</ul>
+<h3 id="java-util-AbstractList-implements-java-util-List"><a href="#java-util-AbstractList-implements-java-util-List" class="headerlink" title="java.util.AbstractList (implements java.util.List)"></a><span id="jump303">java.util.AbstractList<e> (implements java.util.List<e>)</e></e></span></h3><ul>
+<li>void add(int index,E element) 在列表中插入指定元素 </li>
+<li>Object remove(int index) 移除列表中指定位置的元素, 返回的是被移除的元素 </li>
+<li>Object set(int index, Object element) 指定元素替换集合中指定位置元素,返回更新前元素</li>
+<li>Object get(int index) 返回集合中指定位置的元素 </li>
+</ul>
+<h3 id="java-util-AbstractSequentialList"><a href="#java-util-AbstractSequentialList" class="headerlink" title="java.util.AbstractSequentialList"></a><span id="jump304">java.util.AbstractSequentialList<e></e></span></h3><h3 id="java-util-LinkedList"><a href="#java-util-LinkedList" class="headerlink" title="java.util.LinkedList"></a><span id="jump305">java.util.LinkedList<e></e></span></h3><ul>
+<li>链表、队列结构</li>
+<li>void addFirst(Element e); 将指定元素插入此表开头 </li>
+<li>void addLast(Element e); 将指定元素插入此表末尾 </li>
+<li>Element removeFirst(); 移除并返回此列表的第一个元素 </li>
+<li>Element removeLast(); 移除并返回此列表的最后一个元素 </li>
+<li>void push(Element e); 将元素推入此列表所表示的堆栈 </li>
+<li>Element pop() 从此列表堆栈出弹出一个元素 </li>
+<li>Element getFirst(); 返回此表的第一个元素 </li>
+<li>Element getLast(); 返回此表的最后一个元素 </li>
+<li>Boolean isEmpty() 如果列表不包含元素，则返回</li>
+</ul>
+<h3 id="java-util-ArrayList"><a href="#java-util-ArrayList" class="headerlink" title="java.util.ArrayList"></a><span id="jump306">java.util.ArrayList<e></e></span></h3><ul>
+<li>数组结构、存取有序</li>
+<li>int clear()返回集合大小</li>
+</ul>
+<h3 id="java-util-Vector"><a href="#java-util-Vector" class="headerlink" title="java.util.Vector"></a><span id="jump307">java.util.Vector<e></e></span></h3><ul>
+<li>数组、枚举结构</li>
+<li>void addElement(Element Obj) 将指定的组件添加到此向量的末尾</li>
+<li>Element elementAt(int index) 返回指定索引处的组件</li>
+<li>Enumeration<e> elements() 返回此向量组件的枚举（遍历）</e></li>
+<li>boolean hasMoreElements() 测试此枚举是否包含更多的元素</li>
+<li>Element nextElement() 返回此枚举的下一个元素</li>
+</ul>
+<h3 id="java-util-AbstractSet-implements-java-util-List"><a href="#java-util-AbstractSet-implements-java-util-List" class="headerlink" title="java.util.AbstractSet (implements java.util.List)"></a><span id="jump308">java.util.AbstractSet<e> (implements java.util.List<e>)</e></e></span></h3><ul>
+<li>boolean add(Object element) 将指定的元素，添加到该集合中的末尾 </li>
+<li>void add(int index,E element) 在列表中插入指定元素 </li>
+<li>Object remove(int index) 移除列表中指定位置的元素, 返回的是被移除的元素 </li>
+<li>Object remove(Object element) 移除列表中第一次出现的元素, 返回的是被移除的元素 </li>
+<li>Object set(int index, Object element) 指定元素替换集合中指定位置元素,返回更新前元素</li>
+<li>Object get(int index) 返回集合中指定位置的元素 </li>
+</ul>
+<h3 id="java-util-HashSet-implements-java-util-List"><a href="#java-util-HashSet-implements-java-util-List" class="headerlink" title="java.util.HashSet(implements java.util.List)"></a><span id="jump309">java.util.HashSet<e>(implements java.util.List<e>)</e></e></span></h3><ul>
+<li>（数组机制）存取无序</li>
+</ul>
+<h3 id="java-util-LinkedHashSet"><a href="#java-util-LinkedHashSet" class="headerlink" title="java.util.LinkedHashSet"></a><span id="jump310">java.util.LinkedHashSet<e></e></span></h3><ul>
+<li>链表和哈希表组合，元素存取有序，不重复</li>
+</ul>
+<h3 id="java-util-AbstractMap-lt-K-V-gt-implements-java-util-Map-lt-K-V-gt"><a href="#java-util-AbstractMap-lt-K-V-gt-implements-java-util-Map-lt-K-V-gt" class="headerlink" title="java.util.AbstractMap&lt;K,V&gt; (implements java.util.Map&lt;K,V&gt;)"></a><span id="jump311">java.util.AbstractMap&lt;K,V&gt; (implements java.util.Map&lt;K,V&gt;)</span></h3><ul>
+<li>Map中的集合不能包含重复的键，值可以重复；每个键只能对应一个值。</li>
+<li>V put(K key, V value)把指定的键值添加到Map集合中返回null或替换前的值</li>
+<li>V remove(Object key)删除指定键对应的值，返回被删除元素的值</li>
+<li>V get(Object key) 根据指定的键，在Map集合中获取对应的值</li>
+<li>Set<k>  keySet() 获取Map集合中所有的键，存储到Set集合中</k></li>
+<li>Set&lt;Map.Entry&lt;K,V&gt;&gt;  entrySet() 获取到Map集合中所有的键值对对象的集合(Set集合)</li>
+<li>K getKey() 返回与此项对应的键 </li>
+<li>V getValue()返回与此项对应的值 </li>
+</ul>
+<h3 id="java-util-HashMap"><a href="#java-util-HashMap" class="headerlink" title="java.util.HashMap"></a><span id="jump312">java.util.HashMap<e></e></span></h3><ul>
+<li>哈希表结构,元素存取无序,值重复,键重复则覆盖,要重写键的hashCode、equals方法</li>
+</ul>
+<h3 id="java-util-LinkedHashMap"><a href="#java-util-LinkedHashMap" class="headerlink" title="java.util.LinkedHashMap "></a><span id="jump313">java.util.LinkedHashMap<e> </e></span></h3><ul>
+<li>元素的存取有序,哈希表结构,值重复,键重复则覆盖,要重写键的hashCode,equals方法</li>
+</ul>
+<h3 id="java-util-Collections"><a href="#java-util-Collections" class="headerlink" title="java.util.Collections"></a><span id="jump314">java.util.Collections</span></h3><ul>
+<li>static <t> void sort(List<t> list) 升序排序</t></t></li>
+<li>static void shuffle(List<t> list) 集合中的元素存储位置随机打乱</t></li>
+</ul>
+<h3 id="集合contains方法判断集合元素唯一的原理"><a href="#集合contains方法判断集合元素唯一的原理" class="headerlink" title="集合contains方法判断集合元素唯一的原理"></a><span id="jump4">集合contains方法判断集合元素唯一的原理</span></h3><ul>
+<li>List:默认根据equals方法中的==判断地址值是否一样</li>
+<li>如果想根据内容判断是否为重复元素，需要重写元素的equals方法</li>
+<li>Set、Map:默认先根据hashCode方法的hash值是否一样，然后根据equals方法中的==判断地址值是否一样</li>
+<li>如果自定义类型想根据内容判断是否为重复元素，需要重写元素的hashcode和equals方法</li>
+<li>Java提供的包装类一般都重写了hashcode和equals方法，不需再重写</li>
+</ul>
+<h3 id="java-lang-Iterable"><a href="#java-lang-Iterable" class="headerlink" title="java.lang.Iterable"></a><span id="jump5">java.lang.Iterable<t></t></span></h3><ul>
+<li>ArrayList迭代</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; list.size(); i++) &#123;</span><br><span class="line">		String str = list.get(i);</span><br><span class="line">&#125;</span><br><span class="line">for (Iterator&lt;String&gt; it2 = coll.iterator(); it2.hasNext();  ) &#123;</span><br><span class="line">		System.out.println(it2.next());</span><br><span class="line">&#125; </span><br><span class="line">Iterator&lt;String&gt; it=list.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">		String str=it.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Vector枚举迭代</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Enumeration&lt;String&gt; en=list.elements();</span><br><span class="line">while(en.hasMoreElements()&#123;</span><br><span class="line">		String str=en.nextElement();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Map迭代</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">①Entry键值对对象方式</span><br><span class="line">Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet = map.entrySet();</span><br><span class="line">Iterator&lt;Map.Entry&lt;String,String&gt;&gt; it =entrySet.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">		Map.Entry&lt;String,String&gt; entry = it.next();//得到每一对对应关系</span><br><span class="line">		String key = entry.getKey();//通过每一对对应关系获取对应的key</span><br><span class="line">		String value = entry.getValue();//通过每一对对应关系获取对应的value</span><br><span class="line">		System.out.println(key+&quot;=&quot;+value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();  </span><br><span class="line">for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) &#123;  </span><br><span class="line">		System.out.println(&quot;Key=&quot; + entry.getKey() + &quot;,Value =&quot; +entry.getValue());  </span><br><span class="line">&#125;</span><br><span class="line">②遍历键找值方式</span><br><span class="line">Map&lt;String, String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">Set&lt;String&gt; keySet = map.keySet();</span><br><span class="line">Iterator&lt;String&gt; it =keySet.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">		String key = it.next();//得到每一个key</span><br><span class="line">		String value = map.get(key);//通过key获取对应的value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>增强for</li>
+<li>好处: 代码少了,方便对容器遍历</li>
+<li>弊端: 没有索引,不能操作容器里面的元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(元素类型  变量名 : 数组或者集合 )&#123;</span><br><span class="line">	sop(变量);//相当于直接每次循环将集合或者数组中的元素赋给变量</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>并发修改异常</li>
+<li>在迭代的过程中使用了集合的方法对集合的元素进行操作会引发并发修改异常</li>
+<li>解决方法：①使用迭代器的方法操作元素②使用for循环操作元素</li>
+</ul>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a><span id="jump6">泛型</span></h3><ul>
+<li>泛型概念<ul>
+<li>指明了集合中存储数据的类型  &lt;数据类型&gt;(安全简单)</li>
+<li>在编译的时候检查类型安全,避免了迭代时类型强转的麻烦</li>
+</ul>
+</li>
+<li>泛型声明<ul>
+<li>泛型类 修饰符   class 类名&lt;代表泛型的变量&gt; {}</li>
+<li>泛型方法 修饰符 &lt;代表泛型的变量&gt; 返回值类型 方法名(参数){} public <t> T[] toArray(T[] a){} </t></li>
+<li>泛型接口 public interface List <e>{abstract boolean add(E e);}</e></li>
+</ul>
+</li>
+<li>通配符和泛型的限定<ul>
+<li>Iterator&lt;?&gt; it = coll.iterator()泛型的通配,匹配所有的数据类型 </li>
+<li>&lt;? extends Employee&gt; 限制的是父类, 上限限定, 可以传递Employee,传递他的子类对象</li>
+<li>&lt;? super   Employee&gt; 限制的是子类, 下限限定, 可以传递Employee,传递他的父类对象</li>
+</ul>
+</li>
+<li>Java伪泛型<ul>
+<li>泛型只在编译时存在,编译后就被擦除,在编译之前我们就可以限制集合的类型,起到作用</li>
+<li>例如:ArrayList<string> al=new ArrayList<string>();编译后:ArrayList al=new ArrayList();</string></string></li>
+</ul>
+</li>
+</ul>
+<h3 id="动态获得子类的类型"><a href="#动态获得子类的类型" class="headerlink" title="动态获得子类的类型"></a><span id="jump7">动态获得子类的类型</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//在父类(IBaseDaoImpl)的构造方法中动态获得entityClass字节码对象</span><br><span class="line">public IBaseDaoImpl() &#123;</span><br><span class="line">//获得T</span><br><span class="line">ParameterizedType Superclass = (ParameterizedType) this.getClass().getGenericSuperclass();</span><br><span class="line">//获得父类上声明的泛型数组</span><br><span class="line">Type[] actualTypeArguments = Superclass.getActualTypeArguments();</span><br><span class="line">entityClass=(Class&lt;T&gt;) actualTypeArguments[0];</span><br></pre></td></tr></table></figure>
+</div><div class="tags"><a href="/tags/collection/">collection</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/api/">api</a><a class="next" href="/2020/01/03/io/">io</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

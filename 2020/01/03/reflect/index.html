@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>反射 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">反射</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">反射</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><p>反射使用
+<a id="more"></a></p>
+<h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><ul>
+<li><a href="#jump1">反射机制</a></li>
+<li><a href="#jump2">类加载器</a></li>
+<li><a href="#jump3">类的加载步骤</a></li>
+<li><a href="#jump4">类加载到内存的时机</a></li>
+<li><a href="#jump5">类加载器分类</a></li>
+<li><a href="#jump6">类加载到内存的时机</a><ul>
+<li><a href="#jump61">java.lang.Object</a>java所有类的超类<ul>
+<li><a href="#jump62">java.lang.Class<t></t></a></li>
+<li><a href="#jump63">java.lang.ClassLoader</a></li>
+<li><a href="#jump64">java.lang.reflect.AccessibleObject</a><ul>
+<li><a href="#jump65">java.lang.reflect.Constructor<t></t></a></li>
+<li><a href="#jump66">java.lang.reflect.Field<t></t></a></li>
+<li><a href="#jump67">java.lang.reflect.Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a><span id="jump1">反射机制</span></h3><ul>
+<li>在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法</li>
+<li>对于任意一个对象，都能够调用它的任意一个方法和属性;</li>
+<li>这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</li>
+<li>自己的理解<ul>
+<li>类加载进入内存后产生.class字节码文件、该类的对象、.class字节码文件对应的class对象</li>
+<li>获得class对象并利用其方法获得class文件所有的属性和方法然后就能执行创建对象，</li>
+<li>调用构造方法，一般方法，设置属性值等操作，不用修改源码就能解决动态调用方法
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a><span id="jump2">类加载器</span></h3><ul>
+<li>类加载器负责将.class文件加载到内存中，并为之生成对应的Class对象</li>
+<li>Class对象无公共构造方法,有且只有一个（不能创建，只能获得），</li>
+<li>加载类时由Java虚拟机和调用类加载器defineClass方法自动构造</li>
+<li>类的加载机制:全盘委托机制</li>
+<li>保证一个class文件只会被加载一次，形成一个Class对象。</li>
+<li>自定义类加载可以将一个class文件加载多次。</li>
+<li>一个class文件被两个类加载器加载将是两个对象</li>
+</ul>
+<h3 id="类的加载步骤"><a href="#类的加载步骤" class="headerlink" title="类的加载步骤"></a><span id="jump3">类的加载步骤</span></h3><ul>
+<li>加载：指用类加载器将class文件读入内存，并为整个class文件创建一个Class对象（任何类被使用时系统都会建立一个Class对象）</li>
+<li>连接<ul>
+<li>①验证 是否有正确的内部结构，并和其他类协调一致</li>
+<li>②准备 负责为类的静态成员分配内存，并设置默认初始化值</li>
+<li>③解析 将类的二进制数据中的符号引用替换为直接引用</li>
+</ul>
+</li>
+<li>初始化</li>
+</ul>
+<h3 id="类加载到内存的时机"><a href="#类加载到内存的时机" class="headerlink" title="类加载到内存的时机"></a><span id="jump4">类加载到内存的时机</span></h3><ul>
+<li>创建类的实例</li>
+<li>初始化某个类的子类</li>
+<li>类的静态变量，或者为静态变量赋值</li>
+<li>类的静态方法</li>
+<li>使用反射方式来强制创建某个类或接口对应的java.lang.Class对象</li>
+<li>直接使用java.exe命令来运行某个主类</li>
+</ul>
+<h3 id="类加载器分类"><a href="#类加载器分类" class="headerlink" title="类加载器分类"></a><span id="jump5">类加载器分类</span></h3><ul>
+<li>BootstrapClassLoader引导类加载器–Java核心类的加载(System,String)–JRE/lib/rt.jar</li>
+<li>ExtensionClassLoader扩展类加载器–JRE的扩展目录jar包的加载–JRE/lib/ext/*.jar</li>
+<li>AppClassLoader应用类加载器–三方jar包和自己编写的java文件</li>
+</ul>
+<h3 id="反射相关继承体系"><a href="#反射相关继承体系" class="headerlink" title="反射相关继承体系"></a><span id="jump6">反射相关继承体系</span></h3><h3 id="java-lang-Class"><a href="#java-lang-Class" class="headerlink" title="java.lang.Class"></a><span id="jump62">java.lang.Class<t></t></span></h3><ul>
+<li>获得Class对象类名 <ul>
+<li>变量名 = new 类名();Class c1 = 变量名.getClass();</li>
+<li>Class c2 = 类名.class;(常用)  </li>
+<li>Class c3 = Class.forName(“完整类名”);(常用)</li>
+</ul>
+</li>
+<li>ClassLoader getClassLoader();获得Class对象的类加载器</li>
+<li>Constructor<t> getConstructor(Class&lt;?&gt;… parameterTypes);(public)//通过Class对象获得Constructor类</t></li>
+<li>Constructor<t> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes);(All)</t></li>
+<li>Constructor&lt;?&gt;[] getConstructors()(public)</li>
+<li>Constructor&lt;?&gt;[] getDeclaredConstructors(All))</li>
+<li>Field getField(String name);(本类及父类public)</li>
+<li>Field getDeclaredField() (本类All)</li>
+<li>Field[] getFields() (本类及父类public)</li>
+<li>Field[] getDeclaredFields() ;(本类All)</li>
+<li>Method getMethod(String name, Class&lt;?&gt;… parameterTypes)(本类及父类public)</li>
+<li>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)(本类All)</li>
+<li>Method[] getMethods() (本类及父类public)</li>
+<li>Method[] getDeclaredMethods()  (本类All)</li>
+<li>Object newInstance();调用默认的构造方法创建对象</li>
+</ul>
+<h3 id="java-lang-ClassLoader"><a href="#java-lang-ClassLoader" class="headerlink" title="java.lang.ClassLoader"></a><span id="jump63">java.lang.ClassLoader</span></h3><ul>
+<li>ClassLoader getClassLoader();获得Class对象的类加载器</li>
+<li>URL getResource(“相对src路径”).getPath();获得classes(src)下的任何资源绝对路径</li>
+<li>InputStream getResourceAsStream(“”);获得classes下(src)下的任何资源inputStream </li>
+</ul>
+<h3 id="java-lang-reflect-AccessibleObject"><a href="#java-lang-reflect-AccessibleObject" class="headerlink" title="java.lang.reflect.AccessibleObject"></a><span id="jump64">java.lang.reflect.AccessibleObject</span></h3><ul>
+<li>void setAccessible(boolean flag) throws SecurityException(true取消);语言访问检查(允许访问私有)</li>
+</ul>
+<h3 id="java-lang-reflect-Constructor"><a href="#java-lang-reflect-Constructor" class="headerlink" title="java.lang.reflect.Constructor "></a><span id="jump64">java.lang.reflect.Constructor<t> </t></span></h3><ul>
+<li>通过Constructor类创建对象T newInstance(Object… initargs)(传递构造函数参数);</li>
+</ul>
+<h3 id="java-lang-reflect-Field"><a href="#java-lang-reflect-Field" class="headerlink" title="java.lang.reflect.Field "></a><span id="jump64">java.lang.reflect.Field<t> </t></span></h3><ul>
+<li>利用Field类对属性进行赋值取值</li>
+<li>void set(Object obj,Object value)(obj传入实例化对象,静态属性则为null);</li>
+<li>Object get(Object obj)(obj传入实例化对象,静态属性则为null)</li>
+</ul>
+<h3 id="java-lang-reflect-Method"><a href="#java-lang-reflect-Method" class="headerlink" title="java.lang.reflect.Method"></a><span id="jump65">java.lang.reflect.Method</span></h3><ul>
+<li>Object invoke(Object obj,Object… args)(obj传入实例化对象,静态方法则为null)</li>
+</ul>
+</div><div class="tags"><a href="/tags/reflect/">reflect</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/socket/">socket</a><a class="next" href="/2020/01/03/annotation/">注解</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

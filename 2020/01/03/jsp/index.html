@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>jsp | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">jsp</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">jsp</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><p>jsp/el/jstl
+<a id="more"></a></p>
+<h1 id="jsp-Java-Server-Page"><a href="#jsp-Java-Server-Page" class="headerlink" title="jsp(Java Server Page)"></a>jsp(Java Server Page)</h1><ul>
+<li>建立在Servlet规范上的动态网页开发技术本质是servlet（Html + Java）</li>
+<li>特点:跨平台、业务代码相分离、JavaBean组件重用、预编译（一个用户只编译一次）</li>
+<li>产生原因:html页面输出太麻烦</li>
+</ul>
+<h1 id="jsp运行原理"><a href="#jsp运行原理" class="headerlink" title="jsp运行原理"></a>jsp运行原理</h1><ul>
+<li>本质就是servlet，第一次被访问的时候被web容器翻译成servlet再执行</li>
+<li>helloServlet.jsp→helloServlet_jsp.java源文件→helloServlet_jsp.class字节码文件</li>
+<li>被翻译后的servlet在Tomcat的work目录中可以找到</li>
+<li>F:\Tomcat\apache-tomcat-7.0.52\work\Catalina\localhost\WEB17\org\apache\jsp</li>
+<li>jsp继承了HttpjspBase，HttpjspBase类又继承了HttpServlet，故jsp就是servlet    </li>
+</ul>
+<h1 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</span><br><span class="line">		&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="jsp基本语法"><a href="#jsp基本语法" class="headerlink" title="jsp基本语法"></a>jsp基本语法</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">脚本分类</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&lt;%(变量/方法/语句等)%&gt;</td>
+<td style="text-align:center">jspScriptlets：被翻译到Servlet中的service方法的局部变量。调用完则释放内存空间,常用于输出</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;%=(变量/表达式)%&gt;</td>
+<td style="text-align:center">jsp表达式：被翻译成servlet中service方法内部out.print()输出，变量或者表达式后面不能有分号</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;%!java代码%&gt;</td>
+<td style="text-align:center">jsp声明语句:被翻译成servlet类的成员方法/变量/代码块，静态方法/变量/代码块,对整个jsp页面有效</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">注释分类</th>
+<th style="text-align:center">说明</th>
+<th>可见范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Html注释</td>
+<td style="text-align:center">&lt;!–注释内容–&gt;</td>
+<td>jsp源码、java源码、html源码</td>
+</tr>
+<tr>
+<td style="text-align:center">java注释</td>
+<td style="text-align:center">//单行注释/<em>多行注释</em>/</td>
+<td>java源码、jsp源码</td>
+</tr>
+<tr>
+<td style="text-align:center">jsp注释</td>
+<td style="text-align:center">&lt;%–注释内容–%&gt;</td>
+<td>jsp源码</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令(指导jsp翻译和运行的命令)分类</th>
+<th style="text-align:center">属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&lt;%@page 属性名1=”属性值1”%&gt;</td>
+<td style="text-align:center">language：jsp脚本中可以嵌入的语言种类java</td>
+</tr>
+<tr>
+<td style="text-align:center">属性名称区分大小写</td>
+<td style="text-align:center">pageEncoding：读取jsp文件内容采用的编码一定要和保存文件的编码一致–内部可以包含contentType</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">contentType：有效文档类型text/html;</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">session：是否jsp在翻译时自动创建true/false</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">import：导入java的包 可多次，其他只能一次java.util.*</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">errorPage：当当前页面出错后跳转到哪个页面</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">isErrorPage：当前页面是一个处理错误的页面true/false</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">buffer:8kb,jsp缓存大小，也是out的缓冲区大小</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">autoFlush:自动刷新,true/false</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;%@taglib 属性名1=”属性值1” &gt;</td>
+<td style="text-align:center">uri：要引入的(jstl、struts2)标签库地址, prefix:前缀 使用<a href="xxx:前缀" target="_blank" rel="noopener">xxx:前缀</a></td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;%@include 属性名1=”属性值1”%&gt;</td>
+<td style="text-align:center">file:被包含的相对于webcontent文件地址（静态包含）</td>
+</tr>
+</tbody>
+</table>
+<h1 id="jsp9大内置对象（笔试）"><a href="#jsp9大内置对象（笔试）" class="headerlink" title="jsp9大内置对象（笔试）"></a>jsp9大内置对象（笔试）</h1><pre><code>jsp被翻译成servlet后，service方法中有9个对象定义并初始化完毕，jsp脚本可直接使用
+所有对象都可以存取数据request.setAttribute(&quot;age&quot;, 30);
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">9大内置对象名称</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">request</td>
+<td style="text-align:center">HttpServletRequest</td>
+<td style="text-align:center">得到用户请求信息</td>
+</tr>
+<tr>
+<td style="text-align:center">response</td>
+<td style="text-align:center">HttpServletResponse</td>
+<td style="text-align:center">服务器向客户端回应信息</td>
+</tr>
+<tr>
+<td style="text-align:center">config</td>
+<td style="text-align:center">ServletConfig</td>
+<td style="text-align:center">服务器配置，可以取得初始化参数</td>
+</tr>
+<tr>
+<td style="text-align:center">session</td>
+<td style="text-align:center">HttpSession</td>
+<td style="text-align:center">保存用户信息</td>
+</tr>
+<tr>
+<td style="text-align:center">application</td>
+<td style="text-align:center">ServletContext</td>
+<td style="text-align:center">所有用户的共享信息</td>
+</tr>
+<tr>
+<td style="text-align:center">page</td>
+<td style="text-align:center">Object</td>
+<td style="text-align:center">指当前页面转换后的Servlet类的实例</td>
+</tr>
+<tr>
+<td style="text-align:center">exception</td>
+<td style="text-align:center">Throwable</td>
+<td style="text-align:center">表示jsp页面所发生的异常，在错误页面中才起作用</td>
+</tr>
+<tr>
+<td style="text-align:center">pageContext</td>
+<td style="text-align:center">PageContext</td>
+<td style="text-align:center">jsp的页面容器,jsp页面的上下文对象</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">①获得其他8个内置对象：pageContext.getRequest()</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">②域对象:setAttribute(String name,Object obj[,int scope])</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">getAttribute(String name[,int scope])</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">removeAttrbute(String name[,int scope])</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">pageContext.(PAGE/REQUEST/SESSION/APPLICATION)_SCOPE</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">③findAttribute(String name)依次从page，request，session，application域中获取属性</td>
+</tr>
+<tr>
+<td style="text-align:center">out</td>
+<td style="text-align:center">jspWriter</td>
+<td style="text-align:center">用于页面输出</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">response.getWriter().write(“a”)，先输出，out.write后输出</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">out.write()先放到jspWriter缓冲区中(默认8kb)</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">若page属性buffer=“0kb” 关闭out缓冲区,则按顺序输出</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">jsp标签/动作</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&lt;jsp:include /&gt;</td>
+<td style="text-align:center">page:被包含的页面的地址 flush:包含页面flush是否将输出内容立即刷新到客户端，默认false，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">false;等全部加载完了再刷新</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;jsp:forward /&gt;</td>
+<td style="text-align:center">page=”要转发请求的资源相对于webcontent地址”</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">include指令(静态包含)</th>
+<th style="text-align:center">include标签(动态包含)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">引入的资源必须是jsp格式的文件</td>
+<td style="text-align:center">引入的资源必须能被web容器独立运行</td>
+</tr>
+<tr>
+<td style="text-align:center">引入的资源是编译前包含的</td>
+<td style="text-align:center">引入的资源是编译后包含的</td>
+</tr>
+<tr>
+<td style="text-align:center">不限制改变状态码和设置响应头</td>
+<td style="text-align:center">不能改变状态码和设置响应头</td>
+</tr>
+</tbody>
+</table>
+<h1 id="el-el表达式-Expression-Language"><a href="#el-el表达式-Expression-Language" class="headerlink" title="el(${el表达式}):Expression Language"></a>el(${el表达式}):Expression Language</h1><pre><code>简单的数据访问语言,使jsp的代码更加简化
+</code></pre><h1 id="11个内置对象-自定义的数据必须放在域中el才能得到"><a href="#11个内置对象-自定义的数据必须放在域中el才能得到" class="headerlink" title="11个内置对象(自定义的数据必须放在域中el才能得到)"></a>11个内置对象(自定义的数据必须放在域中el才能得到)</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">分类</th>
+<th style="text-align:center">内置对象名称</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">作用域</td>
+<td style="text-align:center">pageScope</td>
+<td style="text-align:center">page作用域</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">requestScope</td>
+<td style="text-align:center">request作用域</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">sessionScope</td>
+<td style="text-align:center">session作用域</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">applicationScope</td>
+<td style="text-align:center">application作用域</td>
+</tr>
+<tr>
+<td style="text-align:center">请求参数</td>
+<td style="text-align:center">param</td>
+<td style="text-align:center">获得一个参数</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">paramValues</td>
+<td style="text-align:center">获得一组参数</td>
+</tr>
+<tr>
+<td style="text-align:center">请求头</td>
+<td style="text-align:center">header</td>
+<td style="text-align:center">获得一个请求头</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">headerValues</td>
+<td style="text-align:center">获得一组请求头</td>
+</tr>
+<tr>
+<td style="text-align:center">jsp上下文对象</td>
+<td style="text-align:center">pageContext</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">全局初始化参数</td>
+<td style="text-align:center">initParam</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cookie</td>
+<td style="text-align:center">cookie</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">内置对象使用</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">${内置对象}</td>
+<td style="text-align:center">获得内置对象</td>
+</tr>
+<tr>
+<td style="text-align:center">${内置对象.key}</td>
+<td style="text-align:center">获得内置对象数据</td>
+</tr>
+<tr>
+<td style="text-align:center">${内置对象.[key-xxx]}</td>
+<td style="text-align:center">获得内置对象有-或者空格的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">${内置对象.key[index]}</td>
+<td style="text-align:center">获得内置对象数据为数组,list,map,对象集合的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">${key}</td>
+<td style="text-align:center">底层使用findAttribute(“name”),依次从page、request、session、application获得数据</td>
+</tr>
+<tr>
+<td style="text-align:center">${pageContext.request}</td>
+<td style="text-align:center">pageContext获得其他八大对象</td>
+</tr>
+<tr>
+<td style="text-align:center">$(pageContext.request.contextPath)/XXX</td>
+<td style="text-align:center">相当于&lt;%=pageContext.getRequest().getContextPath%&gt;获得WEB应用的名称</td>
+</tr>
+<tr>
+<td style="text-align:center">${表达式}</td>
+<td style="text-align:center">el表达式运算</td>
+</tr>
+</tbody>
+</table>
+<h2 id="jstl（jsp-Standard-Tag-Library"><a href="#jstl（jsp-Standard-Tag-Library" class="headerlink" title="jstl（jsp Standard Tag Library)"></a>jstl（jsp Standard Tag Library)</h2><ul>
+<li>jsp标准标签库，可以嵌入在jsp页面中使用标签的形式完成业务逻辑等功能。</li>
+<li>jstl出现的目的同el一样也是要提到jsp页面中的脚本代码            </li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">jstl使用</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">导入jstl.jar</td>
+<td style="text-align:center">包含JSTL规范中定义的接口和相关类</td>
+</tr>
+<tr>
+<td style="text-align:center">导入standard.jar</td>
+<td style="text-align:center">包含用于实现JSTL的.class文件以及JSTL中5个标签库描述符文件（TLD）</td>
+</tr>
+<tr>
+<td style="text-align:center">引入标签库</td>
+<td style="text-align:center">&lt;%@taglib uri=”<a href="http://java.sun.com/jsp/jstl/core&quot;" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/core&quot;</a> prefix=”c”%&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">遍历对象</td>
+<td style="text-align:center">&lt;c:forEach begin=”0”end=”5”var=”i” step=“2”&gt;${i}&lt;/c:forEach&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">&lt;c:forEach items=”将要迭代的对象” var=”每一个对象的值” [varStatus=””]&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">获得普通list的值</td>
+<td style="text-align:center">&lt;c:forEach items=”${list }” var=”str”&gt;${str }&lt;/c:forEach&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">获得list对象的值</td>
+<td style="text-align:center">&lt;c:forEach items=”${userList}” var=”user”&gt;${user.name }${user.age}&lt;/c:forEach&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">获得普通map的值</td>
+<td style="text-align:center">&lt;c:forEach items=”${strMap }” var=”entry”&gt;${entry.key }==${entry.value }&lt;/c:forEach&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">获得map对象的值</td>
+<td style="text-align:center">&lt;c:forEach items=”${userMap }” var=”entry”&gt;${entry.value.name }–${entry.value.password }&lt;/c:forEach&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">判断条件</td>
+<td style="text-align:center">&lt;c:if test=”” var=”” scope=”page”&gt;&lt;/c:if&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">输出</td>
+<td style="text-align:center">&lt;c:out value=”hello,world”&gt;</td>
+</tr>
+</tbody>
+</table>
+</div><div class="tags"><a href="/tags/jsp/">jsp</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/web/">web</a><a class="next" href="/2020/01/03/java utils/">java utils</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

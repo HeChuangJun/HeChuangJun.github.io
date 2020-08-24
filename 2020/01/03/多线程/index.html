@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>多线程 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">多线程</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">多线程</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><p>多线程
+<a id="more"></a></p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
+<li>进程是在内存中正在运行的程序，并且具有一定独立功能</li>
+<li>线程：线程是进程中的一个执行单元，负责当前进程中程序的执行</li>
+<li>一个程序运行后至少有一个进程，一个进程中包含至少一个线程</li>
+<li>单线程程序：若有多个任务只能依次执行</li>
+<li>多线程程序：若有多个任务可以同时执行</li>
+<li>主线程：jvm启动后，必然有一个从main方法开始的，一直执行到main方法结束的线程</li>
+</ul>
+<h2 id="程序运行原理"><a href="#程序运行原理" class="headerlink" title="程序运行原理"></a>程序运行原理</h2><ul>
+<li>分时调度：所有线程轮流使用 CPU 的使用权，平均分配每个线程占用 CPU 的时间。</li>
+<li>抢占式调度(Java)：优先让优先级高的线程使用 CPU，线程优先级相同，随机选择一个线程执行</li>
+<li>CPU(中央处理器)使用抢占式调度模式在多个线程间进行着高速的切换</li>
+<li>对于CPU的一个核而言，某个时刻，只能执行一个线程，</li>
+<li>而 CPU的在多个线程间切换速度相对我们的感觉要快，看上去就是在同一时刻运行</li>
+<li>多线程程序并不能提高程序的运行速度，但能够提高程序运行效率，让CPU的使用率更高</li>
+</ul>
+<h2 id="Thread类是程序中的执行线程，实现了Runnable接口"><a href="#Thread类是程序中的执行线程，实现了Runnable接口" class="headerlink" title="Thread类是程序中的执行线程，实现了Runnable接口"></a>Thread类是程序中的执行线程，实现了Runnable接口</h2><ul>
+<li>Java 虚拟机允许应用程序并发地运行多个执行线程。
+  -Thread()分配新的Thread对象<ul>
+<li>Thread(String name)分配新的Thread对象,将指定的name作为线程名称</li>
+<li>Thread(Runnable target)分配新的Thread对象，以便将target做为其运行对象</li>
+<li>Thread(Runnable target,String name)~指定的name作为线程名称</li>
+<li>void start()使该线程开始执行，Java虚拟机调用该线程的run方法</li>
+<li>void run()该线程要执行的操作</li>
+<li>(Thread.)static void sleep(long millis)在指定的毫秒数内让当前正在执行的线程休眠</li>
+<li>static Thread currentThread()返回当前正在执行的线程对象的引用</li>
+<li>String getName()返回该线程的名称，</li>
+<li>主线程的名称:main;自定义的线程:Thread-0,线程多个时，数字顺延。如Thread-1……</li>
+</ul>
+</li>
+</ul>
+<h2 id="创建线程的方式"><a href="#创建线程的方式" class="headerlink" title="创建线程的方式"></a>创建线程的方式</h2><h3 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h3><ul>
+<li>1、线程对象调用run方法和调用start方法区别？<ul>
+<li>调用run方法不开启线程(对象调用方法),调用start方法开启线程,让run方法在线程中执行</li>
+</ul>
+</li>
+<li>2、我们为什么要继承Thread类，并调用其的start方法才能开启线程呢？<ul>
+<li>继承Thread类：因为Thread类用来描述线程，具备线程应该有功能</li>
+</ul>
+</li>
+<li>3、创建线程的目的是什么？<ul>
+<li>是为了让多部分代码实现同时执行,线程创建并执行需要给定线程要执行的任务</li>
+<li>主线程，它的任务定义在main函数中。自定义线程需要执行的任务都定义在run方法中</li>
+</ul>
+</li>
+<li>4、为什么不直接创建Thread类的对象呢？<ul>
+<li>因为即使创建Thread对象并调用start方法，run方法也没有我们需要线程执行的任务</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class Demo01 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">	MyThread mt = new MyThread(&quot;新的线程！&quot;);</span><br><span class="line">	mt.start();</span><br><span class="line">	for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">		System.out.println(&quot;main线程！&quot;+i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MyThread extends Thread &#123;</span><br><span class="line">	public MyThread(String name) &#123;</span><br><span class="line">		super(name);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">		System.out.println(getName()+&quot;：正在执行！&quot;+i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h3><ul>
+<li>避免了继承Thread类的单继承局限性</li>
+<li>实现Runnable接口的方式，更加的符合面向对象，线程分为线程对象和线程任务。</li>
+<li>继承Thread类，线程对象和线程任务耦合。Thread类的子类对象，既是线程对象，又有线程任务</li>
+<li>实现runnable接口，将线程任务单独分离出来封装成对象，类型就是Runnable接口类型。</li>
+<li>Runnable接口对线程对象和线程任务进行解耦</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Demo02 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//创建线程执行目标类对象</span><br><span class="line">		Runnable runn = new MyRunnable();</span><br><span class="line">		//将Runnable接口的子类对象作为参数传递给Thread类的构造函数</span><br><span class="line">		Thread thread = new Thread(runn);</span><br><span class="line">		Thread thread2 = new Thread(runn);</span><br><span class="line">		//开启线程</span><br><span class="line">		thread.start();</span><br><span class="line">		thread2.start();</span><br><span class="line">		for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">			System.out.println(&quot;main线程：正在执行！&quot;+i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public class MyRunnable implements Runnable&#123;</span><br><span class="line">		@Override</span><br><span class="line">		public void run() &#123;</span><br><span class="line">			for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">				System.out.println(&quot;我的线程：正在执行！&quot;+i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">当执行线程的任务结束了，线程自动在栈内存中释放了。当所有执行线程都结束了，进程就结束了</span><br></pre></td></tr></table></figure>
+<h2 id="线程匿名内部类的使用"><a href="#线程匿名内部类的使用" class="headerlink" title="线程匿名内部类的使用"></a>线程匿名内部类的使用</h2><ul>
+<li>1、创建线程对象时，重写Thread类中的run方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new Thread() &#123;</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		System.out.println(Thread.currentThread().getName()+ &quot;.&quot; + x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;.start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2、实现Runnable接口，重写Runnable接口中的run方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Runnable r = new Runnable() &#123;</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		System.out.println(Thread.currentThread().getName()+ &quot;.&quot; + x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">new Thread(r).start();</span><br></pre></td></tr></table></figure>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><ul>
+<li>容纳多个线程的容器(使线程可以反复使用),无需反复创建线程而消耗过多资源</li>
+<li>①线程生命周期开销问题(创建和销毁线程花费的时间和系统资源都相当大)</li>
+<li>②资源不足问题（线程太多过度消耗内存或‘切换过度’）适当的调整线程中的线程数目可以防止出现资源不足的情况。</li>
+<li>③运行速度问题（响应快）,通过对多个任务重复使用线程,线程创建的开销就被分摊到了多个任务上了，</li>
+<li>而且由于在请求到达时线程已经存在，所以消除了线程创建所带来的延迟。</li>
+</ul>
+<h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><ul>
+<li>①Executors：线程池创建工厂类<ul>
+<li>public static ExecutorService newFixedThreadPool(int nThreads)：返回线程池对象包含n个线程</li>
+</ul>
+</li>
+<li>②实现Runnable接口并覆盖void run()方法，创建该对象（非多态）</li>
+<li>②实现Callable<t>接口覆盖Object call()方法，创建该对象（非多态）可抛出异常并返回结果</t></li>
+<li>③调用线程池类的方法<ul>
+<li>Future&lt;?&gt; submit(Runnable task)获取线程池中某个线程对象并执行线程中run()</li>
+<li><t> Future<t> submit(Callable<t> task)获取线程池中某个线程对象并执行线程中call()<ul>
+<li>Future接口：用来记录线程任务执行完毕后产生的结果。</li>
+</ul>
+</t></t></t></li>
+<li>V get() 获取Future对象中封装的数据结果<ul>
+<li>对于实现了callable接口的线程类，线程执行成功则返回覆盖call方法执行的返回的object</li>
+<li>对于实现了Runnable接口的线程类，线程执行成功则返回覆盖run方法执行的返回的null</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>④ExecutorService  void shutdown();线程自动关闭</li>
+</ul>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><ul>
+<li>多线程每次运行的结果与单线程运行的结果是一样的，且其他变量的值也是预期的一样的</li>
+<li>线程安全问题都是由全局变量及静态变量引起的。</li>
+<li>若每个线程中对全局变量、静态变量只有读操作，而无写操作，这个全局变量是线程安全的；</li>
+<li>若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全</li>
+</ul>
+<h2 id="线程同步-解决线程安全问题"><a href="#线程同步-解决线程安全问题" class="headerlink" title="线程同步:解决线程安全问题"></a>线程同步:解决线程安全问题</h2><ul>
+<li>同步代码块synchronized (锁对象) {同步代码} 锁对象可以是任意的对象；多个线程时，同一个锁对象才能够保证线程安全。</li>
+<li>同步方法public synchronized void 方法名(){} 在run中调用这个方法，锁对象是 this</li>
+<li><p>静态同步方法public static synchronized void method(){}，锁对象是 类名.class</p>
+</li>
+<li><p>死锁：同步锁使用的弊端</p>
+</li>
+<li>当线程任务中出现了多个同步(多个锁)时，如果同步中嵌套了其他的同步。程序会出现无限等待</li>
+<li>是由于进入同步代码块的线程不释放锁而引起的，如AB锁交叉</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">synchronzied(A锁)&#123;</span><br><span class="line">	synchronized(B锁)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Lock ck = new ReentrantLock();//ReentrantLock实现了Lock接口多态</span><br><span class="line">ck.lock();获取锁</span><br><span class="line">同步代码块</span><br><span class="line">ck.unlock();释放锁</span><br></pre></td></tr></table></figure>
+<h2 id="线程同步执行过程"><a href="#线程同步执行过程" class="headerlink" title="线程同步执行过程"></a>线程同步执行过程</h2><ul>
+<li>①线程进同步前判断锁，没锁进不去，有锁进去并获取锁，出同步释放锁，导致线程运行速度下降</li>
+<li>②没有锁的线程，不能进入同步，</li>
+<li>③在同步中的线程，不出去同步，不会释放锁，即使休眠了,synchronized异常释放锁</li>
+</ul>
+<h2 id="等待唤醒机制（同步中才有效）"><a href="#等待唤醒机制（同步中才有效）" class="headerlink" title="等待唤醒机制（同步中才有效）"></a>等待唤醒机制（同步中才有效）</h2><ul>
+<li>等待唤醒机制：使各个线程能有效的利用资源。</li>
+<li><p>Object中的相关方法</p>
+<ul>
+<li>wait():等待，将正在执行的线程释放其执行资格和执行权，并存储到线程池中</li>
+<li>notify()：唤醒，唤醒线程池中被wait()的线程，一次唤醒一个，而且是任意的</li>
+<li>notifyAll()： 唤醒全部：可以将线程池中的所有wait()线程都唤醒</li>
+</ul>
+</li>
+<li><p>sleep()和wait()方法的区别</p>
+<ul>
+<li>sleep(): 不释放锁对象, 释放CPU使用权、在休眠的时间内，不能唤醒</li>
+<li>wait(): 释放锁对象, 释放CPU使用权、在等待的时间内，能唤醒</li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/多线程/">多线程</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/io/">io</a><a class="next" href="/2020/01/03/exception/">exception</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
