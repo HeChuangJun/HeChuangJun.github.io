@@ -1,46 +1,127 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>redis | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">redis</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">redis</h1><div class="post-meta">May 8, 2018<span> | </span><span class="category"><a href="/categories/数据库/">数据库</a></span></div><div class="post-content"><p>redis（nosql数据库）
 <a id="more"></a></p>
-<h1 id="NoSQL产生原因"><a href="#NoSQL产生原因" class="headerlink" title="NoSQL产生原因"></a>NoSQL产生原因</h1><pre><code>1.数据库高并发读写需求
-2.海量数据高效率存储和访问
-3.数据库高扩展性和高可用性
-</code></pre><h1 id="NoSQL的特点"><a href="#NoSQL的特点" class="headerlink" title="NoSQL的特点"></a>NoSQL的特点</h1><pre><code>易扩展、大数据量，高性能，灵活的数据模型,高可用
-</code></pre><h1 id="redis使用场景"><a href="#redis使用场景" class="headerlink" title="redis使用场景"></a>redis使用场景</h1><pre><code>缓存、聊天室在线好友列表，任务队列，应用排行榜，网站访问统计，数据过期处理
-分布式集群架构中的session分离
-</code></pre><h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><pre><code>redis是一种高级的key-value的存储系统
-关系型数据库是基于关系表的数据库，最终会将数据持久化到磁盘上
-nosql数据库是基于特殊的结构，并将数据存储到内存的数据库
-从性能上而言，nosql数据库要优于关系型数据库
-从安全性上而言关系型数据库要优于nosql数据库
-一个项目中nosql和关系型数据库会一起使用，达到性能和安全性的双保证。
-
-Redis中所有的数据都是字符串。命令不区分大小写，key是区分大小写的。Redis是单线程的。Redis中不适合保存内容大的数据。
-</code></pre><h1 id="安装与启动"><a href="#安装与启动" class="headerlink" title="安装与启动"></a>安装与启动</h1><pre><code>在redis的bin目录下可以执行./redis-server前端启动方式
-在bin下执行命令,/redis-server redis.conf(后端启动)
-关闭：关闭进程、在客户端下shutdown
-连接redis redis-cli -h ip -p port
-</code></pre><h1 id="jedis的操作"><a href="#jedis的操作" class="headerlink" title="jedis的操作"></a>jedis的操作</h1><pre><code>导包commons-pool2-2.3.jar\jedis2.7.0jar
-操作数据库
-
-JedisConfig config=new JedisConfig()；
-config.setMaxtotal(30);
-config.setMaxIdle(10)
-JedisPool pool = new JedisPool(JedisConfig,host,port);
-Jedis jedis=null;
-jedis=pool.getResource();
-jedis.set(key,数据类型)
-jedis.get(key,数据类型)
-
-Jedis jedis = new Jedis(host,port);
-jedis.set(key,数据类型)
-jedis.get(key,数据类型)
-</code></pre><h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h1 id="key和value说明"><a href="#key和value说明" class="headerlink" title="key和value说明"></a>key和value说明</h1><pre><code>key是字符串类型
-key不要太长，最好不要操作1024个字节，这不仅会消耗内存还会降低查找效率
-key不要太短，如果太短会降低key的可读性
-在项目中，key最好有一个统一的命名规范（根据企业的需求）
-value在获取或者保存的时候若类型与相应的指令不匹配，则报错
-不存在则返回null，若是操作数字不存在则初值为0再操作,
-索引-1表示尾部，-2表示倒数第2个，0表示开头元素
-</code></pre><h1 id="value-五种数据类型"><a href="#value-五种数据类型" class="headerlink" title="value 五种数据类型"></a>value 五种数据类型</h1><table>
+<h1 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h1><ul>
+<li>关系型数据库是基于关系表的数据库，最终会将数据持久化到磁盘上</li>
+<li>nosql数据库是基于特殊的结构，并将数据存储到内存的数据库</li>
+<li>从性能上而言，nosql数据库要优于关系型数据库</li>
+<li>从安全性上而言关系型数据库要优于nosql数据库</li>
+<li>一个项目中nosql和关系型数据库会一起使用，达到性能和安全性的双保证</li>
+<li>NoSQL产生原因<ul>
+<li>1.数据库高并发读写需求</li>
+<li>2.海量数据高效率存储和访问</li>
+<li>3.数据库高扩展性和高可用性</li>
+</ul>
+</li>
+<li>NoSQL的特点：易扩展、大数据量，高性能，灵活的数据模型,高可用</li>
+</ul>
+<h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><ul>
+<li>redis是一种高级的key-value的存储系统</li>
+<li>Redis中所有的数据都是字符串。命令不区分大小写，key是区分大小写的。Redis是单线程的。Redis中不适合保存内容大的数据。</li>
+<li>redis使用场景<ul>
+<li>缓存、聊天室在线好友列表，任务队列，应用排行榜，网站访问统计，数据过期处理</li>
+<li>分布式集群架构中的session分离</li>
+</ul>
+</li>
+<li>redis单线程为什么这么快<ul>
+<li>单线程，避免线程之间的竞争</li>
+<li>是内存中的，使用内存的，可以减少磁盘的io</li>
+<li>多路复用模型，用了缓冲区的概念，selector模型来进行的<h2 id="Redis的特性"><a href="#Redis的特性" class="headerlink" title="Redis的特性"></a>Redis的特性</h2></li>
+</ul>
+</li>
+<li>redis数据结构：<ul>
+<li>String：存储json类型对象；计数器；优酷视频点赞等</li>
+<li>list：模拟队列,堆,栈 </li>
+<li>set：</li>
+<li>orderset</li>
+<li>hash：保存对象、分组</li>
+</ul>
+</li>
+<li>string与hash的数据差别<ul>
+<li>在网路传输时候，必须要进行进行序列化，才可以进行网路传输，string的序列化和反序列化性能高，而hash的序列化和返序列化性能低，如果是数据经常修改的那种，为了性能可以使用string，如果是数据不是经常改的那种就可以使用hash，由于hash，存储数据时比较丰富，可以存储多种数据类型</li>
+</ul>
+</li>
+<li>多数据库<ul>
+<li>有0-15数据库，默认为0，选择数据库select n选择n号数据库</li>
+<li>移库 move newkey n将当前的key移植到n号库中</li>
+</ul>
+</li>
+<li>Redis的持久化：所有数据都是保存到内存中的。可以将内存中的数据异步写入硬盘中<ul>
+<li>Rdb（默认）：快照形式，定期把内存中当前时刻的数据保存到磁盘。Redis默认支持的持久化方案。<ul>
+<li>通过bgsave命令触发，然后父进程执行fork操作创建子进程，子进程创建RDB文件，根据父进程内存生成临时快照文件，完成后对原有文件进行原子替换（定时一次性将所有数据进行快照生成一份副本存储在硬盘中）</li>
+<li>优点：是一个紧凑压缩的二进制文件，Redis加载RDB恢复数据远远快于AOF的方式。</li>
+<li>缺点：由于每次生成RDB开销较大，非实时持久化</li>
+</ul>
+</li>
+<li>aof形式：append only file。把所有对redis数据库操作的命令，增删改操作的命令。保存到文件中。数据库恢复时把所有的命令执行一遍即可。<ul>
+<li>优点：实时持久化。缺点：所以AOF文件体积逐渐变大，需要定期执行重写操作来降低文件体积，加载慢</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Redis主从<ul>
+<li>redis提供了哨兵模式，当主挂了，可以选举其他的进行代替，哨兵模式的实现原理，就是三个定时任务监控，</li>
+<li>每隔10s，每个S节点（哨兵节点）会向主节点和从节点发送info命令获取最新的拓扑结构</li>
+<li>每隔2s，每个S节点会向某频道上发送该S节点对于主节点的判断以及当前Sl节点的信息，同时每个Sentinel节点也会订阅该频道，来了解其他S节点以及它们对主节点的判断（做客观下线依据）</li>
+<li>每隔1s，每个S节点会向主节点、从节点、其余S节点发送一条ping命令做一次心跳检测(心跳检测机制)，来确认这些节点当前是否可达</li>
+<li>当三次心跳检测之后，就会进行投票，当超过半数以上的时候就会将该节点当做主</li>
+</ul>
+</li>
+<li>Redis集群<ul>
+<li>Redis集群内节点通过ping/pong消息实现节点通信，消息不但可以传播节点槽信息，还可以传播其他状态如：主从状态、节点故障等。因此故障发现也是通过消息传播机制实现的，主要环节包括：主观下线（pfail）和客观下线（fail）</li>
+<li>主观下线：集群中每个节点都会定期向其他节点发送ping消息，接收节点回复pong消息作为响应。如果通信一直失败，则发送节点会把接收节点标记为主观下线（pfail）状态。
+　　- 客观下线：超过半数，对该主节点做客观下线，主节点选举出某一主节点作为领导者，来进行故障转移（选举从节点作为新主节点）</li>
+</ul>
+</li>
+<li>内存淘汰策略<ul>
+<li>Redis的内存淘汰策略是指在Redis的用于缓存的内存不足时，怎么处理需要新写入且需要申请额外空间的数据。</li>
+<li>noeviction：当内存不足以容纳新写入数据时，新写入操作会报错。</li>
+<li>allkeys-lru：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的key。</li>
+<li>allkeys-random：当内存不足以容纳新写入数据时，在键空间中，随机移除某个key。</li>
+<li>volatile-lru：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，移除最近最少使用的key。</li>
+<li>volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。</li>
+<li>volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。</li>
+</ul>
+</li>
+<li>缓存击穿的解决方案：
+　　- 原因：就是别人请求数据的时候，很多数据在缓存中无法查询到，直接进入数据查询，
+　　- 解决方法，对相关数据进行查询的数据只查询缓存，如果是一些特殊的可以进行数据库查询，也可以采用布隆过滤器进行查询</li>
+<li>缓存雪崩的解决方案：<ul>
+<li>缓存雪崩的原因：一次性加入缓存的数据过多，导致内存过高，从而影响内存的使用导致服务宕机</li>
+<li>redis集群，通过集群方式将数据放置</li>
+<li>后端服务降级和限流：当一个接口请求次数过多，那么就会添加过多数据，可以对服务进行限流，限制访问的数量，这样就可以减少问题的出现<h3 id="消息订阅与发布"><a href="#消息订阅与发布" class="headerlink" title="消息订阅与发布"></a>消息订阅与发布</h3><img src="/2018/05/08/redis/消息的订阅与发布.JPG" title="消息的订阅与发布.JPG">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><img src="/2018/05/08/redis/redis事务.png" title="redis事务.png">
+<p>### </p>
+<ul>
+<li><p>在redis.conf配置文件中配置。Rdb：</p>
+<img src="/2018/05/08/redis/图片2.png" title="图片2.png">
+</li>
+<li><p>Aof的配置：</p>
+<img src="/2018/05/08/redis/图片3.png" title="图片3.png">
+</li>
+<li><p>两种持久化方案同时开启使用aof文件来恢复数据库。</p>
+</li>
+</ul>
+<h1 id="安装与启动"><a href="#安装与启动" class="headerlink" title="安装与启动"></a>安装与启动</h1><ul>
+<li>在redis的bin目录下可以执行./redis-server前端启动方式</li>
+<li>在bin下执行命令,/redis-server redis.conf(后端启动)</li>
+<li>关闭：关闭进程、在客户端下shutdown</li>
+<li>连接redis redis-cli -h ip -p port</li>
+</ul>
+<h1 id="jedis的操作"><a href="#jedis的操作" class="headerlink" title="jedis的操作"></a>jedis的操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">导包commons-pool2-2.3.jar\jedis2.7.0jar</span><br><span class="line"></span><br><span class="line">JedisConfig config=new JedisConfig()；</span><br><span class="line">config.setMaxtotal(30);</span><br><span class="line">config.setMaxIdle(10)</span><br><span class="line">JedisPool pool = new JedisPool(JedisConfig,host,port);</span><br><span class="line">Jedis jedis=null;</span><br><span class="line">jedis=pool.getResource();</span><br><span class="line">jedis.set(key,数据类型)</span><br><span class="line">jedis.get(key,数据类型)</span><br><span class="line"></span><br><span class="line">Jedis jedis = new Jedis(host,port);</span><br><span class="line">jedis.set(key,数据类型)</span><br><span class="line">jedis.get(key,数据类型)</span><br></pre></td></tr></table></figure>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h1 id="key和value说明"><a href="#key和value说明" class="headerlink" title="key和value说明"></a>key和value说明</h1><ul>
+<li>key是字符串类型</li>
+<li>key不要太长，最好不要操作1024个字节，这不仅会消耗内存还会降低查找效率</li>
+<li>key不要太短，如果太短会降低key的可读性</li>
+<li>在项目中，key最好有一个统一的命名规范（根据企业的需求）</li>
+<li>value在获取或者保存的时候若类型与相应的指令不匹配，则报错</li>
+<li>不存在则返回null，若是操作数字不存在则初值为0再操作,</li>
+<li>索引-1表示尾部，-2表示倒数第2个，0表示开头元素</li>
+</ul>
+<h1 id="value-五种数据类型"><a href="#value-五种数据类型" class="headerlink" title="value 五种数据类型"></a>value 五种数据类型</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">数据类型</th>
@@ -386,143 +467,119 @@ value在获取或者保存的时候若类型与相应的指令不匹配，则报
 </tr>
 </tbody>
 </table>
-<h1 id="Redis的通用操作"><a href="#Redis的通用操作" class="headerlink" title="Redis的通用操作"></a>Redis的通用操作</h1><pre><code>概述
-获取所有与pattern匹配的key keys pattern，key * 表示多个字符，？表示任意一个字符
-Key * 取出所有的key
-
-概述
-删除指定key del kye1  key2
-判断key是否存在，1在，0不在exists key
-为当前的key重命名rename key newkey 
-设置过期时间expire key second：
-获取该key所剩超时时间，没超时则-1,ttl key
-返回key 的类型，不存在返回nonetype key
-persist key:清除key的过期时间。Key持久化。-1是永久保存 -2 不存在
-</code></pre><h2 id="Redis的特性"><a href="#Redis的特性" class="headerlink" title="Redis的特性"></a>Redis的特性</h2><h3 id="多数据库"><a href="#多数据库" class="headerlink" title="多数据库"></a>多数据库</h3><pre><code>有0-15数据库，默认为0，选择数据库select n选择n号数据库
-移库 move newkey n将当前的key移植到n号库中
-</code></pre><h3 id="消息订阅与发布"><a href="#消息订阅与发布" class="headerlink" title="消息订阅与发布"></a>消息订阅与发布</h3><img src="/2018/05/08/redis/消息的订阅与发布.JPG" title="消息的订阅与发布.JPG">
-<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><img src="/2018/05/08/redis/redis事务.png" title="redis事务.png">
-<h3 id="Redis的持久化方案"><a href="#Redis的持久化方案" class="headerlink" title="Redis的持久化方案"></a>Redis的持久化方案</h3><pre><code>Redis的所有数据都是保存到内存中的。
-Rdb：快照形式，定期把内存中当前时刻的数据保存到磁盘。Redis默认支持的持久化方案。
-aof形式：append only file。把所有对redis数据库操作的命令，增删改操作的命令。保存到文件中。数据库恢复时把所有的命令执行一遍即可。
-
-在redis.conf配置文件中配置。
-Rdb：
-</code></pre><img src="/2018/05/08/redis/图片2.png" title="图片2.png">
-<pre><code>Aof的配置：
-</code></pre><img src="/2018/05/08/redis/图片3.png" title="图片3.png">
-<pre><code>两种持久化方案同时开启使用aof文件来恢复数据库。
-</code></pre><h1 id="redis单机安装"><a href="#redis单机安装" class="headerlink" title="redis单机安装"></a>redis单机安装</h1><pre><code>Redis是c语言开发的。
-安装redis需要c语言的编译环境。如果没有gcc需要在线安装。yum install gcc-c++
-
-安装步骤：
-第一步：redis的源码包上传到linux系统。
-第二步：解压缩redis。
-第三步：编译。进入redis源码目录。make 
-第四步：安装。make install PREFIX=/usr/local/redis
-PREFIX参数指定redis的安装目录。一般软件安装到/usr目录下
-redis的启动：
-前端启动：在redis的安装目录下直接启动redis-server
-[root@localhost bin]# ./redis-server 
-
-后台启动：
-把/root/redis-3.0.0/redis.conf复制到/usr/local/redis/bin目录下
-[root@localhost redis-3.0.0]# cp redis.conf /usr/local/redis/bin/
-修改配置文件：daemonize no 为yes
-[root@localhost bin]# ./redis-server redis.conf
-查看redis进程：
-[root@localhost bin]# ps aux|grep redis
-root      5190  0.1  0.3  33936  1712 ?        Ssl  18:23   0:00 ./redis-server *:6379    
-root      5196  0.0  0.1   4356   728 pts/0    S+   18:24   0:00 grep redis
-
-redis-cli连接
-[root@localhost bin]# ./redis-cli 
-默认连接localhost运行在6379端口的redis服务。
-[root@localhost bin]# ./redis-cli -h 192.168.25.153 -p 6379
--h：连接的服务器的地址
--p：服务的端口号
-
-关闭redis：[root@localhost bin]# ./redis-cli shutdown
-</code></pre><h2 id="Redis集群的搭建"><a href="#Redis集群的搭建" class="headerlink" title="Redis集群的搭建"></a>Redis集群的搭建</h2><h3 id="redis-cluster架构图"><a href="#redis-cluster架构图" class="headerlink" title="redis-cluster架构图"></a>redis-cluster架构图</h3><img src="/2018/05/08/redis/图片4.png" title="图片4.png">
+<h1 id="Redis的通用操作"><a href="#Redis的通用操作" class="headerlink" title="Redis的通用操作"></a>Redis的通用操作</h1><ul>
+<li>获取所有与pattern匹配的key keys pattern，key * 表示多个字符，？表示任意一个字符</li>
+<li>Key * 取出所有的key</li>
+<li>删除指定key del kye1  key2</li>
+<li>判断key是否存在，1在，0不在exists key</li>
+<li>为当前的key重命名rename key newkey </li>
+<li>设置过期时间expire key second：</li>
+<li>获取该key所剩超时时间，没超时则-1,ttl key</li>
+<li>返回key 的类型，不存在返回nonetype key</li>
+<li>persist key:清除key的过期时间。Key持久化。-1是永久保存 -2 </li>
+</ul>
+<h1 id="redis单机安装"><a href="#redis单机安装" class="headerlink" title="redis单机安装"></a>redis单机安装</h1><ul>
+<li>Redis是c语言开发的。</li>
+<li><p>安装redis需要c语言的编译环境。如果没有gcc需要在线安装。yum install gcc-c++</p>
+</li>
+<li><p>安装步骤：</p>
+<ul>
+<li>1.redis的源码包上传到linux系统。</li>
+<li>2.解压缩redis。</li>
+<li>3.编译。进入redis源码目录。make </li>
+<li>4.安装。make install PREFIX=/usr/local/redis PREFIX参数指定redis的安装目录。一般软件安装到/usr目录下</li>
+<li>5.redis的启动：<ul>
+<li>前端启动：在redis的安装目录下直接启动redis-server</li>
+<li>[root@localhost bin]# ./redis-server </li>
+<li>后台启动：把/root/redis-3.0.0/redis.conf复制到/usr/local/redis/bin目录下</li>
+<li>[root@localhost redis-3.0.0]# cp redis.conf /usr/local/redis/bin/</li>
+</ul>
+</li>
+<li>6.修改配置文件：daemonize no 为yes<ul>
+<li>[root@localhost bin]# ./redis-server redis.conf</li>
+</ul>
+</li>
+<li>查看redis进程：[root@localhost bin]# ps aux|grep redis</li>
+</ul>
+</li>
+<li>redis-cli连接 : [root@localhost bin]# ./redis-cli 默认连接localhost运行在6379端口的redis服务。<ul>
+<li>[root@localhost bin]# ./redis-cli -h 192.168.25.153 -p 6379
+  -h：连接的服务器的地址
+  -p：服务的端口号</li>
+</ul>
+</li>
+<li>关闭redis：[root@localhost bin]# ./redis-cli shutdown</li>
+</ul>
+<h2 id="Redis集群的搭建"><a href="#Redis集群的搭建" class="headerlink" title="Redis集群的搭建"></a>Redis集群的搭建</h2><h3 id="redis-cluster架构图"><a href="#redis-cluster架构图" class="headerlink" title="redis-cluster架构图"></a>redis-cluster架构图</h3><img src="/2018/05/08/redis/图片4.png" title="图片4.png">
 <img src="/2018/05/08/redis/图片5.png" title="图片5.png">
-<pre><code>redis-cluster投票:容错
-</code></pre><img src="/2018/05/08/redis/图片6.png" title="图片6.png">
-<pre><code>架构细节:（槽与放多少key无关）
-(1)所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽.
-(2)节点的fail是通过集群中超过半数的节点检测失效时才生效.
-(3)客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可
-(4)redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster 负责维护node&lt;-&gt;slot&lt;-&gt;value
-
-
-Redis 集群中内置了 16384 个哈希槽，当需要在 Redis 集群中放置一个 key-value 时，redis 先对 key 使用 crc16 算法算出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点
-</code></pre><h2 id="Redis集群的搭建-1"><a href="#Redis集群的搭建-1" class="headerlink" title="Redis集群的搭建"></a>Redis集群的搭建</h2><pre><code>Redis集群中至少应该有三个节点。要保证集群的高可用，需要每个节点有一个备份机。
-Redis集群至少需要6台服务器。
-搭建伪分布式。可以使用一台虚拟机运行6个redis实例。需要修改redis的端口号7001-7006
-
-集群搭建环境
-1、使用ruby脚本搭建集群。需要ruby的运行环境。
-安装ruby
-yum install ruby
-yum install rubygems
-
-安装ruby脚本运行使用的包。
-将redis-3.0.0和redis-3.0.0.gem放在一起然后执行
-gem install redis-3.0.0.gem 
-
-搭建步骤
-需要6个redis实例。需要运行在不同的端口7001-7006
-
-第一步：创建6个redis实例，每个实例运行在不同的端口。
-如果你的节点中包含了appendonly.aof和dump.rdb请删除了，保证节点的干净
-需要修改redis.conf配置文件。配置文件中还需要把cluster-enabled yes前的注释去掉。
-同时修改port为7001
-cp redis/bin /usr/java/redis-cluster/redis07 -r将之前安装好的bin目录一个一个复制到redis-cluster中
-
-{% asset_img 图片7.png 图片7.png %}
-
-第二步：启动每个redis实例。
-在redis-cluster目录下创建start-all.sh执行vim start
-然后i写入cd redis01
-./redis-server redis.conf
-cd ..
-cd redis02
-./redis-server redis.conf
-cd ..
-cd redis03
-./redis-server redis.conf
-cd ..
-cd redis04
-./redis-server redis.conf
-cd ..
-cd redis05
-./redis-server redis.conf
-cd ..
-cd redis06
-./redis-server redis.conf
-cd ..
-然后esc，然后：wq退出
-执行chmod u+x start-all.sh授权
-执行./start-all.sh开启所有redis实例
-执行ps aux|grep redis查看所有节点进程看是否成功
-
-在redis源码的src在有一个文件叫redis-trib.rb
-将它复制到/usr/java/redis-cluster目录下
-第三步：使用ruby脚本搭建集群。
-将它复制到/usr/java/redis-cluster目录下执行
-./redis-trib.rb create --replicas 1 192.168.25.153:7001 192.168.25.153:7002 192.168.25.153:7003 192.168.25.153:7004 192.168.25.153:7005 192.168.25.153:7006
-
-这个不要随便乱用！否则要关闭redis所有的节点，然后将每个节点下aof、rdb、nodes.conf本地备份文件删除； 
-重启所有节点，然后重新执行脚本！
-创建关闭集群的脚本：
-[root@localhost redis-cluster]# vim shutdow-all.sh
-redis01/redis-cli -p 7001 shutdown
-redis01/redis-cli -p 7002 shutdown
-redis01/redis-cli -p 7003 shutdown
-redis01/redis-cli -p 7004 shutdown
-redis01/redis-cli -p 7005 shutdown
-redis01/redis-cli -p 7006 shutdown
-[root@localhost redis-cluster]# chmod u+x shutdow-all.sh 
-
-集群的使用方法
-Redis-cli连接集群。[root@localhost redis-cluster]# redis01/redis-cli -p 7002 -c  -c：代表连接的是redis集群
-</code></pre><h1 id="java连接则用jedis"><a href="#java连接则用jedis" class="headerlink" title="java连接则用jedis"></a>java连接则用jedis</h1></div><div class="tags"><a href="/tags/redis/">redis</a></div><div class="post-nav"><a class="pre" href="/2018/05/14/mysql/">mysql</a><a class="next" href="/2018/05/08/linux/">linux</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/17/网址收藏/">网址收藏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<ul>
+<li><p>redis-cluster投票:容错</p>
+<img src="/2018/05/08/redis/图片6.png" title="图片6.png">
+</li>
+<li><p>架构细节:（槽与放多少key无关）</p>
+<ul>
+<li>(1)所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽.</li>
+<li>(2)节点的fail是通过集群中超过半数的节点检测失效时才生效.</li>
+<li>(3)客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可</li>
+<li>(4)redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster 负责维护node<->slot<->value</-></-></li>
+</ul>
+</li>
+<li>Redis 集群中内置了 16384 个哈希槽，当需要在 Redis 集群中放置一个 key-value 时，redis 先对 key 使用 crc16 算法算出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点</li>
+</ul>
+<h2 id="Redis集群的搭建-1"><a href="#Redis集群的搭建-1" class="headerlink" title="Redis集群的搭建"></a>Redis集群的搭建</h2><ul>
+<li><p>Redis集群中至少应该有三个节点。要保证集群的高可用，需要每个节点有一个备份机。</p>
+<ul>
+<li>Redis集群至少需要6台服务器。</li>
+<li>搭建伪分布式。可以使用一台虚拟机运行6个redis实例。需要修改redis的端口号7001-7006</li>
+</ul>
+</li>
+<li><p>集群搭建环境</p>
+<ul>
+<li>使用ruby脚本搭建集群。需要ruby的运行环境。<ul>
+<li>yum install ruby</li>
+<li>yum install rubygems</li>
+</ul>
+</li>
+<li><p>安装ruby脚本运行使用的包。</p>
+<ul>
+<li>将redis-3.0.0和redis-3.0.0.gem放在一起然后执行</li>
+<li>gem install redis-3.0.0.gem </li>
+</ul>
+</li>
+<li><p>搭建步骤:需要6个redis实例。需要运行在不同的端口7001-7006</p>
+</li>
+</ul>
+</li>
+<li><p>第一步：创建6个redis实例，每个实例运行在不同的端口。</p>
+<ul>
+<li>如果你的节点中包含了appendonly.aof和dump.rdb请删除了，保证节点的干净</li>
+<li>需要修改redis.conf配置文件。配置文件中还需要把cluster-enabled yes前的注释去掉。</li>
+<li>同时修改port为7001</li>
+<li>cp redis/bin /usr/java/redis-cluster/redis07 -r将之前安装好的bin目录一个一个复制到redis-cluster中</li>
+</ul>
+</li>
+</ul>
+<img src="/2018/05/08/redis/图片7.png" title="图片7.png">
+<ul>
+<li>第二步：启动每个redis实例。<ul>
+<li>在redis-cluster目录下创建start-all.sh执行vim start</li>
+<li>然后i写入</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">cd redis01</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">cd redis02</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">cd redis03</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">cd redis04</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">cd redis05</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">cd redis06</span><br><span class="line">./redis-server redis.conf</span><br><span class="line">cd ..</span><br><span class="line">然后esc，然后：wq退出</span><br><span class="line">执行chmod u+x start-all.sh授权</span><br><span class="line">执行./start-all.sh开启所有redis实例</span><br><span class="line">执行ps aux|grep redis查看所有节点进程看是否成功</span><br><span class="line">在redis源码的src在有一个文件叫redis-trib.rb</span><br><span class="line">将它复制到/usr/java/redis-cluster目录下</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第三步：使用ruby脚本搭建集群。<ul>
+<li>将它复制到/usr/java/redis-cluster目录下执行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1 192.168.25.153:7001 192.168.25.153:7002 192.168.25.153:7003 192.168.25.153:7004 192.168.25.153:7005 192.168.25.153:7006</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这个不要随便乱用！否则要关闭redis所有的节点，然后将每个节点下aof、rdb、nodes.conf本地备份文件删除； 重启所有节点，然后重新执行脚本！<ul>
+<li>创建关闭集群的脚本：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis-cluster]# vim shutdow-all.sh</span><br><span class="line">redis01/redis-cli -p 7001 shutdown</span><br><span class="line">redis01/redis-cli -p 7002 shutdown</span><br><span class="line">redis01/redis-cli -p 7003 shutdown</span><br><span class="line">redis01/redis-cli -p 7004 shutdown</span><br><span class="line">redis01/redis-cli -p 7005 shutdown</span><br><span class="line">redis01/redis-cli -p 7006 shutdown</span><br><span class="line">[root@localhost redis-cluster]# chmod u+x shutdow-all.sh </span><br><span class="line"></span><br><span class="line">集群的使用方法</span><br><span class="line">Redis-cli连接集群。[root@localhost redis-cluster]# redis01/redis-cli -p 7002 -c  -c：代表连接的是redis集群</span><br></pre></td></tr></table></figure>
+<h1 id="java连接则用jedis"><a href="#java连接则用jedis" class="headerlink" title="java连接则用jedis"></a>java连接则用jedis</h1></div><div class="tags"><a href="/tags/redis/">redis</a></div><div class="post-nav"><a class="pre" href="/2018/05/14/mysql/">mysql</a><a class="next" href="/2018/05/08/linux/">linux</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/27/计算机组成原理之组成篇/">计算机组成原理之组成篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
