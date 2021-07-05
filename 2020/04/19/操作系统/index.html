@@ -1,36 +1,37 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>操作系统 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">操作系统</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">操作系统</h1><div class="post-meta">Apr 19, 2020<span> | </span><span class="category"><a href="/categories/计算机/">计算机</a></span></div><div class="post-content"><h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="第一章-操作系统引论"><a href="#第一章-操作系统引论" class="headerlink" title="第一章 操作系统引论"></a>第一章 操作系统引论</h3><ol>
-<li><a href="#jump11">操作系统的概念和作用</a></li>
-<li><a href="#jump12">操作系统的发展过程</a></li>
-<li><a href="#jump13">操作系统的基本特性</a></li>
-<li><a href="#jump14">操作系统的主要功能</a></li>
-<li><a href="#jump15">操作系统的运行环境</a><h3 id="第二章-进程管理"><a href="#第二章-进程管理" class="headerlink" title="第二章 进程管理"></a>第二章 进程管理</h3></li>
-<li><a href="#jump21">进程与线程概述</a></li>
-<li><a href="#jump22">进程控制</a></li>
-<li><a href="#jump23">进程同步</a></li>
-<li><a href="#jump24">进程通信</a></li>
-<li><a href="#jump25">处理器调度</a></li>
-<li><a href="#jump26">死锁</a><h3 id="第三章-内存管理"><a href="#第三章-内存管理" class="headerlink" title="第三章 内存管理"></a>第三章 内存管理</h3></li>
-<li><a href="#jump31">内存管理概述</a></li>
-<li><a href="#jump32">存储管理方式</a></li>
-<li><a href="#jump33">虚拟存储器概述</a></li>
-<li><a href="#jump34">虚拟存储管理方式</a><h3 id="第四章-输入输出系统"><a href="#第四章-输入输出系统" class="headerlink" title="第四章 输入输出系统"></a>第四章 输入输出系统</h3></li>
-<li><a href="#jump41">I/O系统概述</a></li>
-<li><a href="#jump42">I/O设备和设备控制器概述</a></li>
-<li><a href="#jump43">中断机构和设备驱动程序概述</a></li>
-<li><a href="#jump44">I/O软件和Spooling系统</a><h3 id="第五章-文件管理"><a href="#第五章-文件管理" class="headerlink" title="第五章 文件管理"></a>第五章 文件管理</h3></li>
-<li><a href="#jump51">文件和文件系统</a></li>
-<li><a href="#jump52">文件的逻辑结构</a></li>
-<li><a href="#jump53">文件目录</a></li>
-<li><a href="#jump54">文件共享</a></li>
-<li><a href="#jump55">文件保护</a><h3 id="第六章-磁盘存储器的管理"><a href="#第六章-磁盘存储器的管理" class="headerlink" title="第六章 磁盘存储器的管理"></a>第六章 磁盘存储器的管理</h3></li>
-<li><a href="#jump61">外存的组织方式</a></li>
-<li><a href="#jump62">文件存储空间的管理</a></li>
-<li><a href="#jump63">提高磁盘I/O速度的途径</a></li>
-<li><a href="#jump64">提高磁盘可靠性的技术</a></li>
-<li><a href="#jump65">数据一致性控制</a></li>
-</ol>
-<hr>
-<h3 id="1-1-操作系统的概念和作用"><a href="#1-1-操作系统的概念和作用" class="headerlink" title="1.1 操作系统的概念和作用"></a><span id="jump11">1.1 操作系统的概念和作用</span></h3><ul>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>操作系统 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">操作系统</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">操作系统</h1><div class="post-meta">Apr 19, 2020<span> | </span><span class="category"><a href="/categories/计算机/">计算机</a></span></div><div class="post-content"><!-- TOC -->
+<ul>
+<li><a href="#1-操作系统的概念和作用">1. 操作系统的概念和作用</a></li>
+<li><a href="#2-操作系统的发展过程">2. 操作系统的发展过程</a></li>
+<li><a href="#3-操作系统的基本特性">3. 操作系统的基本特性</a></li>
+<li><a href="#4-操作系统主要功能">4. 操作系统主要功能</a></li>
+<li><a href="#5-操作系统的运行环境">5. 操作系统的运行环境</a></li>
+<li><a href="#6-进程与线程概述">6. 进程与线程概述</a></li>
+<li><a href="#7-进程控制">7. 进程控制</a></li>
+<li><a href="#8-进程同步">8. 进程同步</a></li>
+<li><a href="#9-进程通信">9. 进程通信</a></li>
+<li><a href="#10-处理器调度">10. 处理器调度</a></li>
+<li><a href="#11-死锁">11. 死锁</a></li>
+<li><a href="#12-内存管理概述">12. 内存管理概述</a></li>
+<li><a href="#13-存储管理方式">13. 存储管理方式</a></li>
+<li><a href="#14-虚拟存储器概述">14. 虚拟存储器概述</a></li>
+<li><a href="#15-虚拟存储管理方式">15. 虚拟存储管理方式</a></li>
+<li><a href="#16-io系统概述">16. I/O系统概述</a></li>
+<li><a href="#17-io设备和设备控制器概述">17. I/O设备和设备控制器概述</a></li>
+<li><a href="#18-中断机构和设备驱动程序">18. 中断机构和设备驱动程序</a></li>
+<li><a href="#19-与设备无关的io软件">19. 与设备无关的I/O软件</a></li>
+<li><a href="#20-文件和文件系统">20. 文件和文件系统</a></li>
+<li><a href="#21-文件的逻辑结构">21. 文件的逻辑结构</a></li>
+<li><a href="#22-文件目录">22. 文件目录</a></li>
+<li><a href="#23-文件共享">23. 文件共享</a></li>
+<li><a href="#24-文件保护">24. 文件保护</a></li>
+<li><a href="#25-外存的组织方式">25. 外存的组织方式</a></li>
+<li><a href="#26-文件存储空间的管理">26. 文件存储空间的管理</a></li>
+<li><a href="#27-提高磁盘io速度的途径">27. 提高磁盘I/O速度的途径</a></li>
+<li><a href="#28-提高磁盘可靠性的技术">28. 提高磁盘可靠性的技术</a></li>
+<li><a href="#29-数据一致性控制">29. 数据一致性控制</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-操作系统的概念和作用"><a href="#1-操作系统的概念和作用" class="headerlink" title="1. 操作系统的概念和作用"></a>1. 操作系统的概念和作用</h1><ul>
 <li>操作系统概念：一组能有效组织和管理计算机硬件和软件资源并对各类作业进行调度的程序的集合</li>
 <li>原子操作:一个不可分割的基本单位，在执行过程中不允许被中断。在系统态下执行，常驻内存</li>
 <li>原语操作:由若干条指令组成的，用于完成一定功能的过程，是一个原子操作</li>
@@ -42,9 +43,11 @@
 </li>
 <li>操作系统内核<ul>
 <li>支撑功能：中断处理、时钟管理、原语操作</li>
-<li>资源管理功能：进程管理、存储器管理、设备管理<h3 id="1-2-操作系统的发展过程"><a href="#1-2-操作系统的发展过程" class="headerlink" title="1.2 操作系统的发展过程"></a><span id="jump12">1.2 操作系统的发展过程</span></h3></li>
+<li>资源管理功能：进程管理、存储器管理、设备管理</li>
 </ul>
 </li>
+</ul>
+<h1 id="2-操作系统的发展过程"><a href="#2-操作系统的发展过程" class="headerlink" title="2. 操作系统的发展过程"></a>2. 操作系统的发展过程</h1><ul>
 <li>操作系统发展历程<ul>
 <li>人工操作方式</li>
 <li>脱机输入/输出(Off-Line I/O)方式</li>
@@ -55,14 +58,16 @@
 <li>微机操作系统<ul>
 <li>单用户单任务操作系统(CP/M、MS-DOS)</li>
 <li>单用户多任务操作系统windows</li>
-<li>多用户多任务操作系统Linux<h3 id="1-3-操作系统的基本特性"><a href="#1-3-操作系统的基本特性" class="headerlink" title="1.3 操作系统的基本特性"></a><span id="jump13">1.3 操作系统的基本特性</span></h3></li>
+<li>多用户多任务操作系统Linux</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="3-操作系统的基本特性"><a href="#3-操作系统的基本特性" class="headerlink" title="3. 操作系统的基本特性"></a>3. 操作系统的基本特性</h1><ul>
 <li><strong>操作系统基本特性</strong><ul>
 <li><strong>并发(Concurrence)</strong><ul>
-<li>并行:多个事件在同一时刻发生、并发:多个事件在同一个时间发生</li>
+<li>并行:多个事件在同一时刻发生、并发:多个事件在同一个时间发生、串行:多个事件按顺序执行</li>
 <li>并发性：一段时间内宏观上有多个程序同时运行，微观上多个程序分时运行</li>
 </ul>
 </li>
@@ -79,11 +84,13 @@
 </li>
 <li><strong>异步</strong><ul>
 <li>异步性：进程以不可预知的速度向前推进</li>
-<li>同步机制：运行环境相同的情况下，作业多次运行得到相同的结果<h3 id="1-4-操作系统主要功能"><a href="#1-4-操作系统主要功能" class="headerlink" title="1.4 操作系统主要功能"></a><span id="jump14">1.4 操作系统主要功能</span></h3></li>
+<li>同步机制：运行环境相同的情况下，作业多次运行得到相同的结果</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="4-操作系统主要功能"><a href="#4-操作系统主要功能" class="headerlink" title="4. 操作系统主要功能"></a>4. 操作系统主要功能</h1><ul>
 <li><strong>操作系统主要功能</strong><ul>
 <li><strong>处理机(进程)管理</strong><ul>
 <li>进程控制(进程创建、撤销及状态转换)</li>
@@ -113,11 +120,13 @@
 </li>
 <li><strong>操作系统与用户之间的接口</strong><ul>
 <li>用户接口(向作业发出命令以控制作业的运行)</li>
-<li>程序接口(取得操作系统服务的唯一条件)<h3 id="1-5操作系统的运行环境"><a href="#1-5操作系统的运行环境" class="headerlink" title="1.5操作系统的运行环境"></a><span id="jump15">1.5操作系统的运行环境</span></h3></li>
+<li>程序接口(取得操作系统服务的唯一条件)</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="5-操作系统的运行环境"><a href="#5-操作系统的运行环境" class="headerlink" title="5. 操作系统的运行环境"></a>5. 操作系统的运行环境</h1><ul>
 <li>系统态(内核态/管态)：具有较高特权，执行一切特权指令，访问所有寄存器和存储区</li>
 <li>用户态(目态)：较低特权的执行状态，仅能执行规定的指令，访问指定的寄存器和存储区</li>
 <li>特权指令：包括时钟管理、中断机制、原语、系统控制的数据结构及处理</li>
@@ -128,9 +137,11 @@
 <li>操作系统的体系结构<ul>
 <li>模块组合结构：将操作系统按功能划分为若干个具有一定独立性和大小的模块</li>
 <li>层次结构：将操作系统分成若干个层次，每层有若干个模块组成，各层之间值存在着单向的依赖关系</li>
-<li>微内核结构：将操作系统分成微内核和多个服务器<h3 id="2-1-进程与线程概述"><a href="#2-1-进程与线程概述" class="headerlink" title="2.1 进程与线程概述"></a><span id="jump21">2.1 进程与线程概述</span></h3></li>
+<li>微内核结构：将操作系统分成微内核和多个服务器</li>
 </ul>
 </li>
+</ul>
+<h1 id="6-进程与线程概述"><a href="#6-进程与线程概述" class="headerlink" title="6. 进程与线程概述"></a>6. 进程与线程概述</h1><ul>
 <li>前趋图(DAG Directed Acyclic Graph):<ul>
 <li>描述程序执行先后顺序的有向无循环图(前趋图不允许有循环)</li>
 <li>前趋:P1-&gt;P2,说明p1,p2存在前趋关系</li>
@@ -217,11 +228,13 @@
 </li>
 <li><strong>线程的实现</strong><ul>
 <li><strong>内核级线程</strong>：依赖内核完成创建和撤销工作的线程，线程阻塞时不影响其他线程运行</li>
-<li><strong>用户级线程</strong>：应用程序利用线程库的函数来控制的线程，当线程阻塞时，整个进程必须等待<h3 id="2-2-进程控制"><a href="#2-2-进程控制" class="headerlink" title="2.2 进程控制"></a><span id="jump22">2.2 进程控制</span></h3></li>
+<li><strong>用户级线程</strong>：应用程序利用线程库的函数来控制的线程，当线程阻塞时，整个进程必须等待</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="7-进程控制"><a href="#7-进程控制" class="headerlink" title="7. 进程控制"></a>7. 进程控制</h1><ul>
 <li>进程的创建(Creation of Process)<ul>
 <li>引起创建进程的事件<ul>
 <li>用户登录:用户登录成功后，系统将为该用户建立一个进程并将它插入到就系队列中</li>
@@ -302,11 +315,13 @@
 <li>进程切换的过程<ul>
 <li>保存处理及上下文（程序计数器和其他寄存器）并更新PCB信息</li>
 <li>把进程的PCB移入相应队列（如就绪、某事件的阻塞队列等）并选择另一个进程执行，更新PCB。</li>
-<li>更新内存管理的数据结构并恢复处理器上下文<h3 id="2-3-进程同步"><a href="#2-3-进程同步" class="headerlink" title="2.3 进程同步"></a><span id="jump23">2.3 进程同步</span></h3></li>
+<li>更新内存管理的数据结构并恢复处理器上下文</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="8-进程同步"><a href="#8-进程同步" class="headerlink" title="8. 进程同步"></a>8. 进程同步</h1><ul>
 <li>进程同步基本概念<ul>
 <li>主要任务:对多个程序的执行顺序、共享系统资源进行协调，使程序的执行具有可再现性</li>
 <li>多个进程制约关系<ul>
@@ -348,9 +363,11 @@
 <li><strong>经典同步问题</strong><ul>
 <li><strong>生产者-消费者问题</strong></li>
 <li><strong>科学家进餐问题</strong></li>
-<li><strong>读者-写者问题</strong><h3 id="2-4-进程通信"><a href="#2-4-进程通信" class="headerlink" title="2.4 进程通信"></a><span id="jump24">2.4 进程通信</span></h3></li>
+<li><strong>读者-写者问题</strong></li>
 </ul>
 </li>
+</ul>
+<h1 id="9-进程通信"><a href="#9-进程通信" class="headerlink" title="9. 进程通信"></a>9. 进程通信</h1><ul>
 <li>进程通信:进程间的信息交换</li>
 <li>进程通信的类型<ul>
 <li>低级通信机制—-进程的互斥和同步P、V原语:(效率低、通信对用户不透明、只能传送小部分数据)</li>
@@ -370,7 +387,7 @@
 </ul>
 </li>
 <li><strong>远程过程调用和方法调用RPC(Remote Procedure Call)</strong><ul>
-<li>概念:用于通过网络连接的系统的通信协议，允许运行于一台主机系统上的进程调用另外一台主机系统上的进程。<h3 id="2-5-处理器调度"><a href="#2-5-处理器调度" class="headerlink" title="2.5 处理器调度"></a><span id="jump25">2.5 处理器调度</span></h3></li>
+<li>概念:用于通过网络连接的系统的通信协议，允许运行于一台主机系统上的进程调用另外一台主机系统上的进程</li>
 </ul>
 </li>
 </ul>
@@ -379,6 +396,8 @@
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="10-处理器调度"><a href="#10-处理器调度" class="headerlink" title="10. 处理器调度"></a>10. 处理器调度</h1><ul>
 <li><strong>处理机调度的层次</strong><ul>
 <li><strong>高级调度(长程/作业调度)</strong>：根据某种算法将外存上处于后备队列中的作业调入内存，为作业创建进程</li>
 <li><strong>中级调度(内存调度)</strong>：根据某种算法将外存上已具备运行条件的就绪进程重新调入内存(存储管理中的对换功能)</li>
@@ -453,11 +472,13 @@
 </ul>
 </li>
 <li><strong>保证调度算法</strong>(保证性能:保证处理机分配的公平性，每个进程获得相同的处理机时间)</li>
-<li><strong>公平分享调度算法</strong>(使所有用户获得相同的处理机时间)<h3 id="2-6-死锁"><a href="#2-6-死锁" class="headerlink" title="2.6 死锁"></a><span id="jump26">2.6 死锁</span></h3></li>
+<li><strong>公平分享调度算法</strong>(使所有用户获得相同的处理机时间)</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="11-死锁"><a href="#11-死锁" class="headerlink" title="11. 死锁"></a>11. 死锁</h1><ul>
 <li><strong>死锁(Deadlock)概述</strong><ul>
 <li>死锁:如果一组进程中的每一个进程都在等待仅有该组进程中的其他进程才能引发的事件，那么该组进程就是死锁的</li>
 <li>资源问题<ul>
@@ -499,7 +520,7 @@
 <li><strong>解除死锁</strong>(效率最高)<ul>
 <li>抢占资源给死锁进程</li>
 <li>终止或撤销进程（终止所有死锁进程或按一定规则逐个终止进程）<ul>
-<li>付出最小代价的死锁解除算法(一次算出逐个进程终止后付出的代价，每次终止付出代价最小的进程，循环计算)<h3 id="3-1-内存管理概述"><a href="#3-1-内存管理概述" class="headerlink" title="3.1 内存管理概述"></a><span id="jump31">3.1 内存管理概述</span></h3></li>
+<li>付出最小代价的死锁解除算法(一次算出逐个进程终止后付出的代价，每次终止付出代价最小的进程，循环计算)</li>
 </ul>
 </li>
 </ul>
@@ -508,6 +529,8 @@
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="12-内存管理概述"><a href="#12-内存管理概述" class="headerlink" title="12. 内存管理概述"></a>12. 内存管理概述</h1><ul>
 <li>多层结构的存储器系统<ul>
 <li>层次越高(越接近CPU，存储介质访问速度越快，价格越高，存储容量越小)</li>
 <li>寄存器、主存、磁盘缓存属于操作系统存储管理范畴，可通过指令访问，掉电后存储的信息不存在，固定磁盘和可移动存储介质属于设备管理范畴，通过I/O设备访问，掉电后信息存在,耗费更多时间
@@ -532,7 +555,9 @@
 </li>
 <li>逻辑地址(源代码码经过编译后，目标程序采用的地址)：由程序产生的与段相关的偏移地址部分，是目标程序使用的地址，相对于0开始</li>
 <li>物理地址(出现在CPU外部地址总线上的寻址物理内存的地址信号)：从逻辑地址到物理地址的转换过程由硬件自动完成</li>
-<li><strong>内存保护；界限寄存器方法(上、下界寄存器方法、基址和限长寄存器方法)、存储保护键方法</strong><h3 id="3-2-存储管理方式"><a href="#3-2-存储管理方式" class="headerlink" title="3.2 存储管理方式"></a><span id="jump32">3.2 存储管理方式</span></h3></li>
+<li><strong>内存保护；界限寄存器方法(上、下界寄存器方法、基址和限长寄存器方法)、存储保护键方法</strong></li>
+</ul>
+<h1 id="13-存储管理方式"><a href="#13-存储管理方式" class="headerlink" title="13. 存储管理方式"></a>13. 存储管理方式</h1><ul>
 <li>为了将用户程序装入内存，必须为它分配一定大小的内存空间</li>
 <li>存储器分配管理方式<ul>
 <li>连续分配方式:为一个用户程序分配一个连续的内存空间，程序中代码或者数据的逻辑地址相邻，内存分配时物理地址相邻<ul>
@@ -661,20 +686,24 @@
 </li>
 </ul>
 </li>
-<li><strong>页面（分段）/部分对换</strong>:以进程的一个页面或分段单位进行的对换，请求分页和请求分段存储管理（虚拟存储系统）<h3 id="3-3-虚拟存储器概述"><a href="#3-3-虚拟存储器概述" class="headerlink" title="3.3 虚拟存储器概述"></a><span id="jump33">3.3 虚拟存储器概述</span></h3></li>
+<li><strong>页面（分段）/部分对换</strong>:以进程的一个页面或分段单位进行的对换，请求分页和请求分段存储管理（虚拟存储系统）</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="14-虚拟存储器概述"><a href="#14-虚拟存储器概述" class="headerlink" title="14. 虚拟存储器概述"></a>14. 虚拟存储器概述</h1><ul>
 <li>引入虚拟内存的原因：存储管理难以满足大作业需求：<strong>一次性</strong>(作业全部装入内存才能开始运行)、<strong>驻留性</strong>(作业常驻内存直到运行结束)</li>
 <li>局部性原理：在较短的时间内，程序的执行仅局限于某个部分，相应的，它所访问的存储空间也局限在某个区域</li>
 <li><strong>虚拟存储器</strong>：具有请求调入功能和置换功能，能从逻辑上对内存容量加以扩充的一种存储系统</li>
 <li>虚拟存储器的特征<ul>
 <li><strong>多次性</strong>：一个作业只需将当前需要运行的那部分程序和数据装入内存即可开始运行，每当运行到尚未调入的那部分程序时，再将它调入</li>
 <li><strong>对换性</strong>：作业在运行期间可以换入、换出</li>
-<li><strong>虚拟性</strong>：能够从逻辑上扩充内存容量，使用户所看到的内存容量远大于实际内存容量<h3 id="3-4-虚拟存储管理方式"><a href="#3-4-虚拟存储管理方式" class="headerlink" title="3.4 虚拟存储管理方式"></a><span id="jump34">3.4 虚拟存储管理方式</span></h3></li>
+<li><strong>虚拟性</strong>：能够从逻辑上扩充内存容量，使用户所看到的内存容量远大于实际内存容量</li>
 </ul>
 </li>
+</ul>
+<h1 id="15-虚拟存储管理方式"><a href="#15-虚拟存储管理方式" class="headerlink" title="15. 虚拟存储管理方式"></a>15. 虚拟存储管理方式</h1><ul>
 <li>请求分页存储管理方式<ul>
 <li>数据结构：请求页表，基本作用仍是将用户地址空间中的逻辑地址映射为内存空间中的物理地址<ul>
 <li>页号、物理块号</li>
@@ -805,7 +834,7 @@
     - **越界检查**：利用地址变换机构完成
     - **存取控制检查**：以段为基本单位进行，在段表的每个表项设置了一个存取控制字段(只读、只执行、读/写)
     - **环保护机构**：一个程序可以访问驻留在相同环或较低特权环中的数据、可以调用驻留在相同环或者较高特权环的服务
-</code></pre><h3 id="4-1-I-O系统概述"><a href="#4-1-I-O系统概述" class="headerlink" title="4.1 I/O系统概述"></a><span id="jump41">4.1 I/O系统概述</span></h3><ul>
+</code></pre><h1 id="16-I-O系统概述"><a href="#16-I-O系统概述" class="headerlink" title="16. I/O系统概述"></a>16. I/O系统概述</h1><ul>
 <li>I/O系统的基本功能<ul>
 <li>隐藏物理设备的细节(通过对设备加以适当的抽象、隐藏物理设备的实现细节)</li>
 <li>与设备的无关性(可使用抽象的I/O命令和抽象逻辑设备名使用设备、提高OS的可移植性和易适应性)</li>
@@ -825,9 +854,11 @@
 <li><strong>设备驱动程序</strong>：用于具体实现系统对设备发出的操作指令，驱动I/O设备工作的驱动程序（设置设备寄存器、检查状态）</li>
 <li><strong>中断处理程序</strong>：用于保存被中断进程的CPU环境，转入相应的中断处理程序进行处理，处理完毕再恢复现场后，返回到被中断的进程 </li>
 <li><strong>软件/硬件(RW/HW)接口</strong>：
-<img src="/操作系统/11.PNG" alt="操作系统演进"><h3 id="4-2-I-O设备和设备控制器概述"><a href="#4-2-I-O设备和设备控制器概述" class="headerlink" title="4.2 I/O设备和设备控制器概述"></a><span id="jump42">4.2 I/O设备和设备控制器概述</span></h3></li>
+<img src="/操作系统/11.PNG" alt="操作系统演进"></li>
 </ul>
 </li>
+</ul>
+<h1 id="17-I-O设备和设备控制器概述"><a href="#17-I-O设备和设备控制器概述" class="headerlink" title="17. I/O设备和设备控制器概述"></a>17. I/O设备和设备控制器概述</h1><ul>
 <li>I/O设备由执行I/O操作的机械部分（一般的I/O设备）和执行控制I/O的电子部件(设备控制器或适配器)组成。</li>
 <li><strong>设备寻址方式</strong><ul>
 <li><strong>利用特定的I/O指令</strong>：为每个控制寄存器分配一个I/O端口和特定的I/O指令，访问内存和访问设备需要两种不同的指令</li>
@@ -868,9 +899,11 @@
 <li>数组多路通道：含有多个非分配型子通道连接多个高速设备，数据传输率高，通道利用率高</li>
 </ul>
 </li>
-<li><strong>瓶颈</strong>(通道价格昂贵，数量少于设备，一旦被占用，无法启动设备)问题：通过增加设备到主机间的通路而不增加通道来解决<h3 id="4-3-中断机构和设备驱动程序"><a href="#4-3-中断机构和设备驱动程序" class="headerlink" title="4.3 中断机构和设备驱动程序"></a><span id="jump43">4.3 中断机构和设备驱动程序</span></h3></li>
+<li><strong>瓶颈</strong>(通道价格昂贵，数量少于设备，一旦被占用，无法启动设备)问题：通过增加设备到主机间的通路而不增加通道来解决</li>
 </ul>
 </li>
+</ul>
+<h1 id="18-中断机构和设备驱动程序"><a href="#18-中断机构和设备驱动程序" class="headerlink" title="18. 中断机构和设备驱动程序"></a>18. 中断机构和设备驱动程序</h1><ul>
 <li>中断简介<ul>
 <li><strong>中断向量表</strong>：在中断向量表中为每种设备相应的中断处理程序设置一个表项，包括中断号和该设备中断处理程序的入口地址，当设备发来中断请求信号时，由中断控制器根据该设备的中断号去查找中断向量表，取得该设备中断处理程序的入口地址，转入中断处理程序执行</li>
 <li><strong>中断优先级</strong>：每个中断源对服务要求的紧急程度并不相同</li>
@@ -940,7 +973,7 @@
         - 计数：本指令所要读或写的数据的字节数
         - 通道程序结束位P：表示通道程序是否结束，为1表示本条指令是通道程序的最后一条指令
         - 记录结束标志R：0表示本通道指令与下一条指令所处理的数据同属一个记录，1表示处理某记录的最后一条指令
-</code></pre><h3 id="4-4-与设备无关的I-O软件"><a href="#4-4-与设备无关的I-O软件" class="headerlink" title="4.4 与设备无关的I/O软件"></a><span id="jump44">4.4 与设备无关的I/O软件</span></h3><ul>
+</code></pre><h1 id="19-与设备无关的I-O软件"><a href="#19-与设备无关的I-O软件" class="headerlink" title="19. 与设备无关的I/O软件"></a>19. 与设备无关的I/O软件</h1><ul>
 <li>设备无关性：应用程序中所使用的设备，不局限于使用某个具体的物理设备</li>
 <li>I/O重定向：用于I/O操作的设备可以更换(重定向)，不必改变应用程序</li>
 <li>设备分配<ul>
@@ -1043,13 +1076,15 @@
 </ul>
 </li>
 <li><strong>FSCAN算法</strong><ul>
-<li>将NStepSCAN磁盘请求队列分成两个子队列。一个是由当前所有请求磁盘I/O的进程形成的队列，由磁盘调度按SCAN算法进行处理。另一个是在扫描期间将新出现的所有请求磁盘I/O的进程放入等待处理的请求队列。所有的新请求都将推迟到下一次扫描时处理<h3 id="5-1-文件和文件系统"><a href="#5-1-文件和文件系统" class="headerlink" title="5.1 文件和文件系统"></a><span id="jump51">5.1 文件和文件系统</span></h3></li>
+<li>将NStepSCAN磁盘请求队列分成两个子队列。一个是由当前所有请求磁盘I/O的进程形成的队列，由磁盘调度按SCAN算法进行处理。另一个是在扫描期间将新出现的所有请求磁盘I/O的进程放入等待处理的请求队列。所有的新请求都将推迟到下一次扫描时处理</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="20-文件和文件系统"><a href="#20-文件和文件系统" class="headerlink" title="20. 文件和文件系统"></a>20. 文件和文件系统</h1><ul>
 <li>文件和文件系统<ul>
 <li><strong>文件数据组成</strong><ul>
 <li><strong>数据项</strong><ul>
@@ -1103,11 +1138,13 @@
 </li>
 <li>文件系统的接口<ul>
 <li>命令接口：用户与文件系统直接交互的接口，用户可以通过键盘中断键入命令取得文件系统的服务</li>
-<li>程序接口：用户程序与文件系统的接口，用户程序可通过系统调用取得文件系统的服务<h3 id="5-2-文件的逻辑结构"><a href="#5-2-文件的逻辑结构" class="headerlink" title="5.2 文件的逻辑结构"></a><span id="jump52">5.2 文件的逻辑结构</span></h3></li>
+<li>程序接口：用户程序与文件系统的接口，用户程序可通过系统调用取得文件系统的服务</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="21-文件的逻辑结构"><a href="#21-文件的逻辑结构" class="headerlink" title="21. 文件的逻辑结构"></a>21. 文件的逻辑结构</h1><ul>
 <li><strong>文件的结构类型</strong>（影响对文件的检索速度）<ul>
 <li><strong>逻辑结构/文件组织</strong>：用户观察并操作的由一系列的逻辑结构记录组成的文件组织形式，文件的逻辑记录是能够被存取的基本单位</li>
 <li><strong>物理结构/存储结构</strong>：用户不能看见的文件在外存上所形成的一种存储组织形式，与存储介质的存储性能和外存分配方式有关</li>
@@ -1155,9 +1192,11 @@
 </li>
 <li>记录寻址<ul>
 <li>隐式寻址方式：读指针Rptr（指向下一个记录的首址）+定长记录长度L或者变长记录长度Li</li>
-<li>显式寻址方式：通过文件中记录的位置或关键字实现对定长记录的随机访问<h3 id="5-3-文件目录"><a href="#5-3-文件目录" class="headerlink" title="5.3 文件目录"></a><span id="jump53">5.3 文件目录</span></h3></li>
+<li>显式寻址方式：通过文件中记录的位置或关键字实现对定长记录的随机访问</li>
 </ul>
 </li>
+</ul>
+<h1 id="22-文件目录"><a href="#22-文件目录" class="headerlink" title="22. 文件目录"></a>22. 文件目录</h1><ul>
 <li><strong>文件目录</strong><ul>
 <li>概念：用于标识系统中的文件以及物理地址的数据结构，供检索时使用，文件控制块的集合，<strong>一个文件控制块就是一个文件目录项</strong></li>
 <li>目录管理要求：实现按名存取、提高对目录的检索速度、文件共享、允许文件重名</li>
@@ -1220,19 +1259,23 @@
 <li>hash冲突：不同文件名转换为相同hash值<ul>
 <li>在利用hash法索引查找目录时，如果目录表中相应的目录项是空的，则表示系统中并无指定文件</li>
 <li>若目录项中的文件名与指定文件名相匹配，可从中找到该文件所在的物理地址</li>
-<li>若目录项中的文件名与指定文件名不匹配（冲突），则将hash值加上一个常数（与目录长度值互质）形成新索引值，重新找<h3 id="5-4-文件共享"><a href="#5-4-文件共享" class="headerlink" title="5.4 文件共享"></a><span id="jump54">5.4 文件共享</span></h3></li>
+<li>若目录项中的文件名与指定文件名不匹配（冲突），则将hash值加上一个常数（与目录长度值互质）形成新索引值，重新找</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="23-文件共享"><a href="#23-文件共享" class="headerlink" title="23. 文件共享"></a>23. 文件共享</h1><ul>
 <li><strong>基于索引节点</strong>：通过不同用户目录项指向同一个索引结点实现共享，节点增加链接计数count:表示链接到本索引结点上的用户目录项的数目</li>
 <li><strong>基于符号链接</strong>：创建一个LINK类型新文件F写到链接父目录中，F包含被链接文件的路径名(符号链)，共享时通过路径名找到共享文件读写<ul>
 <li>允许一个文件或子目录有多个符号链接方式连接的父目录和一个主父目录，属主结构仍然是简单树，文件的删除、查找都更为方便</li>
-<li>不会发生文件主删除一共享文件后留下一悬空指针的情况每次访问共享文件时都要读盘，开销大；每增加一条链接就增加一个文件名，要为每个共享用户建立一条符号链，消耗存储空间<h3 id="5-5-文件保护"><a href="#5-5-文件保护" class="headerlink" title="5.5 文件保护"></a><span id="jump55">5.5 文件保护</span></h3></li>
+<li>不会发生文件主删除一共享文件后留下一悬空指针的情况每次访问共享文件时都要读盘，开销大；每增加一条链接就增加一个文件名，要为每个共享用户建立一条符号链，消耗存储空间</li>
 </ul>
 </li>
+</ul>
+<h1 id="24-文件保护"><a href="#24-文件保护" class="headerlink" title="24. 文件保护"></a>24. 文件保护</h1><ul>
 <li>影响文件的安全性：人为因素、系统因素：系统异常、自然因素：随着时间的推移，放在磁盘上的数据会逐渐丢失</li>
 <li>确保系统安全性措施<ul>
 <li>通过存取控制机制：防止人为因素造成的文件不安全性</li>
@@ -1261,9 +1304,11 @@
 </ul>
 </li>
 <li><strong>文件保护的实现</strong><ul>
-<li>当一个进程第一次试图去访问一个对象时先查询访问控制表是否具有对对象的访问权，无权访问则由系统拒绝进程的访问，并构成一例外（异常）事件，有权访问便允许进程对该对象进行访问，并为该进程建立一访问权限，将之连接到该进程。之后便可直接利用这一返回的权限去访问该对象，快速验证访问合法性，当进程不再需要对该对象进行访问时，便可撤销该访问权限<h3 id="6-1-外存的组织方式"><a href="#6-1-外存的组织方式" class="headerlink" title="6.1 外存的组织方式"></a><span id="jump61">6.1 外存的组织方式</span></h3></li>
+<li>当一个进程第一次试图去访问一个对象时先查询访问控制表是否具有对对象的访问权，无权访问则由系统拒绝进程的访问，并构成一例外（异常）事件，有权访问便允许进程对该对象进行访问，并为该进程建立一访问权限，将之连接到该进程。之后便可直接利用这一返回的权限去访问该对象，快速验证访问合法性，当进程不再需要对该对象进行访问时，便可撤销该访问权限</li>
 </ul>
 </li>
+</ul>
+<h1 id="25-外存的组织方式"><a href="#25-外存的组织方式" class="headerlink" title="25. 外存的组织方式"></a>25. 外存的组织方式</h1><ul>
 <li><strong>外存组织方式</strong><ul>
 <li><strong>连续组织方式</strong>：给文件分配一片连续的磁盘空间(顺序式的文件结构)<ul>
 <li>文件目录项的文件物理地址字段记录该文件第一个记录所在的盘块号和以盘块为单位的文件长度</li>
@@ -1309,13 +1354,15 @@
 </li>
 <li>增量式索引组织方式<ul>
 <li>对于小文件直接寻址：从文件控制块FCB（索引结点）中直接读出每一个盘块地址</li>
-<li>对于中文件采用单级索引、对于大文件采用多级索引<h3 id="6-2-文件存储空间的管理"><a href="#6-2-文件存储空间的管理" class="headerlink" title="6.2 文件存储空间的管理"></a><span id="jump62">6.2 文件存储空间的管理</span></h3></li>
+<li>对于中文件采用单级索引、对于大文件采用多级索引</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="26-文件存储空间的管理"><a href="#26-文件存储空间的管理" class="headerlink" title="26. 文件存储空间的管理"></a>26. 文件存储空间的管理</h1><ul>
 <li>磁盘分配表(Disk Allocation Table)：记录可供分配的存储空间的情况</li>
 <li>文件存储空间的管理方法<ul>
 <li><strong>空闲表法</strong> (连续分配方式\分配速度快，可减少访问磁盘的I/O频率，分配和回收与内存的动态分配类似)<ul>
@@ -1354,13 +1401,15 @@
 <li>空闲盘块的分配与回收<ul>
 <li>检查盘块号栈是否上锁，未上锁则从栈顶取出一空闲盘块号，将与之对应的盘块分配给用户，将栈顶指针下移一格</li>
 <li>若盘块号已经是栈底（当前栈中最后一个可分配的盘块号），该盘块号所对应的盘块中记有下一组可用的盘块号，调用磁盘的读过程将栈底盘块号所对应盘块的内容读入栈中，作为新的盘块号栈的内容，并把原栈底对应的盘块分配出去（其中有用的数据已读入栈中），然后再分配一相应的缓冲区，最后把栈中的空闲盘块数减1并返回</li>
-<li>系统回收盘块时，调用盘块回收过程进行回收，将回收盘块的盘块号计入空闲盘块号栈的顶部，并执行空闲盘块数加1的操作。当栈中空闲盘块数目达到100时（栈满），将现有栈中的100盘块号计入新回收的盘块中，再将盘块号作为新栈底<h3 id="6-3-提高磁盘I-O速度的途径"><a href="#6-3-提高磁盘I-O速度的途径" class="headerlink" title="6.3 提高磁盘I/O速度的途径"></a><span id="jump63">6.3 提高磁盘I/O速度的途径</span></h3></li>
+<li>系统回收盘块时，调用盘块回收过程进行回收，将回收盘块的盘块号计入空闲盘块号栈的顶部，并执行空闲盘块数加1的操作。当栈中空闲盘块数目达到100时（栈满），将现有栈中的100盘块号计入新回收的盘块中，再将盘块号作为新栈底</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h1 id="27-提高磁盘I-O速度的途径"><a href="#27-提高磁盘I-O速度的途径" class="headerlink" title="27. 提高磁盘I/O速度的途径"></a>27. 提高磁盘I/O速度的途径</h1><ul>
 <li>提高对文件的访问速度方法<ul>
 <li>改进文件的目录结构以及检索目录的方法减少对目录的查找时间</li>
 <li>选取好的文件存储结构，提高对文件的访问速度</li>
@@ -1397,9 +1446,11 @@
 <li><strong>虚拟盘</strong>：用内存空间模仿真磁盘，但易丢失数据。通常只放置临时文件，内容完全由用户控制，而磁盘高速缓存中的内容则是由os控制的</li>
 <li><strong>廉价磁盘冗余阵列</strong>（RAID）<ul>
 <li>利用一台磁盘阵列控制器统一管理和控制一组磁盘驱动器，组成一个大型磁盘系统。</li>
-<li>并行交叉存取：系统将每个盘块中的数据分为若干个子盘块数据，再把每一个子盘块的数据分别存储到各个不同磁盘中的相同位置上，当要将一个盘块的数据传送到内存时，采用并向传输的方式，将各个盘块中的子盘块数据同时向内存中传输<h3 id="6-4-提高磁盘可靠性的技术"><a href="#6-4-提高磁盘可靠性的技术" class="headerlink" title="6.4 提高磁盘可靠性的技术"></a><span id="jump64">6.4 提高磁盘可靠性的技术</span></h3></li>
+<li>并行交叉存取：系统将每个盘块中的数据分为若干个子盘块数据，再把每一个子盘块的数据分别存储到各个不同磁盘中的相同位置上，当要将一个盘块的数据传送到内存时，采用并向传输的方式，将各个盘块中的子盘块数据同时向内存中传输</li>
 </ul>
 </li>
+</ul>
+<h1 id="28-提高磁盘可靠性的技术"><a href="#28-提高磁盘可靠性的技术" class="headerlink" title="28. 提高磁盘可靠性的技术"></a>28. 提高磁盘可靠性的技术</h1><ul>
 <li>磁盘容错技术通过增加冗余的磁盘驱动器、磁盘控制器等的方法提高系统可靠性的一种技术</li>
 <li>磁盘容错技术的分级<ul>
 <li><strong>第一级容错技术SFT-1：防止因磁盘表面缺陷造成的数据丢失</strong><ul>
@@ -1430,9 +1481,11 @@
 <li>后备系统：把不需要但有用的数据，存放在后备系统中保存起来，防止系统发生故障或病毒感染<ul>
 <li>磁带机:只适合存放顺序文件，存取速度慢，容量大，价格便宜，</li>
 <li>硬盘:移动磁盘，速度高，脱机保存方便，保存时间长，但位价高，体积小；固定硬盘驱动器：大中型系统</li>
-<li>光盘驱动器：可读写光盘驱动器/刻录机<h3 id="6-5-数据一致性控制"><a href="#6-5-数据一致性控制" class="headerlink" title="6.5 数据一致性控制"></a><span id="jump65">6.5 数据一致性控制</span></h3></li>
+<li>光盘驱动器：可读写光盘驱动器/刻录机</li>
 </ul>
 </li>
+</ul>
+<h1 id="29-数据一致性控制"><a href="#29-数据一致性控制" class="headerlink" title="29. 数据一致性控制"></a>29. 数据一致性控制</h1><ul>
 <li>数据一致性:多个文件中的同一数据，在任何情况下都必须能保障相同</li>
 <li><strong>事务</strong>：用于访问和修改各种数据项的一个程序单位<ul>
 <li><strong>托付/提交操作</strong>：对分布在不同位置的同一数据进行读写操作全部完成时确认事务的变化</li>
@@ -1479,4 +1532,4 @@
 </ul>
 </li>
 </ul>
-</div><div class="tags"><a href="/tags/计算机/">计算机</a></div><div class="post-nav"><a class="pre" href="/2020/08/24/jvm/">jvm</a><a class="next" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</div><div class="tags"><a href="/tags/计算机/">计算机</a></div><div class="post-nav"><a class="pre" href="/2020/08/27/java面试题/">java面试题</a><a class="next" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

@@ -35,18 +35,16 @@
 </li>
 <li><a href="#jump2">文件下载</a>             </li>
 <li><a href="#jump3">mail</a></li>
-<li><a href="#jump4">中文乱码原因</a></li>
 <li><a href="#jump5">转发与重定向的区别</a></li>
 <li><a href="#jump6">javaee对象生命周期</a></li>
 </ul>
-<h3 id="javax-servlet-Servlet"><a href="#javax-servlet-Servlet" class="headerlink" title="javax.servlet.Servlet"></a><span id="jump101">javax.servlet.Servlet</span></h3><ul>
-<li>servlet用于获取请求数据、处理请求、完成响应</li>
-<li>servlet接口方法，使用servlet可以实现这个接口并配置web.xml，但是不推荐</li>
+<h3 id="javax-servlet-Servlet-servlet用于获取请求数据、处理请求、完成响应。"><a href="#javax-servlet-Servlet-servlet用于获取请求数据、处理请求、完成响应。" class="headerlink" title="javax.servlet.Servlet servlet用于获取请求数据、处理请求、完成响应。"></a><span id="jump101">javax.servlet.Servlet servlet用于获取请求数据、处理请求、完成响应。</span></h3><ul>
+<li>使用servlet可以实现servlet接口并配置web.xml，但是不推荐</li>
 <li>init(ServletConfig config);//servlet对象创建的时候执行ServletConfig:代表的是该servlet对象的配置信息</li>
 <li>service(ServletRequest request,ServletResponse response);//每次请求都会执行</li>
 <li>destroy();//servlet销毁的时候执行</li>
 </ul>
-<h3 id="javax-servlet-http-HttpServlet类"><a href="#javax-servlet-http-HttpServlet类" class="headerlink" title="javax.servlet.http.HttpServlet类"></a><span id="jump102">javax.servlet.http.HttpServlet类</span></h3><ul>
+<h3 id="javax-servlet-http-HttpServlet"><a href="#javax-servlet-http-HttpServlet" class="headerlink" title="javax.servlet.http.HttpServlet"></a><span id="jump102">javax.servlet.http.HttpServlet</span></h3><ul>
 <li>使用servlet可以继承HttpServlet并复写HttpServlet类的doGet、doPost方法并配置web.xml</li>
 <li>init();//servlet对象创建的时候执行</li>
 <li>doGet(HttpServletRequest request,HttpServletResponse response);//每次get请求都会执行</li>
@@ -89,20 +87,17 @@
 <li>获得请求体<ul>
 <li>String getParameter(String name) 多个只获得一个，没有则返回null</li>
 <li>Map&lt;String,String[]&gt; getParameterMap()获得指定参数名对应的所有键值</li>
-<li>String[] getParameterValues（String name）获得指定参数名对应的所有值（少用）</li>
+<li>String[] getParameterValues(String name)获得指定参数名对应的所有值（少用）</li>
 <li>Enumeration getParameterNames()</li>
 </ul>
 </li>
-<li>解决乱码post乱码<ul>
-<li>request.setCharacterEncoding(“UTF-8”);</li>
+<li>乱码：浏览器的中文用UTF-8编码，而HTTP协议使用iSO8859-1编码。不同的浏览器接收和发送数据取决于浏览器类型，通过Http请求体中的User-Agent属性可以辨别<ul>
+<li>post乱码 request.setCharacterEncoding(“UTF-8”);</li>
+<li>get乱码 String parameter=new String(parameter.getbytes(“iso8859-1”),”utf-8”);</li>
 </ul>
 </li>
-<li>get乱码<ul>
-<li>String parameter=new String(parameter.getbytes(“iso8859-1”),”utf-8”);</li>
-<li>浏览器的中文用UTF-8编码，而HTTP协议只用iSO8859-1解码，所以乱码，</li>
-<li>只需获得中文的以ISO8859-1编码的字节码就可以用UTF-8解码以获得中文</li>
-<li>转发request.getRequestDispatcher(”/?”).forward(req,resp);</li>
-<li>域对象</li>
+<li>转发 request.getRequestDispatcher(”/?”).forward(req,resp);</li>
+<li>域对象<ul>
 <li>Object setAttribute (String name, Object o)set注意名字相同时则覆盖</li>
 <li>String getAttribute(String name)</li>
 <li>void removeAttribute(String name)</li>
@@ -133,8 +128,7 @@
 </li>
 <li>设置响应体<ul>
 <li>getWriter().write(“”)字符串，可以插入标签</li>
-<li>getOutputStream().write(byte[] bytes)</li>
-<li>因为getWriter()之前已调用getOutputStream(),故两者不能同时使用</li>
+<li>getOutputStream().write(byte[] bytes) 因为getWriter()之前已调用getOutputStream(),故两者不能同时使用</li>
 <li>setHeader(“content-Type”,”text/html;charset=utf-8”);中文乱码</li>
 <li>sendRedirect(“/WEB14/servlet2”);重定向</li>
 <li>setStatus(302);setHeader(“Location”, “/WEB14/servlet2”);</li>
@@ -147,10 +141,7 @@
 <li>this.getServletContext();（推荐）</li>
 </ul>
 </li>
-<li>获得web.xml全局的初始化参数<ul>
-<li>getInitParameter(String name);</li>
-</ul>
-</li>
+<li>获得web.xml全局的初始化参数 getInitParameter(String name);</li>
 <li>域对象(整个web应用)<ul>
 <li>void setAtrribute(String name,Object obj);</li>
 <li>Object getAttribute(String name);</li>
@@ -159,34 +150,27 @@
 </li>
 <li>WebContext目录内任何资源绝对路径<ul>
 <li>String getRealPath(String path);//:/WEB-INF/</li>
-<li>InputStream getResourceAsStream(String path);</li>
-<li>以/开头path相对WebContext目录InputStream xxx.class.getResourceAsStream(String path);//:/WEB-INF/</li>
+<li>InputStream getResourceAsStream(String path); 以/开头path相对WebContext目录InputStream</li>
 </ul>
 </li>
 </ul>
 <h3 id="javax-servlet-ServletConfig"><a href="#javax-servlet-ServletConfig" class="headerlink" title="javax.servlet.ServletConfig"></a><span id="jump108">javax.servlet.ServletConfig</span></h3><ul>
-<li>获得该servlet在web.xml上的name <ul>
-<li>String getServletName();</li>
-</ul>
-</li>
+<li>获得该servlet在web.xml上的name String getServletName();</li>
 <li>获得该servlet的初始化的参数<ul>
 <li>String getInitParameter(String name);</li>
 <li>Enumeration getInitParameterNames();</li>
 </ul>
 </li>
-<li>获得Servletcontext对象<ul>
-<li>ServletContext getServletContext();</li>
+<li>获得Servletcontext对象 ServletContext getServletContext();</li>
 </ul>
-</li>
-</ul>
-<h3 id="javax-servlet-http-Cookie类"><a href="#javax-servlet-http-Cookie类" class="headerlink" title="javax.servlet.http.Cookie类"></a><span id="jump109">javax.servlet.http.Cookie类</span></h3><ul>
-<li>创建CookieCookie cookie = new Cookie(name,value)<ul>
-<li>cookie会以响应头的形式发送给客户端：set-cookie:”name=zhengsan” 不能存储中文、它是浏览器缓存的一部分</li>
-<li>数据存储在客户端本地，减少服务器端的存储的压力，安全性不好，客户端可以清除cookie,有大小和个数的限制</li>
-</ul>
-</li>
-<li>持久化时间cookie.setMaxAge(秒);不设置cookie会存储在浏览器的内存中，随浏览器关闭销毁(会话级别cookie)</li>
-<li>设置cookie信息会被持久化到浏览器的磁盘文件里，过期浏览器自动删除(持久级别cookie)</li>
+<h3 id="javax-servlet-http-Cookie"><a href="#javax-servlet-http-Cookie" class="headerlink" title="javax.servlet.http.Cookie"></a><span id="jump109">javax.servlet.http.Cookie</span></h3><ul>
+<li>cookie会以响应头的形式发送给客户端：set-cookie:”name=zhengsan” </li>
+<li>cookie不能存储中文、它是浏览器缓存的一部分。</li>
+<li>cookie数据存储在客户端本地，减少服务器端的存储的压力，安全性不好，客户端可以清除cookie,有大小和个数的限制</li>
+<li>会话级别cookie：不设置cookie会存储在浏览器的内存中，随浏览器关闭销毁</li>
+<li>持久级别cookie：设置cookie信息会被持久化到浏览器的磁盘文件里，过期浏览器自动删除</li>
+<li>创建CookieCookie cookie = new Cookie(name,value)</li>
+<li>持久化时间cookie.setMaxAge(秒);</li>
 <li>请求时cookie被携带路径<ul>
 <li>cookie.setPath();不设置，cookie信息会在访问产生该cookie的web资源所在的路径都携带cookie信息，会覆盖</li>
 <li>cookie.setPath(“/WEB”);访问WEB应用中的任何资源都携带cookie</li>
@@ -194,18 +178,9 @@
 <li>cookie.setPath(“/“);代表访问tomcat下所有的web项目的cookie信息</li>
 </ul>
 </li>
-<li>向客户端发送cookie<ul>
-<li>response.addCookie(Cookie cookie);//如果路径和名称一样，两次add会覆盖</li>
-</ul>
-</li>
-<li>获得客户端的cookie<ul>
-<li>Cookie[] cookies = request.getCookies();</li>
-</ul>
-</li>
-<li>获得cookie的键值<ul>
-<li>cookie.getName();cookie.getValue();</li>
-</ul>
-</li>
+<li>向客户端发送cookie response.addCookie(Cookie cookie);//如果路径和名称一样，两次add会覆盖</li>
+<li>获得客户端的cookie Cookie[] cookies = request.getCookies();</li>
+<li>获得cookie的键值 cookie.getName();cookie.getValue();</li>
 <li>删除cookie<ul>
 <li>Cookie cookie = new Cookie(“name”,””);//将cookie的name设置与删除的cookie一致</li>
 <li>cookie.setPath(“/WEB16”);//将path设置成与要删除cookie的path一致</li>
@@ -218,32 +193,17 @@
 <li>session将数据存储到服务器端，安全性相对好，增加服务器的压力，没有大小和个数限制</li>
 <li>session会为每个客户端都创建一块内存空间存储客户的数据,但客户端需要每次都携带一个标识ID去服务器中寻找属于自己的内存空间。</li>
 <li>所以说Session的实现是基于Cookie，Session需要借助于Cookie存储客户的唯一性标识JSESSIONID来辨别是哪个客户端</li>
-<li>获得Session<ul>
-<li>request.getSession([boolean create])</li>
-</ul>
-</li>
-<li>获得sessionid<ul>
-<li>String getId()</li>
-</ul>
-</li>
-<li>设置session空闲时间<ul>
-<li>void setMaxInactiveInterval(int interval)</li>
-</ul>
-</li>
-<li>获得servletcontext<ul>
-<li>ServletContext getServletContext()</li>
-</ul>
-</li>
+<li>获得Session request.getSession([boolean create])</li>
+<li>获得sessionid String getId()</li>
+<li>设置session空闲时间 void setMaxInactiveInterval(int interval)</li>
+<li>获得servletcontext ServletContext getServletContext()</li>
 <li>session域<ul>
 <li>void setAttribute(String name,Object obj);</li>
 <li>Object getAttribute(String name);</li>
 <li>void removeAttribute(String name);</li>
 </ul>
 </li>
-<li>销毁session<ul>
-<li>void invalidate();</li>
-</ul>
-</li>
+<li>销毁session void invalidate();</li>
 </ul>
 <h3 id="java-util-EventListener"><a href="#java-util-EventListener" class="headerlink" title="java.util.EventListener"></a><span id="jump111">java.util.EventListener</span></h3><h3 id="javax-servlet-ServletContextListener"><a href="#javax-servlet-ServletContextListener" class="headerlink" title="javax.servlet.ServletContextListener"></a><span id="jump112">javax.servlet.ServletContextListener</span></h3><ul>
 <li>contextInitialized(ServlertContextEvent sre)</li>
@@ -298,25 +258,29 @@
 <li>需要web.xml注册</li>
 </ul>
 <h3 id="javax-servlet-http-HttpSessionBindingListener"><a href="#javax-servlet-http-HttpSessionBindingListener" class="headerlink" title=" javax.servlet.http.HttpSessionBindingListener"></a><span id="jump118"> javax.servlet.http.HttpSessionBindingListener</span></h3><ul>
+<li>javaBean实现HttpSessionBindingListener接口,不需web.xml配置</li>
 <li>valueBound(HttpSessionBindingEvent event)绑定:对象被放到session域</li>
 <li>valueUnbound(HttpSessionBindingEvent event)解绑:对象从session域中移除</li>
-<li>javaBean实现HttpSessionBindingListener接口,不需web.xml配置</li>
 <li>String name = HttpSessionBindingEvent.getName()</li>
 <li>String value = HttpSessionBindingEvent.getValue()</li>
 <li>Session session = HttpSessionBindingEvent.getSession()</li>
 </ul>
 <h3 id="javax-servlet-http-HttpSessionActivationListener"><a href="#javax-servlet-http-HttpSessionActivationListener" class="headerlink" title="javax.servlet.http.HttpSessionActivationListener"></a><span id="jump119">javax.servlet.http.HttpSessionActivationListener</span></h3><ul>
+<li>javaBean实现HttpSessionActivationListener接口,在META-INF创建context.xml文件,不需web.xml配置</li>
+<li>Session钝化：当服务器正常关闭时,还存活着的session(在设置时间内没有销毁) 会随着服务器的关闭被以文件(“SESSIONS.ser”)的形式存储在tomcat的work目录下</li>
+<li>Session活化：当服务器再次正常开启时,服务器会找到之前的“SESSIONS.ser” 文件，从中恢复之前保存起来的Session 对象</li>
 <li>sessionWillPassivate(HttpSessionEvent se); session钝化前执行（session从内存到硬盘）</li>
 <li>sessionDidActivate(HttpSessionEvent se); session活化后执行（session从硬盘到内存）</li>
-<li>javaBean实现HttpSessionActivationListener接口,在META-INF创建context.xml文件,不需web.xml配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context&gt;</span><br><span class="line">    &lt;Manager className=&quot;org.apache.catalina.session.PersistentManager&quot; maxIdleSwap=&quot;1&quot;&gt;钝化时间</span><br><span class="line">        &lt;Store className=&quot;org.apache.catalina.session.FileStore&quot; directory=&quot;test&quot; /&gt;</span><br><span class="line">        配置钝化的对象文件在%tomcat%/work/catalina/localhost/项目名称/钝化文件名.ser(test)</span><br><span class="line">    &lt;/Manager&gt;</span><br><span class="line">&lt;/Context&gt;</span><br></pre></td></tr></table></figure>
-</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context&gt;</span><br><span class="line">    &lt;Manager className=&quot;org.apache.catalina.session.PersistentManager&quot; maxIdleSwap=&quot;1&quot;&gt;钝化时间</span><br><span class="line">        &lt;Store className=&quot;org.apache.catalina.session.FileStore&quot; directory=&quot;test&quot; /&gt;</span><br><span class="line">        配置钝化的对象文件在%tomcat%/work/catalina/localhost/项目名称/钝化文件名.ser(test)</span><br><span class="line">    &lt;/Manager&gt;</span><br><span class="line">&lt;/Context&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="javax-servlet-Filter"><a href="#javax-servlet-Filter" class="headerlink" title="javax.servlet.Filter"></a><span id="jump120">javax.servlet.Filter</span></h3><ul>
-<li>filter是对客户端访问资源的过滤，符合条件放行，不符合条件不放行，</li>
-<li>并且可以对目标资源访问前后进行逻辑处理，运行在服务器端的程序，</li>
-<li>先于与之相关的Servlet或jsp前运行，对请求资源过滤的功能,可以处理请求和响应</li>
-<li>①公共代码的提取②对request和response中的方法进行增强(装饰者模式/动态代理)</li>
-<li>③进行权限控制④自动登录，解决全局乱码，屏蔽非法文字，响应数据压缩</li>
+<li>filter是对客户端访问资源的过滤，符合条件放行，不符合条件不放行，并且可以对目标资源访问前后进行逻辑处理，运行在服务器端的程序，先于与之相关的Servlet或jsp前运行，对请求资源过滤的功能,可以处理请求和响应<ul>
+<li>公共代码的提取</li>
+<li>对request和response中的方法进行增强(装饰者模式/动态代理)</li>
+<li>进行权限控制</li>
+<li>自动登录，解决全局乱码，屏蔽非法文字，响应数据压缩</li>
+</ul>
+</li>
 <li>实现Filter接口并实现所有方法,配置web.xml<ul>
 <li>init(Filterconfig filterconfig);过滤器初始化方法</li>
 <li>doFilter(ServletRequest,SevletResponse,FilterChain)每次访问这个资源都会执行该方法</li>
@@ -328,7 +292,9 @@
 <li>getServletContext返回ServletContext对象的引用</li>
 <li>getInitParameter返回在web.xml中Filter初始化的参数值</li>
 <li>getInitParameterNames返回一个 Enumeration 集合对象</li>
-<li>FilterChain方法</li>
+</ul>
+</li>
+<li>FilterChain方法<ul>
 <li>放行请求chain.doFilter(request, response);</li>
 </ul>
 </li>
@@ -341,16 +307,10 @@
 <li>接受邮件的协议POP3邮局协议:邮件客户端软件与POP3服务器通讯规则 IMAP 端口号110</li>
 <li>发送邮件的协议SMTP邮件协议:邮件客户端软件与SMTP服务及两台SMTP服务器之间的通讯规则，端口号25</li>
 </ul>
-<h3 id="中文乱码原因"><a href="#中文乱码原因" class="headerlink" title="中文乱码原因"></a><span id="jump4">中文乱码原因</span></h3><ul>
-<li>http协议默认采用ISO-8859编码发送的数据，解码发到服务器的数据</li>
-<li>不同的浏览器接收和发送数据取决于浏览器类型，通过Http请求体中的User-Agent属性可以辨别</li>
-<li>而中文在ISO-8859编码表中是不存在的，所以必须设置浏览器和服务端的编码都是utf-8才能解决中文乱码问题</li>
+<h3 id="转发与重定向的区别"><a href="#转发与重定向的区别" class="headerlink" title="转发与重定向的区别"></a><span id="jump5">转发与重定向的区别</span></h3><ul>
+<li>重定向:可以访问外部网站 地址变化 两次请求 路径加工程名 性能较好</li>
+<li>转发:只能访问内部资源 地址不变 一次请求 路径不加工程名 性能较弱</li>
 </ul>
-<h3 id="转发与重定向的区别"><a href="#转发与重定向的区别" class="headerlink" title="转发与重定向的区别"></a><span id="jump5">转发与重定向的区别</span></h3><p>重定向:可以访问外部网站,转发:只能访问内部资源
-    地址变化;地址不变
-    两次请求;一次请求
-    路径加工程名;路径不加工程名
-    性能较好;性能较弱</p>
 <h3 id="javaee对象生命周期"><a href="#javaee对象生命周期" class="headerlink" title="javaee对象生命周期"></a><span id="jump6">javaee对象生命周期</span></h3><ul>
 <li>servlet:(多个)、init第一次访问servlet创建、service每次请求都会执行、destory服务器关闭、项目被移除</li>
 <li>request:(多个)、访问sevlet时创建、销毁：响应结束、域的作用范围:一次请求中</li>
@@ -361,4 +321,4 @@
 </li>
 <li>filer:(多个)服务器启动、服务器关闭、每次访问被拦截目标资源，过滤器doFilter方法执行</li>
 </ul>
-</div><div class="tags"><a href="/tags/web/">web</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/http/">http协议</a><a class="next" href="/2020/01/03/jsp/">jsp</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</div><div class="tags"><a href="/tags/web/">web</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/http/">http协议</a><a class="next" href="/2020/01/03/jsp/">jsp</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

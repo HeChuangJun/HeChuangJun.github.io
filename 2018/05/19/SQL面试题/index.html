@@ -1,4 +1,46 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>SQL面试题 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SQL面试题</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SQL面试题</h1><div class="post-meta">May 19, 2018<span> | </span><span class="category"><a href="/categories/面试题/">面试题</a></span></div><div class="post-content"><a id="more"></a>
+<ul>
+<li><a href="#jump101">SQL面试题型</a><ul>
+<li><a href="#jump102">分组及其组内比较</a><ul>
+<li><a href="#jump103">分组与平均分比较</a></li>
+<li><a href="#jump104">top-n问题</a></li>
+<li><a href="#jump105">行变列问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="SQL面试题题型"><a href="#SQL面试题题型" class="headerlink" title="SQL面试题题型"></a><span id="jump101">SQL面试题题型</span></h2><h3 id="分组及其组内比较"><a href="#分组及其组内比较" class="headerlink" title="分组及其组内比较"></a><span id="jump102">分组及其组内比较</span></h3><ul>
+<li><span id="jump103">分组与分组函数比较</span><ul>
+<li>如：查出每个学科低于其平均分的学生等</li>
+<li>首先查询出每条记录对应的分组函数值select * from table t1 left join (select 分组函数(统计字段) as 比较字段 from table group by 分组字段) t2 on 唯一条件 where 比较条件</li>
+<li><a href="#jump199">例题</a></li>
+</ul>
+</li>
+<li><span id="jump104">top-n问题</span><ul>
+<li>如：求出第二(n)高/低的薪水</li>
+<li>如果是找第二高之类的问题：select max(distinct 字段) from table where 字段&lt; (select max(distinct 字段) from table group by 分组字段)</li>
+<li>如果是找第n高的问题：select distinct 字段 FROM table t1 where (SELECT count(distinct 字段) from table t2 WHERE t2.字段 &gt; t1.字段) = N-1</li>
+<li>如果是找前n高的问题：select distinct 字段 from table t1 where (select count(distinct 字段) from table t2 where t2.字段 &gt; t1.字段)&lt; n</li>
+<li>如果是找当前记录处于第几的问题：select 字段,(select count(distinct 字段) from table t2 where t2.字段 &gt;= t1.字段) from Scores t1 order by 字段 DESC</li>
+<li><a href="#jump198">例题</a></li>
+</ul>
+</li>
+<li><span id="jump105">行转列</span><ul>
+<li>如：把表中特定行的数据去重后做为列名：</li>
+<li>如：将同一个人的科目显示出来</li>
+<li>利用max(case when then)或者sum(case when then)或者sum(IF()) 或者max(IF())：先将数据按某个条件分组，然后通过sum或者max将行转列，但是问题是，行转列有限制</li>
+<li><a href="#jump197">例题</a></li>
+</ul>
+</li>
+<li><span id="jump105">列转行</span><ul>
+<li>如：把表中特定列做为每一行数据对应行的值：</li>
+<li>如：将行转列的表转回原来那样子</li>
+<li>利用union查询</li>
+<li><a href="#jump196">例题</a></li>
+</ul>
+</li>
+</ul>
 <h3 id="成绩表（score）"><a href="#成绩表（score）" class="headerlink" title="成绩表（score）"></a>成绩表（score）</h3><table>
 <thead>
 <tr>
@@ -46,9 +88,9 @@
 </tbody>
 </table>
 <ul>
-<li>1.用一条sql语句查询出每个学科低于其平均分的学生(查询结果表头名为：姓名、学科、分数、学科平均分)</li>
+<li><span id="jump199">1.用一条sql语句查询出每个学科低于其平均分的学生(查询结果表头名为：姓名、学科、分数、学科平均分)</span></li>
 <li>2.用一条sql语句查询出每门课都大于80分的学生姓名</li>
-<li>3.用一条sql语句写出如下的查询结果    </li>
+<li><span id="jump197">3.用一条sql语句写出如下的查询结果    </span></li>
 </ul>
 <table>
 <thead>
@@ -120,10 +162,175 @@
 </tr>
 </tbody>
 </table>
-<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Select </span><br><span class="line">	a.name,a.kemu,a.fenshu,(Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu )</span><br><span class="line">From </span><br><span class="line">	score a Where a.fenshu&lt;(Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu ) </span><br><span class="line">GROUP BY </span><br><span class="line">	a.kemu</span><br><span class="line"></span><br><span class="line">SELECT </span><br><span class="line">	a.name,a.kemu,a.fenshu,b.aa</span><br><span class="line">FROM </span><br><span class="line">	test a,(SELECT kemu,AVG(fenshu) aa FROM test GROUP BY kemu) b</span><br><span class="line">WHERE a.kemu=b.kemu AND a.fenshu&lt;b.aa</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">	name,kemu,fenshu </span><br><span class="line">from </span><br><span class="line">	t_grade </span><br><span class="line">where name not in(select name from t_grade where fenshu&lt;=80)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">	a.name &apos;分数&apos;,a.fenshu &apos;语文&apos;,b.fenshu &apos;数学&apos;</span><br><span class="line">FROM </span><br><span class="line">	(SELECT NAME,fenshu FROM test WHERE kemu=&apos;语文&apos;) a,</span><br><span class="line">	(SELECT NAME,fenshu FROM test WHERE kemu=&apos;数学&apos;) b</span><br><span class="line">WHERE </span><br><span class="line">	a.name=b.name;</span><br><span class="line"></span><br><span class="line">SELECT</span><br><span class="line">	name as 姓名,</span><br><span class="line">	MAX(</span><br><span class="line">		CASE </span><br><span class="line">		WHEN  kemu=&apos;语文&apos; THEN</span><br><span class="line">			fenshu</span><br><span class="line">		END</span><br><span class="line">	) AS 语文,</span><br><span class="line">	MAX(</span><br><span class="line">		CASE </span><br><span class="line">		WHEN kemu=&apos;数学&apos; THEN</span><br><span class="line">			fenshu</span><br><span class="line">		END</span><br><span class="line">	) AS 数学 </span><br><span class="line">FROM</span><br><span class="line">	t_grade</span><br><span class="line">GROUP BY name</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select name,kemu,</span><br><span class="line">	case when fenshu&gt;=90 then  &apos;优秀&apos; </span><br><span class="line">			when  fenshu&lt;90 and fenshu&gt;=80 then &apos;中等&apos;</span><br><span class="line">			when  fenshu&lt;80 then &apos;合格&apos;</span><br><span class="line">			end  as fenshu</span><br><span class="line">from t_grade</span><br></pre></td></tr></table></figure>
+<ul>
+<li><span id="jump196">5.将3中的结果变回题目中的样子</span></li>
+</ul>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">第一题</span><br><span class="line">Select </span><br><span class="line">	a.name,a.kemu,a.fenshu,(Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu )</span><br><span class="line">From </span><br><span class="line">	score a Where a.fenshu&lt;(Select avg(b.fenshu) From score b where a.kemu=b.kemu GROUP BY b.kemu ) </span><br><span class="line">GROUP BY </span><br><span class="line">	a.kemu</span><br><span class="line"></span><br><span class="line">SELECT </span><br><span class="line">	a.name,a.kemu,a.fenshu,b.aa</span><br><span class="line">FROM </span><br><span class="line">	test a,(SELECT kemu,AVG(fenshu) aa FROM test GROUP BY kemu) b</span><br><span class="line">WHERE a.kemu=b.kemu AND a.fenshu&lt;b.aa</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第二题</span><br><span class="line">SELECT </span><br><span class="line">	name,kemu,fenshu </span><br><span class="line">from </span><br><span class="line">	t_grade </span><br><span class="line">where name not in(select name from t_grade where fenshu&lt;=80)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">第三题</span><br><span class="line">SELECT </span><br><span class="line">	a.name &apos;分数&apos;,a.fenshu &apos;语文&apos;,b.fenshu &apos;数学&apos;</span><br><span class="line">FROM </span><br><span class="line">	(SELECT NAME,fenshu FROM test WHERE kemu=&apos;语文&apos;) a,</span><br><span class="line">	(SELECT NAME,fenshu FROM test WHERE kemu=&apos;数学&apos;) b</span><br><span class="line">WHERE </span><br><span class="line">	a.name=b.name;</span><br><span class="line"></span><br><span class="line">SELECT</span><br><span class="line">	name as 姓名,</span><br><span class="line">	MAX(</span><br><span class="line">		CASE </span><br><span class="line">		WHEN  kemu=&apos;语文&apos; THEN</span><br><span class="line">			fenshu</span><br><span class="line">		END</span><br><span class="line">	) AS 语文,</span><br><span class="line">	MAX(</span><br><span class="line">		CASE </span><br><span class="line">		WHEN kemu=&apos;数学&apos; THEN</span><br><span class="line">			fenshu</span><br><span class="line">		END</span><br><span class="line">	) AS 数学 </span><br><span class="line">FROM</span><br><span class="line">	t_grade</span><br><span class="line">GROUP BY name</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">第四题</span><br><span class="line">select name,kemu,</span><br><span class="line">	case when fenshu&gt;=90 then  &apos;优秀&apos; </span><br><span class="line">			when  fenshu&lt;90 and fenshu&gt;=80 then &apos;中等&apos;</span><br><span class="line">			when  fenshu&lt;80 then &apos;合格&apos;</span><br><span class="line">			end  as fenshu</span><br><span class="line">from t_grade</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">第五题</span><br><span class="line">select name, &apos;语文&apos; kemu , 语文 as SCORE from t_grade</span><br><span class="line">union select name, &apos;数学&apos; kemu, 数学 as SCORE from t_grade</span><br><span class="line">union select name, &apos;英语&apos; kemu, 英语 as SCORE from t_grade</span><br><span class="line">order by name,kemu;</span><br></pre></td></tr></table></figure>
+<h3 id="Employee"><a href="#Employee" class="headerlink" title="Employee"></a>Employee</h3><ul>
+<li><span id="jump198"> Employee 表包含所有员工信息，每个员工有其对应的工号 Id，姓名 Name，工资 Salary 和部门编号 DepartmentId </span></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Salary</th>
+<th style="text-align:center">DepartmentId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Joe</td>
+<td style="text-align:center">85000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Sam</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Janet</td>
+<td style="text-align:center">69000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Randy</td>
+<td style="text-align:center">85000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Will</td>
+<td style="text-align:center">70000</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Department 表包含公司所有部门的信息。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">IT</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Sales</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>编写一个 SQL 查询，找出每个部门获得前三高工资的所有员工</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Department</th>
+<th style="text-align:center">Employee</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Randy</td>
+<td style="text-align:center">85000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Joe</td>
+<td style="text-align:center">85000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Will</td>
+<td style="text-align:center">70000</td>
+</tr>
+<tr>
+<td style="text-align:center">Sales</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+</tr>
+<tr>
+<td style="text-align:center">Sales</td>
+<td style="text-align:center">Sam</td>
+<td style="text-align:center">60000</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	d.NAME AS Department,</span><br><span class="line">	e.NAME AS Employee,</span><br><span class="line">	e.Salary AS Salary </span><br><span class="line">FROM</span><br><span class="line">	employee e</span><br><span class="line">	LEFT JOIN Department d ON d.id = e.DepartmentId </span><br><span class="line">WHERE</span><br><span class="line">	e.id IN (</span><br><span class="line">	SELECT</span><br><span class="line">		e1.id </span><br><span class="line">	FROM</span><br><span class="line">		Employee e1</span><br><span class="line">		LEFT JOIN Employee e2 ON e2.DepartmentId = e1.DepartmentId </span><br><span class="line">		AND e2.Salary &gt; e1.Salary </span><br><span class="line">	GROUP BY</span><br><span class="line">		e1.Id </span><br><span class="line">	HAVING</span><br><span class="line">		count( DISTINCT e2.Salary ) &lt;= 2 --选取top几</span><br><span class="line">	) </span><br><span class="line">and e.DepartmentId in (select Id from Department) 补全数据，不用补全的话不用加上这句</span><br><span class="line">ORDER BY</span><br><span class="line">	d.Id ASC,</span><br><span class="line">	e.Salary DESC</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">100</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">300</td>
+</tr>
+</tbody>
+</table>
+<p>编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary）
+例如上述 Employee 表，SQL查询应该返回 200 作为第二高的薪水。如果不存在第二高的薪水，那么查询应返回 null</p>
 <h3 id="经典练习-amp-面试"><a href="#经典练习-amp-面试" class="headerlink" title="经典练习&amp;面试"></a>经典练习&amp;面试</h3><img src="/2018/05/19/SQL面试题/面试题1.png" title="面试题1.png">
 <pre><code>select rownum,empno,ename,sal 
     from (select * from emp order by sal desc) 
@@ -155,7 +362,7 @@
     ③select a.id,a.name,a.money,b.money
     from test1 a left join (select id,money from test1) b
     on a.id=b.id+1 order by id
-</code></pre><img src="/2018/05/19/SQL面试题/面试题5.png" title="面试题5.png">            
+</code></pre><img src="/2018/05/19/SQL面试题/面试题5.png" title="面试题5.png">        
 <pre><code>①select ci_id,wm_concat(stu_name)from (select c.ci_id ,s.stu_name 
     from pm_ci c,pm_stu s
     where instr(c.stu_ids,s.stu_id)&gt;0)
@@ -165,4 +372,4 @@
     from pm_ci c,pm_stu s
     where instr(c.stu_ids,s.stu_id)&gt;0
     group by c.ci_id
-</code></pre></div><div class="tags"><a href="/tags/SQL面试题/">SQL面试题</a></div><div class="post-nav"><a class="pre" href="/2018/06/03/git和github/">git和github</a><a class="next" href="/2018/05/17/maven/">maven</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre></div><div class="tags"><a href="/tags/SQL面试题/">SQL面试题</a></div><div class="post-nav"><a class="pre" href="/2018/06/03/git和github/">git和github</a><a class="next" href="/2018/05/17/maven/">maven</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

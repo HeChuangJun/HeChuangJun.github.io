@@ -1,0 +1,1391 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>spring源码 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">spring源码</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">spring源码</h1><div class="post-meta">Oct 26, 2020<span> | </span><span class="category"><a href="/categories/源码/">源码</a></span></div><div class="post-content"><h1 id="AnnotationConfigApplicationContext-extends-GenericApplicationContext-AbstractApplicationContext-DefaultResourceLoader"><a href="#AnnotationConfigApplicationContext-extends-GenericApplicationContext-AbstractApplicationContext-DefaultResourceLoader" class="headerlink" title="AnnotationConfigApplicationContext extends GenericApplicationContext,AbstractApplicationContext,DefaultResourceLoader"></a>AnnotationConfigApplicationContext extends GenericApplicationContext,AbstractApplicationContext,DefaultResourceLoader</h1><p>implements AnnotationConfigRegistry,BeanDefinitionRegistry,ConfigurableApplicationContext,AliasRegistry,ApplicationContext,Lifecycle,Closeable
+EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory,MessageSource, ApplicationEventPublisher, ResourcePatternResolver,BeanFactory,ResourceLoader,AutoCloseable
+public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry{
+    private final AnnotatedBeanDefinitionReader reader;</p>
+<pre><code>private final ClassPathBeanDefinitionScanner scanner;
+
+public AnnotationConfigApplicationContext() {
+    this.reader = new AnnotatedBeanDefinitionReader(this);
+    this.scanner = new ClassPathBeanDefinitionScanner(this);
+}
+public AnnotationConfigApplicationContext(Class&lt;?&gt;... annotatedClasses) {
+    this();//创建AnnotatedBeanDefinitionReader和ClassPathBeanDefinitionScanner
+    register(annotatedClasses);
+    refresh();
+}
+//GenericApplicationContext 父类构造
+private final DefaultListableBeanFactory beanFactory;
+public GenericApplicationContext() {
+    this.beanFactory = new DefaultListableBeanFactory();//默认创建了BeanFactory
+}
+//AbstractApplicationContext 父父类构造
+private ResourcePatternResolver resourcePatternResolver;
+public AbstractApplicationContext() {
+    this.resourcePatternResolver = getResourcePatternResolver();
+}
+
+protected ResourcePatternResolver getResourcePatternResolver() {
+    return new PathMatchingResourcePatternResolver(this);
+}
+
+public void register(Class&lt;?&gt;... annotatedClasses) {
+    Assert.notEmpty(annotatedClasses, &quot;At least one annotated class must be specified&quot;);
+    this.reader.register(annotatedClasses);
+}
+public void register(Class&lt;?&gt;... annotatedClasses) {
+    for (Class&lt;?&gt; annotatedClass : annotatedClasses) {
+        registerBean(annotatedClass);
+    }
+}
+public void registerBean(Class&lt;?&gt; annotatedClass) {
+    doRegisterBean(annotatedClass, null, null, null);
+}
+//1.初始化AnnotatedGenericBeanDefinition
+//        属性class = 传入的class
+//         属性metadata=StandardAnnotationMetadata 对象 里面的annotations=传入class的所有注解 nestedAnnotationsAsMap = true introspectedClass = 传入的class
+//2.shouldSkip判断是否应该跳过，即是否有conditional注解(内部通过Processor接口实现类alwaysTrueAnnotationProcessor的调用searchWithGetSemantics判断返回null确定不跳过)
+//3.解析@Scope注解，获取bean的作用域配置信息
+//4.解析公共注解Lazy DependsOn Role Description
+//5.将启动类注册到beanDefinitionMap中
+&lt;T&gt; void doRegisterBean(Class&lt;T&gt; annotatedClass, @Nullable Supplier&lt;T&gt; instanceSupplier, @Nullable String name,
+        @Nullable Class&lt;? extends Annotation&gt;[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
+    AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(annotatedClass);
+    if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
+        return;
+    }
+
+    abd.setInstanceSupplier(instanceSupplier);
+    //解析@Scope注解，获取bean的作用域配置信息
+    ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
+    abd.setScope(scopeMetadata.getScopeName());
+    String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));//产生BeanName
+    //解析公共注解Lazy DependsOn Role Description
+    AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
+    if (qualifiers != null) {
+        for (Class&lt;? extends Annotation&gt; qualifier : qualifiers) {
+            if (Primary.class == qualifier) {
+                abd.setPrimary(true);
+            }
+            else if (Lazy.class == qualifier) {
+                abd.setLazyInit(true);
+            }
+            else {
+                abd.addQualifier(new AutowireCandidateQualifier(qualifier));
+            }
+        }
+    }
+    for (BeanDefinitionCustomizer customizer : definitionCustomizers) {
+        customizer.customize(abd);
+    }
+
+    BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
+    definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
+    BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
+}
+</code></pre><p>}</p>
+<h1 id="BeanDefinitionReaderUtils"><a href="#BeanDefinitionReaderUtils" class="headerlink" title="BeanDefinitionReaderUtils"></a>BeanDefinitionReaderUtils</h1><p>public class BeanDefinitionReaderUtils {
+    public static void registerBeanDefinition(
+            BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry)
+            throws BeanDefinitionStoreException {</p>
+<pre><code>    // Register bean definition under primary name.
+    String beanName = definitionHolder.getBeanName();
+    registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
+
+    // Register aliases for bean name, if any.
+    String[] aliases = definitionHolder.getAliases();
+    if (aliases != null) {
+        for (String alias : aliases) {
+            registry.registerAlias(beanName, alias);
+        }
+    }
+}
+</code></pre><p>}</p>
+<h1 id="PathMatchingResourcePatternResolver"><a href="#PathMatchingResourcePatternResolver" class="headerlink" title="PathMatchingResourcePatternResolver"></a>PathMatchingResourcePatternResolver</h1><p>public class PathMatchingResourcePatternResolver implements ResourcePatternResolver {
+    private final ResourceLoader resourceLoader;
+    public PathMatchingResourcePatternResolver(ResourceLoader resourceLoader) {
+        Assert.notNull(resourceLoader, “ResourceLoader must not be null”);
+        this.resourceLoader = resourceLoader;
+    }
+}</p>
+<h1 id="DefaultListableBeanFactory-extends-AbstractAutowireCapableBeanFactory-AbstractBeanFactory-FactoryBeanRegistrySupport-DefaultSingletonBeanRegistry-SimpleAliasRegistry"><a href="#DefaultListableBeanFactory-extends-AbstractAutowireCapableBeanFactory-AbstractBeanFactory-FactoryBeanRegistrySupport-DefaultSingletonBeanRegistry-SimpleAliasRegistry" class="headerlink" title="DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory,AbstractBeanFactory,FactoryBeanRegistrySupport,DefaultSingletonBeanRegistry,SimpleAliasRegistry"></a>DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory,AbstractBeanFactory,FactoryBeanRegistrySupport,DefaultSingletonBeanRegistry,SimpleAliasRegistry</h1><p>implements ConfigurableListableBeanFactory,ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory,BeanFactory,HierarchicalBeanFactory, SingletonBeanRegistry,AliasRegistry</p>
+<p>public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
+            private final Map&lt;String, BeanDefinition&gt; beanDefinitionMap = new ConcurrentHashMap&lt;&gt;(256);
+            private volatile List<string> beanDefinitionNames = new ArrayList&lt;&gt;(256);
+            private AutowireCandidateResolver autowireCandidateResolver = new SimpleAutowireCandidateResolver();
+            private Comparator<object> dependencyComparator;
+            private final Map&lt;String, String&gt; aliasMap = new ConcurrentHashMap&lt;&gt;(16);
+            private final Set<string> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap&lt;&gt;(256));
+            private volatile Set<string> manualSingletonNames = new LinkedHashSet&lt;&gt;(16);
+            /*<em> Cached array of bean definition names in case of frozen configuration </em>/
+            private volatile String[] frozenBeanDefinitionNames;</string></string></object></string></p>
+<pre><code>        DefaultListableBeanFactory{}
+        //父类DefaultSingletonBeanRegistry
+        /** Cache of singleton objects: bean name --&gt; bean instance */
+        private final Map&lt;String, Object&gt; singletonObjects = new ConcurrentHashMap&lt;&gt;(256);
+
+        /** Cache of singleton factories: bean name --&gt; ObjectFactory */
+        private final Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = new HashMap&lt;&gt;(16);
+
+        /** Cache of early singleton objects: bean name --&gt; bean instance */
+        private final Map&lt;String, Object&gt; earlySingletonObjects = new HashMap&lt;&gt;(16);
+        //父类AbstractBeanFactory
+        @Nullable
+        private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
+    }
+
+    protected boolean hasBeanCreationStarted() {
+        return !this.alreadyCreated.isEmpty();
+    }
+
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws BeanDefinitionStoreException {
+        if (beanDefinition instanceof AbstractBeanDefinition) {
+            try {
+                ((AbstractBeanDefinition) beanDefinition).validate();
+            }
+            catch (BeanDefinitionValidationException ex) {
+                throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
+                        &quot;Validation of bean definition failed&quot;, ex);
+            }
+        }
+
+        BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
+        if (existingDefinition != null) {
+            this.beanDefinitionMap.put(beanName, beanDefinition);
+        }
+        else {
+            if (hasBeanCreationStarted()) {
+                // Cannot modify startup-time collection elements anymore (for stable iteration)
+                synchronized (this.beanDefinitionMap) {
+                    this.beanDefinitionMap.put(beanName, beanDefinition);
+                    List&lt;String&gt; updatedDefinitions = new ArrayList&lt;&gt;(this.beanDefinitionNames.size() + 1);
+                    updatedDefinitions.addAll(this.beanDefinitionNames);
+                    updatedDefinitions.add(beanName);
+                    this.beanDefinitionNames = updatedDefinitions;
+                    if (this.manualSingletonNames.contains(beanName)) {
+                        Set&lt;String&gt; updatedSingletons = new LinkedHashSet&lt;&gt;(this.manualSingletonNames);
+                        updatedSingletons.remove(beanName);
+                        this.manualSingletonNames = updatedSingletons;
+                    }
+                }
+            }
+            else {
+                this.beanDefinitionMap.put(beanName, beanDefinition);
+                this.beanDefinitionNames.add(beanName);
+                this.manualSingletonNames.remove(beanName);
+            }
+            this.frozenBeanDefinitionNames = null;
+        }
+
+        if (existingDefinition != null || containsSingleton(beanName)) {
+            resetBeanDefinition(beanName);
+        }
+        else if (isConfigurationFrozen()) {
+            clearByTypeCache();
+        }
+    }
+    public void registerAlias(String name, String alias) {
+        synchronized (this.aliasMap) {
+            if (alias.equals(name)) {
+                this.aliasMap.remove(alias);
+            }
+            else {
+                String registeredName = this.aliasMap.get(alias);
+                if (registeredName != null) {
+                    if (registeredName.equals(name)) {
+                        return;
+                    }
+                    if (!allowAliasOverriding()) {
+                        throw new IllegalStateException(&quot;Cannot define alias &apos;&quot; + alias + &quot;&apos; for name &apos;&quot; +
+                                name + &quot;&apos;: It is already registered for name &apos;&quot; + registeredName + &quot;&apos;.&quot;);
+                    }
+                }
+                checkForAliasCircle(name, alias);
+                this.aliasMap.put(alias, name);
+            }
+        }
+}
+</code></pre><p>}</p>
+<h1 id="AnnotatedBeanDefinitionReader"><a href="#AnnotatedBeanDefinitionReader" class="headerlink" title="AnnotatedBeanDefinitionReader"></a>AnnotatedBeanDefinitionReader</h1><p>public class AnnotatedBeanDefinitionReader{
+    // 1.getOrCreateEnvironment判断registry是否实现了ConfigurableEnvironment接口，没有实现环境的接口的话返回默认实现的环境StandardEnvironment
+    // 2.(1)将registry赋值给当前对象
+        //(2)给当前对象创建conditionEvaluator（
+                //     conditionEvaluator对象初始化属性 ConditionContextImpl
+                    //registry 直接赋值
+                    // resourceLoader : 取出传递的resourceLoader(null)的ClassLoader或者是beanFactory的BeanClassLoader,最后才返回getDefaultClassLoader
+                    //     beanfactory属性：取出ConfigurableListableBeanFactory接口或ConfigurableApplicationContext接口的BeanFactory）
+                     // 取出实现EnvironmentCapable接口的environment，否则使用StandardEnvironment
+                    //取出ResourceLoader接口的资源配置类,否则使用DefaultResourceLoader
+        //(3)给当前对象registry注册AnnotationConfigProcessors
+            //将registry强转为DefaultListableBeanFactory并设置AnnotationAwareOrderComparator和ContextAnnotationAutowireCandidateResolver属性
+            //将org.springframework.context.annotation.internalConfigurationAnnotationProcessor//注解后置处理器
+            //org.springframework.context.annotation.internalAutowiredAnnotationProcessor”
+            //org.springframework.context.annotation.internalRequiredAnnotationProcessor
+            //org.springframework.context.annotation.internalCommonAnnotationProcessor
+            //org.springframework.context.event.internalEventListenerProcessor
+            //org.springframework.context.event.internalEventListenerFactory
+            // 放入到registry中
+        private final BeanDefinitionRegistry registry;
+        private ConditionEvaluator conditionEvaluator;
+        private ScopeMetadataResolver scopeMetadataResolver = new AnnotationScopeMetadataResolver();
+        private BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator();
+    public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry) {
+        this(registry, getOrCreateEnvironment(registry));
+    }</p>
+<pre><code>public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry, Environment environment) {
+    Assert.notNull(registry, &quot;BeanDefinitionRegistry must not be null&quot;);
+    Assert.notNull(environment, &quot;Environment must not be null&quot;);
+    this.registry = registry;
+    this.conditionEvaluator = new ConditionEvaluator(registry, environment, null);
+    AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);//将AnnotationConfigProcessors封装成RootBeanDefinition放入BeanFactory
+}
+
+//判断registry是否实现了ConfigurableEnvironment接口，没有实现环境的接口的话返回默认实现的环境StandardEnvironment
+private static Environment getOrCreateEnvironment(BeanDefinitionRegistry registry) {
+    Assert.notNull(registry, &quot;BeanDefinitionRegistry must not be null&quot;);
+    if (registry instanceof EnvironmentCapable) {
+        //由于AnnotationConfigApplicationContext实现了EnvironmentCapable从这里返回
+        //默认使用StandardEnvironment
+        return ((EnvironmentCapable) registry).getEnvironment();
+    }
+    return new StandardEnvironment();
+}
+</code></pre><p>}</p>
+<h1 id="ConditionEvaluator"><a href="#ConditionEvaluator" class="headerlink" title="ConditionEvaluator"></a>ConditionEvaluator</h1><p>class ConditionEvaluator{
+    private final ConditionContextImpl context;
+    public ConditionEvaluator(@Nullable BeanDefinitionRegistry registry,@Nullable Environment environment, @Nullable ResourceLoader resourceLoader) {
+        this.context = new ConditionContextImpl(registry, environment, resourceLoader);//resourceLoader=null
+    }
+    private static class ConditionContextImpl implements ConditionContext {
+        private final BeanDefinitionRegistry registry;
+        private final ConfigurableListableBeanFactory beanFactory;
+        private final Environment environment;
+        private final ResourceLoader resourceLoader;
+        private final ClassLoader classLoader;
+        public ConditionContextImpl(@Nullable BeanDefinitionRegistry registry,@Nullable Environment environment, @Nullable ResourceLoader resourceLoader) {
+            this.registry = registry;
+            this.beanFactory = deduceBeanFactory(registry);
+            this.environment = (environment != null ? environment : deduceEnvironment(registry));
+            this.resourceLoader = (resourceLoader != null ? resourceLoader : deduceResourceLoader(registry));
+            this.classLoader = deduceClassLoader(resourceLoader, this.beanFactory);
+        }
+    }
+    //取出ConfigurableListableBeanFactory接口或ConfigurableApplicationContext接口的BeanFactory，否则为null
+    private ConfigurableListableBeanFactory deduceBeanFactory(@Nullable BeanDefinitionRegistry source) {
+        if (source instanceof ConfigurableListableBeanFactory) {
+            return (ConfigurableListableBeanFactory) source;
+        }
+        if (source instanceof ConfigurableApplicationContext) {
+            return (((ConfigurableApplicationContext) source).getBeanFactory());由于AnnotationConfigApplicationContext实现了ConfigurableApplicationContext从这里返回
+        }
+        return null;
+    }
+    //取出EnvironmentCapable接口的environment，否则使用StandardEnvironment
+    private Environment deduceEnvironment(@Nullable BeanDefinitionRegistry source) {
+        if (source instanceof EnvironmentCapable) {
+            return ((EnvironmentCapable) source).getEnvironment();由于AnnotationConfigApplicationContext实现了EnvironmentCapable从这里返回
+        }
+        return new StandardEnvironment();
+    }
+    //取出ResourceLoader接口的资源配置类，否则使用DefaultResourceLoader
+    private ResourceLoader deduceResourceLoader(@Nullable BeanDefinitionRegistry source) {
+        if (source instanceof ResourceLoader) {
+            return (ResourceLoader) source;//由于AnnotationConfigApplicationContext实现了ResourceLoader从这里返回
+        }
+        return new DefaultResourceLoader();
+    }</p>
+<pre><code>//取出BeanFactory的classLoader，否则使用DefaultClassLoader
+private ClassLoader deduceClassLoader(@Nullable ResourceLoader resourceLoader,@Nullable ConfigurableListableBeanFactory beanFactory) {
+    if (resourceLoader != null) {
+        ClassLoader classLoader = resourceLoader.getClassLoader();
+        if (classLoader != null) {
+            return classLoader;
+        }
+    }
+    if (beanFactory != null) {
+        return beanFactory.getBeanClassLoader();//resourceLoader为null从这里返回
+    }
+    return ClassUtils.getDefaultClassLoader();
+}
+public boolean shouldSkip(AnnotatedTypeMetadata metadata) {
+    return shouldSkip(metadata, null);
+}
+public boolean shouldSkip(@Nullable AnnotatedTypeMetadata metadata, @Nullable ConfigurationPhase phase) {
+    if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {
+        return false;
+    }
+
+    if (phase == null) {
+        if (metadata instanceof AnnotationMetadata &amp;&amp;
+                ConfigurationClassUtils.isConfigurationCandidate((AnnotationMetadata) metadata)) {
+            return shouldSkip(metadata, ConfigurationPhase.PARSE_CONFIGURATION);
+        }
+        return shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN);
+    }
+
+    List&lt;Condition&gt; conditions = new ArrayList&lt;&gt;();
+    for (String[] conditionClasses : getConditionClasses(metadata)) {
+        for (String conditionClass : conditionClasses) {
+            Condition condition = getCondition(conditionClass, this.context.getClassLoader());
+            conditions.add(condition);
+        }
+    }
+
+    AnnotationAwareOrderComparator.sort(conditions);
+
+    for (Condition condition : conditions) {
+        ConfigurationPhase requiredPhase = null;
+        if (condition instanceof ConfigurationCondition) {
+            requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase();
+        }
+        if ((requiredPhase == null || requiredPhase == phase) &amp;&amp; !condition.matches(this.context, metadata)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+</code></pre><p>}</p>
+<h1 id="AnnotationConfigUtils"><a href="#AnnotationConfigUtils" class="headerlink" title="AnnotationConfigUtils"></a>AnnotationConfigUtils</h1><p>public class AnnotationConfigUtils{
+    public static void registerAnnotationConfigProcessors(BeanDefinitionRegistry registry) {
+        registerAnnotationConfigProcessors(registry, null);
+    }
+    public static Set<beandefinitionholder> registerAnnotationConfigProcessors(BeanDefinitionRegistry registry, @Nullable Object source) {
+        //取出DefaultListableBeanFactory
+        DefaultListableBeanFactory beanFactory = unwrapDefaultListableBeanFactory(registry);
+        //设置类的加载顺序和自动加载解决者
+        if (beanFactory != null) {
+            if (!(beanFactory.getDependencyComparator() instanceof AnnotationAwareOrderComparator)) {
+                beanFactory.setDependencyComparator(AnnotationAwareOrderComparator.INSTANCE);//为null自动写入
+            }
+            if (!(beanFactory.getAutowireCandidateResolver() instanceof ContextAnnotationAutowireCandidateResolver)) {
+                beanFactory.setAutowireCandidateResolver(new ContextAnnotationAutowireCandidateResolver());//
+            }
+        }</beandefinitionholder></p>
+<pre><code>    Set&lt;BeanDefinitionHolder&gt; beanDefs = new LinkedHashSet&lt;&gt;(8);
+    //添加一堆BeanPostProcessors（RootBeanDefinition）
+    if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
+    }
+
+    if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME));
+    }
+
+    if (!registry.containsBeanDefinition(REQUIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(RequiredAnnotationBeanPostProcessor.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, REQUIRED_ANNOTATION_PROCESSOR_BEAN_NAME));
+    }
+
+    // Check for JSR-250 support, and if present add the CommonAnnotationBeanPostProcessor.
+    if (jsr250Present &amp;&amp; !registry.containsBeanDefinition(COMMON_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(CommonAnnotationBeanPostProcessor.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, COMMON_ANNOTATION_PROCESSOR_BEAN_NAME));
+    }
+
+    // Check for JPA support, and if present add the PersistenceAnnotationBeanPostProcessor.
+    if (jpaPresent &amp;&amp; !registry.containsBeanDefinition(PERSISTENCE_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition();
+        try {
+            def.setBeanClass(ClassUtils.forName(PERSISTENCE_ANNOTATION_PROCESSOR_CLASS_NAME,
+                    AnnotationConfigUtils.class.getClassLoader()));
+        }
+        catch (ClassNotFoundException ex) {
+            throw new IllegalStateException(
+                    &quot;Cannot load optional framework class: &quot; + PERSISTENCE_ANNOTATION_PROCESSOR_CLASS_NAME, ex);
+        }
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, PERSISTENCE_ANNOTATION_PROCESSOR_BEAN_NAME));
+    }
+
+    if (!registry.containsBeanDefinition(EVENT_LISTENER_PROCESSOR_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(EventListenerMethodProcessor.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, EVENT_LISTENER_PROCESSOR_BEAN_NAME));
+    }
+
+    if (!registry.containsBeanDefinition(EVENT_LISTENER_FACTORY_BEAN_NAME)) {
+        RootBeanDefinition def = new RootBeanDefinition(DefaultEventListenerFactory.class);
+        def.setSource(source);
+        beanDefs.add(registerPostProcessor(registry, def, EVENT_LISTENER_FACTORY_BEAN_NAME));
+    }
+
+    return beanDefs;
+}
+
+private static DefaultListableBeanFactory unwrapDefaultListableBeanFactory(BeanDefinitionRegistry registry) {
+    if (registry instanceof DefaultListableBeanFactory) {
+        return (DefaultListableBeanFactory) registry;
+    }
+    else if (registry instanceof GenericApplicationContext) {
+        return ((GenericApplicationContext) registry).getDefaultListableBeanFactory();//由于AnnotationConfigApplicationContext实现了GenericApplicationContext
+    }
+    else {
+        return null;
+    }
+}
+
+//注册基础的registry并返回BeanDefinitionHolder
+private static BeanDefinitionHolder registerPostProcessor(BeanDefinitionRegistry registry, RootBeanDefinition definition, String beanName) {
+    definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+    registry.registerBeanDefinition(beanName, definition);
+    return new BeanDefinitionHolder(definition, beanName);
+}
+
+//将注解里面的method封装为AnnotationAttributes对象然后key为method的Name，Value为ValueHolder
+static AnnotationAttributes attributesFor(AnnotatedTypeMetadata metadata, Class&lt;?&gt; annotationClass) {
+    return attributesFor(metadata, annotationClass.getName());
+}
+static AnnotationAttributes attributesFor(AnnotatedTypeMetadata metadata, String annotationClassName) {
+    return AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(annotationClassName, false));
+}
+
+public static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd) {
+    processCommonDefinitionAnnotations(abd, abd.getMetadata());
+}
+
+static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
+    AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
+    if (lazy != null) {
+        abd.setLazyInit(lazy.getBoolean(&quot;value&quot;));
+    }
+    else if (abd.getMetadata() != metadata) {
+        lazy = attributesFor(abd.getMetadata(), Lazy.class);
+        if (lazy != null) {
+            abd.setLazyInit(lazy.getBoolean(&quot;value&quot;));
+        }
+    }
+
+    if (metadata.isAnnotated(Primary.class.getName())) {
+        abd.setPrimary(true);
+    }
+    AnnotationAttributes dependsOn = attributesFor(metadata, DependsOn.class);
+    if (dependsOn != null) {
+        abd.setDependsOn(dependsOn.getStringArray(&quot;value&quot;));
+    }
+
+    if (abd instanceof AbstractBeanDefinition) {
+        AbstractBeanDefinition absBd = (AbstractBeanDefinition) abd;
+        AnnotationAttributes role = attributesFor(metadata, Role.class);
+        if (role != null) {
+            absBd.setRole(role.getNumber(&quot;value&quot;).intValue());
+        }
+        AnnotationAttributes description = attributesFor(metadata, Description.class);
+        if (description != null) {
+            absBd.setDescription(description.getString(&quot;value&quot;));
+        }
+    }
+}
+
+static BeanDefinitionHolder applyScopedProxyMode(ScopeMetadata metadata, BeanDefinitionHolder definition, BeanDefinitionRegistry registry) {
+
+    ScopedProxyMode scopedProxyMode = metadata.getScopedProxyMode();
+    if (scopedProxyMode.equals(ScopedProxyMode.NO)) {
+        return definition;
+    }
+    boolean proxyTargetClass = scopedProxyMode.equals(ScopedProxyMode.TARGET_CLASS);
+    return ScopedProxyCreator.createScopedProxy(definition, registry, proxyTargetClass);
+}
+</code></pre><p>}</p>
+<h1 id="ScopedProxyCreator"><a href="#ScopedProxyCreator" class="headerlink" title="ScopedProxyCreator"></a>ScopedProxyCreator</h1><p>class ScopedProxyCreator {</p>
+<pre><code>public static BeanDefinitionHolder createScopedProxy(
+        BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry, boolean proxyTargetClass) {
+
+    return ScopedProxyUtils.createScopedProxy(definitionHolder, registry, proxyTargetClass);
+}
+
+public static String getTargetBeanName(String originalBeanName) {
+    return ScopedProxyUtils.getTargetBeanName(originalBeanName);
+}
+</code></pre><p>}</p>
+<h1 id="ScopedProxyUtils"><a href="#ScopedProxyUtils" class="headerlink" title="ScopedProxyUtils"></a>ScopedProxyUtils</h1><p>public abstract class ScopedProxyUtils {
+    public static BeanDefinitionHolder createScopedProxy(BeanDefinitionHolder definition,
+            BeanDefinitionRegistry registry, boolean proxyTargetClass) {</p>
+<pre><code>    String originalBeanName = definition.getBeanName();
+    BeanDefinition targetDefinition = definition.getBeanDefinition();
+    String targetBeanName = getTargetBeanName(originalBeanName);
+
+    // Create a scoped proxy definition for the original bean name,
+    // &quot;hiding&quot; the target bean in an internal target definition.
+    RootBeanDefinition proxyDefinition = new RootBeanDefinition(ScopedProxyFactoryBean.class);
+    proxyDefinition.setDecoratedDefinition(new BeanDefinitionHolder(targetDefinition, targetBeanName));
+    proxyDefinition.setOriginatingBeanDefinition(targetDefinition);
+    proxyDefinition.setSource(definition.getSource());
+    proxyDefinition.setRole(targetDefinition.getRole());
+
+    proxyDefinition.getPropertyValues().add(&quot;targetBeanName&quot;, targetBeanName);
+    if (proxyTargetClass) {
+        targetDefinition.setAttribute(AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);
+        // ScopedProxyFactoryBean&apos;s &quot;proxyTargetClass&quot; default is TRUE, so we don&apos;t need to set it explicitly here.
+    }
+    else {
+        proxyDefinition.getPropertyValues().add(&quot;proxyTargetClass&quot;, Boolean.FALSE);
+    }
+
+    // Copy autowire settings from original bean definition.
+    proxyDefinition.setAutowireCandidate(targetDefinition.isAutowireCandidate());
+    proxyDefinition.setPrimary(targetDefinition.isPrimary());
+    if (targetDefinition instanceof AbstractBeanDefinition) {
+        proxyDefinition.copyQualifiersFrom((AbstractBeanDefinition) targetDefinition);
+    }
+
+    // The target bean should be ignored in favor of the scoped proxy.
+    targetDefinition.setAutowireCandidate(false);
+    targetDefinition.setPrimary(false);
+
+    // Register the target bean as separate bean in the factory.
+    registry.registerBeanDefinition(targetBeanName, targetDefinition);
+
+    // Return the scoped proxy definition as primary bean definition
+    // (potentially an inner bean).
+    return new BeanDefinitionHolder(proxyDefinition, originalBeanName, definition.getAliases());
+}
+</code></pre><p>}</p>
+<h1 id="ClassPathBeanDefinitionScanner-extends-ClassPathScanningCandidateComponentProvider-implements-EnvironmentCapable-ResourceLoaderAware，Aware"><a href="#ClassPathBeanDefinitionScanner-extends-ClassPathScanningCandidateComponentProvider-implements-EnvironmentCapable-ResourceLoaderAware，Aware" class="headerlink" title="ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateComponentProvider implements EnvironmentCapable, ResourceLoaderAware，Aware"></a>ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateComponentProvider implements EnvironmentCapable, ResourceLoaderAware，Aware</h1><p>public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateComponentProvider{</p>
+<pre><code>private final BeanDefinitionRegistry registry;
+private final List&lt;TypeFilter&gt; includeFilters = new LinkedList&lt;&gt;();
+//初始化对象当前属性
+//1. useDefaultFilters = true 同时注册给当前includeFilters注册两个 javax.annotation.ManagedBean 和javax.inject.Named 两个 AnnotationTypeFilter
+//2. environment = getOrCreateEnvironment判断registry是否实现了ConfigurableEnvironment接口，没有实现环境的接口的话返回默认实现的环境StandardEnvironment
+//3. ResourceLoader =   registry是否实现ResourceLoader，否则为null
+//4. registry = 传过来的registry
+//5.this.includeFilter注册两个filter javax.annotation.ManagedBean和javax.inject.Named
+public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry) {
+    this(registry, true);
+}
+public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry, boolean useDefaultFilters) {
+    this(registry, useDefaultFilters, getOrCreateEnvironment(registry));
+}
+public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry, boolean useDefaultFilters,Environment environment) {
+    this(registry, useDefaultFilters, environment,(registry instanceof ResourceLoader ? (ResourceLoader) registry : null));
+}
+public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry, boolean useDefaultFilters,Environment environment, @Nullable ResourceLoader resourceLoader) {
+    this.registry = registry;
+    if (useDefaultFilters) {
+        registerDefaultFilters();
+    }
+    setEnvironment(environment);
+    setResourceLoader(resourceLoader);
+}
+protected void registerDefaultFilters() {
+    this.includeFilters.add(new AnnotationTypeFilter(Component.class));
+    ClassLoader cl = ClassPathScanningCandidateComponentProvider.class.getClassLoader();
+    try {
+        this.includeFilters.add(new AnnotationTypeFilter(((Class&lt;? extends Annotation&gt;) ClassUtils.forName(&quot;javax.annotation.ManagedBean&quot;, cl)), false));
+    }
+    catch (ClassNotFoundException ex) {}
+    try {
+        this.includeFilters.add(new AnnotationTypeFilter(((Class&lt;? extends Annotation&gt;) ClassUtils.forName(&quot;javax.inject.Named&quot;, cl)), false));
+    }
+    catch (ClassNotFoundException ex) {}
+}
+private static Environment getOrCreateEnvironment(BeanDefinitionRegistry registry) {
+    Assert.notNull(registry, &quot;BeanDefinitionRegistry must not be null&quot;);
+    if (registry instanceof EnvironmentCapable) {
+        return ((EnvironmentCapable) registry).getEnvironment();
+    }
+    return new StandardEnvironment();
+}
+</code></pre><p>}</p>
+<h1 id="AnnotatedGenericBeanDefinition-extends-GenericBeanDefinition-AbstractBeanDefinition-BeanMetadataAttributeAccessor-AttributeAccessorSupport-implements-AnnotatedBeanDefinition-BeanMetadataElement-BeanDefinition-Cloneable-AttributeAccessor-BeanMetadataElement-Serializable"><a href="#AnnotatedGenericBeanDefinition-extends-GenericBeanDefinition-AbstractBeanDefinition-BeanMetadataAttributeAccessor-AttributeAccessorSupport-implements-AnnotatedBeanDefinition-BeanMetadataElement-BeanDefinition-Cloneable-AttributeAccessor-BeanMetadataElement-Serializable" class="headerlink" title="AnnotatedGenericBeanDefinition extends GenericBeanDefinition,AbstractBeanDefinition,BeanMetadataAttributeAccessor,AttributeAccessorSupport implements AnnotatedBeanDefinition ,BeanMetadataElement,BeanDefinition, Cloneable,AttributeAccessor, BeanMetadataElement,Serializable"></a>AnnotatedGenericBeanDefinition extends GenericBeanDefinition,AbstractBeanDefinition,BeanMetadataAttributeAccessor,AttributeAccessorSupport implements AnnotatedBeanDefinition ,BeanMetadataElement,BeanDefinition, Cloneable,AttributeAccessor, BeanMetadataElement,Serializable</h1><p>public class AnnotatedGenericBeanDefinition extends GenericBeanDefinition implements AnnotatedBeanDefinition {
+    @Nullable
+    private volatile Object beanClass;
+    public AnnotatedGenericBeanDefinition(Class&lt;?&gt; beanClass) {
+        setBeanClass(beanClass);
+        this.metadata = new StandardAnnotationMetadata(beanClass, true);
+    }
+}</p>
+<h1 id="StandardAnnotationMetadata-extends-StandardClassMetadata-implements-AnnotationMetadata-ClassMetadata-AnnotatedTypeMetadata"><a href="#StandardAnnotationMetadata-extends-StandardClassMetadata-implements-AnnotationMetadata-ClassMetadata-AnnotatedTypeMetadata" class="headerlink" title="StandardAnnotationMetadata extends StandardClassMetadata implements AnnotationMetadata,ClassMetadata,AnnotatedTypeMetadata"></a>StandardAnnotationMetadata extends StandardClassMetadata implements AnnotationMetadata,ClassMetadata,AnnotatedTypeMetadata</h1><p>public class StandardAnnotationMetadata extends StandardClassMetadata implements AnnotationMetadata{
+    private final Annotation[] annotations;</p>
+<pre><code>private final boolean nestedAnnotationsAsMap;
+public StandardAnnotationMetadata(Class&lt;?&gt; introspectedClass, boolean nestedAnnotationsAsMap) {
+
+    super(introspectedClass);
+    this.annotations = introspectedClass.getAnnotations();
+    this.nestedAnnotationsAsMap = nestedAnnotationsAsMap;
+}
+public boolean isAnnotated(String annotationName) {
+    return (this.annotations.length &gt; 0 &amp;&amp;
+            AnnotatedElementUtils.isAnnotated(getIntrospectedClass(), annotationName));
+}
+//父类
+private final Class&lt;?&gt; introspectedClass;
+public StandardClassMetadata(Class&lt;?&gt; introspectedClass) {
+    Assert.notNull(introspectedClass, &quot;Class must not be null&quot;);
+    this.introspectedClass = introspectedClass;
+}
+
+public Map&lt;String, Object&gt; getAnnotationAttributes(String annotationName, boolean classValuesAsString) {
+    return (this.annotations.length &gt; 0 ? AnnotatedElementUtils.getMergedAnnotationAttributes(
+            getIntrospectedClass(), annotationName, classValuesAsString, this.nestedAnnotationsAsMap) : null);
+}
+</code></pre><p>}</p>
+<h1 id="AnnotatedElementUtils"><a href="#AnnotatedElementUtils" class="headerlink" title="AnnotatedElementUtils"></a>AnnotatedElementUtils</h1><p>public class AnnotatedElementUtils {
+    public static boolean isAnnotated(AnnotatedElement element, String annotationName) {
+        return Boolean.TRUE.equals(searchWithGetSemantics(element, null, annotationName, alwaysTrueAnnotationProcessor));
+    }
+    private interface Processor<t> {</t></p>
+<pre><code>    /**
+     * Process the supplied annotation.
+     * &lt;p&gt;The supplied annotation will be an actual target annotation
+     * that has been found by the search algorithm, unless this processor
+     * is configured to {@linkplain #alwaysProcesses always process}
+     * annotations in which case it may be some other annotation within an
+     * annotation hierarchy. In the latter case, the {@code metaDepth}
+     * will have a value greater than {@code 0}. In any case, it is
+     * up to concrete implementations of this method to decide what to
+     * do with the supplied annotation.
+     * &lt;p&gt;The {@code metaDepth} parameter represents the depth of the
+     * annotation relative to the first annotated element in the
+     * annotation hierarchy. For example, an annotation that is
+     * &lt;em&gt;present&lt;/em&gt; on a non-annotation element will have a depth
+     * of 0; a meta-annotation will have a depth of 1; and a
+     * meta-meta-annotation will have a depth of 2; etc.
+     * @param annotatedElement the element that is annotated with the
+     * supplied annotation, used for contextual logging; may be
+     * {@code null} if unknown
+     * @param annotation the annotation to process
+     * @param metaDepth the meta-depth of the annotation
+     * @return the result of the processing, or {@code null} to continue
+     * searching for additional annotations
+     */
+    @Nullable
+    T process(@Nullable AnnotatedElement annotatedElement, Annotation annotation, int metaDepth);
+
+    /**
+     * Post-process the result returned by the {@link #process} method.
+     * &lt;p&gt;The {@code annotation} supplied to this method is an annotation
+     * that is present in the annotation hierarchy, between the initial
+     * {@link AnnotatedElement} and an invocation of {@link #process}
+     * that returned a non-null value.
+     * @param annotatedElement the element that is annotated with the
+     * supplied annotation, used for contextual logging; may be
+     * {@code null} if unknown
+     * @param annotation the annotation to post-process
+     * @param result the result to post-process
+     */
+    void postProcess(@Nullable AnnotatedElement annotatedElement, Annotation annotation, T result);
+
+    /**
+     * Determine if this processor always processes annotations regardless of
+     * whether or not the target annotation has been found.
+     * @return {@code true} if this processor always processes annotations
+     * @since 4.3
+     */
+    boolean alwaysProcesses();
+
+    /**
+     * Determine if this processor aggregates the results returned by {@link #process}.
+     * &lt;p&gt;If this method returns {@code true}, then {@link #getAggregatedResults()}
+     * must return a non-null value.
+     * @return {@code true} if this processor supports aggregated results
+     * @since 4.3
+     * @see #getAggregatedResults
+     */
+    boolean aggregates();
+
+    /**
+     * Get the list of results aggregated by this processor.
+     * &lt;p&gt;NOTE: the processor does &lt;strong&gt;not&lt;/strong&gt; aggregate the results
+     * itself. Rather, the search algorithm that uses this processor is
+     * responsible for asking this processor if it {@link #aggregates} results
+     * and then adding the post-processed results to the list returned by this
+     * method.
+     * @return the list of results aggregated by this processor (never {@code null})
+     * @since 4.3
+     * @see #aggregates
+     */
+    List&lt;T&gt; getAggregatedResults();
+}
+static class AlwaysTrueBooleanAnnotationProcessor extends SimpleAnnotationProcessor&lt;Boolean&gt; {
+
+    @Override
+    public final Boolean process(@Nullable AnnotatedElement annotatedElement, Annotation annotation, int metaDepth) {
+        return Boolean.TRUE;
+    }
+}
+
+private static class MergedAnnotationAttributesProcessor implements Processor&lt;AnnotationAttributes&gt; {
+
+    private final boolean classValuesAsString;
+
+    private final boolean nestedAnnotationsAsMap;
+
+    private final boolean aggregates;
+
+    private final List&lt;AnnotationAttributes&gt; aggregatedResults;
+
+    MergedAnnotationAttributesProcessor() {
+        this(false, false, false);
+    }
+
+    MergedAnnotationAttributesProcessor(boolean classValuesAsString, boolean nestedAnnotationsAsMap) {
+        this(classValuesAsString, nestedAnnotationsAsMap, false);
+    }
+
+    MergedAnnotationAttributesProcessor(boolean classValuesAsString, boolean nestedAnnotationsAsMap,
+            boolean aggregates) {
+
+        this.classValuesAsString = classValuesAsString;
+        this.nestedAnnotationsAsMap = nestedAnnotationsAsMap;
+        this.aggregates = aggregates;
+        this.aggregatedResults = (aggregates ? new ArrayList&lt;&gt;() : Collections.emptyList());
+    }
+
+    @Override
+    public boolean alwaysProcesses() {
+        return false;
+    }
+
+    @Override
+    public boolean aggregates() {
+        return this.aggregates;
+    }
+
+    @Override
+    public List&lt;AnnotationAttributes&gt; getAggregatedResults() {
+        return this.aggregatedResults;
+    }
+
+    @Override
+    @Nullable
+    public AnnotationAttributes process(@Nullable AnnotatedElement annotatedElement, Annotation annotation, int metaDepth) {
+        return AnnotationUtils.retrieveAnnotationAttributes(annotatedElement, annotation,
+                this.classValuesAsString, this.nestedAnnotationsAsMap);
+    }
+
+    @Override
+    public void postProcess(@Nullable AnnotatedElement element, Annotation annotation, AnnotationAttributes attributes) {
+        annotation = AnnotationUtils.synthesizeAnnotation(annotation, element);
+        Class&lt;? extends Annotation&gt; targetAnnotationType = attributes.annotationType();
+
+        // Track which attribute values have already been replaced so that we can short
+        // circuit the search algorithms.
+        Set&lt;String&gt; valuesAlreadyReplaced = new HashSet&lt;&gt;();
+
+        for (Method attributeMethod : AnnotationUtils.getAttributeMethods(annotation.annotationType())) {
+            String attributeName = attributeMethod.getName();
+            String attributeOverrideName = AnnotationUtils.getAttributeOverrideName(attributeMethod, targetAnnotationType);
+
+            // Explicit annotation attribute override declared via @AliasFor
+            if (attributeOverrideName != null) {
+                if (valuesAlreadyReplaced.contains(attributeOverrideName)) {
+                    continue;
+                }
+
+                List&lt;String&gt; targetAttributeNames = new ArrayList&lt;&gt;();
+                targetAttributeNames.add(attributeOverrideName);
+                valuesAlreadyReplaced.add(attributeOverrideName);
+
+                // Ensure all aliased attributes in the target annotation are overridden. (SPR-14069)
+                List&lt;String&gt; aliases = AnnotationUtils.getAttributeAliasMap(targetAnnotationType).get(attributeOverrideName);
+                if (aliases != null) {
+                    for (String alias : aliases) {
+                        if (!valuesAlreadyReplaced.contains(alias)) {
+                            targetAttributeNames.add(alias);
+                            valuesAlreadyReplaced.add(alias);
+                        }
+                    }
+                }
+
+                overrideAttributes(element, annotation, attributes, attributeName, targetAttributeNames);
+            }
+            // Implicit annotation attribute override based on convention
+            else if (!AnnotationUtils.VALUE.equals(attributeName) &amp;&amp; attributes.containsKey(attributeName)) {
+                overrideAttribute(element, annotation, attributes, attributeName, attributeName);
+            }
+        }
+    }
+
+    private void overrideAttributes(@Nullable AnnotatedElement element, Annotation annotation,
+            AnnotationAttributes attributes, String sourceAttributeName, List&lt;String&gt; targetAttributeNames) {
+
+        Object adaptedValue = getAdaptedValue(element, annotation, sourceAttributeName);
+
+        for (String targetAttributeName : targetAttributeNames) {
+            attributes.put(targetAttributeName, adaptedValue);
+        }
+    }
+
+    private void overrideAttribute(@Nullable AnnotatedElement element, Annotation annotation,
+            AnnotationAttributes attributes, String sourceAttributeName, String targetAttributeName) {
+
+        attributes.put(targetAttributeName, getAdaptedValue(element, annotation, sourceAttributeName));
+    }
+
+    @Nullable
+    private Object getAdaptedValue(
+            @Nullable AnnotatedElement element, Annotation annotation, String sourceAttributeName) {
+
+        Object value = AnnotationUtils.getValue(annotation, sourceAttributeName);
+        return AnnotationUtils.adaptValue(element, value, this.classValuesAsString, this.nestedAnnotationsAsMap);
+    }
+}
+
+private static &lt;T&gt; T searchWithGetSemantics(AnnotatedElement element,
+        @Nullable Class&lt;? extends Annotation&gt; annotationType,
+        @Nullable String annotationName, Processor&lt;T&gt; processor) {
+
+    return searchWithGetSemantics(element, annotationType, annotationName, null, processor);
+}
+private static &lt;T&gt; T searchWithGetSemantics(AnnotatedElement element,
+        @Nullable Class&lt;? extends Annotation&gt; annotationType, @Nullable String annotationName,
+        @Nullable Class&lt;? extends Annotation&gt; containerType, Processor&lt;T&gt; processor) {
+
+    try {
+        return searchWithGetSemantics(element, annotationType, annotationName, containerType, processor,
+                new HashSet&lt;&gt;(), 0);
+    }
+    catch (Throwable ex) {
+        AnnotationUtils.rethrowAnnotationConfigurationException(ex);
+        throw new IllegalStateException(&quot;Failed to introspect annotations on &quot; + element, ex);
+    }
+}
+// 在提供的注释列表中进行实际搜索。应该先用本地声明的注释调用该方法，然后再用继承的注释调用，从而允许本地注释优先于继承的注释。
+// ①记录已经访问的注解（用set防止重复）重复则不执行
+// ②调用searchWithGetSemanticsInAnnotations返回结果
+// ③没有结果就找当前类的父类的所有注解，调用searchWithGetSemanticsInAnnotations返回结果，再没有结果就返回null
+//总结：调用searchWithGetSemanticsInAnnotations解析当前注解返回结果（true或者是AnnotationAttributes暂时发现），结果为null，则继续找父注解，直到无结果返回
+private static &lt;T&gt; T searchWithGetSemantics(AnnotatedElement element,
+        @Nullable Class&lt;? extends Annotation&gt; annotationType, @Nullable String annotationName,
+        @Nullable Class&lt;? extends Annotation&gt; containerType, Processor&lt;T&gt; processor,
+        Set&lt;AnnotatedElement&gt; visited, int metaDepth) {
+
+    if (visited.add(element)) {
+        try {
+            // Start searching within locally declared annotations
+            List&lt;Annotation&gt; declaredAnnotations = Arrays.asList(element.getDeclaredAnnotations());
+            T result = searchWithGetSemanticsInAnnotations(element, declaredAnnotations,
+                    annotationType, annotationName, containerType, processor, visited, metaDepth);
+            if (result != null) {
+                return result;
+            }
+
+            if (element instanceof Class) {  // otherwise getAnnotations doesn&apos;t return anything new
+                Class&lt;?&gt; superclass = ((Class) element).getSuperclass();
+                if (superclass != null &amp;&amp; superclass != Object.class) {
+                    List&lt;Annotation&gt; inheritedAnnotations = new LinkedList&lt;&gt;();
+                    for (Annotation annotation : element.getAnnotations()) {
+                        if (!declaredAnnotations.contains(annotation)) {
+                            inheritedAnnotations.add(annotation);
+                        }
+                    }
+                    // Continue searching within inherited annotations
+                    result = searchWithGetSemanticsInAnnotations(element, inheritedAnnotations,
+                            annotationType, annotationName, containerType, processor, visited, metaDepth);
+                    if (result != null) {
+                        return result;
+                    }
+                }
+            }
+        }
+        catch (Throwable ex) {
+            AnnotationUtils.handleIntrospectionFailure(element, ex);
+        }
+    }
+
+    return null;
+}
+@Nullable
+// 在提供的注释列表中进行实际搜索。应该先用本地声明的注释调用该方法，然后再用继承的注释调用，从而允许本地注释优先于继承的注释。
+// ①遍历提供的注解，如果是spring的注解就调用processor接口的实现返回结果并记录总结果
+// ②再次遍历提供的注解，如果是spring的注解，那么调用searchWithGetSemantics解析结果并记录总结果
+    //searchWithGetSemantics实现
+    // ①记录已经访问的注解（用set防止重复）重复则不执行
+    // ②调用searchWithGetSemanticsInAnnotations返回结果
+    // ③没有结果就找当前类的父类的所有注解，调用searchWithGetSemanticsInAnnotations返回结果，再没有结果就返回null
+    //总结：调用searchWithGetSemanticsInAnnotations解析当前注解返回结果，结果为null，则继续找父注解，直到无结果返回
+private static &lt;T&gt; T searchWithGetSemanticsInAnnotations(@Nullable AnnotatedElement element,
+        List&lt;Annotation&gt; annotations, @Nullable Class&lt;? extends Annotation&gt; annotationType,
+        @Nullable String annotationName, @Nullable Class&lt;? extends Annotation&gt; containerType,
+        Processor&lt;T&gt; processor, Set&lt;AnnotatedElement&gt; visited, int metaDepth) {
+
+    // Search in annotations
+    for (Annotation annotation : annotations) {
+        Class&lt;? extends Annotation&gt; currentAnnotationType = annotation.annotationType();
+        if (!AnnotationUtils.isInJavaLangAnnotationPackage(currentAnnotationType)) {//判断是否是jdk本身的注解
+            if (currentAnnotationType == annotationType ||
+                    currentAnnotationType.getName().equals(annotationName) ||
+                    processor.alwaysProcesses()) {
+                T result = processor.process(element, annotation, metaDepth);
+                if (result != null) {
+                    if (processor.aggregates() &amp;&amp; metaDepth == 0) {
+                        processor.getAggregatedResults().add(result);
+                    }
+                    else {
+                        return result;
+                    }
+                }
+            }
+            // Repeatable annotations in container?
+            else if (currentAnnotationType == containerType) {
+                for (Annotation contained : getRawAnnotationsFromContainer(element, annotation)) {
+                    T result = processor.process(element, contained, metaDepth);
+                    if (result != null) {
+                        // No need to post-process since repeatable annotations within a
+                        // container cannot be composed annotations.
+                        //不需要进行后处理，因为容器内的可重复注释不能组成注释
+                        processor.getAggregatedResults().add(result);
+                    }
+                }
+            }
+        }
+    }
+
+    // Recursively search in meta-annotations
+    //递归搜索元注解
+    for (Annotation annotation : annotations) {
+        Class&lt;? extends Annotation&gt; currentAnnotationType = annotation.annotationType();
+        if (hasSearchableMetaAnnotations(currentAnnotationType, annotationType, annotationName)) {//根据传入的三个类型判断是不是Spring本身的注解
+            T result = searchWithGetSemantics(currentAnnotationType, annotationType,
+                    annotationName, containerType, processor, visited, metaDepth + 1);
+            if (result != null) {
+                processor.postProcess(element, annotation, result);
+                if (processor.aggregates() &amp;&amp; metaDepth == 0) {
+                    processor.getAggregatedResults().add(result);
+                }
+                else {
+                    return result;
+                }
+            }
+        }
+    }
+
+    return null;
+}
+    @Nullable
+//获得合并的注解
+// MergedAnnotationAttributesProcessor
+//将注解里面所有的方法合并 成key为MethodName,value为holdler或者String最后//处理别名
+public static AnnotationAttributes getMergedAnnotationAttributes(AnnotatedElement element,
+        String annotationName, boolean classValuesAsString, boolean nestedAnnotationsAsMap) {
+
+    AnnotationAttributes attributes = searchWithGetSemantics(element, null, annotationName,
+            new MergedAnnotationAttributesProcessor(classValuesAsString, nestedAnnotationsAsMap));
+    AnnotationUtils.postProcessAnnotationAttributes(element, attributes, classValuesAsString, nestedAnnotationsAsMap);
+    return attributes;
+}
+</code></pre><p>}</p>
+<h1 id="AnnotationScopeMetadataResolver-implements-ScopeMetadataResolver"><a href="#AnnotationScopeMetadataResolver-implements-ScopeMetadataResolver" class="headerlink" title="AnnotationScopeMetadataResolver implements ScopeMetadataResolver"></a>AnnotationScopeMetadataResolver implements ScopeMetadataResolver</h1><p>public class AnnotationScopeMetadataResolver implements ScopeMetadataResolver {
+    private final ScopedProxyMode defaultProxyMode;</p>
+<pre><code>public AnnotationScopeMetadataResolver() {
+    this.defaultProxyMode = ScopedProxyMode.NO;
+}
+//解析Scope的注解
+public ScopeMetadata resolveScopeMetadata(BeanDefinition definition) {
+    ScopeMetadata metadata = new ScopeMetadata();
+    if (definition instanceof AnnotatedBeanDefinition) {
+        AnnotatedBeanDefinition annDef = (AnnotatedBeanDefinition) definition;
+        AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(
+                annDef.getMetadata(), this.scopeAnnotationType);//获得Scope所有的方法及属性值
+        if (attributes != null) {
+            metadata.setScopeName(attributes.getString(&quot;value&quot;));
+            ScopedProxyMode proxyMode = attributes.getEnum(&quot;proxyMode&quot;);
+            if (proxyMode == ScopedProxyMode.DEFAULT) {
+                proxyMode = this.defaultProxyMode;
+            }
+            metadata.setScopedProxyMode(proxyMode);
+        }
+    }
+    return metadata;
+}
+</code></pre><p>}</p>
+<h1 id="AnnotationBeanNameGenerator"><a href="#AnnotationBeanNameGenerator" class="headerlink" title="AnnotationBeanNameGenerator"></a>AnnotationBeanNameGenerator</h1><p>public class AnnotationBeanNameGenerator implements BeanNameGenerator {
+        @Override
+    public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
+        if (definition instanceof AnnotatedBeanDefinition) {
+            String beanName = determineBeanNameFromAnnotation((AnnotatedBeanDefinition) definition);
+            if (StringUtils.hasText(beanName)) {
+                // Explicit bean name found.
+                return beanName;
+            }
+        }
+        // Fallback: generate a unique default bean name.
+        return buildDefaultBeanName(definition, registry);
+    }
+    @Nullable
+    //从注解上决定Bean名字，从所有的属性里面读出value，如果没有则返回null
+    protected String determineBeanNameFromAnnotation(AnnotatedBeanDefinition annotatedDef) {
+        AnnotationMetadata amd = annotatedDef.getMetadata();
+        Set<string> types = amd.getAnnotationTypes();
+        String beanName = null;
+        for (String type : types) {
+            AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(amd, type);
+            if (attributes != null &amp;&amp; isStereotypeWithNameValue(type, amd.getMetaAnnotationTypes(type), attributes)) {
+                Object value = attributes.get(“value”);
+                if (value instanceof String) {
+                    String strVal = (String) value;
+                    if (StringUtils.hasLength(strVal)) {
+                        if (beanName != null &amp;&amp; !strVal.equals(beanName)) {
+                            throw new IllegalStateException(“Stereotype annotations suggest inconsistent “ +
+                                    “component names: ‘“ + beanName + “‘ versus ‘“ + strVal + “‘“);
+                        }
+                        beanName = strVal;
+                    }
+                }
+            }
+        }
+        return beanName;
+    }</string></p>
+<pre><code>protected String buildDefaultBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
+    return buildDefaultBeanName(definition);
+}
+
+/**
+ * Derive a default bean name from the given bean definition.
+ * &lt;p&gt;The default implementation simply builds a decapitalized version
+ * of the short class name: e.g. &quot;mypackage.MyJdbcDao&quot; -&gt; &quot;myJdbcDao&quot;.
+ * &lt;p&gt;Note that inner classes will thus have names of the form
+ * &quot;outerClassName.InnerClassName&quot;, which because of the period in the
+ * name may be an issue if you are autowiring by name.
+ * @param definition the bean definition to build a bean name for
+ * @return the default bean name (never {@code null})
+ */
+protected String buildDefaultBeanName(BeanDefinition definition) {
+    String beanClassName = definition.getBeanClassName();
+    Assert.state(beanClassName != null, &quot;No bean class name set&quot;);
+    String shortClassName = ClassUtils.getShortName(beanClassName);
+    return Introspector.decapitalize(shortClassName);
+}
+</code></pre><p>}</p>
+<h1 id="BeanDefinitionHolder-implements-BeanMetadataElement"><a href="#BeanDefinitionHolder-implements-BeanMetadataElement" class="headerlink" title="BeanDefinitionHolder implements BeanMetadataElement"></a>BeanDefinitionHolder implements BeanMetadataElement</h1><p>public class BeanDefinitionHolder implements BeanMetadataElement {
+    public BeanDefinitionHolder(BeanDefinition beanDefinition, String beanName) {
+        this(beanDefinition, beanName, null);
+    }
+    public BeanDefinitionHolder(BeanDefinition beanDefinition, String beanName, @Nullable String[] aliases) {
+        Assert.notNull(beanDefinition, “BeanDefinition must not be null”);
+        Assert.notNull(beanName, “Bean name must not be null”);
+        this.beanDefinition = beanDefinition;
+        this.beanName = beanName;
+        this.aliases = aliases;
+    }
+}</p>
+<h1 id="ClassUtils"><a href="#ClassUtils" class="headerlink" title="ClassUtils"></a>ClassUtils</h1><p>public abstract class ClassUtils {
+    private static final char PACKAGE_SEPARATOR = ‘.’;
+    private static final char INNER_CLASS_SEPARATOR = ‘$’;
+    /*<em> The CGLIB class separator: “$$” </em>/
+    public static final String CGLIB_CLASS_SEPARATOR = “$$”;</p>
+<pre><code>public static String getShortName(String className) {
+    Assert.hasLength(className, &quot;Class name must not be empty&quot;);
+    int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR);
+    int nameEndIndex = className.indexOf(CGLIB_CLASS_SEPARATOR);
+    if (nameEndIndex == -1) {
+        nameEndIndex = className.length();
+    }
+    String shortName = className.substring(lastDotIndex + 1, nameEndIndex);
+    shortName = shortName.replace(INNER_CLASS_SEPARATOR, PACKAGE_SEPARATOR);
+    return shortName;
+}
+
+public static String getShortName(String className) {
+    Assert.hasLength(className, &quot;Class name must not be empty&quot;);
+    int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR);
+    int nameEndIndex = className.indexOf(CGLIB_CLASS_SEPARATOR);
+    if (nameEndIndex == -1) {
+        nameEndIndex = className.length();
+    }
+    String shortName = className.substring(lastDotIndex + 1, nameEndIndex);
+    shortName = shortName.replace(INNER_CLASS_SEPARATOR, PACKAGE_SEPARATOR);
+    return shortName;
+}
+</code></pre><p>}</p>
+<h1 id="Introspector"><a href="#Introspector" class="headerlink" title="Introspector"></a>Introspector</h1><p>public class Introspector {
+    public static String decapitalize(String name) {
+        if (name == null || name.length() == 0) {
+            return name;
+        }
+        if (name.length() &gt; 1 &amp;&amp; Character.isUpperCase(name.charAt(1)) &amp;&amp;
+                        Character.isUpperCase(name.charAt(0))){
+            return name;
+        }
+        char chars[] = name.toCharArray();
+        chars[0] = Character.toLowerCase(chars[0]);
+        return new String(chars);
+    }
+}</p>
+<h1 id="AnnotationConfigApplicationContext创建流程"><a href="#AnnotationConfigApplicationContext创建流程" class="headerlink" title="AnnotationConfigApplicationContext创建流程"></a>AnnotationConfigApplicationContext创建流程</h1><ul>
+<li>创建AnnotationConfigApplicationContext<ul>
+<li>属性ResourcePatternResolver resourcePatternResolver：new PathMatchingResourcePatternResolver(this);（AbstractApplicationContext构造）<ul>
+<li>属性ResourceLoader resourceLoader：AnnotationConfigApplicationContext:DefaultResourceLoader</li>
+</ul>
+</li>
+<li>属性ClassLoader classLoader：AppClassLoader();（DefaultResourceLoader构造）</li>
+<li>属性DefaultListableBeanFactory beanFactory：new DefaultListableBeanFactory();（GenericApplicationContext构造）<ul>
+<li>属性Comparator<object> dependencyComparator: new AnnotationAwareOrderComparator();//排序BeanPostprocessor</object></li>
+<li>属性AutowireCandidateResolver autowireCandidateResolver：new ContextAnnotationAutowireCandidateResolver();</li>
+<li>属性Map&lt;String,BeanDefinition&gt; beanDefinitionMap = new ConcurrentHashMap&lt;&gt;(256)<ul>
+<li>RootBeanDefinition(ConfigurationClassPostProcessor.class implements BeanDefinitionRegistryPostProcessor): internalConfigurationAnnotationProcessor//注解后置处理器</li>
+<li>RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class): internalAutowiredAnnotationProcessor</li>
+<li>RootBeanDefinition(RequiredAnnotationBeanPostProcessor.class): internalRequiredAnnotationProcessor</li>
+<li>RootBeanDefinition(CommonAnnotationBeanPostProcessor.class): internalCommonAnnotationProcessor</li>
+<li>RootBeanDefinition(EventListenerMethodProcessor.class): internalEventListenerProcessor</li>
+<li>RootBeanDefinition(DefaultEventListenerFactory.class): internalEventListenerFactory</li>
+</ul>
+</li>
+<li>属性List<string> beanDefinitionNames = new ArrayList&lt;&gt;(256)<ul>
+<li>“org.springframework.context.annotation.internalConfigurationAnnotationProcessor”//注解后置处理器</li>
+<li>“org.springframework.context.annotation.internalAutowiredAnnotationProcessor”</li>
+<li>“org.springframework.context.annotation.internalRequiredAnnotationProcessor”</li>
+<li>“org.springframework.context.annotation.internalCommonAnnotationProcessor”</li>
+<li>“org.springframework.context.event.internalEventListenerProcessor”</li>
+<li>“org.springframework.context.event.internalEventListenerFactory”</li>
+</ul>
+</string></li>
+</ul>
+</li>
+<li>属性ConfigurableEnvironment environment：new StandardEnvironment();</li>
+<li>属性AnnotatedBeanDefinitionReader reader：new AnnotatedBeanDefinitionReader();<ul>
+<li>属性BeanDefinitionRegistry registry：AnnotationConfigApplicationContext</li>
+<li>属性ConditionEvaluator conditionEvaluator：new ConditionEvaluator();<ul>
+<li>属性ConditionContextImpl context：new ConditionContextImpl();<ul>
+<li>属性BeanDefinitionRegistry registry: AnnotationConfigApplicationContext</li>
+<li>属性ConfigurableListableBeanFactory beanFactory: DefaultListableBeanFactory</li>
+<li>属性Environment environment：StandardEnvironment</li>
+<li>属性ResourceLoader resourceLoader：DefaultResourceLoader</li>
+<li>属性ClassLoader classLoader：AppClassLoader</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性默认ScopeMetadataResolver scopeMetadataResolver = new AnnotationScopeMetadataResolver()</li>
+<li>属性默认BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator()</li>
+</ul>
+</li>
+<li>属性ClassPathBeanDefinitionScanner scanner：new ClassPathBeanDefinitionScanner()<ul>
+<li>属性BeanDefinitionRegistry registry：AnnotationConfigApplicationContext</li>
+<li>属性List<typefilter> includeFilters = new LinkedList&lt;&gt;()<ul>
+<li>new AnnotationTypeFilter(Component.class)</li>
+</ul>
+</typefilter></li>
+<li>属性Environment environment：StandardEnvironment</li>
+<li>属性ResourcePatternResolver resourcePatternResolver：AnnotationConfigApplicationContext（DefaultResourceLoader）</li>
+<li>属性MetadataReaderFactory metadataReaderFactory：new CachingMetadataReaderFactory()（属性省略）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>AnnotatedBeanDefinitionReader.register方法将class注册到DefaultListableBeanFactory的beanDefinitionMap中        <ul>
+<li>构造AnnotatedGenericBeanDefinition<ul>
+<li>属性beanClass：class</li>
+<li>属性AnnotationMetadata metadata：new StandardAnnotationMetadata(beanClass, true)<ul>
+<li>属性Annotation[] annotations: class.getAnnotations();</li>
+<li>属性boolean nestedAnnotationsAsMap：true;</li>
+<li>属性Class&lt;?&gt; introspectedClass：class</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调用ConditionEvaluator.shouSkip判断是否是conditional注解，若是无需注册</li>
+<li>调用scopeMetadataResolver.resolveScopeMetadata判断是否被@Scope注解注解了，并解析Value属性和proxyMode</li>
+<li>调用beanNameGenerator.generateBeanName得到BeanName</li>
+<li>调用processCommonDefinitionAnnotations判断是否被lazy，Primary，DependsOn，Role，Description注解，给AnnotatedGenericBeanDefinition设置相应的属性</li>
+<li>调用AnnotationConfigUtils.applyScopedProxyMode判断是否要是多例的</li>
+<li>调用BeanDefinitionReaderUtils.registerBeanDefinition将AnnotatedGenericBeanDefinition注册到DefaultListableBeanFactory的beanDefinitionMap中，注意别名的注册</li>
+</ul>
+</li>
+<li><p>AnnotationConfigApplicationContext的refresh()方法</p>
+<ul>
+<li>prepareRefresh()<ul>
+<li>属性long startupDate：System.currentTimeMillis()记录启动时间</li>
+<li>属性AtomicBoolean active：true </li>
+<li>属性AtomicBoolean closed：false</li>
+<li>初始化系统属性initPropertySources钩子方法</li>
+<li>使用ConfigurablePropertyResolver校验设置的setRequiredProperties环境参数（getEnvironment().validateRequiredProperties）(没看)</li>
+<li>属性Set&lt;ApplicationListener&lt;?&gt;&gt; earlyApplicationListeners：new LinkedHashSet&lt;&gt;();</li>
+<li>属性Set<applicationevent> earlyApplicationEvents：new LinkedHashSet&lt;&gt;()</applicationevent></li>
+</ul>
+</li>
+<li>ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();<ul>
+<li>refreshBeanFactory()；由于AnnotationConfigApplicationContext继承了GenericApplicationContext，复写了refreshBeanFactory()方法，只给AnnotationConfigApplicationContext的beanFactory设置了一个SerializationId</li>
+</ul>
+</li>
+<li><p>prepareBeanFactory(beanFactory);</p>
+<ul>
+<li>给AnnotationConfigApplicationContext的beanFactory设置ClassLoader beanClassLoader：AppClassLoader</li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置BeanExpressionResolver beanExpressionResolver：new StandardBeanExpressionResolver(AppClassLoader)</li>
+<li><p>给AnnotationConfigApplicationContext的beanFactory设置Set<propertyeditorregistrar> propertyEditorRegistrars：add ResourceEditorRegistrar(StandardEnvironment)</propertyeditorregistrar></p>
+<p>// Configure the bean factory with context callbacks.</p>
+</li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置List<beanpostprocessor> beanPostProcessors：<ul>
+<li>add new ApplicationContextAwareProcessor(this)</li>
+<li>add new ApplicationListenerDetector(this)</li>
+</ul>
+</beanpostprocessor></li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置Set&lt;Class&lt;?&gt;&gt; ignoredDependencyInterfaces：<ul>
+<li>add EnvironmentAware.class</li>
+<li>add EmbeddedValueResolverAware.class</li>
+<li>add ResourceLoaderAware.class</li>
+<li>add ApplicationEventPublisherAware.class</li>
+<li>add MessageSourceAware.class</li>
+<li>add ApplicationContextAware.class</li>
+</ul>
+</li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置Map&lt;Class&lt;?&gt;, Object&gt; resolvableDependencies<ul>
+<li>put BeanFactory.class, BeanFactory</li>
+<li>put ResourceLoader.class, this</li>
+<li>put ApplicationEventPublisher.class, this</li>
+<li>put ApplicationContext.class, this</li>
+</ul>
+</li>
+<li>if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {<pre><code>beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
+// Set a temporary ClassLoader for type matching.
+beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
+</code></pre>  }</li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置Map&lt;String,Object&gt; singletonObjects<ul>
+<li>&lt;environment,StandardEnvironment&gt;</li>
+<li>&lt;systemProperties,properties&gt;,</li>
+<li>&lt;systemEnvironment,Map&gt;</li>
+</ul>
+</li>
+<li>给AnnotationConfigApplicationContext的beanFactory设置Set<string> registeredSingletons：<ul>
+<li>“environment”</li>
+<li>“systemProperties”</li>
+<li>“systemEnvironment”</li>
+</ul>
+</string></li>
+<li>给Set<string> manualSingletonNames添加<ul>
+<li>“environment”</li>
+<li>“systemProperties”</li>
+<li>“systemEnvironment”</li>
+</ul>
+</string></li>
+<li>将上一步三个对象放入到singletonObjects</li>
+</ul>
+</li>
+<li>postProcessBeanFactory(beanFactory)钩子方法（没看）</li>
+<li>invokeBeanFactoryPostProcessors(beanFactory)<ul>
+<li>调用PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors<ul>
+<li>判断beanFacctory是否实现了BeanDefinitionRegistry接口<ul>
+<li>创建List<beanfactorypostprocessor> regularPostProcessors = new ArrayList&lt;&gt;();存放实现了BeanDefinitionRegistryPostProcessor</beanfactorypostprocessor></li>
+<li>创建List<beandefinitionregistrypostprocessor> registryProcessors = new ArrayList&lt;&gt;();存放实现了BeanDefinitionRegistryPostProcessor</beandefinitionregistrypostprocessor></li>
+<li>遍历BeanFactoryPostProcessor，找到BeanDefinitionRegistryPostProcessor实现类调用postProcessBeanDefinitionRegistry方法，并放入到registryProcessors中，其他放入regularPostProcessors中</li>
+<li>遍历beanFactory中的beanDefinitionNames找到同时实现了BeanDefinitionRegistryPostProcessor.class和PriorityOrdered.class的类，按实现了AnnotationAwareOrderComparator接口进行排序，（这个方法里面找到ConfigurationClassPostProcessor）调用其postProcessBeanDefinitionRegistry实现接口方法<ul>
+<li>ConfigurationClassPostProcessor调用postProcessBeanDefinitionRegistry(本质调用processConfigBeanDefinitions)重点<ul>
+<li>扫描已经注册的BeanDefinition,找到所有Component、ComponentScan、Import、ImportResource、或者Configuration注解的类并解析order注解，最后按order排序，创建ConfigurationClassParser，并循环做如下解析(本质doProcessConfigurationClass)<ul>
+<li>解析@PropertySource注解（待看），使用componentScanParser找上面的解析@ComponentScan，解析到那个类之后再doProcessConfigurationClass一遍（递归）</li>
+<li>解析@Import、@ImportResource</li>
+<li>从配置类@Configuration中解析@Bean，找到的所有类加入到BeanFactory中</li>
+<li>创建ConfigurationClassBeanDefinitionReader，找到相关@Bean里面的bean定义，找到@Import的资源加载进来</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>除了上面的后置处理器外，找到有@orderd注解的重复上面的步骤</li>
+<li>找到除了上面2种后置处理器外的接口，重复上面的步骤</li>
+<li>调用上面收集到的regularPostProcessors和registryProcessors的postProcessBeanFactory方法</li>
+</ul>
+</li>
+<li>没实现则直接遍历BeanFactoryPostProcessors调用postProcessBeanFactory方法</li>
+<li>最后调用除了上面的所有实现了BeanFactoryPostProcessor接口的类，分成priorityOrdered.class\ordered.class\其他\各自排序完成后调用postProcessBeanFactory方法</li>
+</ul>
+</li>
+<li>检查如果搜索到LoadTimeWeaver，需要准备织入<ul>
+<li>if (beanFactory.getTempClassLoader() == null &amp;&amp; beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {</li>
+<li>beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));</li>
+<li>beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));</li>
+<li>}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>registerBeanPostProcessors(beanFactory)<ul>
+<li>找到所有BeanPostProcessor.class的类名字</li>
+<li>beanFactory的BeanPostProcessor添加BeanPostProcessorChecker</li>
+<li>从beanFactory找到实现了BeanPostProcessor.class的类，同时priorityOrdered.class\ordered.class\nonOrdered各自排序，并将其注册到AnnotationConfigApplicationContext的beanPostProcessors中，将上面三种类中同时实现了MergedBeanDefinitionPostProcessor接口的类排序后也注册进去</li>
+<li>beanFactory的BeanPostProcessor添加ApplicationListenerDetector</li>
+</ul>
+</li>
+<li>初始化国际化initMessageSource();</li>
+<li>注册广播initApplicationEventMulticaster()</li>
+<li>onRefresh()启动别的容器的子类</li>
+<li>registerListeners()注册监听类</li>
+<li>finishBeanFactoryInitialization(beanFactory)初始化所有的bean（本质调用preInstantiateSingletons）<ul>
+<li>beanFactory的List<stringvalueresolver> embeddedValueResolvers添加getEnvironment().resolvePlaceholders(strVal)(待看)</stringvalueresolver></li>
+<li>String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
+  for (String weaverAwareName : weaverAwareNames) {<pre><code>getBean(weaverAwareName);
+</code></pre>  }</li>
+<li>beanFactory.configurationFrozen = true;</li>
+<li>beanFactory.frozenBeanDefinitionNames = StringUtils.toStringArray(this.beanDefinitionNames);</li>
+<li>beanFactory.preInstantiateSingletons();<ul>
+<li>遍历beanDefinitionNames、调用getMergedLocalBeanDefinition判断BeanDefinition当且仅当非抽象类、单例、非懒加载时<ul>
+<li>isFactoryBean()判断是否是FactoryBean实现类(待看)<ul>
+<li>如果实现了FactoryBean而且是SmartFactoryBean类型且isEagerInit，则getBean初始化</li>
+</ul>
+</li>
+<li>当不是FactoryBean实现类时,直接getBean初始化</li>
+<li>getBean(name)-&gt;doGetBean(name)方法<ul>
+<li>如果该name是FactoryBean，那么截取掉&amp;，得到BeanName</li>
+<li>getSingleton(beanName,true)</li>
+<li>如果getSingleton!=null,getObjectForBeanInstance();(待看)</li>
+<li>如果getSingleton==null,第一次进来<ul>
+<li>如果prototypesCurrentlyInCreation找到它，则抛出循环依赖的异常</li>
+<li>从mergedBeanDefinitions查找，没有则从父容器中doGetBean继续找</li>
+<li>如果是typeCheckOnly-&gt;添加到Set<string> alreadyCreated</string></li>
+<li>并将其他的BeanDefinition、GenericBeanDefinition转成RootBeanDefinition(getMergedBeanDefinition())</li>
+<li>判断BeanDefinition的dependsOn关系，如果dependentBeanMap中有则抛出循环依赖异常，否则记录到dependentBeanMap并getBean找到对应的类</li>
+<li>如果是单例，调用getSingleton(beanName,CreatBean());<ul>
+<li>复制RootBeanDefinition，遍历MethodOverrides调用prepareMethodOverrides，（解析@ Lookup和lookup-method标签得到的）</li>
+<li>自定义Bean的调用——遍历BeanPostProcessor中实现InstantiationAwareBeanPostProcessor的类，调用postProcessBeforeInstantiation创建对象，如果有对象则调用postProcessAfterInitialization，如果没有的话，就执行doCreateBean由spring产生<ul>
+<li>通过createBeanInstance获得BeanWrapper<ul>
+<li>从父类中拿到实例(待看)</li>
+<li>从FactoryMethod中拿到实例(待看)</li>
+<li>判断是否有@AutoWired相关的，找到则autowireConstructor(待看)</li>
+<li>没有与@AutoWired相关的，调用SimpleInstantiationStrategy.instantiateBean通过反射创建(待看)</li>
+</ul>
+</li>
+<li>将resolvedTargetType赋给RootBeanDefinition的resolvedTargetType</li>
+<li>遍历BeanPostProcessor中实现了MergedBeanDefinitionPostProcessor的postProcessMergedBeanDefinition方法，并将其postProcessed置为true</li>
+<li>如果是allowCircularReferences、singletonsCurrentlyInCreation、单例的情况下，先放入到singletonFactories、registeredSingletons、移走earlySingletonObjects三级缓存中防止循环依赖</li>
+<li>populateBean：填充属性<ul>
+<li>如果含有InstantiationAwareBeanPostProcessors且非synthetic合成，则遍历BeanPostProcessors调用InstantiationAwareBeanPostProcessor的postProcessAfterInstantiation</li>
+<li>判断@AutoWired属性并且完成属性注入(待看)</li>
+<li>initializeBean：初始化属性</li>
+<li>非合成类则遍历BeanPostProcessor调用postProcessBeforeInitialization</li>
+<li>非合成类则遍历BeanPostProcessor调用postProcessAfterInitialization</li>
+</ul>
+</li>
+<li>registerDisposableBeanIfNecessary();(待看)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果是多例(待看)</li>
+<li>其他情况(待看)</li>
+<li>最后大家都调用getObjectForBeanInstance（判断是否实现了FactoryBean，不是FactoryBean直接返回传入的对象）(待看)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>遍历beanDefinitionNames调用实现了SmartInitializingSingleton接口bean的afterSingletonsInstantiated方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解析XML</p>
+</li>
+<li><p>resourcePatternResolver().getResources(location)-&gt;new ClassPathContextResource(location) implements Resource -&gt;new EncodedResource(Resource) implements InputStreamSource
+-&gt;classLoader.getResourceAsStream Inputstream -&gt;InputSource-&gt;DOMParser.Document</p>
+</li>
+<li><p>PathMatchingResourcePatternResolver解析basePackage</p>
+</li>
+<li>Enumeration<url> classLoder.getResource() -&gt;Set<resource></resource></url></li>
+</ul>
+<h1 id="Spring-AnnotatedElementUtils遍历搜索注解的属性的方法"><a href="#Spring-AnnotatedElementUtils遍历搜索注解的属性的方法" class="headerlink" title="Spring AnnotatedElementUtils遍历搜索注解的属性的方法"></a>Spring AnnotatedElementUtils遍历搜索注解的属性的方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">//搜索本注解及其父类的@inherited注解的集合</span><br><span class="line">private static &lt;T&gt; T searchWithGetSemantics(</span><br><span class="line">	AnnotatedElement element,//含有注解的类</span><br><span class="line">	@Nullable Class&lt;? extends Annotation&gt; annotationType, </span><br><span class="line">	@Nullable String annotationName,</span><br><span class="line">	@Nullable Class&lt;? extends Annotation&gt; containerType, //可重复注解的容器对象(暂时看全部都是为null，功能未知)</span><br><span class="line">	Processor&lt;T&gt; processor,//实现了Processor接口的接口类，通过Processor来对元素进行处理</span><br><span class="line">	Set&lt;AnnotatedElement&gt; visited, //已经访问的元素：用set防止重复，并终止递归</span><br><span class="line">	int metaDepth//注解深度，控制注解收集，processor只收集第一次拿到的结果</span><br><span class="line">	) &#123;</span><br><span class="line">	if (visited.add(element)) &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			List&lt;Annotation&gt; declaredAnnotations = Arrays.asList(element.getDeclaredAnnotations());</span><br><span class="line">			T result = searchWithGetSemanticsInAnnotations(element, declaredAnnotations,</span><br><span class="line">				annotationType, annotationName, containerType, processor, visited, metaDepth);</span><br><span class="line">			if (result != null) &#123;return result;&#125;</span><br><span class="line">			if (element instanceof Class) &#123;  // otherwise getAnnotations doesn&apos;t return anything new</span><br><span class="line">				Class&lt;?&gt; superclass = ((Class) element).getSuperclass();</span><br><span class="line">				if (superclass != null &amp;&amp; superclass != Object.class) &#123;</span><br><span class="line">					List&lt;Annotation&gt; inheritedAnnotations = new LinkedList&lt;&gt;();</span><br><span class="line">					for (Annotation annotation : element.getAnnotations()) &#123;//拿到从父类继承过来的@inherited注解再找一遍</span><br><span class="line">						if (!declaredAnnotations.contains(annotation)) &#123;</span><br><span class="line">							inheritedAnnotations.add(annotation);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					// Continue searching within inherited annotations</span><br><span class="line">					result = searchWithGetSemanticsInAnnotations(element, inheritedAnnotations,</span><br><span class="line">					annotationType, annotationName, containerType, processor, visited, metaDepth);</span><br><span class="line">					if (result != null) &#123;</span><br><span class="line">						return result;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		catch (Throwable ex) &#123;</span><br><span class="line">			AnnotationUtils.handleIntrospectionFailure(element, ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">//搜索本注解及其注解的注解</span><br><span class="line">private static &lt;T&gt; T searchWithGetSemanticsInAnnotations(</span><br><span class="line">	@Nullable AnnotatedElement element,//含有注解的类</span><br><span class="line">	List&lt;Annotation&gt; annotations, //被搜索的注解列表</span><br><span class="line">	@Nullable Class&lt;? extends Annotation&gt; annotationType,//需要搜索的注解</span><br><span class="line">	@Nullable String annotationName, //需要搜索的注解的全类名</span><br><span class="line">	@Nullable Class&lt;? extends Annotation&gt; containerType,//可重复注解的容器对象(暂时看全部都是为null，功能未知)</span><br><span class="line">	Processor&lt;T&gt; processor, //实现了Processor接口的接口类，通过Processor来对元素进行处理</span><br><span class="line">	Set&lt;AnnotatedElement&gt; visited, //已经访问的元素：用set防止重复，并终止递归</span><br><span class="line">	int metaDepth //注解深度，控制注解收集，processor只收集第一次拿到的结果</span><br><span class="line">	) &#123;</span><br><span class="line"></span><br><span class="line">		for (Annotation annotation : annotations) &#123;</span><br><span class="line">			Class&lt;? extends Annotation&gt; currentAnnotationType = annotation.annotationType();</span><br><span class="line">			//判断是否是jdk本身的注解:currentAnnotationType.getName()判断是否是java.lang.annotation开头</span><br><span class="line">			if (!AnnotationUtils.isInJavaLangAnnotationPackage(currentAnnotationType)) &#123;</span><br><span class="line">				//判断类型一致，全类名一致、或者Processor接口alwaysProcesses决定必须执行process</span><br><span class="line">				if (currentAnnotationType == annotationType ||</span><br><span class="line">					currentAnnotationType.getName().equals(annotationName) ||</span><br><span class="line">					processor.alwaysProcesses()) &#123;</span><br><span class="line">					T result = processor.process(element, annotation, metaDepth);</span><br><span class="line">					if (result != null) &#123;</span><br><span class="line">						//Processor接口aggregates和metaDepth为0是决定是否要收集结果到processor</span><br><span class="line">						if (processor.aggregates() &amp;&amp; metaDepth == 0) &#123;</span><br><span class="line">							processor.getAggregatedResults().add(result);</span><br><span class="line">						&#125;</span><br><span class="line">						else &#123;</span><br><span class="line">							return result;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				// Repeatable annotations in container?</span><br><span class="line">				//全部为null，基本没啥用这个方法，功能未知，可能是@Repeatable注解?</span><br><span class="line">				else if (currentAnnotationType == containerType) &#123;</span><br><span class="line">					for (Annotation contained : getRawAnnotationsFromContainer(element, annotation)) &#123;</span><br><span class="line">						T result = processor.process(element, contained, metaDepth);</span><br><span class="line">						if (result != null) &#123;</span><br><span class="line">							processor.getAggregatedResults().add(result);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		//递归搜索注解上的注解,递归搜索元注解，然后调用过postProcess后置处理</span><br><span class="line">		for (Annotation annotation : annotations) &#123;</span><br><span class="line">			Class&lt;? extends Annotation&gt; currentAnnotationType = annotation.annotationType();</span><br><span class="line">			//currentAnnotationType不是java.lang.annotation开头，annotationType, annotationName不是以java开头</span><br><span class="line">			if (hasSearchableMetaAnnotations(currentAnnotationType, annotationType, annotationName)) &#123;</span><br><span class="line">				//递归搜索注解上的注解</span><br><span class="line">				T result = searchWithGetSemantics(currentAnnotationType, annotationType,</span><br><span class="line">						annotationName, containerType, processor, visited, metaDepth + 1);</span><br><span class="line">				if (result != null) &#123;</span><br><span class="line">					//调用processor的后置处理结果处理结果</span><br><span class="line">					processor.postProcess(element, annotation, result);</span><br><span class="line">					//Processor接口aggregates和metaDepth为0是决定是否要收集结果到processor</span><br><span class="line">					if (processor.aggregates() &amp;&amp; metaDepth == 0) &#123;</span><br><span class="line">						processor.getAggregatedResults().add(result);</span><br><span class="line">					&#125;</span><br><span class="line">					else &#123;</span><br><span class="line">						return result;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line">Processor接口实现类之一 MergedAnnotationAttributesProcessor</span><br><span class="line">private static class MergedAnnotationAttributesProcessor implements Processor&lt;AnnotationAttributes&gt; &#123;</span><br><span class="line">		private final boolean classValuesAsString;</span><br><span class="line">		private final boolean nestedAnnotationsAsMap;</span><br><span class="line">		private final boolean aggregates;</span><br><span class="line">		private final List&lt;AnnotationAttributes&gt; aggregatedResults;</span><br><span class="line"></span><br><span class="line">		MergedAnnotationAttributesProcessor() &#123;this(false, false, false);&#125;</span><br><span class="line"></span><br><span class="line">		MergedAnnotationAttributesProcessor(boolean classValuesAsString, boolean nestedAnnotationsAsMap) &#123;</span><br><span class="line">			this(classValuesAsString, nestedAnnotationsAsMap, false);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		MergedAnnotationAttributesProcessor(boolean classValuesAsString, </span><br><span class="line">			boolean nestedAnnotationsAsMap, boolean aggregates) &#123;</span><br><span class="line">			this.classValuesAsString = classValuesAsString;</span><br><span class="line">			this.nestedAnnotationsAsMap = nestedAnnotationsAsMap;</span><br><span class="line">			this.aggregates = aggregates;</span><br><span class="line">			this.aggregatedResults = (aggregates ? new ArrayList&lt;&gt;() : Collections.emptyList());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public boolean alwaysProcesses() &#123;return false;&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public boolean aggregates() &#123;return this.aggregates;&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public List&lt;AnnotationAttributes&gt; getAggregatedResults() &#123;</span><br><span class="line">			return this.aggregatedResults;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		@Nullable</span><br><span class="line">		public AnnotationAttributes process(@Nullable AnnotatedElement annotatedElement, Annotation annotation, int metaDepth) &#123;</span><br><span class="line">			return AnnotationUtils.retrieveAnnotationAttributes(annotatedElement, annotation,</span><br><span class="line">					this.classValuesAsString, this.nestedAnnotationsAsMap);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public void postProcess(@Nullable AnnotatedElement element, Annotation annotation, AnnotationAttributes attributes) &#123;</span><br><span class="line">			annotation = AnnotationUtils.synthesizeAnnotation(annotation, element);</span><br><span class="line">			Class&lt;? extends Annotation&gt; targetAnnotationType = attributes.annotationType();</span><br><span class="line"></span><br><span class="line">			// Track which attribute values have already been replaced so that we can short</span><br><span class="line">			// circuit the search algorithms.</span><br><span class="line">			Set&lt;String&gt; valuesAlreadyReplaced = new HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">			for (Method attributeMethod : AnnotationUtils.getAttributeMethods(annotation.annotationType())) &#123;</span><br><span class="line">				String attributeName = attributeMethod.getName();</span><br><span class="line">				String attributeOverrideName = AnnotationUtils.getAttributeOverrideName(attributeMethod, targetAnnotationType);</span><br><span class="line"></span><br><span class="line">				// Explicit annotation attribute override declared via @AliasFor</span><br><span class="line">				if (attributeOverrideName != null) &#123;</span><br><span class="line">					if (valuesAlreadyReplaced.contains(attributeOverrideName)) &#123;</span><br><span class="line">						continue;</span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					List&lt;String&gt; targetAttributeNames = new ArrayList&lt;&gt;();</span><br><span class="line">					targetAttributeNames.add(attributeOverrideName);</span><br><span class="line">					valuesAlreadyReplaced.add(attributeOverrideName);</span><br><span class="line"></span><br><span class="line">					// Ensure all aliased attributes in the target annotation are overridden. (SPR-14069)</span><br><span class="line">					List&lt;String&gt; aliases = AnnotationUtils.getAttributeAliasMap(targetAnnotationType).get(attributeOverrideName);</span><br><span class="line">					if (aliases != null) &#123;</span><br><span class="line">						for (String alias : aliases) &#123;</span><br><span class="line">							if (!valuesAlreadyReplaced.contains(alias)) &#123;</span><br><span class="line">								targetAttributeNames.add(alias);</span><br><span class="line">								valuesAlreadyReplaced.add(alias);</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					overrideAttributes(element, annotation, attributes, attributeName, targetAttributeNames);</span><br><span class="line">				&#125;</span><br><span class="line">				// Implicit annotation attribute override based on convention</span><br><span class="line">				else if (!AnnotationUtils.VALUE.equals(attributeName) &amp;&amp; attributes.containsKey(attributeName)) &#123;</span><br><span class="line">					overrideAttribute(element, annotation, attributes, attributeName, attributeName);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">AnnotationUtils</span><br><span class="line">//检索注解里面的方法并返回AnnotationAttributes(非常常用)</span><br><span class="line">static AnnotationAttributes retrieveAnnotationAttributes(</span><br><span class="line">	@Nullable Object annotatedElement, </span><br><span class="line">	Annotation annotation,</span><br><span class="line">	boolean classValuesAsString, </span><br><span class="line">	boolean nestedAnnotationsAsMap</span><br><span class="line">	) &#123;</span><br><span class="line"></span><br><span class="line">	Class&lt;? extends Annotation&gt; annotationType = annotation.annotationType();</span><br><span class="line">	AnnotationAttributes attributes = new AnnotationAttributes(annotationType);</span><br><span class="line"></span><br><span class="line">	for (Method method : getAttributeMethods(annotationType)) &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			Object attributeValue = method.invoke(annotation);</span><br><span class="line">			Object defaultValue = method.getDefaultValue();</span><br><span class="line">			if (defaultValue != null &amp;&amp; ObjectUtils.nullSafeEquals(attributeValue, defaultValue)) &#123;</span><br><span class="line">				attributeValue = new DefaultValueHolder(defaultValue);</span><br><span class="line">			&#125;</span><br><span class="line">			attributes.put(method.getName(),</span><br><span class="line">					adaptValue(annotatedElement, attributeValue, classValuesAsString, nestedAnnotationsAsMap));</span><br><span class="line">		&#125;</span><br><span class="line">		catch (Throwable ex) &#123;</span><br><span class="line">			if (ex instanceof InvocationTargetException) &#123;</span><br><span class="line">				Throwable targetException = ((InvocationTargetException) ex).getTargetException();</span><br><span class="line">				rethrowAnnotationConfigurationException(targetException);</span><br><span class="line">			&#125;</span><br><span class="line">			throw new IllegalStateException(&quot;Could not obtain annotation attribute value for &quot; + method, ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return attributes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//先从缓存里面去，没有则取出与传入接口的所有相关方法并设置为允许访问，最后把结果以 key 为annotationType 值为List&lt;Method&gt; attributeMethodsCache缓存起来，</span><br><span class="line">static List&lt;Method&gt; getAttributeMethods(Class&lt;? extends Annotation&gt; annotationType) &#123;</span><br><span class="line">	List&lt;Method&gt; methods = attributeMethodsCache.get(annotationType);</span><br><span class="line">	if (methods != null) &#123;return methods;&#125;</span><br><span class="line">	methods = new ArrayList&lt;&gt;();</span><br><span class="line">	for (Method method : annotationType.getDeclaredMethods()) &#123;</span><br><span class="line">		//(method != null &amp;&amp; method.getParameterCount() == 0 &amp;&amp; method.getReturnType() != void.class);</span><br><span class="line">		if (isAttributeMethod(method)) &#123;//判断是否是注解的方法</span><br><span class="line">			ReflectionUtils.makeAccessible(method);</span><br><span class="line">			methods.add(method);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	attributeMethodsCache.put(annotationType, methods);</span><br><span class="line">	return methods;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">spring三级缓存</span><br><span class="line">DefaultSingletonBeanRegistry</span><br><span class="line">//从singletonObjects找</span><br><span class="line">	// 在singletonsCurrentlyInCreation的单例，从earlySingletonObjects中找</span><br><span class="line">	// allowEarlyReference，那么从singletonFactories找，并将对象singletonFactories放到earlySingletonObjects中</span><br><span class="line">	protected Object getSingleton(String beanName, boolean allowEarlyReference) &#123;</span><br><span class="line">		Object singletonObject = this.singletonObjects.get(beanName);</span><br><span class="line">		if (singletonObject == null &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">			synchronized (this.singletonObjects) &#123;</span><br><span class="line">				singletonObject = this.earlySingletonObjects.get(beanName);</span><br><span class="line">				if (singletonObject == null &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">					ObjectFactory&lt;?&gt; singletonFactory = this.singletonFactories.get(beanName);</span><br><span class="line">					if (singletonFactory != null) &#123;</span><br><span class="line">						singletonObject = singletonFactory.getObject();</span><br><span class="line">						this.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">						this.singletonFactories.remove(beanName);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return singletonObject;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">//从mergedBeanDefinitions中找到RootBeanDefinition</span><br><span class="line">	protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException &#123;</span><br><span class="line">		RootBeanDefinition mbd = this.mergedBeanDefinitions.get(beanName);</span><br><span class="line">		if (mbd != null) &#123;return mbd;&#125;</span><br><span class="line">		return getMergedBeanDefinition(beanName, getBeanDefinition(beanName));//getBeanDefinition从beanDefinitionMap找BeanDefinition</span><br><span class="line">	&#125;</span><br><span class="line">	protected RootBeanDefinition getMergedBeanDefinition(String beanName, BeanDefinition bd)</span><br><span class="line">		throws BeanDefinitionStoreException &#123;</span><br><span class="line">		return getMergedBeanDefinition(beanName, bd, null);</span><br><span class="line">	&#125;</span><br><span class="line">	//如果给定bean的定义是子bean定义，则通过与父bean合并返回给定bean的RootBeanDefinition</span><br><span class="line">	//在mergedBeanDefinitions找-&gt;RootBeanDefinition类型则复制，否则之间创建</span><br><span class="line">	// -&gt;从父容器的ConfigurableBeanFactory得到getMergedBeanDefinition，构造RootBeanDefinition，设置Scope</span><br><span class="line">	//缓存到mergedBeanDefinitions</span><br><span class="line">	protected RootBeanDefinition getMergedBeanDefinition(</span><br><span class="line">			String beanName, BeanDefinition bd, @Nullable BeanDefinition containingBd)</span><br><span class="line">			throws BeanDefinitionStoreException &#123;</span><br><span class="line"></span><br><span class="line">		synchronized (this.mergedBeanDefinitions) &#123;</span><br><span class="line">			RootBeanDefinition mbd = null;</span><br><span class="line">			if (containingBd == null) &#123;</span><br><span class="line">				mbd = this.mergedBeanDefinitions.get(beanName);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			if (mbd == null) &#123;</span><br><span class="line">				if (bd.getParentName() == null) &#123;</span><br><span class="line">					if (bd instanceof RootBeanDefinition) &#123;</span><br><span class="line">						mbd = ((RootBeanDefinition) bd).cloneBeanDefinition();</span><br><span class="line">					&#125;</span><br><span class="line">					else &#123;</span><br><span class="line">						mbd = new RootBeanDefinition(bd);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				else &#123;</span><br><span class="line">					// Child bean definition: needs to be merged with parent.</span><br><span class="line">					BeanDefinition pbd;</span><br><span class="line">					try &#123;</span><br><span class="line">						String parentBeanName = transformedBeanName(bd.getParentName());</span><br><span class="line">						if (!beanName.equals(parentBeanName)) &#123;</span><br><span class="line">							pbd = getMergedBeanDefinition(parentBeanName);</span><br><span class="line">						&#125;</span><br><span class="line">						else &#123;</span><br><span class="line">							BeanFactory parent = getParentBeanFactory();</span><br><span class="line">							if (parent instanceof ConfigurableBeanFactory) &#123;</span><br><span class="line">								pbd = ((ConfigurableBeanFactory) parent).getMergedBeanDefinition(parentBeanName);</span><br><span class="line">							&#125;</span><br><span class="line">							else &#123;</span><br><span class="line">								throw new NoSuchBeanDefinitionException(parentBeanName,</span><br><span class="line">										&quot;Parent name &apos;&quot; + parentBeanName + &quot;&apos; is equal to bean name &apos;&quot; + beanName +</span><br><span class="line">										&quot;&apos;: cannot be resolved without a ConfigurableBeanFactory parent&quot;);</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					catch (NoSuchBeanDefinitionException ex) &#123;</span><br><span class="line">						throw new BeanDefinitionStoreException(bd.getResourceDescription(), beanName,</span><br><span class="line">								&quot;Could not resolve parent bean definition &apos;&quot; + bd.getParentName() + &quot;&apos;&quot;, ex);</span><br><span class="line">					&#125;</span><br><span class="line">					// Deep copy with overridden values.</span><br><span class="line">					mbd = new RootBeanDefinition(pbd);</span><br><span class="line">					mbd.overrideFrom(bd);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				// Set default singleton scope, if not configured before.</span><br><span class="line">				if (!StringUtils.hasLength(mbd.getScope())) &#123;</span><br><span class="line">					mbd.setScope(SCOPE_SINGLETON);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				// A bean contained in a non-singleton bean cannot be a singleton itself.</span><br><span class="line">				// Let&apos;s correct this on the fly here, since this might be the result of</span><br><span class="line">				// parent-child merging for the outer bean, in which case the original inner bean</span><br><span class="line">				// definition will not have inherited the merged outer bean&apos;s singleton status.</span><br><span class="line">				if (containingBd != null &amp;&amp; !containingBd.isSingleton() &amp;&amp; mbd.isSingleton()) &#123;</span><br><span class="line">					mbd.setScope(containingBd.getScope());</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				// Cache the merged bean definition for the time being</span><br><span class="line">				// (it might still get re-merged later on in order to pick up metadata changes)</span><br><span class="line">				if (containingBd == null &amp;&amp; isCacheBeanMetadata()) &#123;</span><br><span class="line">					this.mergedBeanDefinitions.put(beanName, mbd);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			return mbd;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ClassUtils中计算class及其父类的所有符合的method的个数</span><br><span class="line">public static int getMethodCountForName(Class&lt;?&gt; clazz, String methodName) &#123;</span><br><span class="line">		Assert.notNull(clazz, &quot;Class must not be null&quot;);</span><br><span class="line">		Assert.notNull(methodName, &quot;Method name must not be null&quot;);</span><br><span class="line">		int count = 0;</span><br><span class="line">		Method[] declaredMethods = clazz.getDeclaredMethods();</span><br><span class="line">		for (Method method : declaredMethods) &#123;</span><br><span class="line">			if (methodName.equals(method.getName())) &#123;</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		Class&lt;?&gt;[] ifcs = clazz.getInterfaces();</span><br><span class="line">		for (Class&lt;?&gt; ifc : ifcs) &#123;</span><br><span class="line">			count += getMethodCountForName(ifc, methodName);</span><br><span class="line">		&#125;</span><br><span class="line">		if (clazz.getSuperclass() != null) &#123;</span><br><span class="line">			count += getMethodCountForName(clazz.getSuperclass(), methodName);</span><br><span class="line">		&#125;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">public class RootBeanDefinition extends AbstractBeanDefinition,BeanMetadataAttributeAccessor,AttributeAccessorSupport</span><br><span class="line">	implements BeanDefinition,Cloneable,BeanMetadataElement,AttributeAccessor,Serializable&#123;</span><br><span class="line">	</span><br><span class="line">	//RootBeanDefinition</span><br><span class="line">	private BeanDefinitionHolder decoratedDefinition;</span><br><span class="line">	private AnnotatedElement qualifiedElement;</span><br><span class="line">	boolean allowCaching = true;</span><br><span class="line">	boolean isFactoryMethodUnique = false;</span><br><span class="line">	volatile ResolvableType targetType;</span><br><span class="line">	volatile Class&lt;?&gt; resolvedTargetType;//包可见的字段，用于缓存给定bean定义的确定类</span><br><span class="line">	volatile ResolvableType factoryMethodReturnType;//包可见字段，用于缓存泛型工厂方法的返回类型</span><br><span class="line"></span><br><span class="line">	final Object constructorArgumentLock = new Object();下面四个构造函数字段的公共锁</span><br><span class="line">	Executable resolvedConstructorOrFactoryMethod;//包可见字段，用于缓存已解析的构造函数或工厂方法</span><br><span class="line">	boolean constructorArgumentsResolved = false;//包可见的字段，将构造函数参数标记为已解析</span><br><span class="line">	Object[] resolvedConstructorArguments;//包可见的字段，用于缓存完全解析的构造函数参数</span><br><span class="line">	Object[] preparedConstructorArguments;//包可见的字段，用于缓存部分准备的构造函数参数</span><br><span class="line"></span><br><span class="line">	final Object postProcessingLock = new Object();//下面两个后处理字段的通用锁</span><br><span class="line">	boolean postProcessed = false;//包可见的字段，指示已经应用了MergedBeanDefinitionPostProcessor</span><br><span class="line">	volatile Boolean beforeInstantiationResolved;//包可见字段，指示实例化前的后处理程序已经启动</span><br><span class="line"></span><br><span class="line">	private Set&lt;Member&gt; externallyManagedConfigMembers;</span><br><span class="line">	private Set&lt;String&gt; externallyManagedInitMethods;</span><br><span class="line">	private Set&lt;String&gt; externallyManagedDestroyMethods;</span><br><span class="line"></span><br><span class="line">	//AbstractBeanDefinition</span><br><span class="line">	private String scope = SCOPE_DEFAULT;</span><br><span class="line">	public static final String SCOPE_DEFAULT = &quot;&quot;;//@Scope相关,除非被父bean定义覆盖，否则等同于单例状态</span><br><span class="line">	public static final int AUTOWIRE_NO = AutowireCapableBeanFactory.AUTOWIRE_NO;//常数，表示根本没有外部自动装配</span><br><span class="line">	public static final int AUTOWIRE_BY_NAME = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;//常量，按名称指示自动装配bean属性</span><br><span class="line">	public static final int AUTOWIRE_BY_TYPE = AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE;//按类型指示自动装配bean属性的常量</span><br><span class="line">	public static final int AUTOWIRE_CONSTRUCTOR = AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR;//常量，指示自动装配构造函数</span><br><span class="line">	@Deprecated</span><br><span class="line">	public static final int AUTOWIRE_AUTODETECT = AutowireCapableBeanFactory.AUTOWIRE_AUTODETECT;//常量，指示通过bean类的内省来确定适当的自动装配策略</span><br><span class="line"></span><br><span class="line">	public static final int DEPENDENCY_CHECK_NONE = 0;//表示根本没有依赖项检查的常量</span><br><span class="line">	public static final int DEPENDENCY_CHECK_OBJECTS = 1;//常量，指示对对象引用进行依赖项检查</span><br><span class="line">	public static final int DEPENDENCY_CHECK_SIMPLE = 2;//常量，指示对“简单”属性的依赖项检查</span><br><span class="line">	public static final int DEPENDENCY_CHECK_ALL = 3;//常量，指示对所有属性进行依赖项检查</span><br><span class="line">	public static final String INFER_METHOD = &quot;(inferred)&quot;;//常量，指示容器应该尝试推断bean的销毁方法名，而不是显式地指定方法名 </span><br><span class="line">	//@Value专门设计为在方法名中包含否则不合法的字符 确保与具有相同名称的合法命名方法不发生冲突</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	private volatile Object beanClass;</span><br><span class="line">	private boolean abstractFlag = false;</span><br><span class="line">	private boolean lazyInit = false;</span><br><span class="line">	private int autowireMode = AUTOWIRE_NO;</span><br><span class="line">	private int dependencyCheck = DEPENDENCY_CHECK_NONE;</span><br><span class="line">	private String[] dependsOn;</span><br><span class="line"></span><br><span class="line">	private boolean autowireCandidate = true;//是否被认为是自动类型装配，不影响名字装配</span><br><span class="line">	private boolean primary = false;//优先被依赖的类@primary/primary标签</span><br><span class="line">	private final Map&lt;String, AutowireCandidateQualifier&gt; qualifiers = new LinkedHashMap&lt;&gt;();</span><br><span class="line">	private Supplier&lt;?&gt; instanceSupplier;</span><br><span class="line">	private boolean nonPublicAccessAllowed = true;</span><br><span class="line">	private boolean lenientConstructorResolution = true;//使多个构造函数的参数数量相同、类型存在父子类、接口实现类关系也能正常创建bean</span><br><span class="line"></span><br><span class="line">	private String factoryBeanName;</span><br><span class="line">	private String factoryMethodName;</span><br><span class="line"></span><br><span class="line">	private ConstructorArgumentValues constructorArgumentValues;</span><br><span class="line">	private MutablePropertyValues propertyValues;</span><br><span class="line">	private MethodOverrides methodOverrides = new MethodOverrides();//@lookup/&lt;lookup-method&gt;</span><br><span class="line"></span><br><span class="line">	private String initMethodName;//&lt;init-method&gt;/@PostConstruct(java自己的注解)</span><br><span class="line">	private String destroyMethodName;//&lt;destroy-method&gt;/@PreDestroy(java自己的注解)</span><br><span class="line">	private boolean enforceInitMethod = true;//是否执行init-method，程序设置</span><br><span class="line">	private boolean enforceDestroyMethod = true;//是否执行destroy-method，程序设置</span><br><span class="line">	</span><br><span class="line">	private boolean synthetic = false;//非应用自己定义的，类似Aop产生的对象</span><br><span class="line"></span><br><span class="line">	private int role = BeanDefinition.ROLE_APPLICATION;</span><br><span class="line">	//BeanDefinition</span><br><span class="line">	int ROLE_APPLICATION = 0;//用户定义的bean</span><br><span class="line">	int ROLE_SUPPORT = 1;//指示BeanDefinition是某个较大配置(通常是外部组件定义)的支持部分。</span><br><span class="line">	int ROLE_INFRASTRUCTURE = 2;//内部注册的bean类似internalConfigurationAnnotationProcessor</span><br><span class="line">	//------------</span><br><span class="line"></span><br><span class="line">	private String description;//@Description或者&lt;description&gt;</span><br><span class="line">	private Resource resource;//来源的文件</span><br><span class="line"></span><br><span class="line">	//BeanMetadataAttributeAccessor-----------------------------------------------------------------</span><br><span class="line">	private Object source;</span><br><span class="line">	</span><br><span class="line">	//AttributeAccessorSupport-----------------------------------------------------------------</span><br><span class="line">	/** Map with String keys and Object values */</span><br><span class="line">	private final Map&lt;String, Object&gt; attributes = new LinkedHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</div><div class="tags"><a href="/tags/spring/">spring</a></div><div class="post-nav"><a class="pre" href="/2020/11/13/docker/">docker</a><a class="next" href="/2020/08/27/java面试题/">java面试题</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

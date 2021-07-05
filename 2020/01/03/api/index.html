@@ -1,541 +1,221 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>api | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">api</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">api</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><p>java常用api
-<a id="more"></a></p>
-<h1 id="api：Application-应用-Programming-程序-Interface-接口"><a href="#api：Application-应用-Programming-程序-Interface-接口" class="headerlink" title="api：Application(应用) Programming(程序) Interface(接口)"></a>api：Application(应用) Programming(程序) Interface(接口)</h1><ul>
-<li>java API就是jdk中提供给我们使用的类，这些类将底层的代码实现封装了起来，</li>
-<li>不需要关心这些类是如何实现的，只需要学习这些类如何使用即可。</li>
+<!-- TOC --></p>
+<ul>
+<li><a href="#1-apiapplication应用-programming程序-interface接口">1. api：Application(应用) Programming(程序) Interface(接口)</a></li>
+<li><a href="#2-scanner">2. Scanner</a></li>
+<li><a href="#3-random">3. Random</a></li>
+<li><a href="#4-object所有类的父类">4. Object:所有类的父类</a></li>
+<li><a href="#5-string">5. String</a></li>
+<li><a href="#6-stringbuffer">6. StringBuffer</a></li>
+<li><a href="#7-stringbuilder">7. StringBuilder</a></li>
+<li><a href="#8-string和stringbufferstringbuilder的区别是什么string为什么是不可变的">8. String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的</a></li>
+<li><a href="#9-date">9. Date</a></li>
+<li><a href="#10-dateformat与语言环境无关的方式格式化并解析日期或时间的抽象类">10. DateFormat与语言环境无关的方式格式化并解析日期或时间的抽象类</a></li>
+<li><a href="#11-simpledateformat">11. SimpleDateFormat</a></li>
+<li><a href="#12-calendar">12. Calendar</a></li>
+<li><a href="#13-基本类型string包装类之间的转换">13. 基本类型、String、包装类之间的转换</a></li>
+<li><a href="#14-system">14. System</a></li>
+<li><a href="#15-math">15. Math</a></li>
+<li><a href="#16-arrays">16. Arrays</a></li>
+<li><a href="#17-properties">17. Properties</a></li>
+<li><a href="#18-resourcebundle">18. ResourceBundle</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-api：Application-应用-Programming-程序-Interface-接口"><a href="#1-api：Application-应用-Programming-程序-Interface-接口" class="headerlink" title="1. api：Application(应用) Programming(程序) Interface(接口)"></a>1. api：Application(应用) Programming(程序) Interface(接口)</h1><ul>
+<li>java API就是jdk中提供给我们使用的类，这些类将底层的代码实现封装了起来</li>
 <li>源码：JDK安装目录的src.zip</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类名</th>
-<th style="text-align:center">函数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Scanner</td>
-<td style="text-align:center">Scanner(InputStream source)</td>
-<td style="text-align:center">一般传入System.in</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int nextInt();</td>
-<td style="text-align:center">接收控制台录入的数字</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String next();</td>
-<td style="text-align:center">接收控制台录入的字符串</td>
-</tr>
-<tr>
-<td style="text-align:center">Random</td>
-<td style="text-align:center">Random()</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int nextInt(int maxValue)</td>
-<td style="text-align:center">产生[0,maxValue)范围的随机整数</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">double nextDouble()</td>
-<td style="text-align:center">产生[0,1)范围的随机小数</td>
-</tr>
-<tr>
-<td style="text-align:center">Object</td>
-<td style="text-align:center">boolean equals(Object obj)</td>
-<td style="text-align:center">比较两个对象是否相同（默认使用==比较地址）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">所有类的父类,经常需要复写它根据对象属性判断对象是否相同</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String toString()</td>
-<td style="text-align:center">返回该对象的字符串(包名.类名+@+内存地址值)</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">经常需要按照对象的属性得到相应的字符串表现形式，因此也需要重写它</td>
-</tr>
-<tr>
-<td style="text-align:center">String</td>
-<td style="text-align:center">String s3 = “abc”;</td>
-<td style="text-align:center">在内存的字符串常量池中只有s3对象</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String s4 = new String(“abc”);</td>
-<td style="text-align:center">new的s4对象在堆中，字符串abc对象在字符串常量池中</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">字符串是常量，在创建之后不能更改，内存区域中就生成了这个字符串。</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">但引用字符串的变量中记录的地址值是可以改变的</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">字符串的值本身不能改变，一旦没有引用就会被垃圾回收机制回收</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String()</td>
-<td style="text-align:center">初始化一个新创建的 String 对象，使其表示一个空字符序列</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String(byte[] bytes)</td>
-<td style="text-align:center">使用平台的默认字符集解码指定的byte数组,构造一个新String</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String(byte[] bytes, int offset, int length)</td>
-<td style="text-align:center">默认字符集解码byte子数组构造新String</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String(char[] value)</td>
-<td style="text-align:center">分配一个新的String，使其表示字符数组参数中当前包含的字符序列</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String(char[] value, int offset, int count)</td>
-<td style="text-align:center">新String取自字符数组参数子数组的字符</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean equals(Object obj)</td>
-<td style="text-align:center">判断两个字符串中的内容是否相同</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean equalsIgnoreCase(String str)</td>
-<td style="text-align:center">判断两个字符串中的内容是否相同, 忽略大小写</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean contains(String str)</td>
-<td style="text-align:center">判断该字符串中 是否包含给定的字符串，是返回true</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean endsWith(String str)</td>
-<td style="text-align:center">判断该字符串 是否以给定的字符串结尾</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean startsWith(String str)</td>
-<td style="text-align:center">判断该字符串 是否以给定的字符串开头</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean isEmpty()</td>
-<td style="text-align:center">判断该字符串的内容是否为空的字符串””</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String substring(int start)</td>
-<td style="text-align:center">从指定位置开始，到末尾结束，截取该字符串，返回新字符串//索引从0开始</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String substring(int start,int end)</td>
-<td style="text-align:center">从指定位置开始到指定位置结束，返回截取新字符串 //索引从0开始</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String replace(char old,char new)</td>
-<td style="text-align:center">在该字符串中，将给定的旧字符，用新字符替换</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String replace(String old,String new)</td>
-<td style="text-align:center">将给定的旧字符串，用新字符串替换</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String toLowerCase()</td>
-<td style="text-align:center">把该字符串转换成 小写字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String toUpperCase()</td>
-<td style="text-align:center">把该字符串转换成 大写字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String trim()</td>
-<td style="text-align:center">去除字符串两端空格，中间的不会去除，返回一个新字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int length()</td>
-<td style="text-align:center">获取该字符串的长度</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int indexOf(int ch )</td>
-<td style="text-align:center">获取给定的字符‘？’，在该字符串中第一次出现的位置</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int indexOf(int ch,int fromIndex)</td>
-<td style="text-align:center">从指定位置开始，获取给定的字符，在该字符</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int indexOf(String str)</td>
-<td style="text-align:center">获取给定的字符串，在该字符串中第一次出现的位置</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int indexOf(String str,int fromIndex)</td>
-<td style="text-align:center">从指定位置开始找该字符串中第一次出现的位置</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">boolean matches(String regex)</td>
-<td style="text-align:center">判断字符串是否匹配给定的规则</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String[] split(String regex)</td>
-<td style="text-align:center">根据给定正则表达式的匹配规则，拆分此字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String replaceAll(String regex,String replacement)</td>
-<td style="text-align:center">将符合规则字符串全部替换为新字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">byte[] getBytes()</td>
-<td style="text-align:center">把该字符串 转换成 字节数组//超级重要</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">char[] toCharArray()</td>
-<td style="text-align:center">把该字符串 转换成 字符数组//超级重要</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">char charAt(int index)</td>
-<td style="text-align:center">获取该字符串中指定位置上的字符</td>
-</tr>
-<tr>
-<td style="text-align:center">StringBuffer</td>
-<td style="text-align:center">支持可变的字符串</td>
-<td style="text-align:center">是一个容器，容器中可以装很多字符串。能操作其中的字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer append(String str)</td>
-<td style="text-align:center">在原有字符串缓冲区内容基础上，在末尾追加新数据</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer insert(int offset,String str)</td>
-<td style="text-align:center">在指定位置插入新数据</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer deleteCharAt(int index)</td>
-<td style="text-align:center">删除指定位置上的字符</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer delete(int start,int end)</td>
-<td style="text-align:center">删除指定范围内的多个字符</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer replace(int start,int end,String str)</td>
-<td style="text-align:center">将指定范围内多个字符用新字符替换</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">StringBuffer reverse()</td>
-<td style="text-align:center">将字符串缓冲区的内容 反转  “abc”—-“cba”</td>
-</tr>
-<tr>
-<td style="text-align:center">StringBuilder</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">可变的字符序列，不同步，但是速度比StringBuffer 快</td>
-</tr>
-<tr>
-<td style="text-align:center">Date</td>
-<td style="text-align:center">Date()</td>
-<td style="text-align:center">系统当前日期时间，表示特定的瞬间，精确到毫秒</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Date(long date)</td>
-<td style="text-align:center">1970年1月1日0点，加上date毫秒值对应的日期时间</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">long getTime()</td>
-<td style="text-align:center">返回自1970年1月1日00:00：GMT以来此Date对象表示的毫秒数</td>
-</tr>
-<tr>
-<td style="text-align:center">DateFormat</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">与语言环境无关的方式格式化并解析日期或时间的抽象类</td>
-</tr>
-<tr>
-<td style="text-align:center">SimpleDateFormat</td>
-<td style="text-align:center">SimpleDateFormat()</td>
-<td style="text-align:center">默认的格式化操作，可以字符串与Date对象相互转换</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">SimpleDateFormat(String pattern)</td>
-<td style="text-align:center">替换”yyyy-MM-dd-HH-mm-ss-SS”剩余内容原样输出</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String format(Date date)</td>
-<td style="text-align:center">把日期格式化成字符串</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Date parse(String source)</td>
-<td style="text-align:center">将字符串转成日期</td>
-</tr>
-<tr>
-<td style="text-align:center">Calendar</td>
-<td style="text-align:center">static Calendar getInstance();</td>
-<td style="text-align:center">使用默认时区和语言环境获得一个日历</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">abstract void add(int field,int amount)</td>
-<td style="text-align:center">指定字段增加某值12345</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">int get(int field)</td>
-<td style="text-align:center">返回给定日历字段的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">Field是指Calendar.YEAR/MONTH/DATE/HOUR/MINUTE/SECOND</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">final void set(int field,int value)</td>
-<td style="text-align:center">设置指定字段的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">final Date getTime()</td>
-<td style="text-align:center">获取该日历对象转成的日期对象</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">西方星期的开始为周日，中国为周一</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">日期是有大小关系的，时间靠后，时间越大</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">在Calendar类中，月份的表示是以0-11代表1-12月</td>
-</tr>
-<tr>
-<td style="text-align:center">StringtoBasic</td>
-<td style="text-align:center">包装类.parseXxxx(字符串);</td>
-<td style="text-align:center">字符串→基本类型(NumberFormatException)</td>
-</tr>
-<tr>
-<td style="text-align:center">BasictoString</td>
-<td style="text-align:center">34+””\String.valueOf(基本类型);\包装类.toString(基本类型);</td>
-<td style="text-align:center">基本数值→字符串</td>
-</tr>
-<tr>
-<td style="text-align:center">BasictoObject</td>
-<td style="text-align:center">new 包装类(基本类型)(装箱)</td>
-<td style="text-align:center">构造一个新分配的Integer对象表示指定的int值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">new 包装类(字符串)</td>
-<td style="text-align:center">构造一个新分配的Integer对象，表示String参数指示的int值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">包装类.valueOf(基本类型)</td>
-<td style="text-align:center">返回一个指定的int值的Integer实例</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">包装类.valueOf(字符串)</td>
-<td style="text-align:center">返回一个指定的String值的Integer对象</td>
-</tr>
-<tr>
-<td style="text-align:center">ObjecttoBasic</td>
-<td style="text-align:center">包装类.xxxValue()(拆箱)</td>
-<td style="text-align:center">返回该包装类的基本数据类型</td>
-</tr>
-<tr>
-<td style="text-align:center">System类</td>
-<td style="text-align:center">不能手动创建对象</td>
-<td style="text-align:center">因为构造方法被private修饰，阻止外界创建对象</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">long currentTimeMillis()</td>
-<td style="text-align:center">当前系统时间与1970年01月01日00:00点的毫秒差值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void exit(int status)</td>
-<td style="text-align:center">用来结束正在运行的Java程序。0正常退出</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void gc()</td>
-<td style="text-align:center">用来运行JVM中的垃圾回收器，完成内存中垃圾的清除</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getProperty(String key)</td>
-<td style="text-align:center">用来获取指系统属性信息（自己查表）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">从指定源数组中复制一个数组复制从指定位置开始到目标数组指定位置结束</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">void arrarycopy(Object src,int srcPog,Object dest,int destPes,int length</td>
-</tr>
-<tr>
-<td style="text-align:center">Math</td>
-<td style="text-align:center">Static double abs(double a)</td>
-<td style="text-align:center">绝对值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double ceil(double a)</td>
-<td style="text-align:center">结果为比参数值大的最小整数的double值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double floor(double a)</td>
-<td style="text-align:center">结果为比参数值小的最大整数的double值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double max(double a,double b)</td>
-<td style="text-align:center">返回两个参数值中较大的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double min(double a,double b)</td>
-<td style="text-align:center">返回两个参数值中较小的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double pow(double a,double b)</td>
-<td style="text-align:center">返回第一个参数的第二个参数次幂的值</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double round(double a)</td>
-<td style="text-align:center">参数值四舍五入的结果</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static double random()</td>
-<td style="text-align:center">产生一个大于等于0.0且小于1.0的double小数</td>
-</tr>
-<tr>
-<td style="text-align:center">Arrays</td>
-<td style="text-align:center">Static void sort(int[] a)</td>
-<td style="text-align:center">对指定数组中的元素进行排序（元素值从小到大进行排序）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static void binarySearch(int[] a,int key)</td>
-<td style="text-align:center">在指定的有序数组中，返回元素的位置或-1</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Static String toString(int[] a)</td>
-<td style="text-align:center">返回指定数组元素内容的字符串形式</td>
-</tr>
-<tr>
-<td style="text-align:center">Properties类</td>
-<td style="text-align:center">Hashtable的子类，键值都是字符串</td>
-<td style="text-align:center">键值可以存储到集合或文件中,来源也可以是文件</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void load(InputStream in)</td>
-<td style="text-align:center">把指定流所对应的文件中的数据读取并保存到Propertie集合中</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void load(Reader)</td>
-<td style="text-align:center">按面向行的格式从输入字符流中读取属性列表（键和元素对）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void store(OutputStream out,String commonts)</td>
-<td style="text-align:center">commonts代表对描述信息，无实际意义</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">void store(Writer writer,String comments);</td>
-<td style="text-align:center">与load(Reader)方法对应</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Object setProperty(String key, String value)</td>
-<td style="text-align:center">调用 Hashtable 的方法 put。</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">String getProperty(String key)</td>
-<td style="text-align:center">用指定的键在此属性列表中搜索属性</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">Set<string> stringPropertyNames()</string></td>
-<td style="text-align:center">返回此属性列表中的键集，</td>
-</tr>
-<tr>
-<td style="text-align:center">ResourceBundle</td>
-<td style="text-align:center">static ResourceBundle getBundle(String fileNmae)</td>
-<td style="text-align:center">获得ResourceBundle对象</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">getString(String key)</td>
-<td style="text-align:center">获得properties文件中键对应的值</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InputStream inpuStream =JDBCUtils_V3.class.getResourceAsStream(&quot;db.properties&quot;);//外部配置文件加/内部</span><br><span class="line">Properties 类表示了一个持久的属性集。Properties可保存在流中或从流中加载</span><br><span class="line">①Hashtable的子类，键值都是字符串③持久化的属性集。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//复写例子</span><br><span class="line">class Person extends Object&#123;</span><br><span class="line">	int age ;</span><br><span class="line">	//复写父类的equals方法，实现自己的比较方式</span><br><span class="line">	public boolean equals(Object obj) &#123;</span><br><span class="line">		//判断当前调用equals方法的对象和传递进来的对象是否是同一个</span><br><span class="line">		if(this == obj)&#123;</span><br><span class="line">			return true;</span><br><span class="line">		&#125;</span><br><span class="line">		//判断传递进来的对象是否是Person类型</span><br><span class="line">		if(!(obj instanceof Person))&#123;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">		//将obj向下转型为Perosn引用，访问其属性</span><br><span class="line">		Person p = (Person)obj;</span><br><span class="line">		return this.age == p.age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</div><div class="tags"><a href="/tags/api/">api</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/面向对象/">面向对象</a><a class="next" href="/2020/01/03/collection/">collection</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<h1 id="2-Scanner"><a href="#2-Scanner" class="headerlink" title="2. Scanner"></a>2. Scanner</h1><ul>
+<li>Scanner(InputStream source)一般传入System.in</li>
+<li>int nextInt(); 接收控制台录入的数字</li>
+<li>String next(); 接收控制台录入的字符串</li>
+</ul>
+<h1 id="3-Random"><a href="#3-Random" class="headerlink" title="3. Random"></a>3. Random</h1><ul>
+<li>Random()</li>
+<li>int nextInt(int maxValue)产生[0,maxValue)范围的随机整数</li>
+<li>double nextDouble()  产生[0,1)范围的随机小数</li>
+</ul>
+<h1 id="4-Object-所有类的父类"><a href="#4-Object-所有类的父类" class="headerlink" title="4. Object:所有类的父类"></a>4. Object:所有类的父类</h1><ul>
+<li>boolean equals(Object obj)比较两个对象是否相同（默认使用==比较地址）经常需要复写它根据对象属性判断对象是否相同</li>
+<li>String toString()返回该对象的字符串(包名.类名+@+内存地址值) 经常重写得到相应的字符串表现形式</li>
+<li>int hashCode()返回哈希码<ul>
+<li>为什么要有 hashCode？当你把对象加入 HashSet 时，HashSet 会先计算对象的 hashcode 值来判断对象加入的位置，同时也会与其他已经加入的对象的 hashcode 值作比较，如果没有相符的hashcode，HashSet会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用 equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让其加入操作成功。如果不同的话，就会重新散列到其他位置。大大减少了 equals 的次数，相应就大大提高了执行速度。</li>
+<li>如果两个对象相等，则hashcode一定也是相同的，两个对象有相同的hashcode值，它们也不一定是相等的</li>
+<li>equals 方法被覆盖过，则 hashCode 方法也必须被覆盖。hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重写 hashCode()，则该 class 的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）</li>
+<li>对象的相等 比的是内存中存放的内容是否相等而 引用相等 比较的是他们指向的内存地址是否相等</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//equals复写例子</span><br><span class="line">class Person extends Object&#123;</span><br><span class="line">	int age ;</span><br><span class="line">	//复写父类的equals方法，实现自己的比较方式</span><br><span class="line">	public boolean equals(Object obj) &#123;</span><br><span class="line">		//判断当前调用equals方法的对象和传递进来的对象是否是同一个</span><br><span class="line">		if(this == obj)&#123;</span><br><span class="line">			return true;</span><br><span class="line">		&#125;</span><br><span class="line">		//判断传递进来的对象是否是Person类型</span><br><span class="line">		if(!(obj instanceof Person))&#123;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">		//将obj向下转型为Perosn引用，访问其属性</span><br><span class="line">		Person p = (Person)obj;</span><br><span class="line">		return this.age == p.age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="5-String"><a href="#5-String" class="headerlink" title="5. String"></a>5. String</h1><ul>
+<li>String 类是 final 类，不可以被继承</li>
+<li>底层是final char value[];常量，字符串的值本身不能改变，但引用字符串的变量中记录的地址值是可以改变的，一旦没有引用就会被垃圾回收机制回收。不变模式的主要作用在于当一个对象需要被多线程共享并频繁访问时，可以保证数据的一致性。</li>
+<li>常量池优化：String 对象创建之后，会在字符串常量池(位于堆内存)中进行缓存，如果下次创建同样的对象时，会直接返回缓存的引用</li>
+<li>与字符型常量区别：<ul>
+<li>形式上: 字符常量是单引号引起的一个字符 字符串常量是双引号引起的若干个字符</li>
+<li>含义上: 字符常量相当于一个整形值(ASCII值),可以参加表达式运算 字符串常量代表一个地址值(该字符串在内存中存放位置)</li>
+<li>占内存大小 字符常量只占一个字节 字符串常量占若干个字节(至少一个字符结束标志)</li>
+</ul>
+</li>
+<li>HashMap 内部实现是通过 key 的 hashcode 来确定 value 的存储位置，因为字符串是不可变的，所以当创建字符串时，它的 hashcode 被缓存下来，不需要再次计算，所以相比于其他对象更快</li>
+<li>String s3 = “abc”;在内存的字符串常量池中只有s3对象</li>
+<li>String s4 = new String(“abc”);new的s4对象在堆中，字符串abc对象在字符串常量池中</li>
+<li>String()初始化一个新创建的 String 对象，使其表示一个空字符序列</li>
+<li>String(byte[] bytes)使用平台的默认字符集解码指定的byte数组,构造一个新String</li>
+<li>String(byte[] bytes, int offset, int length)默认字符集解码byte子数组构造新String</li>
+<li>String(char[] value)分配一个新的String，使其表示字符数组参数中当前包含的字符序列</li>
+<li>String(char[] value, int offset, int count)新String取自字符数组参数子数组的字符</li>
+<li>boolean equals(Object obj) 判断两个字符串中的内容是否相同</li>
+<li>boolean equalsIgnoreCase(String str)判断两个字符串中的内容是否相同, 忽略大小写</li>
+<li>boolean contains(String str) 判断该字符串中 是否包含给定的字符串，是返回true </li>
+<li>boolean endsWith(String str) 判断该字符串 是否以给定的字符串结尾</li>
+<li>boolean startsWith(String str) 判断该字符串 是否以给定的字符串开头</li>
+<li>boolean isEmpty() 判断该字符串的内容是否为空的字符串””</li>
+<li>String substring(int start)从指定位置开始，到末尾结束，截取该字符串，返回新字符串//索引从0开始</li>
+<li>String substring(int start,int end)从指定位置开始到指定位置结束，返回截取新字符串 //索引从0开始</li>
+<li>String replace(char old,char new)在该字符串中，将给定的旧字符，用新字符替换</li>
+<li>String replace(String old,String new)将给定的旧字符串，用新字符串替换</li>
+<li>String toLowerCase()把该字符串转换成 小写字符串</li>
+<li>String toUpperCase()把该字符串转换成 大写字符串</li>
+<li>String trim()去除字符串两端空格，中间的不会去除，返回一个新字符串</li>
+<li>int length()获取该字符串的长度</li>
+<li>int indexOf(int ch ) 获取给定的字符‘？’，在该字符串中第一次出现的位置</li>
+<li>int indexOf(int ch,int fromIndex)从指定位置开始，获取给定的字符，在该字符</li>
+<li>int indexOf(String str)获取给定的字符串，在该字符串中第一次出现的位置</li>
+<li>int indexOf(String str,int fromIndex)从指定位置开始找该字符串中第一次出现的位置</li>
+<li>boolean matches(String regex)判断字符串是否匹配给定的规则</li>
+<li>String[] split(String regex)根据给定正则表达式的匹配规则，拆分此字符串</li>
+<li>String replaceAll(String regex,String replacement)将符合规则字符串全部替换为新字符串</li>
+<li>byte[] getBytes()把该字符串 转换成 字节数组//超级重要</li>
+<li>char[] toCharArray()把该字符串 转换成 字符数组//超级重要</li>
+<li>char charAt(int index)获取该字符串中指定位置上的字符</li>
+</ul>
+<h1 id="6-StringBuffer"><a href="#6-StringBuffer" class="headerlink" title="6. StringBuffer"></a>6. StringBuffer</h1><ul>
+<li>底层是char value[];支持可变的字符串是一个容器，容器中可以装很多字符串。能操作其中的字符串</li>
+<li>StringBuffer append(String str) 在原有字符串缓冲区内容基础上，在末尾追加新数据</li>
+<li>StringBuffer insert(int offset,String str)在指定位置插入新数据</li>
+<li>StringBuffer deleteCharAt(int index) 删除指定位置上的字符</li>
+<li>StringBuffer delete(int start,int end) 删除指定范围内的多个字符</li>
+<li>StringBuffer replace(int start,int end,String str)将指定范围内多个字符用新字符替换</li>
+<li>StringBuffer reverse() 将字符串缓冲区的内容 反转  “abc”—-“cba”</li>
+</ul>
+<h1 id="7-StringBuilder"><a href="#7-StringBuilder" class="headerlink" title="7. StringBuilder"></a>7. StringBuilder</h1><ul>
+<li>可变的字符序列，不同步，但是速度比StringBuffer 快</li>
+</ul>
+<h1 id="8-String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的"><a href="#8-String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的" class="headerlink" title="8. String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的"></a>8. String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的</h1><ul>
+<li>可变性<ul>
+<li>String类中使用字符数组保存字符串，private　final　char　value[]，不可变</li>
+<li>StringBuilder与StringBuffer都继承自AbstractStringBuilder类，也是使用字符数组保存字符串char[] value，这两种对象都是可变的</li>
+</ul>
+</li>
+<li>线程安全性<ul>
+<li>String中的对象是不可变的，也就可以理解为常量，线程安全。</li>
+<li>StringBuilder并没有对方法进行加同步锁，所以是非线程安全的。</li>
+<li>StringBuffer对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>每次对String 类型进行改变的时候，都会生成一个新的String对象，然后将指针指向新的String 对象。</li>
+<li>StringBuffer每次都会对StringBuffer对象本身进行操作，而不是生成新的对象并改变对象引用。</li>
+<li>相同情况下使用StirngBuilder 相比使用StringBuffer 仅能获得10%~15% 左右的性能提升，但却要冒多线程不安全的风险</li>
+</ul>
+</li>
+<li>选用<ul>
+<li>如果要操作少量的数据用 = String</li>
+<li>单线程操作字符串缓冲区 下操作大量数据 = StringBuilder</li>
+<li>多线程操作字符串缓冲区 下操作大量数据 = StringBuffer</li>
+</ul>
+</li>
+</ul>
+<h1 id="9-Date"><a href="#9-Date" class="headerlink" title="9. Date"></a>9. Date</h1><ul>
+<li>Date()系统当前日期时间，表示特定的瞬间，精确到毫秒</li>
+<li>Date(long date)1970年1月1日0点，加上date毫秒值对应的日期时间</li>
+<li>long getTime()返回自1970年1月1日00:00：GMT以来此Date对象表示的毫秒数                                                                                </li>
+</ul>
+<h1 id="10-DateFormat与语言环境无关的方式格式化并解析日期或时间的抽象类"><a href="#10-DateFormat与语言环境无关的方式格式化并解析日期或时间的抽象类" class="headerlink" title="10. DateFormat与语言环境无关的方式格式化并解析日期或时间的抽象类"></a>10. DateFormat与语言环境无关的方式格式化并解析日期或时间的抽象类</h1><h1 id="11-SimpleDateFormat"><a href="#11-SimpleDateFormat" class="headerlink" title="11. SimpleDateFormat"></a>11. SimpleDateFormat</h1><ul>
+<li>SimpleDateFormat()默认的格式化操作，可以字符串与Date对象相互转换</li>
+<li>SimpleDateFormat(String pattern)替换”yyyy-MM-dd-HH-mm-ss-SS”剩余内容原样输出</li>
+<li>String format(Date date) 把日期格式化成字符串</li>
+<li>Date parse(String source)将字符串转成日期</li>
+</ul>
+<h1 id="12-Calendar"><a href="#12-Calendar" class="headerlink" title="12. Calendar"></a>12. Calendar</h1><ul>
+<li>static Calendar getInstance();使用默认时区和语言环境获得一个日历</li>
+<li>abstract void add(int field,int amount)指定字段增加某值12345</li>
+<li>int get(int field)返回给定日历字段的值 field是指Calendar.YEAR/MONTH/DATE/HOUR/MINUTE/SECOND</li>
+<li>final void set(int field,int value)设置指定字段的值</li>
+<li>final Date getTime()获取该日历对象转成的日期对象</li>
+<li>西方星期的开始为周日，中国为周一</li>
+<li>日期是有大小关系的，时间靠后，时间越大</li>
+<li>在Calendar类中，月份的表示是以0-11代表1-12月</li>
+</ul>
+<h1 id="13-基本类型、String、包装类之间的转换"><a href="#13-基本类型、String、包装类之间的转换" class="headerlink" title="13. 基本类型、String、包装类之间的转换"></a>13. 基本类型、String、包装类之间的转换</h1><ul>
+<li>String-&gt;基本类型<ul>
+<li>包装类.parseXxxx(字符串);</li>
+<li>包装类.valueOf() 方法转换为基本类型的包装类，会自动拆箱</li>
+</ul>
+</li>
+<li>基本类型-&gt;String <ul>
+<li>34+””</li>
+<li>String.valueOf(基本类型);</li>
+<li>包装类.toString(基本类型);</li>
+</ul>
+</li>
+<li>基本类型-&gt;包装类<ul>
+<li>new 包装类(基本类型)(装箱)构造一个新分配的Integer对象表示指定的int值</li>
+<li>包装类.valueOf(基本类型)返回一个指定的Integer实例</li>
+</ul>
+</li>
+<li>包装类-&gt;基本类型<ul>
+<li>包装类.xxxValue()(拆箱)返回该包装类的基本数据类型</li>
+</ul>
+</li>
+<li>String-&gt;包装类<ul>
+<li>new 包装类(字符串)构造一个新分配的Integer对象，表示String参数指示的int值</li>
+<li>包装类.valueOf(字符串)返回一个指定的String值的Integer对象(拆箱)</li>
+</ul>
+</li>
+<li>包装类-&gt;String<ul>
+<li>包装类.toString();</li>
+</ul>
+</li>
+</ul>
+<h1 id="14-System"><a href="#14-System" class="headerlink" title="14. System"></a>14. System</h1><ul>
+<li>不能手动创建对象因为构造方法被private修饰，阻止外界创建对象</li>
+<li>long currentTimeMillis()当前系统时间与1970年01月01日00:00点的毫秒差值</li>
+<li>void exit(int status)用来结束正在运行的Java程序。0正常退出</li>
+<li>void gc()用来运行JVM中的垃圾回收器，完成内存中垃圾的清除</li>
+<li>String getProperty(String key)用来获取指系统属性信息（自己查表）</li>
+<li>从指定源数组中复制一个数组复制从指定位置开始到目标数组指定位置结束</li>
+<li>void arrarycopy(Object src,int srcPog,Object dest,int destPes,int length</li>
+</ul>
+<h1 id="15-Math"><a href="#15-Math" class="headerlink" title="15. Math"></a>15. Math</h1><ul>
+<li>Static double abs(double a)绝对值</li>
+<li>Static double ceil(double a)结果为比参数值大的最小整数的double值</li>
+<li>Static double floor(double a)结果为比参数值小的最大整数的double值</li>
+<li>Static double max(double a,double b)返回两个参数值中较大的值</li>
+<li>Static double min(double a,double b)返回两个参数值中较小的值</li>
+<li>Static double pow(double a,double b)返回第一个参数的第二个参数次幂的值</li>
+<li>Static double round(double a)参数值四舍五入的结果</li>
+<li>Static double random()产生一个大于等于0.0且小于1.0的double小数</li>
+</ul>
+<h1 id="16-Arrays"><a href="#16-Arrays" class="headerlink" title="16. Arrays"></a>16. Arrays</h1><ul>
+<li>Static void sort(int[] a)对指定数组中的元素进行排序（元素值从小到大进行排序）</li>
+<li>Static void binarySearch(int[] a,int key)在指定的有序数组中，返回元素的位置或-1</li>
+<li>Static String toString(int[] a)返回指定数组元素内容的字符串形式</li>
+</ul>
+<h1 id="17-Properties"><a href="#17-Properties" class="headerlink" title="17. Properties"></a>17. Properties</h1><ul>
+<li>持久的属性集。可保存在流中或从流中加载</li>
+<li>Hashtable的子类，键值都是字符串键值可以存储到集合或文件中,来源也可以是文件</li>
+<li>void load(InputStream in)把指定流所对应的文件中的数据读取并保存到Propertie集合中</li>
+<li>void load(Reader)按面向行的格式从输入字符流中读取属性列表（键和元素对）</li>
+<li>void store(OutputStream out,String commonts)commonts代表对描述信息，无实际意义</li>
+<li>void store(Writer writer,String comments);与load(Reader)方法对应</li>
+<li>Object setProperty(String key, String value)调用 Hashtable 的方法 put。</li>
+<li>String getProperty(String key)用指定的键在此属性列表中搜索属性</li>
+<li>Set<string> stringPropertyNames()返回此属性列表中的键集，</string></li>
+</ul>
+<h1 id="18-ResourceBundle"><a href="#18-ResourceBundle" class="headerlink" title="18. ResourceBundle"></a>18. ResourceBundle</h1><ul>
+<li>static ResourceBundle getBundle(String fileNmae)获得ResourceBundle对象</li>
+<li>getString(String key)获得properties文件中键对应的值</li>
+</ul>
+</div><div class="tags"><a href="/tags/api/">api</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/面向对象/">面向对象</a><a class="next" href="/2020/01/03/collection/">collection</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

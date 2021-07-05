@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>docker | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">docker</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">docker</h1><div class="post-meta">Nov 13, 2020<span> | </span><span class="category"><a href="/categories/部署/">部署</a></span></div><div class="post-content"><!-- TOC -->
+<ul>
+<li><a href="#1-docker概述">1. docker概述</a></li>
+<li><a href="#2-容器和虚拟机的比较">2. 容器和虚拟机的比较</a></li>
+<li><a href="#3-docker架构">3. docker架构</a></li>
+<li><a href="#4-docker使用">4. docker使用</a><ul>
+<li><a href="#41-docker镜像">4.1. docker镜像</a></li>
+<li><a href="#42-docker容器">4.2. docker容器</a></li>
+<li><a href="#43-docker仓库">4.3. docker仓库</a></li>
+<li><a href="#44-docker-file">4.4. docker file</a></li>
+<li><a href="#45-docker-compose">4.5. docker Compose</a></li>
+<li><a href="#46-docker-machine">4.6. Docker Machine</a></li>
+<li><a href="#47-docker-其他">4.7. docker 其他</a></li>
+<li><a href="#48-swarm集群">4.8. swarm集群</a></li>
+</ul>
+</li>
+<li><a href="#5-docker问题">5. docker问题</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-docker概述"><a href="#1-docker概述" class="headerlink" title="1. docker概述"></a>1. docker概述</h1><ul>
+<li>Docker是一个用于开发，发布和运行应用程序的开放平台，使用容器构建，运行和共享应用程序的平台</li>
+<li>通过容器实现快速打包，测试和部署程序、管理基础架构(快速交付)</li>
+<li>容器安全、轻量、可移植、松耦合、可扩展直接在内核运行(同一硬件上可运行多个容器)</li>
+<li>docker有独立的文件系统</li>
+<li>docker使用Go语言写的</li>
+</ul>
+<h1 id="2-容器和虚拟机的比较"><a href="#2-容器和虚拟机的比较" class="headerlink" title="2. 容器和虚拟机的比较"></a>2. 容器和虚拟机的比较</h1><img src="/2020/11/13/docker/2.png">
+<ul>
+<li>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</li>
+<li>虚拟机（VM）运行具有“虚拟机管理程序”对主机资源的虚拟访问权的成熟“来宾”操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销</li>
+</ul>
+<h1 id="3-docker架构"><a href="#3-docker架构" class="headerlink" title="3. docker架构"></a>3. docker架构</h1><img src="/2020/11/13/docker/1.svg">
+<ul>
+<li>Docker daemon(dockerd)<ul>
+<li>docker守护进程监听docker api请求并管理docker对象、还可以与其他守护进程通信以管理docker服务</li>
+</ul>
+</li>
+<li>Docker client:<ul>
+<li>docker客户端是与docker交互的重要方式，客户端会将命令发送到dockerd执行。docker客户端可以与多个dockerd通信</li>
+</ul>
+</li>
+<li>Docker registries:<ul>
+<li>docker注册表用于存储docker镜像；docker hub是公共的注册表类似maven，docker默认在docker hub查找镜像，也可以配置成自己的私人注册表</li>
+</ul>
+</li>
+<li>Docker objects:<ul>
+<li>images镜像：创建容器的模板，镜像通常基于其他镜像并进行一些自定义；可以自行创建镜像，也可以使用其他人在注册表中发布的镜像。</li>
+<li>containers容器<ul>
+<li>镜像的可运行实例，可以通过docker api创建、关闭、剪切或删除容器，甚至通过当前状态创建容器</li>
+<li>默认情况下容器与其他容器及其主机之间隔离性高，可以通过控制网络，存储或者其他基础子系统与其他容器或与主机的隔离程度。</li>
+<li>容器由镜像或者再创建启动时的配置所决定</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-docker使用"><a href="#4-docker使用" class="headerlink" title="4. docker使用"></a>4. docker使用</h1><h2 id="4-1-docker镜像"><a href="#4-1-docker镜像" class="headerlink" title="4.1. docker镜像"></a>4.1. docker镜像</h2><ul>
+<li>从私有REPOSITORY/docker hub载入镜像：docker pull REPOSITORY</li>
+<li>查询docker镜像列表：docker images</li>
+<li>在docker hub查询docker镜像：docker search REPOSITORY</li>
+<li>根据源代码和dockerfile构建镜像：<ul>
+<li>docker build –tag REPOSITORY:TAG .</li>
+<li>“.” Dockerfile 文件所在目录，表示上下文路径。可以指定Dockerfile 的绝对路径：把本机的指定目录下的文件一起打包提供给 docker 引擎使用</li>
+</ul>
+</li>
+<li>更新镜像<ul>
+<li>进入容器终端执行apt-get update更新，exit退出</li>
+<li>提交镜像到本地docker commit -m=”update” -a=”jun” CONTAINERID/NAME REPOSITORY[:TAG]</li>
+</ul>
+</li>
+<li>删除镜像docker rmi REPOSITORY</li>
+</ul>
+<h2 id="4-2-docker容器"><a href="#4-2-docker容器" class="headerlink" title="4.2. docker容器"></a>4.2. docker容器</h2><ul>
+<li>基于镜像创建/启动容器：docker run [OPTIONS] REPOSITORY[:TAG] [COMMAND] [ARG…]<ul>
+<li>[OPTIONS]<ul>
+<li>–name指定一个名称，在后续命令中可以使用该名称来引用容器</li>
+<li>-t 在新容器内指定一个伪终端或终端。与i同时使用，exit退出</li>
+<li>-i 允许你对容器内的标准输入 (STDIN) 进行交互。与t同时使用 exit退出</li>
+<li>-d detach 要求Docker在后台运行此容器（没有则是前台运行）<ul>
+<li>docker attach CONTAINERID/NAME 进入容器：exit停止容器</li>
+<li>docker exec -it CONTAINERID/NAME 进入容器：exit不会停止容器</li>
+</ul>
+</li>
+<li>-p publish指定容器内部端口绑定到指定的主机端口，也可以指定容器绑定的网络地址</li>
+<li>-P 容器内部端口随机映射到主机的高端口</li>
+<li>–network NETNAME容器连接网络
+  – docker 有一个连接系统允许将多个容器连接在一起，共享连接信息。docker 连接会创建一个父子关系，其中父容器可以看到子容器的信息<ul>
+<li>查看网络列表docker network ls</li>
+<li>新建网络：docker network create -d bridge NETNAME<ul>
+<li>d：参数指定 Docker 网络类型，有 bridge、overlay。其中 overlay 网络类型用于 Swarm mode</li>
+</ul>
+</li>
+<li>有多个容器之间需要互相连接，推荐使用 Docker Compose</li>
+</ul>
+</li>
+<li>–rm 容器退出时自动清理容器内部的文件系统。不能与-d同时使用，自动清理foreground容器，匿名data volumes，但不能自动清理detached容器</li>
+<li>-h或者–hostname 设定容器的主机名，它会被写到容器内的/etc/hostname和/etc/hosts。</li>
+<li>dns 添加DNS服务器到容器的/etc/resolv.conf(容器dns配置)中，让容器用这个服务器来解析所有不在/etc/hosts中的主机名</li>
+<li>dns-search 设定容器的搜索域，当设定搜索域为.example.com时，在搜索一个名为host的主机时，DNS不仅搜索 host，还会搜索host.example.com</li>
+<li>如果在容器启动时没有指定dns和dns-search，Docker会默认用宿主主机上的 /etc/resolv.conf 来配置容器的 </li>
+</ul>
+</li>
+<li>REPOSITORY[:TAG] 指定运行的镜像，如果本地主机不存在，Docker就会从镜像仓库Docker Hub下载公共镜像</li>
+<li>[COMMAND] [ARG…] 镜像名后的命令，在启动的容器里执行的命令<ul>
+<li>如/bin/sh -c “while true; do echo hello world; sleep 1; done”</li>
+<li>如/bin/echo “Hello world”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[强行]删除正在运行的容器docker rm [–force] CONTAINERID/NAME</li>
+<li>列出正在运行[所有]docker容器：docker ps [–all]</li>
+<li>查看最后一次创建的容器docker ps -l </li>
+<li>停止正在运行的容器docker stop CONTAINERID/NAME</li>
+<li>重启正在运行的容器docker restart CONTAINERID/NAME</li>
+<li>启动已经停止的容器docker start CONTAINERID/NAME</li>
+<li>查看容器内部的进程docker top CONTAINERID/NAME</li>
+<li>[滚动]查看容器日志docker logs [-f] CONTAINERID/NAME</li>
+<li>查看容器在属主机的端口docker port CONTAINERID/NAME</li>
+<li>查看docker底层信息docker inspect CONTAINERID/NAME</li>
+<li>指定路径导出容器：docker export CONTAINERID/NAME &gt; 相对/绝对路径文件名</li>
+<li>指定路径导入容器：docker import 相对/绝对路径文件名 [REPOSITORY][:TAG]</li>
+<li>配置docker的DNS：在宿主机的 /etc/docker/daemon.json 文件中增加以下内容来设置全部容器的DNS并重启docker<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;dns&quot; : [</span><br><span class="line">    &quot;114.114.114.114&quot;,</span><br><span class="line">    &quot;8.8.8.8&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="4-3-docker仓库"><a href="#4-3-docker仓库" class="headerlink" title="4.3. docker仓库"></a>4.3. docker仓库</h2><ul>
+<li>仓库（Repository）是集中存放镜像的地方，Docker 官方维护了一个公共仓库 Docker Hub</li>
+<li>查找官方仓库中的镜像docker search REPOSITORY</li>
+<li>将官方镜像下载到本地docker pull REPOSITORY</li>
+<li>提交到远程仓库docker hub<ul>
+<li>在 <a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a> 免费注册一个 Docker 账号docker id</li>
+<li>登录docker login（- 退出docker logout）</li>
+<li>将镜像指定为要提交到的dockerID/REGISTRYHOST(名字必须一样)：docker tag IMAGE:TAG dockerID/REGISTRYHOST[:TAG]</li>
+<li>将指定REGISTRYHOST提交到远程仓库：docker push dockerID/REGISTRYHOST[:TAG]</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-4-docker-file"><a href="#4-4-docker-file" class="headerlink" title="4.4. docker file"></a>4.4. docker file</h2><ul>
+<li>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</li>
+<li>Dockerfile指令每执行一次都会在docker上新建一层。所以过多无意义的层，会造成镜像膨胀过大。使用&amp;&amp;符号连接命令执行后只会创建1层镜像</li>
+<li>dockerfile指令<ul>
+<li>FROM 定制的镜像都是基于 FROM 的镜像</li>
+<li>RUN<ul>
+<li>用于执行后面跟着的命令行命令</li>
+<li>RUN &lt;命令行命令&gt; #shell 格式 等同于在终端操作的shell命令。</li>
+<li>RUN [“可执行文件”, “参数1”, “参数2”] #exec 格式 RUN [“./test.php”, “dev”, “offline”] 等价于 RUN ./test.php dev offline</li>
+</ul>
+</li>
+<li>COPY <ul>
+<li>从上下文目录中复制文件或者目录到容器里指定路径</li>
+<li>COPY [–chown=<user>:<group>] &lt;源路径1&gt;…  &lt;目标路径&gt;</group></user></li>
+<li>COPY [–chown=<user>:<group>] [“&lt;源路径1&gt;”,…  “&lt;目标路径&gt;”]</group></user></li>
+<li>[–chown=<user>:<group>]：可选参数，用户改变复制到容器内文件的拥有者和属组。</group></user></li>
+<li>&lt;源路径&gt;：源文件或者源目录，这里可以是通配符表达式，其通配符规则要满足 Go 的 filepath.Match 规则</li>
+<li>&lt;目标路径&gt;：容器内的指定路径，该路径不用事先建好，路径不存在的话，会自动创建</li>
+</ul>
+</li>
+<li>ADD  <ul>
+<li>和COPY的使用格式一致（同样需求下，官方推荐使用 COPY）</li>
+<li>ADD优点：在执行&lt;源文件&gt;为tar压缩文件的话，压缩格式为 gzip, bzip2以及xz情况下，会自动复制并解压到 &lt;目标路径&gt;</li>
+<li>ADD缺点：在不解压的前提下无法复制tar压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</li>
+</ul>
+</li>
+<li>CMD <ul>
+<li>用于运行程序，CMD 在docker run 时运行</li>
+<li>CMD [“<param1>“,”<param2>“,…]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数</param2></param1></li>
+<li>为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。可被docker run命令行参数中指定要运行的程序所覆盖</li>
+<li>如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效</li>
+</ul>
+</li>
+<li>ENTRYPOINT<ul>
+<li>类似于CMD指令，但不会被docker run的命令行参数指定的指令所覆盖.而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序</li>
+<li>ENTRYPOINT [“<executeable>“,”<param1>“,”<param2>“,…]</param2></param1></executeable></li>
+<li>如果运行docker run时使用–entrypoint选项，此选项的参数可当作要运行的程序覆盖ENTRYPOINT指令指定的程序</li>
+<li>如果 Dockerfile 中如果存在多个ENTRYPOINT指令，仅最后一个生效</li>
+</ul>
+</li>
+<li>ENV<ul>
+<li>设置环境变量，定义了环境变量，后续的指令中可以通过$key就可以使用这个环境变量</li>
+<li>ENV <key> <value></value></key></li>
+<li>ENV <key1>=<value1> <key2>=<value2>…</value2></key2></value1></key1></li>
+</ul>
+</li>
+<li>ARG<ul>
+<li>与 ENV 作用一至,ARG 设置的环境变量,只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量</li>
+<li>docker build可以用–build-arg &lt;参数名&gt;=&lt;值&gt;覆盖</li>
+<li>ARG &lt;参数名&gt;[=&lt;默认值&gt;]</li>
+</ul>
+</li>
+<li>VOLUME<ul>
+<li>定义匿名数据卷。在启动容器时忘记挂载数据卷，会自动挂载到匿名卷</li>
+<li>避免重要的数据，因容器重启而丢失。避免容器不断变大</li>
+<li>VOLUME [“&lt;路径1&gt;”, “&lt;路径2&gt;”…]</li>
+<li>VOLUME &lt;路径&gt;</li>
+</ul>
+</li>
+<li>EXPOSE<ul>
+<li>docker run -P 时，会自动随机映射 EXPOSE 的端口</li>
+<li>EXPOSE &lt;端口1&gt; [&lt;端口2&gt;…]</li>
+</ul>
+</li>
+<li>WORKDIR<ul>
+<li>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR必须是提前创建好的）。</li>
+<li>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在</li>
+<li>WORKDIR &lt;工作目录路径&gt;</li>
+</ul>
+</li>
+<li>USER<ul>
+<li>用于指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）</li>
+<li>USER &lt;用户名&gt;[:&lt;用户组&gt;]</li>
+</ul>
+</li>
+<li>HEALTHCHECK<ul>
+<li>用于指定某个程序或者指令来监控 docker 容器服务的运行状态。</li>
+<li>HEALTHCHECK [选项] CMD &lt;命令&gt;：设置检查容器健康状况的命令</li>
+<li>HEALTHCHECK NONE：如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令</li>
+<li>HEALTHCHECK [选项] CMD &lt;命令&gt; : 这边 CMD 后面跟随的命令使用，可以参考 CMD 的用法</li>
+</ul>
+</li>
+<li>ONBUILD<ul>
+<li>用于延迟构建命令的执行。</li>
+<li>ONBUILD命令，在本次构建镜像的过程中不会执行（假设镜像为 test-build）。当有新的Dockerfile使用了之前构建的镜像FROM test-build，这时执行新镜像的 Dockerfile 构建时候，会执行test-build的Dockerfile里的ONBUILD指定的命令</li>
+<li>ONBUILD &lt;其它指令&gt;<h2 id="4-5-docker-Compose"><a href="#4-5-docker-Compose" class="headerlink" title="4.5. docker Compose"></a>4.5. docker Compose</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Compose是用于定义和运行多容器 Docker 应用程序的工具。Compose使用命令从YML文件配置中创建并启动所有服务</li>
+<li>Compose 使用：<ul>
+<li>安装Compose</li>
+<li>使用 Dockerfile 定义应用程序的环境</li>
+<li>使用 docker-compose.yml 定义构成应用程序的服务，这样它们可以在隔离环境中一起运行。</li>
+<li>执行 docker-compose up [-d]命令来启动并[后台]运行整个应用程序</li>
+</ul>
+</li>
+<li>yml配置<ul>
+<li>version 指定本 yml 依从的 compose 哪个版本制定的。</li>
+<li>service<ul>
+<li>webapp webapp服务<ul>
+<li>build 指定为构建镜像上下文路径<ul>
+<li>context：上下文路径。</li>
+<li>dockerfile：指定构建镜像的 Dockerfile 文件名。</li>
+<li>args：添加构建参数，这是只能在构建过程中访问的环境变量。</li>
+<li>labels：设置构建镜像的标签。</li>
+<li>target：多层构建，可以指定构建哪一层</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cap_add，cap_drop添加或删除容器拥有的宿主机的内核功能ALL全部权限 SYS_PTRACE ptrace权限</li>
+<li>cgroup_parent 为容器指定父 cgroup 组，意味着将继承该组的资源限制</li>
+<li>command 覆盖容器启动的默认命令</li>
+<li>container_name 指定自定义容器名称，而不是生成的默认名称</li>
+</ul>
+</li>
+<li><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">https://docs.docker.com/compose/compose-file/</a><h2 id="4-6-Docker-Machine"><a href="#4-6-Docker-Machine" class="headerlink" title="4.6. Docker Machine"></a>4.6. Docker Machine</h2></li>
+<li>Docker Machine是在虚拟主机上安装Docker的工具，并可以使用docker-machine命令来管理主机,也可以集中管理所有的 docker 主机</li>
+<li>Docker Machine管理的虚拟主机可以是机上的，也可以是云供应商</li>
+<li>安装 Docker Machine 之前你需要先安装 Docker</li>
+<li>Docker Machine指令<ul>
+<li>查看版本docker-machine version</li>
+<li>列出可用的机器docker-machine ls</li>
+<li>创建机器docker-machine create –driver virtualbox MACHINENAME #driver：指定用来创建机器的驱动类型，这里是 virtualbox</li>
+<li>查看机器的 ipdocker-machine ip MACHINENAME</li>
+<li>停止机器 docker-machine stop MACHINENAME</li>
+<li>启动机器 docker-machine start MACHINENAME</li>
+<li>进入机器 docker-machine ssh MACHINENAME</li>
+<li>查看当前激活状态的Docker主机 docker-machine active<ul>
+<li>config：查看当前激活状态 Docker 主机的连接信息。</li>
+<li>creat：创建 Docker 主机</li>
+<li>env：显示连接到某个主机需要的环境变量</li>
+<li>inspect： 以 json 格式输出指定Docker的详细信息</li>
+<li>ip： 获取指定 Docker 主机的地址</li>
+<li>kill： 直接杀死指定的 Docker 主机</li>
+<li>ls： 列出所有的管理主机</li>
+<li>provision： 重新配置指定主机</li>
+<li>regenerate-certs： 为某个主机重新生成 TLS 信息</li>
+<li>restart： 重启指定的主机</li>
+<li>rm： 删除某台 Docker 主机，对应的虚拟机也会被删除</li>
+<li>ssh： 通过 SSH 连接到主机上，执行命令</li>
+<li>scp： 在 Docker 主机之间以及 Docker 主机和本地主机之间通过 scp 远程复制数据</li>
+<li>mount： 使用 SSHFS 从计算机装载或卸载目录</li>
+<li>start： 启动一个指定的 Docker 主机，如果对象是个虚拟机，该虚拟机将被启动</li>
+<li>status： 获取指定 Docker 主机的状态(包括：Running、Paused、Saved、Stopped、Stopping、Starting、Error)等</li>
+<li>stop： 停止一个指定的 Docker 主机</li>
+<li>upgrade： 将一个指定主机的 Docker 版本更新为最新</li>
+<li>url： 获取指定 Docker 主机的监听 URL</li>
+<li>version： 显示 Docker Machine 的版本或者主机 Docker 版本</li>
+<li>help： 显示帮助信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-7-docker-其他"><a href="#4-7-docker-其他" class="headerlink" title="4.7. docker 其他"></a>4.7. docker 其他</h2><ul>
+<li>查看docker客户端的所有命令COMMAND选项：docker</li>
+<li>查看docker指定命令的使用方法：docker COMMAND –help</li>
+<li>检查docker的版本：docker -v</li>
+</ul>
+<h2 id="4-8-swarm集群"><a href="#4-8-swarm集群" class="headerlink" title="4.8. swarm集群"></a>4.8. swarm集群</h2><h1 id="5-docker问题"><a href="#5-docker问题" class="headerlink" title="5. docker问题"></a>5. docker问题</h1><ul>
+<li>the input device is not a TTY.  If you are using mintty, try prefixing the command with ‘winpty’<ul>
+<li>windows cmd权限不足，以管理员运行即可</li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/docker/">docker</a></div><div class="post-nav"><a class="pre" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a><a class="next" href="/2020/10/26/spring源码/">spring源码</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

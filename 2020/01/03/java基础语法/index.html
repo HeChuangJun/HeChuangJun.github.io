@@ -1,18 +1,54 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>java基础语法 | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">java基础语法</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">java基础语法</h1><div class="post-meta">Jan 3, 2020<span> | </span><span class="category"><a href="/categories/java/">java</a></span></div><div class="post-content"><a id="more"></a>
-<h1 id="java开发环境的搭建"><a href="#java开发环境的搭建" class="headerlink" title="java开发环境的搭建"></a>java开发环境的搭建</h1><h2 id="java概述"><a href="#java概述" class="headerlink" title="java概述"></a>java概述</h2><ul>
-<li>java是用来编写互联网(电商、P2P)和企业级应用(ERP、CRM、BOS、OA)等软件的一门编程语言</li>
-<li>java跨平台（操作系统 （Windows，Linux，Mac））特性</li>
-<li>java程序可以在任意操作系统上运行，一次编写到处运行</li>
-<li>实现跨平台需要依赖java的虚拟机JVM（java Virtual Machine）</li>
+<!-- TOC -->
+<ul>
+<li><a href="#1-java开发环境的搭建">1. java开发环境的搭建</a><ul>
+<li><a href="#11-java概述">1.1. java概述</a></li>
+<li><a href="#12-helloworld程序">1.2. HelloWorld程序</a></li>
+<li><a href="#13-配置java环境变量减少输入jdk的bin目录的麻烦">1.3. 配置java环境变量（减少输入JDK的bin目录的麻烦）</a></li>
+<li><a href="#14-注释关键字与标识符">1.4. 注释、关键字与标识符</a></li>
+</ul>
+</li>
+<li><a href="#2-数据类型分类基本数据类型和引用数据类型">2. 数据类型分类：基本数据类型和引用数据类型</a><ul>
+<li><a href="#21-直接常量">2.1. 直接常量</a></li>
+</ul>
+</li>
+<li><a href="#3-原码反码补码看计算机组成原理">3. 原码、反码、补码（看计算机组成原理）</a></li>
+<li><a href="#4-变量">4. 变量</a></li>
+<li><a href="#5-运算符">5. 运算符</a></li>
+<li><a href="#6-流程控制">6. 流程控制</a><ul>
+<li><a href="#61-顺序结构">6.1. 顺序结构</a></li>
+<li><a href="#62-选择结构">6.2. 选择结构</a></li>
+<li><a href="#63-循环结构迭代">6.3. 循环结构（迭代）</a></li>
+<li><a href="#64-跳转语句">6.4. 跳转语句</a></li>
+</ul>
+</li>
+<li><a href="#7-数组长度固定数组中存储的元素的数据类型要求一致">7. 数组（长度固定，数组中存储的元素的数据类型要求一致）</a></li>
+<li><a href="#可变参数object-args">可变参数：(Object… args)</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-java开发环境的搭建"><a href="#1-java开发环境的搭建" class="headerlink" title="1. java开发环境的搭建"></a>1. java开发环境的搭建</h1><h2 id="1-1-java概述"><a href="#1-1-java概述" class="headerlink" title="1.1. java概述"></a>1.1. java概述</h2><ul>
+<li>java是用来编写互联网(电商、P2P)和企业级应用(ERP、CRM、BOS、OA)等软件的一门面向对象编程语言</li>
+<li>java跨平台(操作系统:Windows\Linux\Mac)特性:一次编写后在任意操作系统上运行，依赖虚拟机JVM（java Virtual Machine）实现</li>
 <li>java开发环境概述（java程序运行需要的环境）<ul>
 <li>JDK：java Development Kit，程序员的电脑上安装JDK；JDK包含JRE</li>
 <li>JRE：java Runtime Environment，java运行环境，用户在电脑上安装JRE即可</li>
 </ul>
 </li>
+<li>Java语言采用Unicode编码标准，Unicode（标准码），它为每个字符制订了一个唯一的数值</li>
+<li>jdk1.5之后的三大版本<ul>
+<li>Java SE（J2SE，Java 2 Platform Standard Edition，标准版）桌面、服务器、嵌入式环境</li>
+<li>Java EE（J2EE，Java 2 Platform Enterprise Edition，企业版）提供 Web 服务、组件模型、管理和通信 API</li>
+<li>Java ME（J2ME，Java 2 Platform Micro Edition，微型版）移动设备和嵌入式设备</li>
 </ul>
-<h2 id="HelloWorld程序"><a href="#HelloWorld程序" class="headerlink" title="HelloWorld程序"></a>HelloWorld程序</h2><ul>
+</li>
+<li>程序运行过程<ul>
+<li>java源代码-&gt;编译器-&gt;jvm可执行的java字节码(即虚拟指令)-&gt;jvm-&gt;jvm中解析器-&gt;机器可执行的二进制机器码-&gt;程序运行</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-HelloWorld程序"><a href="#1-2-HelloWorld程序" class="headerlink" title="1.2. HelloWorld程序"></a>1.2. HelloWorld程序</h2><ul>
 <li>编写java源代码文件:用记事本新建文件并命名为HelloWorld.java（类名必须与源文件名称完全相同(扩展名为.java)）</li>
-<li>编译：通过编译器把源文件编译成字节码文件(扩展名为.class)<ul>
+<li>编译：通过jvm编译器把源文件编译成字节码文件(扩展名为.class)<ul>
 <li>编译器：JDK目录下的bin目录javac.exe</li>
 <li>编译命令为：D:\develop\java\jdk1.7.0_72\bin\javac.exe D:\java\HelloWorld.java</li>
 <li>编译之后会在源文件同目录下生成字节码文件，字节码文件的扩展名为.class</li>
@@ -23,9 +59,17 @@
 <li>D:\develop\java\jdk1.7.0_72\bin\java.exe HelloWord 在运行HelloWorld.class文件时不能给出“.class”，切记！！！</li>
 </ul>
 </li>
+<li>解释器运行过程：<ul>
+<li>查找classpath下面的所有的class文件，从根目录开始，解释器获取包的名称并将每个句点替换成反斜杠，以从classpath根中产生路径名称，得到的路径会与classpath中的各个不同的项相连接，解释器就在这些目录中查找与你所要创建的类名称相关的.class文件</li>
+</ul>
+</li>
+<li>查看字节码文件<ul>
+<li>D:\develop\java\jdk1.7.0_72\bin\javap.exe –c HelloWord 在运行HelloWorld.class文件时不能给出“.class”，切记！！！</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class HelloWorld &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(&quot;HelloWorld&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置java环境变量（减少输入JDK的bin目录的麻烦）"><a href="#配置java环境变量（减少输入JDK的bin目录的麻烦）" class="headerlink" title="配置java环境变量（减少输入JDK的bin目录的麻烦）"></a>配置java环境变量（减少输入JDK的bin目录的麻烦）</h2><ul>
+<h2 id="1-3-配置java环境变量（减少输入JDK的bin目录的麻烦）"><a href="#1-3-配置java环境变量（减少输入JDK的bin目录的麻烦）" class="headerlink" title="1.3. 配置java环境变量（减少输入JDK的bin目录的麻烦）"></a>1.3. 配置java环境变量（减少输入JDK的bin目录的麻烦）</h2><ul>
 <li>在DOS控制台中使用的程序只给出程序名称，而没有给出完整路径时，Windows系统会到Path变量保存的路径中查找程序<ul>
 <li>鼠标右键点击计算机→属性→高级系统设置→环境变量→系统变量中的Path→编辑，将JDK安装目录\bin路径配置到PATH变量中，用英文分号与其他变量隔开</li>
 <li>编译：D:/java/&gt;javac HelloWorld.java</li>
@@ -33,7 +77,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="注释、关键字与标识符"><a href="#注释、关键字与标识符" class="headerlink" title="注释、关键字与标识符"></a>注释、关键字与标识符</h2><table>
+<h2 id="1-4-注释、关键字与标识符"><a href="#1-4-注释、关键字与标识符" class="headerlink" title="1.4. 注释、关键字与标识符"></a>1.4. 注释、关键字与标识符</h2><table>
 <thead>
 <tr>
 <th style="text-align:center">类别</th>
@@ -84,7 +128,10 @@
 </tr>
 </tbody>
 </table>
-<h1 id="数据类型分类：基本数据类型和引用数据类型"><a href="#数据类型分类：基本数据类型和引用数据类型" class="headerlink" title="数据类型分类：基本数据类型和引用数据类型"></a>数据类型分类：基本数据类型和引用数据类型</h1><table>
+<ul>
+<li>查看注释文档 D:\develop\java\jdk1.7.0_72\bin\javadoc.exe –c HelloWord.java<h1 id="2-数据类型分类：基本数据类型和引用数据类型"><a href="#2-数据类型分类：基本数据类型和引用数据类型" class="headerlink" title="2. 数据类型分类：基本数据类型和引用数据类型"></a>2. 数据类型分类：基本数据类型和引用数据类型</h1></li>
+</ul>
+<table>
 <thead>
 <tr>
 <th style="text-align:center">基本数据类型</th>
@@ -108,7 +155,7 @@
 <td style="text-align:center"></td>
 <td style="text-align:center">short</td>
 <td style="text-align:center">2</td>
-<td style="text-align:center">-2^15～2^15</td>
+<td style="text-align:center">-2^15～2^15-1</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">Short</td>
 </tr>
@@ -132,7 +179,7 @@
 <td style="text-align:center">浮点型</td>
 <td style="text-align:center">float</td>
 <td style="text-align:center">4</td>
-<td style="text-align:center">-3.403E38～3.403E38 128次方～127次方+F 7位有效数字</td>
+<td style="text-align:center">-3.403E38～3.403E38 E科学计数10^38 128-127次方+F 7位有效数字</td>
 <td style="text-align:center">0.0</td>
 <td style="text-align:center">Float</td>
 </tr>
@@ -140,7 +187,7 @@
 <td style="text-align:center"></td>
 <td style="text-align:center">double</td>
 <td style="text-align:center">8</td>
-<td style="text-align:center">-1.798E308～1.798E308 1024次方～1023次方+D 16位~</td>
+<td style="text-align:center">-1.798E308～1.798E308 E科学计数10^308 1024-1023次方+D 16位~</td>
 <td style="text-align:center">0.0</td>
 <td style="text-align:center">Double</td>
 </tr>
@@ -164,7 +211,7 @@
 <td style="text-align:center">引用数据类型</td>
 <td style="text-align:center">数组、类、接口</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">null，表示变量不引用任何对象</td>
+<td style="text-align:center">null，表示变量不引用任何对象，String是对象</td>
 </tr>
 </tbody>
 </table>
@@ -174,15 +221,30 @@
 <li>范围大的数据类型值（如int），不可以直接转换为范围小的数据类型值（如byte）</li>
 <li>多种类型数据混合运算时，系统自动将所有数据转换成容量最大的那一种数据类型再计算</li>
 <li>数据类型转换（布尔值除外）不同类型的变量可以在一起运算，但要先进行类型转换再运算<ul>
-<li>自动类型转换:范围小的数据类型转换成范围大的数据类型 格式:范围大的数据类型 变量 = 范围小的数据类型值</li>
-<li>强制类型转换:范围大的数据类型转换成范围小的数据类型 格式:范围小的数据类型 变量 = (范围小的数据类型) 范围大的数据类型值</li>
+<li>自动类型转换:范围小的数据类型转换成范围大的数据类型 格式:范围大的数据类型 变量 = 范围小的数据类型值<ul>
+<li>当数据类型超过范围小的数据类型，或者执行算术运算或者按位运算时，类型比int小时，这些值会自动转换成int，结果也是int</li>
+<li>float和double值相乘，结果是double，int与long相加结果为long</li>
+</ul>
+</li>
+<li>强制类型转换:范围大的数据类型转换成范围小的数据类型 格式:范围小的数据类型 变量 = (范围小的数据类型) 范围大的数据类型值，<ul>
+<li>强制类型转换会发生截断，即直接丢弃末尾的数字，如0.3-&gt;0可能信息丢失，可以使用Match.round</li>
+<li><strong>Math.round(11.5) \Math.round(-11.5)等于多少？Math.round(11.5)=12，Math.round(-11.5)=-11。四舍五入的原理是在参数上加 0.5 然后进行下取整</strong></li>
 </ul>
 </li>
 </ul>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><table>
+</li>
+<li>在数据类型溢出时。会出现i&lt;i+1;(面试题)                                                                    </li>
+<li>基本数据类型存储在堆栈中，对象存储在堆中</li>
+<li>BigInteger任意精度的整数</li>
+<li>BigDecimal任何精度的定点数-&gt;货币</li>
+<li>成员变量时上述数据类型才有默认值，局部变量没有</li>
+<li>Integer i=1与Integer j=1是”==”的</li>
+<li>任何包装Integer与int i=1都是”==”的</li>
+</ul>
+<h2 id="2-1-直接常量"><a href="#2-1-直接常量" class="headerlink" title="2.1. 直接常量"></a>2.1. 直接常量</h2><table>
 <thead>
 <tr>
-<th style="text-align:center">常量(不变的数据量)数据类型</th>
+<th style="text-align:center">直接常量(不变的数据量)数据类型</th>
 <th style="text-align:center">举例（字符均指汉字数字和字母）</th>
 </tr>
 </thead>
@@ -216,20 +278,16 @@
 <td style="text-align:center">整数常量根据所在范围来确定类型、默认的整数类型是int类型</td>
 </tr>
 <tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">添加了“L”后缀的整数常量都是long类型</td>
+</tr>
+<tr>
 <td style="text-align:center">浮点类型</td>
 <td style="text-align:center">1.0、-3.15、3.168等</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">不在int范围内的常量必须添加“L”后缀（小写的也可以，建议大写）</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">在int范围内的常量也可以添加“L”后缀。添加了“L”后缀的整数常量都是long类型</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">所有无后缀以及使用“D”后缀的小数都是double类型</td>
+<td style="text-align:center">无后缀以及使用“D”后缀的小数都是double类型(默认的浮点类型)</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
@@ -249,20 +307,24 @@
 </tr>
 </tbody>
 </table>
-<ul>
+<h1 id="3-原码、反码、补码（看计算机组成原理）"><a href="#3-原码、反码、补码（看计算机组成原理）" class="headerlink" title="3. 原码、反码、补码（看计算机组成原理）"></a>3. 原码、反码、补码（看计算机组成原理）</h1><ul>
 <li>原码：二进制数的有符号表示法，即最高位为符号位，</li>
 <li>反码：A：正数 与原码相同B：负数 符号位不变，数值位按位取反，0变1,1变0</li>
 <li>补码：A：正数 与原码相同B：负数 反码加1。</li>
 </ul>
-<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><ul>
+<h1 id="4-变量"><a href="#4-变量" class="headerlink" title="4. 变量"></a>4. 变量</h1><ul>
 <li>变量:内存中装载数据的小盒子，用来存数据和取数据</li>
 <li>定义变量：数据类型  变量名  =  数据值；</li>
 <li>变量定义后可以不赋值，使用时再赋值。不赋值不能使用</li>
 <li>变量不可以重复定义</li>
 <li>变量使用时有作用域的限制                        </li>
 </ul>
-<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
+<h1 id="5-运算符"><a href="#5-运算符" class="headerlink" title="5. 运算符"></a>5. 运算符</h1><ul>
 <li>运算符是用来计算数据的符号。数据为常量或变量。被运算符操作的数我们称为操作数。</li>
+<li>String与其他基本数据类型相加，会将其他类型转换为String再拼接</li>
+<li><strong>用最有效率的方法计算 2 乘以 8？ 2 &lt;&lt; 3（左移 3 位相当于乘以 2 的 3 次方，右移 3 位相当于除以 2 的 3 次方）</strong></li>
+<li>如果对char、byte、short类型进行移位处理，那么在移位进行之前，会先转成int，结果也是int。</li>
+<li>int只有数值右端的低5位有效，防止溢出，因为2的5次方为32，int类型只有32位，同理，long只有6位</li>
 </ul>
 <table>
 <thead>
@@ -316,12 +378,12 @@
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">==</td>
-<td>比较左右基本数字类型的变量值或者对象的内存地址是否相等</td>
+<td>比较左右基本数字类型的变量值或者引用数据类型的变量的内存地址是否相等</td>
 </tr>
 <tr>
 <td style="text-align:center">逻辑运算符</td>
 <td style="text-align:center">&amp;(与)、&#166;(或)、</td>
-<td>连接两个其他表达式计算后的布尔值结果</td>
+<td>连接两个其他表达式计算后的布尔值结果，并求出布尔值结果</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
@@ -359,7 +421,7 @@
 <td>int n = (3&gt;2 &amp;&amp; 4&gt;6) ? 100 : 200;</td>
 </tr>
 <tr>
-<td style="text-align:center">位运算符</td>
+<td style="text-align:center">按位操作符</td>
 <td style="text-align:center">&amp;(按位与)</td>
 <td>仅当两个操作数都为1时。输出结果才为1。否则为0</td>
 </tr>
@@ -370,28 +432,28 @@
 </tr>
 <tr>
 <td style="text-align:center"></td>
+<td style="text-align:center">~(取反)</td>
+<td>将各位数字取反：全部的0置为1，1置为0</td>
+</tr>
+<tr>
+<td style="text-align:center">移位操作符</td>
 <td style="text-align:center">^(异或)</td>
 <td>仅当两个操作数不同一时候。对应的输出结果才为1，否则为0</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">~(取反)</td>
-<td>将各位数字取反：全部的0置为1，1置为0</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
 <td style="text-align:center">&lt;&lt;</td>
-<td>左移就是把一个数的全部位数都向左移动若干位</td>
+<td>左移就是把一个数的全部位数都向左移动若干位，低位补0，乘以2的n次幂</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">&gt;&gt;</td>
-<td>右移就是把一个数的全部位数都向右移动若干位</td>
+<td>右移就是把一个数的全部位数都向右移动若干位，若正数，高位插入0，否则插入1，除以2的n次幂</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center">&gt;&gt;&gt;</td>
-<td>无符号右移一位。不足的补0</td>
+<td>无符号右移一位。无论正负都在高位插入0</td>
 </tr>
 </tbody>
 </table>
@@ -474,7 +536,7 @@
 </tr>
 </tbody>
 </table>
-<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><ul>
+<h1 id="6-流程控制"><a href="#6-流程控制" class="headerlink" title="6. 流程控制"></a>6. 流程控制</h1><h2 id="6-1-顺序结构"><a href="#6-1-顺序结构" class="headerlink" title="6.1. 顺序结构"></a>6.1. 顺序结构</h2><h2 id="6-2-选择结构"><a href="#6-2-选择结构" class="headerlink" title="6.2. 选择结构"></a>6.2. 选择结构</h2><ul>
 <li>选择结构if</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">if语句判断条件是一个布尔值，当判断条件为true时，&#123;&#125;中的执行语句才会执行</span><br><span class="line">	if (条件语句)&#123; </span><br><span class="line">		执行语句;</span><br><span class="line">		……</span><br><span class="line">	&#125;</span><br><span class="line">if…else语句指如果判断条件为true时，就进行某种处理，否则就进行另一种处理</span><br><span class="line">	if (判断条件)&#123;</span><br><span class="line">		执行语句1</span><br><span class="line">		……</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		执行语句2</span><br><span class="line">		……</span><br><span class="line">	&#125;//与三元运算符功能相似</span><br><span class="line">if…else if…else语句所有条件均未满足，else后面&#123;&#125;中的执行语句n+1会执行</span><br><span class="line">	if (判断条件1) &#123;</span><br><span class="line">		执行语句1</span><br><span class="line">	&#125; else if (判断条件2) &#123;</span><br><span class="line">		执行语句2</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	else if (判断条件n) &#123;</span><br><span class="line">		执行语句n</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		执行语句n+1</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -482,7 +544,7 @@
 <li>选择结构switch：if…else if…else语句来实现，但是由于判断条件比较多，实现起来代码过长，不便于阅读</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch (表达式)&#123;//表达式的值为byte、short、int、char、enum枚举、String</span><br><span class="line">case 目标值1:</span><br><span class="line">	执行语句1</span><br><span class="line">	break;</span><br><span class="line">case 目标值2:</span><br><span class="line">case 目标值3:</span><br><span class="line">	执行语句2//多个条件满足</span><br><span class="line">	break;</span><br><span class="line">．．．．．．</span><br><span class="line">case 目标值n:</span><br><span class="line">	执行语句n</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	执行语句n+1</span><br><span class="line">	break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><ul>
+<h2 id="6-3-循环结构（迭代）"><a href="#6-3-循环结构（迭代）" class="headerlink" title="6.3. 循环结构（迭代）"></a>6.3. 循环结构（迭代）</h2><ul>
 <li>循环语句while：反复进行条件判断，条件成立，{}内的执行语句就会执行，直到条件不成立，while循环结束</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(循环条件表达式)&#123;//循环体</span><br><span class="line">	执行语句...</span><br><span class="line">	控制条件表达式;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -493,26 +555,25 @@
 <ul>
 <li>循环语句for：一般用在循环次数已知的情况下</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for（初始化表达式; 循环条件; 操作表达式）&#123;//1243243</span><br><span class="line">	执行语句</span><br><span class="line">	………</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for（初始化表达式; 循环条件; 操作表达式）&#123;//1243243</span><br><span class="line">	执行语句</span><br><span class="line">	………</span><br><span class="line">&#125;</span><br><span class="line">for(数据类型 变量名 : 遍历的变量)&#123;</span><br><span class="line">	执行语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>无限循环:while(true){} 或for(;;){} ：无限循环存在的原因是并不知道循环多少次，而是根据某些条件，来控制循环</li>
 <li>循环嵌套:在一个循环语句的循环体中再定义一个循环语句的语法结构</li>
 </ul>
-<h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><ul>
+<h2 id="6-4-跳转语句"><a href="#6-4-跳转语句" class="headerlink" title="6.4. 跳转语句"></a>6.4. 跳转语句</h2><ul>
 <li>break语句<ul>
 <li>在switch条件语句中时，终止某个case并跳出switch结构</li>
 <li>在循环语句中，作跳出本层循环语句，执行后面的代码</li>
 <li>标记：当break语句出现在嵌套循环中的内层循环时，它只能跳出内层循环，</li>
-<li>如果想使用break语句跳出外层循环则需要对外层循环添加   标记XXX：然后break XXX</li>
+<li>如果想使用break语句结束嵌套循环则需要对外层循环添加标签（后面跟有冒号的标识符） XXX：然后break XXX</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class BreakDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int i, j; // 定义两个循环变量</span><br><span class="line">		itcast: for (i = 1; i &lt;= 9; i++) &#123; // 外层循环</span><br><span class="line">			for (j = 1; j &lt;= i; j++) &#123; // 内层循环</span><br><span class="line">				if (i &gt; 4) &#123; // 判断i的值是否大于4</span><br><span class="line">					break itcast; // 跳出外层循环</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.print(&quot;*&quot;); // 打印*</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(&quot;\n&quot;); // 换行</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;//只打印了4个*</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    ok:</span><br><span class="line">    for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        for (int j = 0; j &lt; 10; j++) &#123;</span><br><span class="line">            System.out.println(&quot;i=&quot; + i + &quot;,j=&quot; + j);</span><br><span class="line">            if (j == 5) &#123;</span><br><span class="line">                break ok;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>continue语句：终止本次循环，执行下一次循环</li>
-<li>continue语句后面也可以通过使用标记的方式结束本次外层循环，用法与break语句相似</li>
+<li>continue语句：终止本次循环，执行下一次循环；可以通过使用标记的方式结束本次嵌套循环，用法与break语句相似</li>
 </ul>
-<h1 id="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"><a href="#数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）" class="headerlink" title="数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）"></a>数组（数组长度是固定的，数组中存储的元素的数据类型要求一致）</h1><table>
+<h1 id="7-数组（长度固定，数组中存储的元素的数据类型要求一致）"><a href="#7-数组（长度固定，数组中存储的元素的数据类型要求一致）" class="headerlink" title="7. 数组（长度固定，数组中存储的元素的数据类型要求一致）"></a>7. 数组（长度固定，数组中存储的元素的数据类型要求一致）</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">分类</th>
@@ -598,4 +659,4 @@
 </tr>
 </tbody>
 </table>
-</div><div class="tags"><a href="/tags/java基础语法/">java基础语法</a></div><div class="post-nav"><a class="pre" href="/2020/01/04/ehcahe/">ehcache</a><a class="next" href="/2020/01/03/正则表达式/">正则表达式</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<h1 id="可变参数：-Object…-args"><a href="#可变参数：-Object…-args" class="headerlink" title="可变参数：(Object… args)"></a>可变参数：(Object… args)</h1></div><div class="tags"><a href="/tags/java基础语法/">java基础语法</a></div><div class="post-nav"><a class="pre" href="/2020/01/04/ehcahe/">ehcache</a><a class="next" href="/2020/01/03/面向对象/">面向对象</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

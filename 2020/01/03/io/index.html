@@ -5,7 +5,7 @@
 <li><a href="#jump2">IO的继承体系</a><ul>
 <li><a href="#jump201">java.lang.Object</a>所有java类的超类<ul>
 <li><a href="#jump202">java.io.File</a></li>
-<li><a href="#jump203">java.io.OutputStream</a><ul>
+<li><a href="#jump203">java.io.OutputStream字节输出流的基类</a><ul>
 <li><a href="#jump204">java.io.FlieOutputStream</a></li>
 <li><a href="#jump205">java.io.ObjectOutputStream</a></li>
 <li><a href="#jump206">java.io.FilterOutputStream</a><ul>
@@ -15,7 +15,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#jump209">java.io.InputStream</a><ul>
+<li><a href="#jump209">java.io.InputStream字节输入流的基类</a><ul>
 <li><a href="#jump210">java.io.FileInputStream</a></li>
 <li><a href="#jump211">java.io.ObjectInputStream</a></li>
 <li><a href="#jump212">java.io.FilterInputStream</a><ul>
@@ -24,7 +24,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#jump214">java.io.Writer</a><ul>
+<li><a href="#jump214">java.io.Writer字符输出流的基类</a><ul>
 <li><a href="#jump215">java.io.BufferedWriter</a></li>
 <li><a href="#jump216">java.io.PrintWriter</a></li>
 <li><a href="#jump217">java.io.OutputStreamWriter</a><ul>
@@ -33,7 +33,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#jump219">java.io.Reader</a><ul>
+<li><a href="#jump219">java.io.Reader字符输入流的基类</a><ul>
 <li><a href="#jump220">java.io.BufferedReader</a></li>
 <li><a href="#jump221">java.io.InputStreamReader</a><ul>
 <li><a href="#jump222">java.io.FileReader</a></li>
@@ -46,11 +46,11 @@
 </ul>
 </li>
 <li><a href="#jump3">flush()和close()的区别？</a></li>
-<li><a href="#jump4">java.util.ResourceBundle</a></li>
 <li><a href="#jump5">递归</a></li>
 <li><a href="#jump6">文件复制</a></li>
 <li><a href="#jump7">路径的分类</a></li>
 <li><a href="#jump8">字符流与字节流的区别</a></li>
+<li><a href="#jump9">BIO,NIO,AIO区别</a></li>
 </ul>
 <h3 id="IO概述"><a href="#IO概述" class="headerlink" title="IO概述"></a><span id="jump1">IO概述</span></h3><ul>
 <li>IO就是将内存中的数据持久化存储到持久化设备上，使用的时候从持久化设备上读入内存</li>
@@ -60,8 +60,7 @@
 </li>
 <li>IOExcption异常</li>
 </ul>
-<h3 id="IO的继承体系"><a href="#IO的继承体系" class="headerlink" title="IO的继承体系"></a><span id="jump2">IO的继承体系</span></h3><h3 id="java-io-File"><a href="#java-io-File" class="headerlink" title="java.io.File"></a><span id="jump202">java.io.File</span></h3><ul>
-<li>Java中把文件或者目录（文件夹）都封装成File对象</li>
+<h3 id="IO的继承体系"><a href="#IO的继承体系" class="headerlink" title="IO的继承体系"></a><span id="jump2">IO的继承体系</span></h3><h3 id="java-io-File：Java中把文件或者目录（文件夹）都封装成File对象"><a href="#java-io-File：Java中把文件或者目录（文件夹）都封装成File对象" class="headerlink" title="java.io.File：Java中把文件或者目录（文件夹）都封装成File对象"></a><span id="jump202">java.io.File：Java中把文件或者目录（文件夹）都封装成File对象</span></h3><ul>
 <li>File(“e:\a\hello.java”);将给定路径名称字符串转换为抽象路径名创建File对象，(包括不存在文件或者文件夹)</li>
 <li>boolean createNewFile()创建不存在的文件并返回true，存在false</li>
 <li>boolean mkdir()创建不存在的单层文件夹并返回true，存在false</li>
@@ -83,8 +82,7 @@
 <li>FileFilter接口:过滤文件或者文件夹</li>
 <li>boolean accept(File pathname)测试指定抽象路径名是否应该包含在某个路径名列表中</li>
 </ul>
-<h3 id="java-io-OutputStream"><a href="#java-io-OutputStream" class="headerlink" title="java.io.OutputStream"></a><span id="jump203">java.io.OutputStream</span></h3><ul>
-<li>OutputStream此抽象类，是表示输出字节流的所有类的超类</li>
+<h3 id="java-io-OutputStream-抽象类，表示输出字节流的所有类的超类"><a href="#java-io-OutputStream-抽象类，表示输出字节流的所有类的超类" class="headerlink" title="java.io.OutputStream: 抽象类，表示输出字节流的所有类的超类"></a><span id="jump203">java.io.OutputStream: 抽象类，表示输出字节流的所有类的超类</span></h3><ul>
 <li>void close()关闭输出流并释放与此流有关的所有系统资源</li>
 <li>void flush()刷新此输出流并强制写出所有输出字节</li>
 <li>void write(byte[] b)将b.length个字节从指定的byte数组写入此输出流</li>
@@ -96,19 +94,14 @@
 <li>FileOutputStream(File file,boolean append)true在文件末尾继续添加，“\r\n”换行</li>
 <li>FlieOutputStream(String name,boolean append)true就表示可以在文件末尾继续添加</li>
 </ul>
-<h3 id="java-io-ObjectOutputStream"><a href="#java-io-ObjectOutputStream" class="headerlink" title="java.io.ObjectOutputStream"></a><span id="jump205">java.io.ObjectOutputStream</span></h3><ul>
-<li>ObjectOutputStream 将 Java 对象的基本数据类型和图形写入 OutputStream。</li>
-<li>可以使用 ObjectInputStream 读取（重构）对象。通过在流中使用文件可以实现对象的持久存储</li>
+<h3 id="java-io-ObjectOutputStream操作对象的流"><a href="#java-io-ObjectOutputStream操作对象的流" class="headerlink" title="java.io.ObjectOutputStream操作对象的流"></a><span id="jump205">java.io.ObjectOutputStream操作对象的流</span></h3><ul>
 <li>ObjectOutputStream(OutputStream out)传入OutputStream的实现类如FileOutputStream即可</li>
 <li>void writeObject(Object obj)将指定对象写入ObjectOutputStream</li>
 <li>①被序列化的对象所属的类必须实现Serializable接口。否则会发生异常NotSerializableException异常。</li>
 <li>②反序列化对象时，如果对象所属的class文件在序列化之后被修改了，那么会发生异常InvalidClassException。</li>
-<li>Serializable标记接口，给需要序列化的类，提供了一个序列版本号serialVersionUID. </li>
-<li>该版本号的目的在于验证序列化的对象和对应类是否版本匹配</li>
-<li>private static final long serialVersionUID = 1L;。</li>
+<li>Serializable标记接口，给需要序列化的类，提供了一个序列版本号serialVersionUID. private static final long serialVersionUID = 1L;该版本号的目的在于验证序列化的对象和对应类是否版本匹配</li>
 <li>③transient修饰的属性不会琲序列化</li>
-<li>④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，</li>
-<li>而静态的属于类加载时的数据，不会被序列化</li>
+<li>④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，而静态的属于类加载时的数据，不会被序列化</li>
 </ul>
 <h3 id="java-io-FilterOutputStream"><a href="#java-io-FilterOutputStream" class="headerlink" title="java.io.FilterOutputStream"></a><span id="jump206">java.io.FilterOutputStream</span></h3><ul>
 <li>FilterOutputStream(OutputStream out)传入OutputStream的实现类如FileOutputStream即可</li>
@@ -130,18 +123,14 @@
 <li>FileInputStream(File file)通过File对象来创建一个FileInputStream</li>
 <li>FileInputStream(String name)通过文件系统中的路径名name来创建一个FileInputStream</li>
 </ul>
-<h3 id="java-io-ObjectInputStream"><a href="#java-io-ObjectInputStream" class="headerlink" title="java.io.ObjectInputStream"></a><span id="jump211">java.io.ObjectInputStream</span></h3><ul>
-<li>ObjectInputStream对象反序列化流，从流中读取对象的操作流</li>
+<h3 id="java-io-ObjectInputStream-对象反序列化流，从流中读取对象的操作流"><a href="#java-io-ObjectInputStream-对象反序列化流，从流中读取对象的操作流" class="headerlink" title="java.io.ObjectInputStream 对象反序列化流，从流中读取对象的操作流"></a><span id="jump211">java.io.ObjectInputStream 对象反序列化流，从流中读取对象的操作流</span></h3><ul>
 <li>ObjectInputStream(InputStream in)传入InputStream的实现类如FileInputStream即可</li>
 <li>Object readObject()从ObjectInputStream读取对象</li>
 <li>①被序列化的对象所属的类必须实现Serializable接口。否则会发生异常NotSerializableException异常。</li>
 <li>②反序列化对象时，如果对象所属的class文件在序列化之后被修改了，那么会发生异常InvalidClassException。</li>
-<li>Serializable标记接口给需要序列化的类提供了一个序列版本号serialVersionUID. </li>
-<li>该版本号的目的在于验证序列化的对象和对应类是否版本匹配</li>
-<li>private static final long serialVersionUID = 1L;。</li>
+<li>Serializable标记接口给需要序列化的类提供了一个序列版本号serialVersionUID. private static final long serialVersionUID = 1L;该版本号的目的在于验证序列化的对象和对应类是否版本匹配</li>
 <li>③transient修饰的属性不会琲序列化</li>
-<li>④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，</li>
-<li>而静态的属于类加载时的数据，不会被序列化</li>
+<li>④静态修饰也不会被序列化，因为序列化是把对象数据进行持久化存储，而静态的属于类加载时的数据，不会被序列化</li>
 </ul>
 <h3 id="java-io-FilterInputStream"><a href="#java-io-FilterInputStream" class="headerlink" title="java.io.FilterInputStream"></a><span id="jump212">java.io.FilterInputStream</span></h3><ul>
 <li>FilterInputStream(OutputStream out)传入OutputStream的实现类如FileOutputStream即可</li>
@@ -149,16 +138,14 @@
 <h3 id="java-io-BufferedInputStream"><a href="#java-io-BufferedInputStream" class="headerlink" title="java.io.BufferedInputStream"></a><span id="jump213">java.io.BufferedInputStream</span></h3><ul>
 <li>BufferedInputStream(InputStream in)字节缓冲输入流，提高了IO的读写速度</li>
 </ul>
-<h3 id="java-io-Writer"><a href="#java-io-Writer" class="headerlink" title="java.io.Writer"></a><span id="jump214">java.io.Writer</span></h3><ul>
-<li>Writer是写入字符流的抽象类</li>
+<h3 id="java-io-Writer-写入字符流的抽象类"><a href="#java-io-Writer-写入字符流的抽象类" class="headerlink" title="java.io.Writer 写入字符流的抽象类"></a><span id="jump214">java.io.Writer 写入字符流的抽象类</span></h3><ul>
 <li>void write(String str)写入字符串</li>
 <li>void write(String str,int off,int len)写入字符串的某一部分</li>
 <li>void write(char[] cbuf)写入字符数组</li>
 <li>abstract void write(char[] cbuf,int off,int len)写入字符数组的某一部分</li>
 <li>void write(int c)写入单个字符字节流转成字符流，将字符串按照指定的编码表转成字节</li>
 </ul>
-<h3 id="java-io-BufferedWriter"><a href="#java-io-BufferedWriter" class="headerlink" title="java.io.BufferedWriter"></a><span id="jump215">java.io.BufferedWriter</span></h3><ul>
-<li>BufferedWriter字符缓冲输出流，提高了IO读写速度</li>
+<h3 id="java-io-BufferedWriter-字符缓冲输出流，提高了IO读写速度"><a href="#java-io-BufferedWriter-字符缓冲输出流，提高了IO读写速度" class="headerlink" title="java.io.BufferedWriter 字符缓冲输出流，提高了IO读写速度"></a><span id="jump215">java.io.BufferedWriter 字符缓冲输出流，提高了IO读写速度</span></h3><ul>
 <li>BufferedWriter(Writer out)使用默认大小输出缓冲区,传入Writer实现类如FileWriter</li>
 <li>void newLine()根据当前的系统，写入一个换行符</li>
 </ul>
@@ -179,18 +166,15 @@
 <li>FileWriter(File file,boolean append)File对象构造FileWriter对象(true继续写)</li>
 <li>FileWriter(String FileName,boolean append)文件名创建FileWriter对象(true继续写)</li>
 </ul>
-<h3 id="java-io-Reader"><a href="#java-io-Reader" class="headerlink" title="java.io.Reader"></a><span id="jump219">java.io.Reader</span></h3><ul>
-<li>Reader，读取字符流的抽象超类。</li>
+<h3 id="java-io-Reader-读取字符流的抽象超类。"><a href="#java-io-Reader-读取字符流的抽象超类。" class="headerlink" title="java.io.Reader 读取字符流的抽象超类。"></a><span id="jump219">java.io.Reader 读取字符流的抽象超类。</span></h3><ul>
 <li>int read()读取单个字符并返回，若没有则返回-1</li>
 <li>int read(char[] cbuf)将字符读入数组，并返回读取的个数</li>
 </ul>
-<h3 id="java-io-BufferedReader"><a href="#java-io-BufferedReader" class="headerlink" title="java.io.BufferedReader"></a><span id="jump220">java.io.BufferedReader</span></h3><ul>
-<li>BufferedReader字符缓冲输入流，提高了IO读写速度</li>
+<h3 id="java-io-BufferedReader-字符缓冲输入流，提高了IO读写速度"><a href="#java-io-BufferedReader-字符缓冲输入流，提高了IO读写速度" class="headerlink" title="java.io.BufferedReader 字符缓冲输入流，提高了IO读写速度"></a><span id="jump220">java.io.BufferedReader 字符缓冲输入流，提高了IO读写速度</span></h3><ul>
 <li>BufferedReader(Reader in)默认大小输入缓冲区</li>
 <li>String readLine()返回文本行内容字符串，不包含任何行终止符，到达流的末尾返回null</li>
 </ul>
-<h3 id="java-io-InputStreamReader"><a href="#java-io-InputStreamReader" class="headerlink" title="java.io.InputStreamReader"></a><span id="jump221">java.io.InputStreamReader</span></h3><ul>
-<li>InputStreamReader 是字节流通向字符流的桥梁：它使用指定的字符编码表读取字节并将其解码为字符</li>
+<h3 id="java-io-InputStreamReader-字节流通向字符流的桥梁：它使用指定的字符编码表读取字节并将其解码为字符"><a href="#java-io-InputStreamReader-字节流通向字符流的桥梁：它使用指定的字符编码表读取字节并将其解码为字符" class="headerlink" title="java.io.InputStreamReader 字节流通向字符流的桥梁：它使用指定的字符编码表读取字节并将其解码为字符"></a><span id="jump221">java.io.InputStreamReader 字节流通向字符流的桥梁：它使用指定的字符编码表读取字节并将其解码为字符</span></h3><ul>
 <li>InputStreamReader(InputStream in Charset cs)创建使用给定字符集的解码对象</li>
 </ul>
 <h3 id="java-io-FileReader"><a href="#java-io-FileReader" class="headerlink" title="java.io.FileReader"></a><span id="jump222">java.io.FileReader</span></h3><ul>
@@ -203,12 +187,6 @@
 <li>close():关闭资源，但在关闭前会将缓冲区中的数据先刷新到目的地，否则丢失数据，然后在关闭流。流不可以使用。如果写入数据多，一定要一边写一边刷新，
 最后一次可以不刷新，由close完成刷新并关闭</li>
 </ul>
-<h3 id="java-util-ResourceBundle"><a href="#java-util-ResourceBundle" class="headerlink" title="java.util.ResourceBundle"></a><span id="jump4">java.util.ResourceBundle</span></h3><ul>
-<li>①在src在创建properties配置文件名为db.properties，内容是Key=value</li>
-<li>主要放置driver、url、User、 password四个必要参数</li>
-<li>ResourceBundle bundle = ResourceBundle.getBundle(“db”);</li>
-<li>driver = bundle.getString(“driver”);</li>
-</ul>
 <h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a><span id="jump5">递归</span></h3><ul>
 <li>当前方法内调用自己的这种现象:递归一定要有条件限定，保证递归能够停止下来，递归次数不能太多。否则会发生栈内存溢出<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">直接递归：方法自身调用自己</span><br><span class="line">public void methodA()&#123;</span><br><span class="line">	methodA();</span><br><span class="line">&#125;</span><br><span class="line">间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法。</span><br><span class="line">public void metohdB()&#123;</span><br><span class="line">	methodC();</span><br><span class="line">&#125;</span><br><span class="line">public void methodC()&#123;</span><br><span class="line">	methodB();</span><br><span class="line">&#125;</span><br><span class="line">计算1-n之间的和，使用递归完成</span><br><span class="line">public class DiGuiDemo &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">	//计算1~num的和，使用递归完成</span><br><span class="line">	int n = 5;</span><br><span class="line">	int sum = getSum(n);</span><br><span class="line">		System.out.println(sum);</span><br><span class="line">	&#125;</span><br><span class="line">	public static int getSum(int n) &#123;</span><br><span class="line">	if(n == 1)&#123;</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">		return n + getSum(n-1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -220,11 +198,14 @@
 </ul>
 <h3 id="字符流与字节流的区别"><a href="#字符流与字节流的区别" class="headerlink" title="字符流与字节流的区别"></a><span id="jump8">字符流与字节流的区别</span></h3><ul>
 <li>Java 内用 Unicode 编码存储字符</li>
-<li>字符流处理的单元为 2 个字节的 Unicode 字符，分别操作字符、字符数组或字符串、数字</li>
-<li>而字节流处理单元为 1 个字节，操作字节和字节数组、数字</li>
-<li>所以字符流是由Java虚拟机将字节转化为2个字节的Unicode字符为单位的字符而成的，</li>
-<li>所以它对多国语言支持性比较好！</li>
+<li>字节流处理单元为 1 个字节(操作字节和字节数组、数字_</li>
+<li>字符流由Java虚拟机将字节转化为2个字节的Unicode字符为单位的字符而成的(字符、字符数组或字符串、数字)对多国语言支持性比较好</li>
 <li>如果是音频文件、图片、歌曲，就用字节流好点</li>
 <li>如果是关系到中文（文本）的，用字符流好点</li>
 </ul>
-</div><div class="tags"><a href="/tags/io/">io</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/collection/">collection</a><a class="next" href="/2020/01/03/多线程/">多线程</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<h3 id="BIO-NIO-AIO-区别"><a href="#BIO-NIO-AIO-区别" class="headerlink" title="BIO,NIO,AIO 区别"></a><span id="jump9">BIO,NIO,AIO 区别</span></h3><ul>
+<li>BIO：Block IO 同步阻塞式 IO，它的特点是模式简单使用方便，并发处理能力低。数据的读取写入必须阻塞在一个线程内等待其完成。在活动连接数不是特别高（小于单机1000）的情况下，这种模型是比较不错的，可以让每一个连接专注于自己的 I/O 并且编程模型简单，也不用过多考虑系统的过载、限流等问题。线程池本身就是一个天然的漏斗，可以缓冲一些系统处理不了的连接或请求。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I/O 处理模型来应对更高的并发量。</li>
+<li>NIO：Non IO 同步非阻塞 IO，客户端和服务器端通过 Channel（通道）通讯，实现了多路复用。它支持面向缓冲的，基于通道的I/O操作方法。NIO提供了与传统BIO模型中的 Socket 和 ServerSocket 相对应的SocketChannel和 ServerSocketChannel 两种不同的套接字通道实现,两种通道都支持阻塞和非阻塞两种模式。阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。对于低负载、低并发的应用程序，可以使用同步阻塞I/O来提升开发速率和更好的维护性；对于高负载、高并发的（网络）应用，应使用 NIO 的非阻塞模式来开发</li>
+<li>AIO：异步非堵塞 IO ，基于事件和回调机制。也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。但是 NIO 的 IO 操作还是同步的</li>
+</ul>
+</div><div class="tags"><a href="/tags/io/">io</a></div><div class="post-nav"><a class="pre" href="/2020/01/03/collection/">collection</a><a class="next" href="/2020/01/03/多线程/">多线程</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

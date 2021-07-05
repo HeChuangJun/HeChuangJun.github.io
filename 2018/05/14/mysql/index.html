@@ -1,19 +1,42 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="何创军的个人播客"><title>mysql | 何创军的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql</h1><a id="logo" href="/.">何创军的博客</a><p class="description">学如逆水行舟，不进则退</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/treasure/"><i class="fa fa-treasure-alt"> 宝库</i></a><a href="/resume/"><i class="fa fa-user"> 个人简历</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql</h1><div class="post-meta">May 14, 2018<span> | </span><span class="category"><a href="/categories/数据库/">数据库</a></span></div><div class="post-content"><p>mysql
-<a id="more"></a></p>
-<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><ul>
-<li>数据库概念<ul>
-<li>数据库：本质是个文件系统、将数据按照指定格式储存起来，通过sql语句进行增删改查操作</li>
-<li>数据库管理系统DBMS用于操作和管理数据库的大型软件</li>
+<a id="more"></a>
+<!-- TOC --></p>
+<ul>
+<li><a href="#1-数据库概念">1. 数据库概念</a></li>
+<li><a href="#2-sql">2. SQL</a></li>
+<li><a href="#3-约束与数据类型">3. 约束与数据类型</a></li>
+<li><a href="#4-sql基础">4. SQL基础</a><ul>
+<li><a href="#41-mysql服务">4.1. mysql服务</a></li>
+<li><a href="#42-数据库操作">4.2. 数据库操作</a></li>
+<li><a href="#43-表操作">4.3. 表操作</a></li>
+<li><a href="#44-列操作">4.4. 列操作</a></li>
+<li><a href="#45-记录操作">4.5. 记录操作</a></li>
+<li><a href="#46-授权操作">4.6. 授权操作</a></li>
+<li><a href="#47-单表查询">4.7. 单表查询</a></li>
+<li><a href="#48-多表查询">4.8. 多表查询</a></li>
 </ul>
 </li>
-<li>SQL：结构化查询语言，关系型数据库语言国际标准<ul>
+<li><a href="#5-事务">5. 事务</a></li>
+<li><a href="#6-jdbc">6. JDBC</a></li>
+<li><a href="#7-mysql-的常用引擎">7. MySQL 的常用引擎</a></li>
+<li><a href="#8-mysql-的-btree">8. MySQL 的 B+Tree</a></li>
+<li><a href="#9-mysql-的相关优化">9. MySQL 的相关优化</a><ul>
+<li><a href="#91-执行计划explain">9.1. 执行计划Explain</a></li>
+<li><a href="#92-简单优化">9.2. 简单优化</a></li>
+<li><a href="#93-总结">9.3. 总结</a></li>
+<li><a href="#索引失效">索引失效</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-数据库概念"><a href="#1-数据库概念" class="headerlink" title="1. 数据库概念"></a>1. 数据库概念</h1><pre><code>- 数据库：本质是个文件系统、将数据按照指定格式储存起来，通过sql语句进行增删改查操作
+- 数据库管理系统DBMS用于操作和管理数据库的大型软件
+</code></pre><h1 id="2-SQL"><a href="#2-SQL" class="headerlink" title="2. SQL"></a>2. SQL</h1><ul>
+<li>结构化查询语言，关系型数据库语言国际标准<ul>
 <li>DML：数据库操作语言-对数据库中标的记录进行更新(insert、delete、update)</li>
 <li>DDL：数据库定义语言-定义数据库对象(create、alter、drop等)</li>
 <li>DQL：数据库查询语言-查询数据库中表的记录(select)</li>
-<li>DCL：数据库控制语言-定义数据库的访问权限和安全级别(grant等)</li>
-</ul>
-</li>
-<li>约束与数据类型<ul>
+<li>DCL：数据库控制语言-定义数据库的访问权限和安全级别(grant等)<h1 id="3-约束与数据类型"><a href="#3-约束与数据类型" class="headerlink" title="3. 约束与数据类型"></a>3. 约束与数据类型</h1></li>
 <li>primary key一张表只有一个，唯一非空</li>
 <li>not null非空</li>
 <li>auto_increament从1开始，自增，必须主键、类型必须int</li>
@@ -24,85 +47,86 @@
 </li>
 </ul>
 <img src="/2018/05/14/mysql/数据类型1.png" title="数据类型1.png">
-<ul>
-<li>SQL基础<ul>
-<li>mysql服务的启动与停止<ul>
-<li>启动服务:net start 数据库名;我的电脑→管理和应用程序→服务</li>
-<li>停止服务:net stop 数据库名</li>
-<li>登录mysql:mysql -u 用户名 -p 或者 mysql - -host=ip地址 - -user=用户名 - -password=密码</li>
+<h1 id="4-SQL基础"><a href="#4-SQL基础" class="headerlink" title="4. SQL基础"></a>4. SQL基础</h1><h2 id="4-1-mysql服务"><a href="#4-1-mysql服务" class="headerlink" title="4.1. mysql服务"></a>4.1. mysql服务</h2><pre><code>- 启动服务:net start 数据库名;我的电脑→管理和应用程序→服务
+- 停止服务:net stop 数据库名
+- 登录mysql:mysql -u 用户名 -p 或者 mysql - -host=ip地址 - -user=用户名 - -password=密码
+</code></pre><h2 id="4-2-数据库操作"><a href="#4-2-数据库操作" class="headerlink" title="4.2. 数据库操作"></a>4.2. 数据库操作</h2><pre><code>- 添加数据库:create database 数据库名 [character set 字符集(gbk、utf8)] [collate 校对规则];(utf8)
+- 查字符集对应的校对规则:show character set；
+- 查看MySQL编码:SHOW VARIABLES LIKE &apos;char%&apos;;
+- 查询字符集:show variables
+- 删除数据库:drop database 数据库名;
+- 修改数据库名:rename database 新数据库名;
+    - rename table 旧库名.表名 to 新库名.表名,旧库名.表名 to 新库名.表名...;drop database 数据库名;
+- 修改mysql的隔离级别:set session transaction isolation level
+- 查看所有数据库:show databases;(先选择数据库才能进行表操作)
+- 查看当前操作的数据库:select database();
+- 查看数据库详细说明(编码):show create database 数据库名;
+- 使用数据库:use 数据库名;
+- 查看数据库默认隔离级别:select @@tx_isolation
+</code></pre><h2 id="4-3-表操作"><a href="#4-3-表操作" class="headerlink" title="4.3. 表操作"></a>4.3. 表操作</h2><pre><code>- 添加表:create table 表名(列名 类型(长度)[约束] (s) )[character 字符集 collate 校对规则]
+- 删除表:drop table 表名;truncate table 表名;删表重建，auto_increment重新记录,删除的数据找不回
+- 改表名:rename table 旧表名 to 新表名;
+- 改表字符集:alter table 表名 character set 字符集;
+- 查看数据库的表:show tables;
+- 查看当前表的字符集:show create table 表名;
+</code></pre><h2 id="4-4-列操作"><a href="#4-4-列操作" class="headerlink" title="4.4. 列操作"></a>4.4. 列操作</h2><pre><code>- 增加列:alter table 表名 add 列名 类型（长度）[约束];
+- 增加外键:alter table 从表 add [constraint 外键名(以_fk结尾)] foreign key (从表外键列名） references 主表 （主表主键）;
+- 删除列:alter table 表名 drop 列名;
+- 删外键:alter table 从表 drop foreign key 外键名称;
+- 改类型(长度)[约束]:alter table 表名 modify 列名 类型(长度)[约束]
+- 改整个列:alter table 表名 change  旧列名 新列名 类型(长度)[约束]
+- 修改表的字符集:alter table 表名 character set 字符集;
+- 查看表结构（列）:desc 表名;
+</code></pre><h2 id="4-5-记录操作"><a href="#4-5-记录操作" class="headerlink" title="4.5. 记录操作"></a>4.5. 记录操作</h2><pre><code>- 添加记录:insert into 表名[(列名1，列名2，列名3...)] values(值1，值2，值3)(s)
+- 删除记录:detele from 表名 [where 条件]逐条删除，auto_increment记录不清空，同一个事务可以找回数据
+- 删除主键:alter table 表名 drop primary key;
+- 修改记录:update 表名 set 列名=值(s) [where 条件];
+</code></pre><h2 id="4-6-授权操作"><a href="#4-6-授权操作" class="headerlink" title="4.6. 授权操作"></a>4.6. 授权操作</h2><pre><code>- 创建用户create user xiaolizi indentified by &apos;ermazi&apos;
+- 授权grant all on bos32.* to xiaolizi
+</code></pre><h2 id="4-7-单表查询"><a href="#4-7-单表查询" class="headerlink" title="4.7. 单表查询"></a>4.7. 单表查询</h2><pre><code>- select \[distinct] \* / 列名(s) \[as\] 别名(s) from 表名 \[where条件 group by .. having 条件 order by ...;\]
+- select \* from 表名 where 列名&gt;、 &lt; 、&gt;=、&lt;=、=、！=、&lt;&gt;值;
+- select \* from 表名 where 列名 like &apos;\_值%&apos;;-----&gt;&apos;\_&apos;单个字符，&apos;%&apos;多个字符
+- select \* from 表名 where 列名 [not] in(值1，值2，值3);
+- select \* from 表名 where Between 列名=值 and 列名=值;(闭区间)
+- select \* from 表名 where 列名 is [not] null
+- select \* from 表名 where 列名=值 or 列名=值;
+- select \* from 表名 where 列名=值 and 列名=值;
+- select \* from 表名 where not 列名=值
+- select 列名 from 表名 order by 列名 asc/desc;(升序/降序)、多个字段时，相同的按第二个字段排，依次类推
+- select sum(列名) from 表名;
+- select avg(列名) from 表名;
+- select count（\*） from 表名;不统计null的值
+- select max(列名)from 表名;每一个都小于/大于所有
+- select min(列名)from 表名;每一个都大于/小于所有
+- select 列名 from 表名 group by 列名;
+- select 列名 聚合函数 from 表名 group by 列名 having 条件；
+- select * from product limit a,b;a=（第几页-1）*b]是起始的位置，b是每页需要显示的条目数
+- select case when fenshu&gt;=90 then  &apos;优秀&apos; when  fenshu&lt;80 then &apos;合格&apos;（else &apos;合格&apos;）end  [as] fenshu from t_grade
+- select concat(id,&apos;的学号&apos;，cardno,&apos;的卡号&apos;) from card;
+</code></pre><h2 id="4-8-多表查询"><a href="#4-8-多表查询" class="headerlink" title="4.8. 多表查询"></a>4.8. 多表查询</h2><ul>
+<li>表与表的关系<ul>
+<li>一对一：可以创建成一张表</li>
+<li>一对多：部门与员工、客户和订单、分类和商品</li>
+<li>从表（多）创建字段并添加外键指向主表（一）的主键</li>
+<li>多对多：学生和课程、商品和订单、人和角色</li>
+<li>建立中间表，至少两字段。作为从表，指向各方（多）的主键（拆成两个一对多）</li>
 </ul>
 </li>
-<li>数据库操作<ul>
-<li>添加数据库:create database 数据库名 [character set 字符集(gbk、utf8)] [collate 校对规则];(utf8)</li>
-<li>查字符集对应的校对规则:show character set；</li>
-<li>查看MySQL编码:SHOW VARIABLES LIKE ‘char%’;</li>
-<li>查询字符集:show variables</li>
-<li>删除数据库:drop database 数据库名;</li>
-<li>修改数据库名:rename database 新数据库名;<ul>
-<li>rename table 旧库名.表名 to 新库名.表名,旧库名.表名 to 新库名.表名…;drop database 数据库名;</li>
+<li>外键操作<ul>
+<li>从表外键是对主表主键的引用、从表外键类型必须与主表主键类型一样</li>
+<li>从表不能添加(更新)，主表中不存在的数据。主表不能删除（更新），从表中已经使用的数据</li>
+<li>外键的目的是保证数据完整性</li>
+<li>删除主表中与从表有关联关系的数据</li>
+<li>①解除主从表的约束关系</li>
+<li>②先删除从表中与主表有关系的数据，再删除主表中的数据</li>
 </ul>
 </li>
-<li>修改mysql的隔离级别:set session transaction isolation level</li>
-<li>查看所有数据库:show databases;(先选择数据库才能进行表操作)</li>
-<li>查看当前操作的数据库:select database();</li>
-<li>查看数据库详细说明(编码):show create database 数据库名;</li>
-<li>使用数据库:use 数据库名;</li>
-<li>查看数据库默认隔离级别:select @@tx_isolation</li>
-</ul>
-</li>
-<li>表操作<ul>
-<li>添加表:create table 表名(列名 类型(长度)[约束] (s) )[character 字符集 collate 校对规则]</li>
-<li>删除表:drop table 表名;truncate table 表名;删表重建，auto_increment重新记录,删除的数据找不回</li>
-<li>改表名:rename table 旧表名 to 新表名;</li>
-<li>改表字符集:alter table 表名 character set 字符集;</li>
-<li>查看数据库的表:show tables;</li>
-<li>查看当前表的字符集:show create table 表名;</li>
-</ul>
-</li>
-<li>列操作<ul>
-<li>增加列:alter table 表名 add 列名 类型（长度）[约束];</li>
-<li>增加外键:alter table 从表 add [constraint 外键名(以_fk结尾)] foreign key (从表外键列名） references 主表 （主表主键）;</li>
-<li>删除列:alter table 表名 drop 列名;</li>
-<li>删外键:alter table 从表 drop foreign key 外键名称;</li>
-<li>改类型(长度)[约束]:alter table 表名 modify 列名 类型(长度)[约束]</li>
-<li>改整个列:alter table 表名 change  旧列名 新列名 类型(长度)[约束]</li>
-<li>修改表的字符集:alter table 表名 character set 字符集;</li>
-<li>查看表结构（列）:desc 表名;</li>
-</ul>
-</li>
-<li>记录操作<ul>
-<li>添加记录:insert into 表名[(列名1，列名2，列名3…)] values(值1，值2，值3)(s)</li>
-<li>删除记录:detele from 表名 [where 条件]逐条删除，auto_increment记录不清空，同一个事务可以找回数据</li>
-<li>删除主键:alter table 表名 drop primary key;</li>
-<li>修改记录:update 表名 set 列名=值(s) [where 条件];</li>
-</ul>
-</li>
-<li>授权操作<ul>
-<li>创建用户create user xiaolizi indentified by ‘ermazi’</li>
-<li>授权grant all on bos32.* to xiaolizi</li>
-</ul>
-</li>
-<li>单表查询<ul>
-<li>select [distinct] * / 列名(s) [as] 别名(s) from 表名 [where条件 group by .. having 条件 order by …;]</li>
-<li>select * from 表名 where 列名&gt;、 &lt; 、&gt;=、&lt;=、=、！=、&lt;&gt;值;</li>
-<li>select * from 表名 where 列名 like ‘_值%’;—–&gt;’_‘单个字符，’%’多个字符</li>
-<li>select * from 表名 where 列名 [not] in(值1，值2，值3);</li>
-<li>select * from 表名 where Between 列名=值 and 列名=值;(闭区间)</li>
-<li>select * from 表名 where 列名 is [not] null</li>
-<li>select * from 表名 where 列名=值 or 列名=值;</li>
-<li>select * from 表名 where 列名=值 and 列名=值;</li>
-<li>select * from 表名 where not 列名=值</li>
-<li>select 列名 from 表名 order by 列名 asc/desc;(升序/降序)、多个字段时，相同的按第二个字段排，依次类推</li>
-<li>select sum(列名) from 表名;</li>
-<li>select avg(列名) from 表名;</li>
-<li>select count（*） from 表名;不统计null的值</li>
-<li>select max(列名)from 表名;每一个都小于/大于所有</li>
-<li>select min(列名)from 表名;每一个都大于/小于所有</li>
-<li>select 列名 from 表名 group by 列名;</li>
-<li>select 列名 聚合函数 from 表名 group by 列名 having 条件；</li>
-<li>select <em> from product limit a,b;a=（第几页-1）</em>b]是起始的位置，b是每页需要显示的条目数</li>
-<li>select case when fenshu&gt;=90 then  ‘优秀’ when  fenshu&lt;80 then ‘合格’（else ‘合格’）end  [as] fenshu from t_grade</li>
-<li>select concat(id,’的学号’，cardno,’的卡号’) from card;</li>
+<li>多表查询SQL<ul>
+<li>隐式内连接：select *from A,B where 条件</li>
+<li>显示内连接：select * from A [inner] join B on 条件</li>
+<li>左外连接：select <em> from A left outer join B on 条件==右外连接select </em> from B right outer join A on 条件</li>
+<li>右外连接：select <em> from A right outer join B on 条件==左外连接select </em> from B left outer join A on 条件</li>
+<li>子查询：select * from 表名 where 列名=（select where 列名=值）;</li>
 </ul>
 </li>
 <li>sql语句执行先后<ul>
@@ -113,12 +137,7 @@
 <li>第四步：执行SELECT投影列</li>
 <li>第五步：HAVING条件过滤</li>
 <li>第六步：执行ORDER BY 排序</li>
-<li>查询思路，先思考要查的字段，再想从哪几个表中查到，然后分析条件</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>事务<ul>
+<li>查询思路，先思考要查的字段，再想从哪几个表中查到，然后分析条件<h1 id="5-事务"><a href="#5-事务" class="headerlink" title="5. 事务"></a>5. 事务</h1></li>
 <li>事务概念：一件事情有n个组成单元 要不这n个组成单元同时成功 要不n个单元就同时失败，保证一个事务中多次操作要么全部成功，要么全部失败</li>
 <li>事务特性<ul>
 <li>原子性（Atomicity）:事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生</li>
@@ -151,12 +170,9 @@
 <li>JDBC手动事务开启事务conn.setAutoComnmit(false);</li>
 <li>提交事务conn.commit();</li>
 <li>回滚事务conn.rollback();</li>
-<li>执行sql的connection与开启事务的connnection必须是同一个才能对事务进行控制</li>
+<li>执行sql的connection与开启事务的connnection必须是同一个才能对事务进行控制<h1 id="6-JDBC"><a href="#6-JDBC" class="headerlink" title="6. JDBC"></a>6. JDBC</h1></li>
 </ul>
 </li>
-</ul>
-</li>
-<li>JDBC<ul>
 <li>JDBC概念<ul>
 <li>JDBC（Java Data Base Connectivity,java数据库连接）是一种用于执行SQL语句的Java API接口</li>
 <li>可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。是Java访问数据库的标准规范</li>
@@ -169,66 +185,22 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DirverManger.regisetDirver(new com.mysql.jdbc.Dirver());//1.注册驱动 注册了两次</span><br><span class="line">connection conn= DirverManger.getConnection	(jdbc:mysql://ip:port/数据库名，用户名，密码);//2.获得链接</span><br><span class="line">Statement stmt = con.createStatement();//3.获得语句执行平台 存在sql注入的问题 or &apos;1=1&apos;</span><br><span class="line">//int executeUpdate(String sql); --执行insert update delete语句.</span><br><span class="line">//ResultSet executeQuery(String sql); --执行select语句.</span><br><span class="line">//boolean execute(String sql); --执行select返回true 执行其他的语句返回false.</span><br><span class="line">String sql = &quot;select \* from users&quot;</span><br><span class="line">ResultSet rs = stmt.executeQuery(sql);//4.执行sql语句</span><br><span class="line">while( rs.next() )&#123;//5.处理结果集</span><br><span class="line">	Object getObject(int index) / Object getObject(String name) 获得任意对象</span><br><span class="line">	String getString(int index) / Object getObject(String name) 获得字符串</span><br><span class="line">	int getInt(int index) / Object getObject(String name) 获得整形</span><br><span class="line">	double getDouble(int index) / Object getObject(String name) 获得双精度浮点型</span><br><span class="line">&#125;</span><br><span class="line">rs.close();//6.释放所有资源</span><br><span class="line">stmt.close();</span><br><span class="line">con.close();</span><br></pre></td></tr></table></figure>
 <ul>
-<li>DBC2(推荐)</li>
+<li>JDBC2(推荐)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(“com.mysql.jdbc.Driver”);//1.注册驱动</span><br><span class="line">connection conn= DirverManger.getConnection	(jdbc:mysql://ip:port/数据库名，用户名，密码);//2.获得链接</span><br><span class="line">String sql = &quot;select \* from user where name = ?&quot;;</span><br><span class="line">PreparedStatement psmt = conn.prepareStatement(sql);//3.获得预处理对象语句执行平台</span><br><span class="line">//void setXxx(int index, Xxx xx); --设置实际参数</span><br><span class="line">psmt.setString(1,&apos;张三&apos;);//4.设置实际参数</span><br><span class="line">//int executeUpdate(); --执行insert update delete语句.</span><br><span class="line">//ResultSet executeQuery(); --执行select语句.</span><br><span class="line">//boolean execute(); --执行select返回true 执行其他的语句返回false.</span><br><span class="line">ResultSet rs = psmt.executeQuery();//5.执行sql</span><br><span class="line">while( rs.next() )&#123;//6.处理结果集</span><br><span class="line">	Object getObject(int index) / Object getObject(String name) 获得任意对象</span><br><span class="line">	String getString(int index) / Object getObject(String name) 获得字符串</span><br><span class="line">	int getInt(int index) / Object getObject(String name) 获得整形</span><br><span class="line">	double getDouble(int index) / Object getObject(String name) 获得双精度浮点型</span><br><span class="line">&#125;</span><br><span class="line">rs.close();//7.释放所有资源</span><br><span class="line">stmt.close();</span><br><span class="line">con.close();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>多表查询<ul>
-<li>表与表的关系<ul>
-<li>一对一：可以创建成一张表</li>
-<li>一对多：部门与员工、客户和订单、分类和商品</li>
-<li>从表（多）创建字段并添加外键指向主表（一）的主键</li>
-<li>多对多：学生和课程、商品和订单、人和角色</li>
-<li>建立中间表，至少两字段。作为从表，指向各方（多）的主键（拆成两个一对多）</li>
-</ul>
-</li>
-<li>外键操作<ul>
-<li>从表外键是对主表主键的引用、从表外键类型必须与主表主键类型一样</li>
-<li>从表不能添加(更新)，主表中不存在的数据。主表不能删除（更新），从表中已经使用的数据</li>
-<li>外键的目的是保证数据完整性</li>
-<li>删除主表中与从表有关联关系的数据</li>
-<li>①解除主从表的约束关系</li>
-<li>②先删除从表中与主表有关系的数据，再删除主表中的数据</li>
-</ul>
-</li>
-<li>多表查询SQL<ul>
-<li>隐式内连接：select *from A,B where 条件</li>
-<li>显示内连接：select * from A [inner] join B on 条件</li>
-<li>左外连接：select <em> from A left outer join B on 条件==右外连接select </em> from B right outer join A on 条件</li>
-<li>右外连接：select <em> from A right outer join B on 条件==左外连接select </em> from B left outer join A on 条件</li>
-<li>子查询：select * from 表名 where 列名=（select where 列名=值）;</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>执行计划</p>
-<ul>
-<li>id select_type table type possible_keys key key_len ref</li>
-<li>其中 type 包括</li>
-<li>all index range ref eq_ref const,system null</li>
-<li>速度：system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;ALL</li>
-</ul>
-</li>
-<li><p>MySQL 的常用引擎</p>
-<ul>
-<li>InnoDB<ul>
-<li>InnoDB 的存储文件有两个，后缀名分别是 .frm 和 .idb，其中 .frm 是表的定义文件，而 idb 是数据文件。</li>
-<li>InnoDB 中存在表锁和行锁，不过行锁是在命中索引的情况下才会起作用。</li>
-<li>InnoDB 支持事务，且支持四种隔离级别（读未提交、读已提交、可重复读、串行化），默认的为可重复读；而在 Oracle 数据库中，只支持串行化级别和读已提交这两种级别，其中默认的为读已提交级别。</li>
-<li>InnoDB 是以 ID 为索引的数据存储。</li>
-<li>InnoDB 通过 B+Tree 结构对 ID 建索引，然后在叶子节点中存储记录。</li>
-<li>若建索引的字段不是主键 ID，则对该字段建索引，然后在叶子节点中存储的是该记录的主键，然后通过主键索引找到对应的记录。</li>
-</ul>
-</li>
-<li>Myisam<ul>
-<li>Myisam 的存储文件有三个，后缀名分别是 .frm、.MYD、MYI，其中 .frm 是表的定义文件，.MYD 是数据文件，.MYI 是索引文件。</li>
-<li>Myisam 只支持表锁，且不支持事务。Myisam 由于有单独的索引文件，在读取数据方面的性能很高</li>
-<li>Myisam 用 B+Tree 来存储数据的。</li>
-<li>由于 Myisam 中的索引和数据分别存放在不同的文件，所以在索引树中的叶子节点中存的数据是该索引对应的数据记录的地址，由于数据与索引不在一起，所以 Myisam 是非聚簇索引。</li>
-</ul>
-</li>
-</ul>
-</li>
+<h1 id="7-MySQL-的常用引擎"><a href="#7-MySQL-的常用引擎" class="headerlink" title="7. MySQL 的常用引擎"></a>7. MySQL 的常用引擎</h1><pre><code>- InnoDB
+    - InnoDB 的存储文件有两个，后缀名分别是 .frm 和 .idb，其中 .frm 是表的定义文件，而 idb 是数据文件。
+    - InnoDB 中存在表锁和行锁，不过行锁是在命中索引的情况下才会起作用。
+    - InnoDB 支持事务，且支持四种隔离级别（读未提交、读已提交、可重复读、串行化），默认的为可重复读；而在 Oracle 数据库中，只支持串行化级别和读已提交这两种级别，其中默认的为读已提交级别。
+    - InnoDB 是以 ID 为索引的数据存储。
+    - InnoDB 通过 B+Tree 结构对 ID 建索引，然后在叶子节点中存储记录。
+    - 若建索引的字段不是主键 ID，则对该字段建索引，然后在叶子节点中存储的是该记录的主键，然后通过主键索引找到对应的记录。
+- Myisam
+    - Myisam 的存储文件有三个，后缀名分别是 .frm、.MYD、MYI，其中 .frm 是表的定义文件，.MYD 是数据文件，.MYI 是索引文件。
+    - Myisam 只支持表锁，且不支持事务。Myisam 由于有单独的索引文件，在读取数据方面的性能很高
+    - Myisam 用 B+Tree 来存储数据的。
+    - 由于 Myisam 中的索引和数据分别存放在不同的文件，所以在索引树中的叶子节点中存的数据是该索引对应的数据记录的地址，由于数据与索引不在一起，所以 Myisam 是非聚簇索引。
+</code></pre><ul>
 <li><p>存储结构</p>
 <ul>
 <li>InnoDB 和 Myisam 都是用 B+Tree 来存储数据的。</li>
@@ -241,21 +213,17 @@
 <li>数据库系统还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。</li>
 </ul>
 </li>
-<li><p>MySQL 的 B+Tree</p>
-<ul>
-<li>目前大多数数据库系统及文件系统都采用 B-Tree 或其变种 B+Tree 作为索引结构。</li>
-<li>B+树索引是B+树在数据库中的一种实现，是最常见也是数据库中使用最为频繁的一种索引。B+ 树中的 B 代表平衡，而不是二叉。</li>
-<li>因为 B+ 树是从最早的平衡二叉树演化而来的。B+ 树是由二叉查找树、平衡二叉树（AVLTree）和平衡多路查找树（B-Tree）逐步优化而来。<ul>
-<li>二叉查找树：左子树的键值小于根的键值，右子树的键值大于根的键值。</li>
-<li>AVL 树：平衡二叉树（AVL 树）在符合二叉查找树的条件下，还满足任何节点的两个子树的高度最大差为 1。</li>
-<li>平衡多路查找树（B-Tree）：为磁盘等外存储设备设计的一种平衡查找树。系统从磁盘读取数据到内存时是以磁盘块（block）为基本单位的，位于同一磁盘块中的数据会被一次性读取出来，而不是按需读取。</li>
 </ul>
-</li>
-<li>InnoDB 存储引擎使用页作为数据读取单位，页是其磁盘管理的最小单位，默认 page 大小是 16k。</li>
-<li>系统的一个磁盘块的存储空间往往没有这么大，因此 InnoDB 每次申请磁盘空间时都会是若干地址连续磁盘块来达到页的大小 16KB。</li>
-<li>InnDB 在把磁盘数据读入到磁盘时会以页为基本单位，在查询数据时如果一个页中的每条数据都能助于定位数据记录的位置，这将会减少磁盘 I/O 的次数，提高查询效率。</li>
-</ul>
-</li>
+<h1 id="8-MySQL-的-B-Tree"><a href="#8-MySQL-的-B-Tree" class="headerlink" title="8. MySQL 的 B+Tree"></a>8. MySQL 的 B+Tree</h1><pre><code>- 目前大多数数据库系统及文件系统都采用 B-Tree 或其变种 B+Tree 作为索引结构。
+- B+树索引是B+树在数据库中的一种实现，是最常见也是数据库中使用最为频繁的一种索引。B+ 树中的 B 代表平衡，而不是二叉。
+- 因为 B+ 树是从最早的平衡二叉树演化而来的。B+ 树是由二叉查找树、平衡二叉树（AVLTree）和平衡多路查找树（B-Tree）逐步优化而来。
+    - 二叉查找树：左子树的键值小于根的键值，右子树的键值大于根的键值。
+    - AVL 树：平衡二叉树（AVL 树）在符合二叉查找树的条件下，还满足任何节点的两个子树的高度最大差为 1。
+    - 平衡多路查找树（B-Tree）：为磁盘等外存储设备设计的一种平衡查找树。系统从磁盘读取数据到内存时是以磁盘块（block）为基本单位的，位于同一磁盘块中的数据会被一次性读取出来，而不是按需读取。
+- InnoDB 存储引擎使用页作为数据读取单位，页是其磁盘管理的最小单位，默认 page 大小是 16k。
+- 系统的一个磁盘块的存储空间往往没有这么大，因此 InnoDB 每次申请磁盘空间时都会是若干地址连续磁盘块来达到页的大小 16KB。
+- InnDB 在把磁盘数据读入到磁盘时会以页为基本单位，在查询数据时如果一个页中的每条数据都能助于定位数据记录的位置，这将会减少磁盘 I/O 的次数，提高查询效率。
+</code></pre><ul>
 <li>B-Tree 结构的数据可以让系统高效的找到数据所在的磁盘块。<ul>
 <li>为了描述 B-Tree，首先定义一条数据记录为一个二元组 [key, data]，key 为记录的键值，对于不同数据记录，key 是互不相同的；data 为数据记录除 key 外的数据。</li>
 <li>那么 B-Tree 是满足下列条件的数据结构：<ul>
@@ -305,14 +273,97 @@
 <img src="/2018/05/14/mysql/2.png" title="2.png">
 <pre><code>- 通常在 B+Tree 上有两个头指针，一个指向根节点，另一个指向关键字最小的叶子节点，而且所有叶子节点（即数据节点）之间是一种链式环结构。
 - 因此可以对 B+Tree 进行两种查找运算：一种是对于主键的范围查找和分页查找，另一种是从根节点开始，进行随机查找。
-</code></pre><ul>
-<li><p>MySQL 的相关优化</p>
-<ul>
-<li>MySQL 性能优化：组成、表的设计<ul>
-<li>开启查询缓存。避免某些 SQL 函数直接在 SQL 语句中使用，从而导致 Mysql 缓存失效。<ul>
-<li>避免画蛇添足。目的是什么就取什么，例如某个逻辑是只需要判断是否存在女性，若是查到了一条即可，勿要全部都查一遍，此时要善用 limit。</li>
+</code></pre><h1 id="9-MySQL-的相关优化"><a href="#9-MySQL-的相关优化" class="headerlink" title="9. MySQL 的相关优化"></a>9. MySQL 的相关优化</h1><h2 id="9-1-执行计划Explain"><a href="#9-1-执行计划Explain" class="headerlink" title="9.1. 执行计划Explain"></a>9.1. 执行计划Explain</h2><ul>
+<li>使用explain关键字可以模拟优化器执行SQL查询语句：explain sql语句</li>
+<li>Explain作用<ul>
+<li>查看表的读取顺序</li>
+<li>查看数据库读取操作的操作类型</li>
+<li>查看哪些索引有可能被用到</li>
+<li>查看哪些索引真正被用到</li>
+<li>查看表之间的引用
+查看表中有多少行记录被优化器查询</li>
 </ul>
 </li>
+<li>explain结果列表字段：id select_type table type possible_keys key key_len ref<ul>
+<li>id：select 查询的序列号,包含一组数字,表示查询中执行Select子句或操作表的顺序<ul>
+<li>id值相同,执行顺序由上而下</li>
+<li>id值不同,id值越大优先级越高,越先被执行</li>
+<li>id值有相同的也有不同的,如果id相同,从上往下执行,id值越大,优先级越高,越先执行</li>
+</ul>
+</li>
+<li>select_type：查询类型<ul>
+<li>SIMPLE : 简单的select查询,查询中不包含子查询或者UNION</li>
+<li>PRIMARY: 查询中若包含复杂的子查询,最外层的查询则标记为PRIMARY</li>
+<li>SUBQUERY : 在SELECT或者WHERE列表中包含子查询</li>
+<li>DERIVED : 在from列表中包含子查询被标记为DRIVED衍生,MYSQL会递归执行这些子查询,把结果放到临时表中</li>
+<li>UNION: 若第二个SELECT出现在union之后,则被标记为UNION, 若union包含在from子句的子查询中,外层 select被标记为:derived</li>
+<li>UNION RESULT: 从union表获取结果的select</li>
+</ul>
+</li>
+<li>table：显示这一行的数据是和哪张表相关</li>
+<li>type：访问类型：速度：system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;ALL：最好能优化到range级别或则ref级别<ul>
+<li>system: 表中只有一行记录(系统表), 这是const类型的特例, 基本上不会出现</li>
+<li>const: 通过索引一次查询就找到了，当where中条件有primary key或者unique索引</li>
+<li>eq_ref: 唯一性索引扫描, 表中只有一条记录与之匹配, 常见于主键或者唯一索引扫描</li>
+<li>ref : 非唯一性索引扫描,返回匹配某个单独值的所有行</li>
+<li>range : 只检索给定范围的行, 使用一个索引来选择行.key列显示的是真正使用了哪个索引,一般在where中使用between,&gt;,&lt;,in等条件</li>
+<li>index : 扫描整个索引表, 遍历索引索引文件,从索引中读取数据</li>
+<li>all : 扫描整个表，遍历数据文件，从硬盘读取数据</li>
+</ul>
+</li>
+<li>possible_keys：SQL查询中可能用到的索引,但查询的过程中不一定真正使用</li>
+<li>key：查询过程中真正使用的索引,如果为null,则表示没有使用索引，查询中使用了覆盖索引,则该索引仅出现在key列表中</li>
+<li>key_len：索引中使用的字节数,可通过该列计算查询中使用的索引的最大可能长度,在不损失精确度的情况下,长度越短越好</li>
+<li>ref：显示索引的哪一列被使用了,如果可能的话,是一个常数.哪些列或者常量被用于查找索引列上的值</li>
+<li>rows：根据表统计信息及索引选用的情况,估算找出所需记录要读取的行数 (有多少行记录被优化器读取) ,越少越好</li>
+<li>extra：包含其它一些非常重要的额外信息<ul>
+<li>Using filesort:说明mysql会对数据使用一个外部的索引排序,而不是按照表内的索引顺序进行读取,Mysql中无法利用索引完成的排序操作称为文件排序    </li>
+<li>Using temporary:使用了临时表保存中间结果,常见于order by 和分 组查询group by</li>
+<li>Using index<ul>
+<li>查询操作中使用了覆盖索引(查询的列和索引列一致),避免访问了表的数据行,效率好</li>
+<li>如果同时出现了using where, 表明索引被用来执行索引键值的查找</li>
+<li>如果没有同时出现using where, 表明索引用来读取数据而非执行查找动作</li>
+<li>覆盖索引: 查询的列和索引列一致, select中数据列只需从索引中就能读取,不必读取原来的数据行</li>
+</ul>
+</li>
+<li>using where : 表明使用了where条件过滤</li>
+<li>using join buffer : 表明使用了连接缓存, join次数太多了可能会出现</li>
+<li>impossible where : where子句中的值总是false,不能用来获取任何数据<h2 id="9-2-简单优化"><a href="#9-2-简单优化" class="headerlink" title="9.2. 简单优化"></a>9.2. 简单优化</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在where条件中in、=等情况添加索引，但不要包括&lt;&gt;相关的列（导致索引无效extra直接file sort）</li>
+<li>保证被驱动表的join字段已经被索引 (被驱动表 join 后的表为被驱动表 (需要被查询))</li>
+<li>left join 时，选择小表作为驱动表，大表作为被驱动表。</li>
+<li>inner join 时，mysql会自己帮你把小结果集的表选为驱动表。</li>
+<li>子查询尽量不要放在被驱动表，有可能使用不到索引</li>
+<li>若必须用到子查询，可将子查询设置为驱动表，因为驱动表的type 肯定是 all，而子查询返回的结果表没有索引，必定 也是all</li>
+<li>使用Where子句与Order BY子句条件列组合满足索引最左前列</li>
+<li>group by实质是先排序后进行分组，遵照索引建的最佳左前缀</li>
+<li>where高于having，能写在where限定的条件就不要去having限定了</li>
+<li>limit常用于分页处理,时常会伴随order by 从句使用, 因此大多时候会使用Filesorts,这样会造成大量的IO问题<ul>
+<li>使用有索引的列或者主键进行Order By操作</li>
+<li>记录上次返回的主键,在下次查询的时候使用注解过滤(如果主键不是连续的,是字符串类型,可以创建一 个列记录)<h2 id="9-3-总结"><a href="#9-3-总结" class="headerlink" title="9.3. 总结"></a>9.3. 总结</h2></li>
+</ul>
+</li>
+<li>全值匹配</li>
+<li>最佳左前缀法则(如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引 中的列)</li>
+<li>存储引擎不能使用索引中范围条件右边的列</li>
+<li>尽量使用覆盖索引(只访问索引的查询(索引列和查询列一致))，减少select *</li>
+</ul>
+<h2 id="索引失效"><a href="#索引失效" class="headerlink" title="索引失效"></a>索引失效</h2><ul>
+<li>索引计算、函数(LEFT)、类型转换(Concat\CAST\CONVERT)</li>
+<li>不等号!=、&lt;&gt;在主键字段和唯一索引字段中会走索引，在普通索引的字段上不会走索引</li>
+<li>or中有一个不用索引就会索引失效</li>
+<li>like 以通配符开头%开头</li>
+<li>字符串类型索引不加单引号</li>
+<li>order by索引失效：where子句出现索引的范围查询,复合条件排序类别desc、asc不一致</li>
+</ul>
+<ul>
+<li>MySQL 性能优化：组成、表的设计<ul>
+<li>开启查询缓存。避免某些 SQL 函数直接在 SQL 语句中使用，从而导致 Mysql 缓存失效。</li>
+<li>避免画蛇添足。目的是什么就取什么，例如某个逻辑是只需要判断是否存在女性，若是查到了一条即可，勿要全部都查一遍，此时要善用 limit。</li>
 <li>建合适的索引。所以要建在合适的地方，合适的对象上。经常操作 / 比较 / 判断的字段应该建索引。</li>
 <li>字段大小合宜。字段的取值是有限而且是固定的，这种情况下可以用 enum，IP 字段可以用 unsigned int 来存储。</li>
 <li>表的设计。垂直分割表，使得固定表与变长表分割，从而降低表的复杂度和字段的数目。</li>
@@ -326,169 +377,4 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>mysql分组并排序</p>
-<ul>
-<li>Employee 表包含所有员工信息，每个员工有其对应的工号 Id，姓名 Name，工资 Salary 和部门编号 DepartmentId 。</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Id</th>
-<th style="text-align:center">Name</th>
-<th style="text-align:center">Salary</th>
-<th style="text-align:center">DepartmentId</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">Joe</td>
-<td style="text-align:center">85000</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">Henry</td>
-<td style="text-align:center">80000</td>
-<td style="text-align:center">2</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">Sam</td>
-<td style="text-align:center">60000</td>
-<td style="text-align:center">2</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">Max</td>
-<td style="text-align:center">90000</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">Janet</td>
-<td style="text-align:center">69000</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">Randy</td>
-<td style="text-align:center">85000</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">7</td>
-<td style="text-align:center">Will</td>
-<td style="text-align:center">70000</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Department 表包含公司所有部门的信息。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Id</th>
-<th style="text-align:center">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">IT</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">Sales</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>编写一个 SQL 查询，找出每个部门获得前三高工资的所有员工</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Department</th>
-<th style="text-align:center">Employee</th>
-<th style="text-align:center">Salary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">IT</td>
-<td style="text-align:center">Max</td>
-<td style="text-align:center">90000</td>
-</tr>
-<tr>
-<td style="text-align:center">IT</td>
-<td style="text-align:center">Randy</td>
-<td style="text-align:center">85000</td>
-</tr>
-<tr>
-<td style="text-align:center">IT</td>
-<td style="text-align:center">Joe</td>
-<td style="text-align:center">85000</td>
-</tr>
-<tr>
-<td style="text-align:center">IT</td>
-<td style="text-align:center">Will</td>
-<td style="text-align:center">70000</td>
-</tr>
-<tr>
-<td style="text-align:center">Sales</td>
-<td style="text-align:center">Henry</td>
-<td style="text-align:center">80000</td>
-</tr>
-<tr>
-<td style="text-align:center">Sales</td>
-<td style="text-align:center">Sam</td>
-<td style="text-align:center">60000</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	d.NAME AS Department,</span><br><span class="line">	e.NAME AS Employee,</span><br><span class="line">	e.Salary AS Salary </span><br><span class="line">FROM</span><br><span class="line">	employee e</span><br><span class="line">	LEFT JOIN Department d ON d.id = e.DepartmentId </span><br><span class="line">WHERE</span><br><span class="line">	e.id IN (</span><br><span class="line">	SELECT</span><br><span class="line">		e1.id </span><br><span class="line">	FROM</span><br><span class="line">		Employee e1</span><br><span class="line">		LEFT JOIN Employee e2 ON e2.DepartmentId = e1.DepartmentId </span><br><span class="line">		AND e2.Salary &gt; e1.Salary </span><br><span class="line">	GROUP BY</span><br><span class="line">		e1.Id </span><br><span class="line">	HAVING</span><br><span class="line">		count( DISTINCT e2.Salary ) &lt;= 2 --选取top几</span><br><span class="line">	) </span><br><span class="line">and e.DepartmentId in (select Id from Department) 补全数据，不用补全的话不用加上这句</span><br><span class="line">ORDER BY</span><br><span class="line">	d.Id ASC,</span><br><span class="line">	e.Salary DESC</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Id</th>
-<th style="text-align:center">Salary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">100</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Id</th>
-<th style="text-align:center">Salary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">100</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">200</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">300</td>
-</tr>
-</tbody>
-</table>
-<p>编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary）
-例如上述 Employee 表，SQL查询应该返回 200 作为第二高的薪水。如果不存在第二高的薪水，那么查询应返回 null。</p>
-</div><div class="tags"><a href="/tags/mysql/">mysql</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/oracle/">oracle</a><a class="next" href="/2018/05/08/redis/">redis</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java高级/">java高级</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/源码学习/" style="font-size: 15px;">源码学习</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/线程/" style="font-size: 15px;">线程</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/24/jvm/">jvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/20/计算机网络之应用层篇/">计算机网络之应用层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/19/计算机网络之传输层/">计算机网络之传输层</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之网络层篇/">计算机网络之网络层篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/计算机网络之概述篇/">计算机网络之概述篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/02/操作系统提升篇/">操作系统提升篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/操作系统之基础篇/">操作系统之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/29/计算机组成原理之计算篇/">计算机组成原理之计算篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</div><div class="tags"><a href="/tags/mysql/">mysql</a></div><div class="post-nav"><a class="pre" href="/2018/05/15/oracle/">oracle</a><a class="next" href="/2018/05/08/redis/">redis</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://yoursite.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java框架/">java框架</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/中间件/">中间件</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构和算法/">数据结构和算法</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码/">源码</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本管理/">版本管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网址收藏/">网址收藏</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机/">计算机</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/部署/">部署</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试题/">面试题</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网址收藏/" style="font-size: 15px;">网址收藏</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/SQL面试题/" style="font-size: 15px;">SQL面试题</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/art-template/" style="font-size: 15px;">art-template</a> <a href="/tags/缓存/" style="font-size: 15px;">缓存</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/exception/" style="font-size: 15px;">exception</a> <a href="/tags/windows/" style="font-size: 15px;">windows</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/express/" style="font-size: 15px;">express</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/http协议/" style="font-size: 15px;">http协议</a> <a href="/tags/json/" style="font-size: 15px;">json</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/jsp/" style="font-size: 15px;">jsp</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/reflect/" style="font-size: 15px;">reflect</a> <a href="/tags/shiro/" style="font-size: 15px;">shiro</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/swagger/" style="font-size: 15px;">swagger</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/xml/" style="font-size: 15px;">xml</a> <a href="/tags/动态代理/" style="font-size: 15px;">动态代理</a> <a href="/tags/数据结构和算法/" style="font-size: 15px;">数据结构和算法</a> <a href="/tags/开发规范/" style="font-size: 15px;">开发规范</a> <a href="/tags/架构设计/" style="font-size: 15px;">架构设计</a> <a href="/tags/计算机/" style="font-size: 15px;">计算机</a> <a href="/tags/正则表达式/" style="font-size: 15px;">正则表达式</a> <a href="/tags/vue-js/" style="font-size: 15px;">vue.js</a> <a href="/tags/异步编程/" style="font-size: 15px;">异步编程</a> <a href="/tags/java框架/" style="font-size: 15px;">java框架</a> <a href="/tags/系统测试/" style="font-size: 15px;">系统测试</a> <a href="/tags/部署/" style="font-size: 15px;">部署</a> <a href="/tags/面试题/" style="font-size: 15px;">面试题</a> <a href="/tags/错误解决/" style="font-size: 15px;">错误解决</a> <a href="/tags/FastDFS/" style="font-size: 15px;">FastDFS</a> <a href="/tags/activemq/" style="font-size: 15px;">activemq</a> <a href="/tags/api/" style="font-size: 15px;">api</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/mqtt/" style="font-size: 15px;">mqtt</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/mycat/" style="font-size: 15px;">mycat</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/webservice/" style="font-size: 15px;">webservice</a> <a href="/tags/collection/" style="font-size: 15px;">collection</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/java基础语法/" style="font-size: 15px;">java基础语法</a> <a href="/tags/linux服务器搭建/" style="font-size: 15px;">linux服务器搭建</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/struts2/" style="font-size: 15px;">struts2</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/hibrenate/" style="font-size: 15px;">hibrenate</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/springmvc/" style="font-size: 15px;">springmvc</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/31/计算机组成原理/">计算机组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/07/SpringCloud/">SpringCloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/ReentrantReadWriteLock/">ReentrantReadWriteLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/ReentrantLock/">ReentrantLock</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/05/AbstractQueuedSynchronizer/">AbstractQueuedSynchronizer(AQS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/04/concurrentHashMap/">concurrentHashMap源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/13/docker/">docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/26/spring源码/">spring源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/27/java面试题/">java面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/操作系统/">操作系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/HeChuangJun/MyDemo" title="mygithub" target="_blank">mygithub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">何创军的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
