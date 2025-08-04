@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/interview/algorithm/sort.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="排序"><meta property="og:description" content="排序算法 排序算法(Sort Algorithm)是将一组数据，依指定的顺序进行排列的过程。 排序的分类： 内部排序：指将需要处理的所有数据都加载到内部存储器中进行排序。 插入排序：直接插入排序、希尔排序 选择排序：简单选择排序、堆排序 交换排序：冒泡排序、快速排序 归并排序 基数排序 外部排序：数据量过大，无法全部加载到内存中，需要借助外部存储(文件..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/42c8f6b8f06cfbbad2482.png"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"排序","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/42c8f6b8f06cfbbad2482.png","https://290ff162.telegraph-image-eg9.pages.dev/file/8c51d3e56ec82be128c9b.png","https://290ff162.telegraph-image-eg9.pages.dev/file/8bb7c9d4b07f9195a38bf.png","https://290ff162.telegraph-image-eg9.pages.dev/file/5a6d66d80e037389d69d7.png","https://290ff162.telegraph-image-eg9.pages.dev/file/a053e1ecb9acb06c487e1.png","https://290ff162.telegraph-image-eg9.pages.dev/file/625043b7e9c3fa53e3c46.png","https://290ff162.telegraph-image-eg9.pages.dev/file/c9c5e395b4d5db1de172e.png","https://290ff162.telegraph-image-eg9.pages.dev/file/8eb855b2d5544664f87cc.png"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":null,"author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>排序 | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/sort.html-C_IVWYaB.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-interview" style=""></span><span class="vp-sidebar-title">概述</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">Java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">常用框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">计算机基础</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">分布式</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">场景设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-fuzaijunheng" style=""></span><span class="vp-sidebar-title">问题排查</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">数据结构</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">算法</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/interview/algorithm/sort.html" aria-label="排序算法"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>排序算法<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/search.html" aria-label="搜索算法"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>搜索算法<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/doublepointer.html" aria-label="双指针"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>双指针<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/slidingwindow.html" aria-label="滑动窗口"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>滑动窗口<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/recursion.html" aria-label="递归"><span class="font-icon icon iconfont icon-suanfaku" style=""></span>递归<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/dynamicprogramming.html" aria-label="动态规划"><span class="font-icon icon iconfont icon-network" style=""></span>动态规划<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/greedy.html" aria-label="贪心算法"><span class="font-icon icon iconfont icon-network" style=""></span>贪心算法<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/backtracking.html" aria-label="回溯算法"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>回溯算法<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/divideandconquer.html" aria-label="分治算法"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>分治算法<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/interview/algorithm/other.html" aria-label="其他算法"><span class="font-icon icon iconfont icon-caozuoxitong" style=""></span>其他算法<!----></a></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><span class="font-icon icon iconfont icon-circle-info" style=""></span>排序</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 4229 字</span><meta property="wordCount" content="4229"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 14 分钟</span><meta property="timeRequired" content="PT14M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#排序算法">排序算法</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#排序的分类">排序的分类：</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#冒泡排序-bubble-sorting-o-n-2">冒泡排序(Bubble Sorting) O(n^2)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#简单-选择排序-select-sorting-o-n-2">[简单]选择排序(select sorting)O(n^2)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#插入排序-insertion-sorting-o-n-2">插入排序(Insertion Sorting)O(n^2)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#希尔排序-shell-sort-o-nlog2n">希尔排序(shell Sort)O(nlog2n)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#快速排序-quick-sort-o-n-2">快速排序(Quick sort)O(n^2)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#归并排序-merge-sort-o-nlog2n">归并排序(Merge sort)O(nlog2n)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#基数排序-radix-sort-o-nlog2n">基数排序(radix sort)O(nlog2n)</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#堆排序o-nlogn">堆排序O(nlogn)</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><h2 id="排序算法" tabindex="-1"><a class="header-anchor" href="#排序算法"><span>排序算法</span></a></h2><ul><li>排序算法(Sort Algorithm)是将一组数据，依指定的顺序进行排列的过程。</li></ul><h2 id="排序的分类" tabindex="-1"><a class="header-anchor" href="#排序的分类"><span>排序的分类：</span></a></h2><ul><li><p>内部排序：指将需要处理的所有数据都加载到内部存储器中进行排序。</p><ul><li>插入排序：直接插入排序、希尔排序</li><li>选择排序：简单选择排序、堆排序</li><li>交换排序：冒泡排序、快速排序</li><li>归并排序</li><li>基数排序</li></ul></li><li><p>外部排序：数据量过大，无法全部加载到内存中，需要借助外部存储(文件等)进行排序。</p></li><li><p>稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面；</p></li><li><p>不稳定：如果a原本在b的前面，而a=b，排序之后a可能会出现在b的后面；</p></li><li><p>内排序：所有排序操作都在内存中完成；</p></li><li><p>外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行；</p></li><li><p>n: 数据规模</p></li><li><p>k: “桶”的个数</p></li><li><p>In-place: 不占用额外内存</p></li><li><p>Out-place: 占用额外内存</p></li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/42c8f6b8f06cfbbad2482.png" alt="排序算法总结.png" tabindex="0"><figcaption>排序算法总结.png</figcaption></figure><p><code>记忆：插冒归基最稳,方选冒插,nlogn快归堆</code><br><code>简析快堆都不稳直冒二归才最稳</code></p><h2 id="冒泡排序-bubble-sorting-o-n-2" tabindex="-1"><a class="header-anchor" href="#冒泡排序-bubble-sorting-o-n-2"><span>冒泡排序(Bubble Sorting) O(n^2)</span></a></h2><ul><li>通过对待排序序列从前向后（从下标较小的元素开始）,依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部，就象水底下的气泡一样逐渐向上冒</li><li>冒泡排序规则 <ul><li>一共进行 数组的大小-1 次 大的循环</li><li>每一趟排序的次数在逐渐的减少</li><li>优化：因为排序的过程中，各元素不断接近自己的位置，如果一趟比较下来没有进行过交换，就说明序列有序，因此要在排序过程中设置一个标志flag判断元素是否进行过交换。从而减少不必要的比较</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public static void bubbleSort(int[] arr) {
+	int temp = 0; // 临时变量
+	boolean flag = false; // 标识变量，表示是否进行过交换//优化代码
+  //外层循环控制循环次数，需要n-1次比较
+	for (int i = 0; i &lt; arr.length - 1; i++) {
+    //内层循环控制每趟循环比较次数,逐渐减少比较次数是因为每次遍历后最后i个元素已经排好序，不再需要比较
+		for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+			if (arr[j] &gt; arr[j + 1]) {// 如果前面的数比后面的数大，则交换
+				flag = true;//优化代码
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+		//优化代码
+		if (!flag) { // 在一趟排序中，一次交换都没有发生过
+			break;
+		} else {
+			flag = false; // 重置flag!!!, 进行下次判断
+		}
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="简单-选择排序-select-sorting-o-n-2" tabindex="-1"><a class="header-anchor" href="#简单-选择排序-select-sorting-o-n-2"><span>[简单]选择排序(select sorting)O(n^2)</span></a></h2><ul><li>基本思想： <ul><li>第一次从arr[0]~arr[n-1]中选取最小值，与arr[0]交换，</li><li>第二次从arr[1]~arr[n-1]中选取最小值，与arr[1]交换，</li><li>第i次从arr[i-1]~arr[n-1]中选取最小值，与arr[i-1]交换，…,</li><li>第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换，</li><li>总共通过n-1次，得到一个按排序码从小到大排列的有序序列</li></ul></li><li>说明 <ul><li>选择排序一共有 数组大小 - 1 轮排序</li><li>每1轮排序，又是一个循环, 循环的规则(代码) <ul><li>先假定当前这个数是最小数</li><li>然后和后面的每个数进行比较，如果发现有比当前数更小的数，就重新确定最小数，并得到下标</li><li>当遍历到数组的最后时，就得到本轮最小数和下标</li><li>交换</li></ul></li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public static void selectSort(int[] arr) {
+	for (int i = 0; i &lt; arr.length - 1; i++) {//外层循环遍历数组的每个元素
+		int minIndex = i;
+		int min = arr[i];
+		for (int j = i + 1; j &lt; arr.length; j++) {//内层循环从未排序部分寻找最小元素，并记录其索引
+			if (min &gt; arr[j]) { // 说明假定的最小值，并不是最小
+				min = arr[j]; // 重置min
+				minIndex = j; // 重置minIndex
+			}
+		}
+		// 将最小值，放在arr[0], 即交换
+		if (minIndex != i) {
+			arr[minIndex] = arr[i];
+			arr[i] = min;
+		}
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="插入排序-insertion-sorting-o-n-2" tabindex="-1"><a class="header-anchor" href="#插入排序-insertion-sorting-o-n-2"><span>插入排序(Insertion Sorting)O(n^2)</span></a></h2><ul><li>把n个待排序的元素看成为一个有序表和一个无序表，&quot;扑克摸牌&quot;</li><li>开始时有序表中只包含一个元素，无序表中包含有n-1个元素，</li><li>排序过程中每次从无序表中取出第一个元素，把它的排序码依次与有序表元素的排序码进行比较，</li><li>将它插入到有序表中的适当位置，然后插入位置后面的数值后移，使之成为新的有序表。</li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/8c51d3e56ec82be128c9b.png" alt="插入排序.png" tabindex="0"><figcaption>插入排序.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//将i从1-&gt;arr.length循环遍历，每次取出arr[i],然后比较之前的数值
+//大于则让之前的数值往后移，同时索引减少，小于则将arr[i]放到当前索引
+public static void insertSort(int[] arr) {
+	int insertVal = 0;
+	int insertIndex = 0;
+	for(int i = 1; i &lt; arr.length; i++) {//因为0已经算排好序了。故从1开始
+		insertVal = arr[i];
+		insertIndex = i - 1; 
+		// 1. insertIndex &gt;= 0 保证在给insertVal 找插入位置，不越界
+		// 2. insertVal &lt; arr[insertIndex] 待插入的数，还没有找到插入位置
+		//3. 将arr[insertIndex]后移
+		while (insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex]) {//arr[insertIndex],从后向前遍历比较的数值
+			arr[insertIndex + 1] = arr[insertIndex];
+			insertIndex--;//当需要插入的数是较小的数时，后移的次数明显增多，对效率有影响.引出
+		}
+		// 当退出while循环时，说明插入的位置找到, insertIndex + 1
+		arr[insertIndex + 1] = insertVal;
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="希尔排序-shell-sort-o-nlog2n" tabindex="-1"><a class="header-anchor" href="#希尔排序-shell-sort-o-nlog2n"><span>希尔排序(shell Sort)O(nlog2n)</span></a></h2><ul><li>希尔排序是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序。</li><li>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止</li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/8bb7c9d4b07f9195a38bf.png" alt="希尔排序.png" tabindex="0"><figcaption>希尔排序.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//（分组+插入排序）插入的1改为gap加上外部分组循环
+public static void shellSort(int[] arr) {
+	for (int gap = arr.length / 2; gap &gt; 0; gap /= 2) {
+		for (int i = gap; i &lt; arr.length; i++) {// 从第gap个元素，逐个对其所在的组进行直接插入排序
+			int j = i - gap;
+			int temp = arr[i];
+      while (j  &gt;= 0 &amp;&amp; temp &lt; arr[j]) {
+        arr[j+gap] = arr[j];//移动
+        j -= gap;
+      }
+      //当退出while后，就给temp找到插入的位置
+      if(j + gap != i){
+        arr[j+gap] = temp;
+      }
+				
+		}
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="快速排序-quick-sort-o-n-2" tabindex="-1"><a class="header-anchor" href="#快速排序-quick-sort-o-n-2"><span>快速排序(Quick sort)O(n^2)</span></a></h2><ul><li>通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列</li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/5a6d66d80e037389d69d7.png" alt="快速排序.png" tabindex="0"><figcaption>快速排序.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class MyQuickSortHoare {
+
+    public static void sort(int[] a) {
+        quick(a, 0, a.length - 1);
+    }
+
+    private static void quick(int[] a, int left, int right) {
+        if (left &gt;= right) {
+            return;
+        }
+        int p = partition(a, left, right);
+        quick(a, left, p - 1);
+        quick(a, p + 1, right);
+    }
+
+    private static int partition(int[] arr, int left, int right) {
+        int pivot = arr[right]; // 选择最后一个元素作为基准
+        int i = left - 1; // 较小元素的索引
+
+        for (int j = left; j &lt; right; j++) {
+            // 如果当前元素小于或等于 pivot
+            if (arr[j] &lt;= pivot) {
+                i++;
+
+                // 交换 arr[i] 和 arr[j]
+                swap(arr,i,j);
+            }
+        }
+
+        // 交换 arr[i+1] 和 arr[high] (或 pivot)
+        swap(arr,i+1,right);
+
+        return i + 1;
+    }
+
+    private static void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {9, 3, 7, 2, 8, 5, 1, 4};
+        System.out.println(Arrays.toString(a));
+        sort(a);
+        System.out.println(Arrays.toString(a));
+    }
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="归并排序-merge-sort-o-nlog2n" tabindex="-1"><a class="header-anchor" href="#归并排序-merge-sort-o-nlog2n"><span>归并排序(Merge sort)O(nlog2n)</span></a></h2><ul><li>归并排序（MERGE-SORT）是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，</li><li>而治(conquer)的阶段则将分的阶段得到的各答案&quot;修补&quot;在一起，即分而治之)。<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/a053e1ecb9acb06c487e1.png" alt="归并排序.png"><br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/625043b7e9c3fa53e3c46.png" alt="归并排序2.png"></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class MergeSortTopDown {
+
+    /*
+        a1 原始数组
+        i~iEnd 第一个有序范围
+        j~jEnd 第二个有序范围
+        a2 临时数组
+     */
+    public static void merge(int[] a1, int i, int iEnd, int j, int jEnd, int[] a2) {
+        int k = i;
+        while (i &lt;= iEnd &amp;&amp; j &lt;= jEnd) {
+            if (a1[i] &lt; a1[j]) {
+                a2[k] = a1[i];
+                i++;
+            } else {
+                a2[k] = a1[j];
+                j++;
+            }
+            k++;
+        }
+        if (i &gt; iEnd) {//将j剩余的复制到a2
+            System.arraycopy(a1, j, a2, k, jEnd - j + 1);
+        }
+        if (j &gt; jEnd) {//将i剩余的复制到a2
+            System.arraycopy(a1, i, a2, k, iEnd - i + 1);
+        }
+    }
+
+    public static void sort(int[] a1) {
+        int[] a2 = new int[a1.length];
+        split(a1, 0, a1.length - 1, a2);
+    }
+
+    private static void split(int[] a1, int left, int right, int[] a2) {
+        // 2. 治
+        if (left == right) {
+            return;
+        }
+        // 1. 分
+        int m = (left + right) &gt;&gt;&gt; 1;
+        split(a1, left, m, a2);                 // left = 0 m = 0  9
+        split(a1, m + 1, right, a2);       // m+1 = 1 right = 1  3
+        // 3. 合
+        merge(a1, left, m, m + 1, right, a2);
+        System.arraycopy(a2, left, a1, left, right - left + 1);//将已经排序好的数据复制回去原数组
+    }
+
+    public static void main(String[] args) {
+        int[] a = {9, 3, 7, 2, 8, 5, 1, 4};
+        System.out.println(Arrays.toString(a));
+        sort(a);
+        System.out.println(Arrays.toString(a));
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="基数排序-radix-sort-o-nlog2n" tabindex="-1"><a class="header-anchor" href="#基数排序-radix-sort-o-nlog2n"><span>基数排序(radix sort)O(nlog2n)</span></a></h2><ul><li>属于“分配式排序”（distribution sort），又称“桶子法”（bucket sort）或bin sort，桶排序的扩展</li><li>通过键值的各个位的值，将要排序的元素分配至某些“桶”中，达到排序的作用</li><li>基数排序法是属于稳定性的排序，基数排序法的是效率高的稳定性排序法</li><li>基数排序是1887年赫尔曼·何乐礼发明的。它是这样实现的：将整数按位数切割成不同的数字，然后按每个位数分别比较。将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列。</li><li>基数排序是使用空间换时间的经典算法</li><li>第1轮排序: <ul><li>(1) 将每个元素的个位数取出，然后看这个数应该放在哪个对应的桶(一个一维数组)</li><li>(2) 按照这个桶的顺序(一维数组的下标依次取出数据，放入原来数组)</li></ul></li><li>第2轮排序: <ul><li>(1) 将每个元素的十位数取出，然后看这个数应该放在哪个对应的桶(一个一维数组)</li><li>(2) 按照这个桶的顺序(一维数组的下标依次取出数据，放入原来数组)<br> ...</li></ul></li></ul><p><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/c9c5e395b4d5db1de172e.png" alt="基数排序1.png"><br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/8eb855b2d5544664f87cc.png" alt="基数排序2.png"></p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code> public static void radixSort(String[] a, int length) {
+    ArrayList&lt;String&gt;[] buckets = new ArrayList[128];
+    for (int i = 0; i &lt; buckets.length; i++) {
+        buckets[i] = new ArrayList&lt;&gt;();
+    }
+    for (int i = length - 1; i &gt;= 0 ; i--) {
+        for (String s : a) {
+            buckets[s.charAt(i)].add(s);
+        }
+        int k = 0;
+        for (ArrayList&lt;String&gt; bucket : buckets) {
+            for (String s : bucket) {
+                a[k++] = s;
+            }
+            bucket.clear();
+        }
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="堆排序o-nlogn" tabindex="-1"><a class="header-anchor" href="#堆排序o-nlogn"><span>堆排序O(nlogn)</span></a></h2><ul><li>堆排序是利用堆这种数据结构而设计的一种选择排序算法，它的最坏，最好，平均时间复杂度均为O(nlogn)，也是不稳定排序</li><li>堆是具有以下性质 <ul><li>完全二叉树（除了最后一层外，每一层的节点都是满的，且最后一层的节点尽可能地靠左排列。），</li><li>对于n个元素的序列{R0, R1, ... , Rn}当且仅当满足下列关系之一时，称之为堆： <ul><li>每个结点的值都大于或等于其左右孩子结点的值，Ri &gt;= R2i+1 且 Ri &gt;= R2i+2 称为大顶堆,i从0开始编号。注意 : 没有要求结点的左孩子的值和右孩子的值的大小关系。</li><li>每个结点的值都小于或等于其左右孩子结点的值，Ri &lt;= R2i+1 且 Ri &lt;= R2i+2 称为小顶堆,i从0开始编号。</li><li>升序用大顶堆，降序用小顶堆</li><li>设当前元素在数组中以R[i]表示，它的左孩子、右孩子、父结点是：R[2i+1]、R[2i+2]、R[(i-1)/2];其中i=1,2,…,n/2向下取整;</li></ul></li></ul></li><li>堆排序的思想 <ul><li>将待排序序列构造成一个大顶堆,此时，整个序列的最大值就是堆顶的根节点。 <ul><li>找到所有包含子节点的节点，也就是非叶子节点，然后调整他们的父子关系，因爲根据大顶堆的性质，每个节点的值都大于或者等于它的左右子节点的值。</li><li>非叶子节点遍历的顺序应该是从下往上，这比从上往下的顺序遍历次数少很多，因为，大顶堆的性质要求父节点的值要大于或者等于子节点的值，如果从上往下遍历，当某个节点即是父节点又是子节点并且它的子节点仍然有子节点的时候，因为子节点还没有遍历到，所以子节点不符合大顶堆性质，当子节点调整后，必然会影响其父节点需要二次调整。但是从下往上的方式不需要考虑父节点，因为当前节点调整完之后，当前节点必然比它的所有子节点都大，所以，只会影响到子节点二次调整。相比之下，从下往上的遍历方式比从上往下的方式少了父节点的二次调整。</li><li>最后一个非叶子节点的索引值？对于一个完全二叉树，在填满的情况下（非叶子节点都有两个子节点），每一层的元素个数是上一层的二倍，根节点数量是1，所以最后一层的节点数量，一定是之前所有层节点总数+1，所以，最后一层的第一个节点的索引，即节点总数/2（根节点索引为0），也就是第一个叶子节点，所以第一个非叶子节点的索引就是第一个叶子结点的索引-1。那么对于填不满的二叉树呢？当我们从上往下，从左往右填充二叉树的过程中，第一个叶子节点，一定是序列长度/2，所以第一个非叶子节点的索引就是arr.length / 2 -1。</li></ul></li><li>将其与末尾元素进行交换，此时末尾就为最大值。</li><li>然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。如此反复执行，便能得到一个有序序列了。在构建大顶堆的过程中，元素的个数逐渐减少，最后就得到一个有序序列了</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>    //编写一个堆排序的方法
+	public static void heapSort(int arr[]) {
+		//从最后一个非叶子节点开始向上调整，使整个数组符合大顶堆的性质。
+		for(int i = arr.length / 2 -1; i &gt;=0; i--) {
+			adjustHeap(arr, i, arr.length);
+		}
+		//2.将堆顶元素与末尾元素交换，将最大元素&quot;沉&quot;到数组末端
+		//3.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。
+		for(int j = arr.length-1;j &gt;0; j--) {
+			//交换
+			int temp = arr[j];
+			arr[j] = arr[0];
+			arr[0] = temp;
+			adjustHeap(arr, 0, j); 
+		}
+		
+	}
+	
+	//将一个数组(二叉树), 调整成一个大顶堆
+	/**
+	 * 功能： 完成 将 以 i 对应的非叶子结点的树调整成大顶堆
+	 * 举例  int arr[] = {4, 6, 8, 5, 9}; =&gt; i = 1 =&gt; adjustHeap =&gt; 得到 {4, 9, 8, 5, 6}
+	 * 如果我们再次调用  adjustHeap 传入的是 i = 0 =&gt; 得到 {4, 9, 8, 5, 6} =&gt; {9,6,8,5, 4}
+	 * @param arr 待调整的数组
+	 * @param i 表示非叶子结点在数组中索引
+	 * @param length 表示对多少个元素继续调整， length 是在逐渐的减少
+	 */
+	public  static void adjustHeap(int arr[], int i, int length) {
+		
+		int temp = arr[i];
+		//1. k = i * 2 + 1 k 是 i结点的左子结点,循环找左节点，并防止溢出
+		for(int k = i * 2 + 1; k &lt; length; k = k * 2 + 1) {
+      // 如果右子节点大于左子节点，则k指向右子节点
+			if(k+1 &lt; length &amp;&amp; arr[k] &lt; arr[k+1]) {
+				k++;
+			}
+			if(arr[k] &gt; temp) {
+				arr[i] = arr[k];
+				i = k; //发生交换后，子节点可能受影响，所以继续遍历子节点
+			} else {
+				break;//没有发生交换直接退出
+			}
+		}
+		//当for 循环结束后，我们已经将以i 为父结点的树的最大值，放在了最顶(局部)
+		arr[i] = temp;//将temp值放到之前最大值的索引的地方完成当前节点和最大值的交换
+	}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/interview/algorithm/sort.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><!----><!----></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/interview/algorithm/search.html" aria-label="搜索算法"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">搜索算法<span class="font-icon icon iconfont icon-caozuoxitong" style=""></span></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/monitoringsystem/elk.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="ELK"><meta property="og:description" content="日志服务 日志服务功能 1、收集 ：能够采集多个来源的日志数据。 2、传输 ：能够稳定的把日志数据传输到日志服务。 3、存储 ：能够存储海量的日志数据。 4、查询 ：能够灵活且高效的查询日志数据，并提供一定的分析能力。 5、告警 ：能够提供提供告警功能，通知开发和运维等等。 解决方案 开源解决方案 ELK Apache Chukwa Apache Ka..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/4b0c11b65a80816b04865.jpg"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ELK","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/4b0c11b65a80816b04865.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/b05a051c3d46973c8eb0e.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/9fa817d3a9b480a081bb5.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/f3a22d1b54b166448f8d7.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/ba0918c606927331626f9.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/6a8c0540680bfbddf62fa.jpg"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":null,"author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>ELK | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/elk.html-fUAvQZfT.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/monitoringsystem/elk.html" aria-label="ELK"><!---->ELK<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/monitoringsystem/prometheus.html" aria-label="Prometheus"><!---->Prometheus<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/monitoringsystem/springbootadmin.html" aria-label="Spring Boot Admin"><!---->Spring Boot Admin<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/monitoringsystem/cat.html" aria-label="Cat"><!---->Cat<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/monitoringsystem/senty.html" aria-label="Senty"><!---->Senty<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->ELK</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 1606 字</span><meta property="wordCount" content="1606"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 5 分钟</span><meta property="timeRequired" content="PT5M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#日志服务功能">日志服务功能</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#解决方案">解决方案</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#elk定义">ELK定义</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#elk-filebeat8-14-1部署">ELK+FileBeat8.14.1部署</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><h1 id="日志服务" tabindex="-1"><a class="header-anchor" href="#日志服务"><span>日志服务</span></a></h1><h2 id="日志服务功能" tabindex="-1"><a class="header-anchor" href="#日志服务功能"><span>日志服务功能</span></a></h2><ul><li>1、收集 ：能够采集多个来源的日志数据。</li><li>2、传输 ：能够稳定的把日志数据传输到日志服务。</li><li>3、存储 ：能够存储海量的日志数据。</li><li>4、查询 ：能够灵活且高效的查询日志数据，并提供一定的分析能力。</li><li>5、告警 ：能够提供提供告警功能，通知开发和运维等等。</li></ul><h2 id="解决方案" tabindex="-1"><a class="header-anchor" href="#解决方案"><span>解决方案</span></a></h2><ul><li>开源解决方案 <ul><li>ELK</li><li>Apache Chukwa</li><li>Apache Kafka</li><li>Cloudera Fluentd</li><li>Syslog、Rsyslog、Syslog-ng</li><li>Facebook Scribe</li></ul></li><li>商业解决方案 <ul><li>阿里云 SLS、腾讯云 CLS、华为云 LTS</li><li>Splunk</li></ul></li><li>目前线上采用阿里云 SLS 日志服务，主要考虑使用方便，成本合算。</li><li>目前采用最多的日志服务的解决方案，是 ELK 搭建的日志服务。</li></ul><h2 id="elk定义" tabindex="-1"><a class="header-anchor" href="#elk定义"><span>ELK定义</span></a></h2><p>官方 Elastic NV 定义 &quot;ELK” 是三个开源项目的首字母缩写，分别是：Elasticsearch、Logstash 和 Kibana。</p><ul><li>Elasticsearch 是一个搜索和分析引擎。</li><li>Logstash 是服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到诸如 Elasticsearch 等“存储库”中。</li><li>Kibana 则可以让用户在 Elasticsearch 中使用图形和图表对数据进行可视化。<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/4b0c11b65a80816b04865.jpg" alt="elk1.png"></li></ul><p>由于 Logstash 是基于 JVM 的重量级的采集器，对系统的 CPU、内存、IO 等等资源占用非常高，这样可能影响服务器上的其它服务的运行。所以，Elastic NV 推出 Beats ，基于 Go 的轻量级采集器，对系统的 CPU、内存、IO 等等资源的占用基本可以忽略不计。负责采集数据，并通过网路传输给 Logstash。<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/b05a051c3d46973c8eb0e.jpg" alt="elk2.png"></p><h2 id="elk-filebeat8-14-1部署" tabindex="-1"><a class="header-anchor" href="#elk-filebeat8-14-1部署"><span>ELK+FileBeat8.14.1部署</span></a></h2><ol><li>vim /etc/sysctl.conf添加下面的配置</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>vm.max_map_count=655360
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><ol start="2"><li>创建<code>.env</code>文件</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code># Project namespace (defaults to the current folder name if not set)
+#COMPOSE_PROJECT_NAME=myproject
+
+# Password for the &#39;elastic&#39; user (at least 6 characters)
+ELASTIC_PASSWORD=abcdef
+
+# Password for the &#39;kibana_system&#39; user (at least 6 characters)
+KIBANA_PASSWORD=abcdef
+
+# Version of Elastic products
+STACK_VERSION=8.14.1
+
+# Set the cluster name
+CLUSTER_NAME=docker-cluster
+
+# Set to &#39;basic&#39; or &#39;trial&#39; to automatically start the 30-day trial
+LICENSE=basic
+#LICENSE=trial
+
+# Port to expose Elasticsearch HTTP API to the host
+ES_PORT=9200
+
+# Port to expose Kibana to the host
+KIBANA_PORT=5601
+
+# Increase or decrease based on the available host memory (in bytes)
+ES_MEM_LIMIT=2147483648
+KB_MEM_LIMIT=2147483648
+LS_MEM_LIMIT=2147483648
+
+# SAMPLE Predefined Key only to be used in POC environments
+ENCRYPTION_KEY=c34d38b3a14956121ff2170e5030b471551370178f43e5626eec58b04a30fae2
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><blockquote><p>ELASTIC_PASSWORD和KIBANA_PASSWORD不要全数字,ES_MEM_LIMIT、KB_MEM_LIMIT、LS_MEM_LIMIT在8.14版本至少2g<br> Native controller process has stopped - no new native processes can be started报错是内存不够<br> docker-compose.yml</p></blockquote><ol start="2"><li>创建 ELK 堆栈的 docker-compose.yml 文件</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>version: &quot;3.8&quot;
+
+
+volumes:
+ certs:
+   driver: local
+ esdata01:
+   driver: local
+ kibanadata:
+   driver: local
+ metricbeatdata01:
+   driver: local
+ filebeatdata01:
+   driver: local
+ logstashdata01:
+   driver: local
+
+
+networks:
+ default:
+   name: elastic
+   external: false
+
+
+services:
+ setup:
+   image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+   volumes:
+     - certs:/usr/share/elasticsearch/config/certs
+   user: &quot;0&quot;
+   command: &gt;
+     bash -c &#39;
+       if [ x${ELASTIC_PASSWORD} == x ]; then
+         echo &quot;Set the ELASTIC_PASSWORD environment variable in the .env file&quot;;
+         exit 1;
+       elif [ x${KIBANA_PASSWORD} == x ]; then
+         echo &quot;Set the KIBANA_PASSWORD environment variable in the .env file&quot;;
+         exit 1;
+       fi;
+       if [ ! -f config/certs/ca.zip ]; then
+         echo &quot;Creating CA&quot;;
+         bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
+         unzip config/certs/ca.zip -d config/certs;
+       fi;
+       if [ ! -f config/certs/certs.zip ]; then
+         echo &quot;Creating certs&quot;;
+         echo -ne \
+         &quot;instances:\n&quot;\
+         &quot;  - name: es01\n&quot;\
+         &quot;    dns:\n&quot;\
+         &quot;      - es01\n&quot;\
+         &quot;      - localhost\n&quot;\
+         &quot;    ip:\n&quot;\
+         &quot;      - 127.0.0.1\n&quot;\
+         &quot;  - name: kibana\n&quot;\
+         &quot;    dns:\n&quot;\
+         &quot;      - kibana\n&quot;\
+         &quot;      - localhost\n&quot;\
+         &quot;    ip:\n&quot;\
+         &quot;      - 127.0.0.1\n&quot;\
+         &gt; config/certs/instances.yml;
+         bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+         unzip config/certs/certs.zip -d config/certs;
+       fi;
+       echo &quot;Setting file permissions&quot;
+       chown -R root:root config/certs;
+       find . -type d -exec chmod 750 \{\} \;;
+       find . -type f -exec chmod 640 \{\} \;;
+       echo &quot;Waiting for Elasticsearch availability&quot;;
+       until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q &quot;missing authentication credentials&quot;; do sleep 30; done;
+       echo &quot;Setting kibana_system password&quot;;
+       until curl -s -X POST --cacert config/certs/ca/ca.crt -u &quot;elastic:${ELASTIC_PASSWORD}&quot; -H &quot;Content-Type: application/json&quot; https://es01:9200/_security/user/kibana_system/_password -d &quot;{\&quot;password\&quot;:\&quot;${KIBANA_PASSWORD}\&quot;}&quot; | grep -q &quot;^{}&quot;; do sleep 10; done;
+       echo &quot;All done!&quot;;
+     &#39;
+   healthcheck:
+     test: [&quot;CMD-SHELL&quot;, &quot;[ -f config/certs/es01/es01.crt ]&quot;]
+     interval: 1s
+     timeout: 5s
+     retries: 120
+ es01:
+   depends_on:
+     setup:
+       condition: service_healthy
+   image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+   labels:
+     co.elastic.logs/module: elasticsearch
+   volumes:
+     - certs:/usr/share/elasticsearch/config/certs
+     - esdata01:/usr/share/elasticsearch/data
+   ports:
+     - ${ES_PORT}:9200
+   environment:
+     - node.name=es01
+     - cluster.name=${CLUSTER_NAME}
+     - discovery.type=single-node
+     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+     - bootstrap.memory_lock=true
+     - xpack.security.enabled=true
+     - xpack.security.http.ssl.enabled=true
+     - xpack.security.http.ssl.key=certs/es01/es01.key
+     - xpack.security.http.ssl.certificate=certs/es01/es01.crt
+     - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
+     - xpack.security.transport.ssl.enabled=true
+     - xpack.security.transport.ssl.key=certs/es01/es01.key
+     - xpack.security.transport.ssl.certificate=certs/es01/es01.crt
+     - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
+     - xpack.security.transport.ssl.verification_mode=certificate
+     - xpack.license.self_generated.type=${LICENSE}
+   mem_limit: ${ES_MEM_LIMIT}
+   ulimits:
+     memlock:
+       soft: -1
+       hard: -1
+   healthcheck:
+     test:
+       [
+         &quot;CMD-SHELL&quot;,
+         &quot;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#39;missing authentication credentials&#39;&quot;,
+       ]
+     interval: 10s
+     timeout: 10s
+     retries: 120
+ kibana:
+   depends_on:
+     es01:
+       condition: service_healthy
+   image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+   labels:
+     co.elastic.logs/module: kibana
+   volumes:
+     - certs:/usr/share/kibana/config/certs
+     - kibanadata:/usr/share/kibana/data
+   ports:
+     - ${KIBANA_PORT}:5601
+   environment:
+     - SERVERNAME=kibana
+     - ELASTICSEARCH_HOSTS=https://es01:9200
+     - ELASTICSEARCH_USERNAME=kibana_system
+     - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+     - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+     - XPACK_SECURITY_ENCRYPTIONKEY=${ENCRYPTION_KEY}
+     - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${ENCRYPTION_KEY}
+     - XPACK_REPORTING_ENCRYPTIONKEY=${ENCRYPTION_KEY}
+   mem_limit: ${KB_MEM_LIMIT}
+   healthcheck:
+     test:
+       [
+         &quot;CMD-SHELL&quot;,
+         &quot;curl -s -I http://localhost:5601 | grep -q &#39;HTTP/1.1 302 Found&#39;&quot;,
+       ]
+     interval: 10s
+     timeout: 10s
+     retries: 120
+ logstash01:
+   depends_on:
+     es01:
+       condition: service_healthy
+     kibana:
+       condition: service_healthy
+   image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+   labels:
+     co.elastic.logs/module: logstash
+   user: root
+   ports:
+     - &quot;5044:5044&quot;
+     - &quot;9600:9600&quot;
+   volumes:
+     - certs:/usr/share/logstash/certs
+     - logstashdata01:/usr/share/logstash/data
+     - &quot;./logstash_ingest_data/:/usr/share/logstash/ingest_data/&quot;
+     - &quot;./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro&quot;
+   environment:
+     - xpack.monitoring.enabled=false
+     - ELASTIC_USER=elastic
+     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+     - ELASTIC_HOSTS=https://es01:9200
+ filebeat01:
+   depends_on:
+     es01:
+       condition: service_healthy
+   image: docker.elastic.co/beats/filebeat:${STACK_VERSION}
+   user: root
+   volumes:
+     - certs:/usr/share/filebeat/certs
+     - filebeatdata01:/usr/share/filebeat/data
+     - &quot;./filebeat_ingest_data/:/usr/share/filebeat/ingest_data/&quot;
+     - &quot;./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro&quot;
+     - &quot;/var/lib/docker/containers:/var/lib/docker/containers:ro&quot;
+     - &quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot;
+     - &quot;/var/log:/var/log/test:ro&quot;
+   environment:
+     - ELASTIC_USER=elastic
+     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+     - ELASTIC_HOSTS=https://es01:9200
+     - KIBANA_HOSTS=http://kibana:5601
+     - LOGSTASH_HOSTS=http://logstash01:9600
+ metricbeat01:
+   depends_on:
+     es01:
+       condition: service_healthy
+     kibana:
+       condition: service_healthy
+   image: docker.elastic.co/beats/metricbeat:${STACK_VERSION}
+   user: root
+   volumes:
+     - certs:/usr/share/metricbeat/certs
+     - metricbeatdata01:/usr/share/metricbeat/data
+     - &quot;./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&quot;
+     - &quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot;
+     - &quot;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&quot;
+     - &quot;/proc:/hostfs/proc:ro&quot;
+     - &quot;/:/hostfs:ro&quot;
+   environment:
+     - ELASTIC_USER=elastic
+     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+     - ELASTIC_HOSTS=https://es01:9200
+     - KIBANA_HOSTS=http://kibana:5601
+     - LOGSTASH_HOSTS=http://logstash01:9600
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><blockquote><p>setup服务用于监听es和kibana正常启动<br> metricbeat用于查看宿主机cpu等情况，在kibana界面上Stack Monitoring可以看到<br> filebeat01中&quot;/var/log:/var/log/test:ro&quot;表示将系统日志以只读方式同步到容器中，这样可以监控宿主机的系统日志，同理监控宿主机容器日志达到监控java日志目的</p></blockquote><figure><img src="" alt="clusteroverview.png" tabindex="0"><figcaption>clusteroverview.png</figcaption></figure><ol start="3"><li>创建logstash.conf文件</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>input {
+  beats {
+    port =&gt; 5044
+  }
+}
+filter {
+}
+output {
+ elasticsearch {
+   index =&gt; &quot;logstash-%{+YYYY.MM.dd}&quot;
+   hosts=&gt; &quot;${ELASTIC_HOSTS}&quot;
+   user=&gt; &quot;${ELASTIC_USER}&quot;
+   password=&gt; &quot;${ELASTIC_PASSWORD}&quot;
+   cacert=&gt; &quot;certs/ca/ca.crt&quot;
+ }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="4"><li>创建metricbeat.yml文件</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>metricbeat.config.modules:
+ path: ${path.config}/modules.d/*.yml
+ reload.enabled: false
+metricbeat.modules:
+- module: elasticsearch
+  hosts: ${ELASTIC_HOSTS}
+  username: ${ELASTIC_USER}
+  password: ${ELASTIC_PASSWORD}
+  xpack:
+    enabled: true
+  period: 10s
+  ssl:
+      enabled: true
+      certificate_authorities: &quot;certs/ca/ca.crt&quot;
+      certificate: &quot;certs/es01/es01.crt&quot;
+      key: &quot;certs/es01/es01.key&quot;
+- module: logstash
+  xpack:
+    enabled: true
+  period: 10s
+  hosts: ${LOGSTASH_HOSTS}
+- module: kibana
+  metricsets:
+   - stats
+  period: 10s
+  hosts: ${KIBANA_HOSTS}
+  username: ${ELASTIC_USER}
+  password: ${ELASTIC_PASSWORD}
+  xpack.enabled: true
+- module: docker
+  metricsets:
+   - &quot;container&quot;
+   - &quot;cpu&quot;
+   - &quot;diskio&quot;
+   - &quot;healthcheck&quot;
+   - &quot;info&quot;
+   #- &quot;image&quot;
+   - &quot;memory&quot;
+   - &quot;network&quot;
+  hosts: [&quot;unix:///var/run/docker.sock&quot;]
+  period: 10s
+  enabled: true
+processors:
+ - add_host_metadata: ~
+ - add_docker_metadata: ~
+output.elasticsearch:
+ hosts: ${ELASTIC_HOSTS}
+ username: ${ELASTIC_USER}
+ password: ${ELASTIC_PASSWORD}
+ ssl:
+   certificate: &quot;certs/es01/es01.crt&quot;
+   certificate_authorities: &quot;certs/ca/ca.crt&quot;
+   key: &quot;certs/es01/es01.key&quot;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="5"><li>创建filebeat.yml</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>filebeat.inputs:
+- type: filestream
+  id: default-filestream
+  paths:
+   - ingest_data/*.log
+   - /var/log/test/*.log
+- type: container
+  id: java
+  paths:
+   - /var/lib/docker/containers/*/*.log
+filebeat.autodiscover:
+ providers:
+   - type: docker
+     hints.enabled: true
+
+
+processors:
+- add_docker_metadata: ~
+
+
+setup.kibana:
+ host: ${KIBANA_HOSTS}
+ username: ${ELASTIC_USER}
+ password: ${ELASTIC_PASSWORD}
+
+
+# output.elasticsearch:
+#  hosts: ${ELASTIC_HOSTS}
+#  username: ${ELASTIC_USER}
+#  password: ${ELASTIC_PASSWORD}
+#  ssl.enabled: true
+#  ssl.certificate_authorities: &quot;certs/ca/ca.crt&quot;
+
+output.logstash:
+  hosts: &quot;logstash01&quot;
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="6"><li>将上面文件全部放入同一个目录并运行以下命令启动 ELK 堆栈：</li></ol><div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><ol start="7"><li>验证<br> 验证 Elasticsearch：打开浏览器并访问 <a href="https://localhost:9200" target="_blank" rel="noopener noreferrer">https://localhost:9200<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>。选择继续登陆输入账号密码，你应该会看到类似以下内容的 JSON 响应：<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/9fa817d3a9b480a081bb5.jpg" alt="esok.png"></li></ol><p>验证 Kibana：<br> 打开浏览器并访问 <a href="http://localhost:5601" target="_blank" rel="noopener noreferrer">http://localhost:5601<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>。你应该会看到 Kibana 的欢迎页面。</p><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/f3a22d1b54b166448f8d7.jpg" alt="kibanaok.png" tabindex="0"><figcaption>kibanaok.png</figcaption></figure><p>kibana左侧中提供了一个DevTools界面：可以编写DSL来操作elasticsearch。并且对DSL语句有自动补全功能。<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/ba0918c606927331626f9.jpg" alt="devtools.png"><br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/6a8c0540680bfbddf62fa.jpg" alt="devtools2.png"></p><div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre class="language-bash"><code>POST /_analyze
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;analyzer&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;ik_max_word&quot;</span>,
+  <span class="token string">&quot;text&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;java学习java太棒了&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>导航到 &quot;Discover&quot; 页面，查看日志数据是否成功索引到 Elasticsearch。</p></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/monitoringsystem/elk.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><!----><!----></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/backend/monitoringsystem/prometheus.html" aria-label="Prometheus"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">Prometheus<!----></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

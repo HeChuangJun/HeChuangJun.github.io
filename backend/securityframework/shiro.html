@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/securityframework/shiro.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="shiro"><meta property="og:description" content="shiro权限控制 1. 权限概述 2. shiro的介绍 3. shiro的使用 36. shiro组件，认证，权限怎么做？ 1. 权限概述 2. shiro的介绍 1.png1.png 3. shiro的使用 36. shiro组件，认证，权限怎么做？ shiro组件 Subject：主体，代表了当前“用户”,表示要和应用交互的东西. Securi..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/a225ee4bba93bf94ffef9.png"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"shiro","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/a225ee4bba93bf94ffef9.png"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>shiro | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/shiro.html-DkA0nVju.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/securityframework/shiro.html" aria-label="shiro"><!---->shiro<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/securityframework/springsecurity.html" aria-label="SpringSecurity"><!---->SpringSecurity<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->shiro</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 2204 字</span><meta property="wordCount" content="2204"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 7 分钟</span><meta property="timeRequired" content="PT7M"></span></div><hr></div><!----><!--[--><!----><!--]--><div class="theme-hope-content"><p>shiro权限控制</p><ul><li><a href="#1-%E6%9D%83%E9%99%90%E6%A6%82%E8%BF%B0">1. 权限概述</a></li><li><a href="#2-shiro%E7%9A%84%E4%BB%8B%E7%BB%8D">2. shiro的介绍</a></li><li><a href="#3-shiro%E7%9A%84%E4%BD%BF%E7%94%A8">3. shiro的使用</a></li><li><a href="#36-shiro%E7%BB%84%E4%BB%B6%E8%AE%A4%E8%AF%81%E6%9D%83%E9%99%90%E6%80%8E%E4%B9%88%E5%81%9A">36. shiro组件，认证，权限怎么做？</a></li></ul><h1 id="_1-权限概述" tabindex="-1"><a class="header-anchor" href="#_1-权限概述"><span>1. 权限概述</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>认证：系统提供的用于识别用户身份的功能，通常登录功能就是认证功能-----让系统知道你是谁？？
+授权：系统授予用户可以访问哪些功能的许可（证书）----让系统知道你能做什么？？
+
+常见的权限控制方式
+URL拦截权限控制：底层基于拦截器或者过滤器实现
+方法注解权限控制：底层基于代理技术实现，为Action创建代理对象，由代理对象进行权限校验
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_2-shiro的介绍" tabindex="-1"><a class="header-anchor" href="#_2-shiro的介绍"><span>2. shiro的介绍</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>官网：shiro.apache.org
+shiro框架的核心功能：认证、授权、会话管理、加密
+
+
+shiro框架认证流程
+Application Code：应用程序代码，由开发人员负责开发的
+Subject：框架提供的接口，代表当前用户对象
+SecurityManager：框架提供的接口，代表安全管理器对象
+Realm：可以开发人员编写，框架也提供一些，类似于ＤＡＯ，用于访问权限数据
+
+框架提供的过滤器
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/a225ee4bba93bf94ffef9.png" alt="1.png" tabindex="0"><figcaption>1.png</figcaption></figure><h1 id="_3-shiro的使用" tabindex="-1"><a class="header-anchor" href="#_3-shiro的使用"><span>3. shiro的使用</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>创建权限数据模型
+权限表、角色表、用户表、角色权限关系表、用户角色关系表
+角色就是权限的集合，引入角色表，是为了方便授权
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>使用shiro的URL拦截权限控制（基于过滤器实现）
+maven项目引入shiro依赖
+&lt;!-- 引入shiro框架的依赖 --&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+	&lt;artifactId&gt;shiro-all&lt;/artifactId&gt;
+	&lt;version&gt;1.2.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+在web.xml配置shiro框架进行权限控制在struts2前面
+&lt;!-- 配置spring框架提供的用于整合shiro框架的过滤器 --&gt;
+&lt;filter&gt;
+	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;
+	&lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;
+	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+
+在spring配置文件中配置bean，id为shiroFilter
+&lt;!-- 配置shiro框架的过滤器工厂对象 --&gt;
+&lt;bean id=&quot;shiroFilter&quot; class=&quot;org.apache.shiro.spring.web.ShiroFilterFactoryBean&quot;&gt;
+	&lt;!-- 注入安全管理器对象 --&gt;
+	&lt;property name=&quot;securityManager&quot; ref=&quot;securityManager&quot;/&gt;
+	&lt;!-- 注入相关页面访问URL --&gt;
+	&lt;property name=&quot;loginUrl&quot; value=&quot;/login.jsp&quot;/&gt;
+	&lt;property name=&quot;successUrl&quot; value=&quot;/index.jsp&quot;/&gt;
+	&lt;property name=&quot;unauthorizedUrl&quot; value=&quot;/unauthorized.jsp&quot;/&gt;
+	&lt;!--注入URL拦截规则 --&gt;
+	&lt;property name=&quot;filterChainDefinitions&quot;&gt;
+		&lt;value&gt;
+			/css/** = anon
+			/js/** = anon
+			/images/** = anon
+			/validatecode.jsp* = anon
+			/login.jsp = anon
+			/userAction_login.action = anon
+			/page_base_staff.action = perms[&quot;staff-list&quot;]
+			/* = authc
+		&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/bean&gt;
+
+配置安全管理器
+&lt;!-- 注册安全管理器对象 --&gt;
+&lt;bean id=&quot;securityManager&quot; class=&quot;org.apache.shiro.web.mgt.DefaultWebSecurityManager&quot;&gt;
+	&lt;property name=&quot;realm&quot; ref=&quot;bosRealm&quot;/&gt;
+&lt;/bean&gt;
+
+注册realm并注入给安全管理器
+&lt;bean id=&quot;bosRealm&quot; class=&quot;com.itheima.bos.realm.BOSRealm&quot;&gt;&lt;/bean&gt;
+
+修改UserAction的login方法，使用shiro提供的方法进行认证
+public String login(){
+	//从Session中获取生成的验证码
+	String validatecode = (String) 
+	ServletActionContext.getRequest().getSession().getAttribute(&quot;key&quot;);
+	//校验验证码是否输入正确
+	if(StringUtils.isNotBlank(checkcode) &amp;&amp; checkcode.equals(validatecode)){
+		//使用shiro框架提供的方式进行认证操作
+		Subject subject = SecurityUtils.getSubject();//获得当前用户对象,状态为“未认证”
+		//创建用户名密码令牌对象
+		AuthenticationToken token = new UsernamePasswordToken(model.getUsername(),MD5Utils.md5(model.getPassword()));
+		try{
+			subject.login(token);
+		}catch(Exception e){
+			e.printStackTrace();
+			return LOGIN;
+		}
+		User user = (User) subject.getPrincipal();
+		ServletActionContext.getRequest().getSession().setAttribute(&quot;loginUser&quot;, user);
+		return HOME;
+	}else{
+		//输入的验证码错误,设置提示信息，跳转到登录页面
+		this.addActionError(&quot;输入的验证码错误！&quot;);
+		return LOGIN;
+	}
+}
+
+自定义realm，实现AuthorizingRealm接口，并注入给安全管理器
+public class BOSRealm extends AuthorizingRealm{
+	@Autowired
+	private IUserDao userDao;
+	//认证方法
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		System.out.println(&quot;realm中的认证方法执行了。。。。&quot;);
+		UsernamePasswordToken mytoken = (UsernamePasswordToken)token;
+		String username = mytoken.getUsername();
+		//根据用户名查询数据库中的密码
+		User user = userDao.findUserByUserName(username);
+		if(user == null){
+			//用户名不存在
+			return null;
+		}
+		//如果能查询到，再由框架比对数据库中查询到的密码和页面提交的密码是否一致
+		AuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), this.getName());
+		return info;
+	}
+
+	//授权方法
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		//为用户授权
+		info.addStringPermission(&quot;staff-list&quot;);
+
+		//TODO 后期需要修改为根据当前登录用户查询数据库，获取实际对应的权限
+		User user1 = (User) SecurityUtils.getSubject().getPrincipal();
+		User user2 = (User) principals.getPrimaryPrincipal();
+		System.out.println(user1 == user2);
+		return info;
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>使用shiro的方法注解方式权限控制（基于代理技术实现）
+在spring配置文件中开启shiro注解支持
+&lt;!-- 开启shiro框架注解支持 --&gt;
+&lt;bean id=&quot;defaultAdvisorAutoProxyCreator&quot; 
+	class=&quot;org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator&quot;&gt;
+		&lt;!-- 必须使用cglib方式为Action对象创建代理对象 --&gt;
+	&lt;property name=&quot;proxyTargetClass&quot; value=&quot;true&quot;/&gt;
+&lt;/bean&gt;
+
+&lt;!-- 配置shiro框架提供的切面类，用于创建代理对象 --&gt;
+&lt;bean class=&quot;org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor&quot;/&gt;
+
+在Action的方法上使用shiro注解
+@RequestPermission(&quot;staff-delete&quot;)
+//执行这个方法必须有staff-delete权限
+public String deleteBatch(){
+	staffService.deleteBatch(ids);
+	return LIST;
+}
+
+在struts.xml中配置全局异常捕获，
+当shiro框架抛出权限不足异常时，跳转到权限不足提示页面
+&lt;!-- 全局结果集定义 --&gt;
+&lt;global-results&gt;
+	&lt;result name=&quot;login&quot;&gt;/login.jsp&lt;/result&gt;
+	&lt;result name=&quot;unauthorized&quot;&gt;/unauthorized.jsp&lt;/result&gt;
+&lt;/global-results&gt;
+&lt;global-exception-mapping&gt;
+&lt;exception-mapping result=&quot;unauthorized&quot;
+	exception=&quot;org.apache.shiro.authz.unauthorizedException&quot;&gt;&lt;/exception-mapping&gt;
+&lt;/global-exception-mapping&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>使用shiro提供的页面标签方式权限控制（标签技术实现）
+在jsp页面中引入shiro的标签库
+&lt;%@ taglib prefix=&quot;shiro&quot; uri=&quot;http://shiro.apache.org/tags&quot; %&gt;
+
+使用shiro的标签控制页面元素展示
+&lt;shiro:hasPermission name=&quot;staff-delete&quot;&gt;
+{
+	id : &#39;button-delete&#39;,
+	text : &#39;删除&#39;,
+	iconCls : &#39;icon-cancel&#39;,
+	handler : doDelete
+},
+&lt;/shiro:hasPermission&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>代码级别权限控制（基于代理技术实现）
+public String edit(){
+	//Subject subject = SecurityUtils.getSubject();
+	//subject.checkPermission(&quot;staff-edit&quot;);
+	//显查询数据库，根据id查询原始数据
+	Staff staff = staffService.findById(model.getId());
+	//使用页面提交的数据进行覆盖
+	staff.setName(model.getName());
+	staff.setTelephone(model.getTelephone());
+	staff.setHaspda(model.getHaspda());
+	staff.setStandard(model.getStandard());
+	staff.setStation(model.getStation());
+	staffService.update(staff);
+	return LIST;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_36-shiro组件-认证-权限怎么做" tabindex="-1"><a class="header-anchor" href="#_36-shiro组件-认证-权限怎么做"><span>36. shiro组件，认证，权限怎么做？</span></a></h1><ul><li>shiro组件 <ul><li>Subject：主体，代表了当前“用户”,表示要和应用交互的东西.</li><li>SecurityManager: 安全管理器. Shiro中所有的操作都是通过安全管理器操作的.内部会把Subject发出的请求转发到对应的内部组件中完成具体功能</li><li>Realm: 域，shiro从Realm获取安全数据(如用户、角色、权限)，就是说SecurityManager要验证用户身份，那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作(通常我们使用自定义的Realm)</li></ul></li><li>Shiro认证的流程.(Subject,SecurityManager,Authenticator,Realm做了哪些事情) <ul><li>1.将需要登录的账号和密码封装成UsernamePasswordToken</li><li>2.然后从SecurityUtils中获取Subject对象,然后调用login方法,把token作为参数传入.</li><li>3.调用subject.login()之后,会交给SecurityManager进行请求的处理.</li><li>4.安全管理器SecurityManager会把请求转发给认证器Authenticator</li><li>5.认证器Authenticator会调用Realm中的方法并把token作为参数传入</li><li>6.我们需要在Realm中根据用户名从数据库中查询用户信息并封装成认证信息对象SimpleAuthenticationInfo</li><li>7.如果返回的SimpleAuthenticationInfo对象为空会抛出异常</li><li>8.认证器Authenticator会拿到传入token中的password和返回认证信息对象SimpleAuthenticationInfo中的password进行比对，如果不一致则抛出异常.</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>    //filter
+    
+    //1、获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager  
+    Factory&lt;org.apache.shiro.mgt.SecurityManager&gt; factory = new IniSecurityManagerFactory(&quot;classpath:shiro.ini&quot;);
+    //2、得到SecurityManager实例 并绑定给SecurityUtils
+    org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
+    SecurityUtils.setSecurityManager(securityManager);
+    //3、得到Subject及创建用户名/密码身份验证Token（即用户身份/凭证）
+    Subject subject = SecurityUtils.getSubject();
+    UsernamePasswordToken token = new UsernamePasswordToken(&quot;zhang&quot;, &quot;123&quot;);
+    try {
+        //4、登录，即身份验证
+        subject.login(token);
+    } catch (AuthenticationException e) {
+        //5、身份验证失败
+    }
+    Assert.assertEquals(true, subject.isAuthenticated()); //断言用户已经登录
+    //6、退出
+    subject.logout();
+
+    自定义realm
+    public class CustomAuthorizationRealm extends AuthorizingRealm{
+        //认证
+        @Override
+        protected AuthenticationInfo doGetAuthenticationInfo(
+                AuthenticationToken token) throws AuthenticationException {
+
+            //从token中 获取用户身份信息
+            String username = (String) token.getPrincipal();
+            //拿username从数据库中查询
+            //....
+            //如果查询不到则返回null
+
+            //获取从数据库查询出来的用户密码
+            UsrinfMapper usrinfMapper = (UsrinfMapper)SpringContainer.getBean(&quot;usrinfMapper&quot;);
+            Usrinf USRINF = usrinfMapper.loadByLGNNAM(username);
+            if(USRINF == null){
+                return null;
+            }
+            String password =  USRINF.getLGNPWD();//这里使用静态数据模拟。。
+            //返回认证信息由父类AuthenticatingRealm进行认证
+            SimpleAuthenticationInfo sinfo = new SimpleAuthenticationInfo(username, password, getName());
+            return sinfo;
+
+            &lt;!-- String username = (String)principals.getPrimaryPrincipal();
+            SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+            authorizationInfo.setRoles(userService.findRoles(username));
+            authorizationInfo.setStringPermissions(userService.findPermissions(username));
+            return authorizationInfo; --&gt;
+        }
+
+        //授权
+        @Override
+        protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+            SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+            authorizationInfo.addRole(&quot;role1&quot;);
+            authorizationInfo.addRole(&quot;role2&quot;);
+            authorizationInfo.addObjectPermission(new BitPermission(&quot;+user1+10&quot;));
+            authorizationInfo.addObjectPermission(new WildcardPermission(&quot;user1:*&quot;));
+            authorizationInfo.addStringPermission(&quot;+user2+10&quot;);
+            authorizationInfo.addStringPermission(&quot;user2:*&quot;);
+            return authorizationInfo;
+        }
+    }    
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>4.Shiro鉴权的流程.(Subject,SecurityManager,Realm做了哪些事情) <ul><li>1.会先判断用户是否已经登录,如果没登录返回false,登录继续后续流程</li><li>2.然后会通过安全管理器securityManager判断当前登录用户是否有该权限.</li><li>3.安全管理器securityManager会调用Realm中的方法获取当前用户拥有的角色/权限集合</li><li>4.然后判断用户的角色/权限集合中是否包含当前判断的权限，如果包含返回true,否则返回false.</li></ul></li><li>@RequiresRoles(&quot;admin&quot;)注解</li></ul></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/securityframework/shiro.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/backend/securityframework/springsecurity.html" aria-label="SpringSecurity"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">SpringSecurity<!----></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

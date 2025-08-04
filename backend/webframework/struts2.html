@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/webframework/struts2.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="struts2"><meta property="og:description" content="struts2 1. struts2访问流程&架构&介绍 2. 搭建struts2框架 3. strust.xml配置详解 4. Action生命周期 5. ActionContext内容 6. 访问servletAPI方式 7. jsp获得 8. Action接收参数 9. struts、hibernate的javassist-3.18.1-GA.j..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/61bb9c3bcf7d5ee3f1d3a.png"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"struts2","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/61bb9c3bcf7d5ee3f1d3a.png","https://290ff162.telegraph-image-eg9.pages.dev/file/01a9aa1dcc1e771d064fe.png","https://290ff162.telegraph-image-eg9.pages.dev/file/ade13c1a8726195fa2700.png","https://290ff162.telegraph-image-eg9.pages.dev/file/dee2b3721039564887ecb.png","https://290ff162.telegraph-image-eg9.pages.dev/file/01fe1aa30249f33864027.jpg"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>struts2 | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/struts2.html-Dy3Eh55E.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/webframework/springmvc.html" aria-label="springmvc"><!---->springmvc<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/webframework/springwebflux.html" aria-label="Spring Webflux"><!---->Spring Webflux<!----></a></li><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/webframework/struts2.html" aria-label="struts2"><!---->struts2<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->struts2</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 4278 字</span><meta property="wordCount" content="4278"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 14 分钟</span><meta property="timeRequired" content="PT14M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_10-1-ognl与struts2的结合原理">10.1. OGNL与Struts2的结合原理</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_10-2-struts2与ognl结合体现">10.2. struts2与ognl结合体现</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><p>struts2</p><ul><li><a href="#1-struts2%E8%AE%BF%E9%97%AE%E6%B5%81%E7%A8%8B%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D">1. struts2访问流程&amp;架构&amp;介绍</a></li><li><a href="#2-%E6%90%AD%E5%BB%BAstruts2%E6%A1%86%E6%9E%B6">2. 搭建struts2框架</a></li><li><a href="#3-strustxml%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3">3. strust.xml配置详解</a></li><li><a href="#4-action%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">4. Action生命周期</a></li><li><a href="#5-actioncontext%E5%86%85%E5%AE%B9">5. ActionContext内容</a></li><li><a href="#6-%E8%AE%BF%E9%97%AEservletapi%E6%96%B9%E5%BC%8F">6. 访问servletAPI方式</a></li><li><a href="#7-jsp%E8%8E%B7%E5%BE%97">7. jsp获得</a></li><li><a href="#8-action%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0">8. Action接收参数</a></li><li><a href="#9-strutshibernate%E7%9A%84javassist-3181-gajar%E5%8C%85%E9%87%8D%E5%A4%8D%E5%88%A0%E9%99%A4%E7%89%88%E6%9C%AC%E4%BD%8E%E7%9A%84">9. struts、hibernate的javassist-3.18.1-GA.jar包重复,删除版本低的.</a></li><li><a href="#10-ognl%E8%A1%A8%E8%BE%BE%E5%BC%8F">10. OGNL表达式</a><ul><li><a href="#101-ognl%E4%B8%8Estruts2%E7%9A%84%E7%BB%93%E5%90%88%E5%8E%9F%E7%90%86">10.1. OGNL与Struts2的结合原理</a></li><li><a href="#102-struts2%E4%B8%8Eognl%E7%BB%93%E5%90%88%E4%BD%93%E7%8E%B0">10.2. struts2与ognl结合体现</a></li></ul></li><li><a href="#11-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8B%A6%E6%88%AA%E5%99%A8">11. 自定义拦截器</a></li><li><a href="#12-struts2%E6%A0%87%E7%AD%BE%E4%BA%86%E8%A7%A3">12. struts2标签(了解)</a></li><li><a href="#13-%E8%A1%A8%E7%8E%B0%E5%B1%82%E6%8A%BD%E5%8F%96">13. 表现层抽取</a></li><li><a href="#14-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0">14. 文件上传</a></li><li><a href="#15-%E5%A4%84%E7%90%86ajax%E8%AF%B7%E6%B1%82">15. 处理Ajax请求</a></li></ul><h1 id="_1-struts2访问流程-架构-介绍" tabindex="-1"><a class="header-anchor" href="#_1-struts2访问流程-架构-介绍"><span>1. struts2访问流程&amp;架构&amp;介绍</span></a></h1><ul><li>自动封装参数、参数校验、结果的处理(转发|重定向)、国际化、显示等待页面、表单的防止重复提交</li><li>struts2前身：webwork框架(基于filter)与struts1(基于Servlet)两者无关.</li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/61bb9c3bcf7d5ee3f1d3a.png" alt="struts2.png" tabindex="0"><figcaption>struts2.png</figcaption></figure><h1 id="_2-搭建struts2框架" tabindex="-1"><a class="header-anchor" href="#_2-搭建struts2框架"><span>2. 搭建struts2框架</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>导包:web-content --&gt;web-INF--&gt;lib
+asm-3.3.jar
+asm-commons-3.3.jar
+asm-tree-3.3.jar
+commons-fileupload-1.3.1.jar
+commons-io-2.2.jar
+commons-lang3-3.2.jar
+freemarker-2.3.22.jar
+javassist-3.11.0.GA.jar
+log4j-api-2.2.jar
+log4j-core-2.2.jar
+ognl-3.0.6.jar
+struts2-core-2.3.24.jar
+xwork-core-2.3.24.jar
+
+在src下面创建*Action.java
+	方法一：创建一个类.不继承任何父类.不实现任何接口.使struts2框架的代码侵入性更低.
+	public class DemoAction {
+		public String hello(){
+			return &quot;success&quot;;
+		}
+	}
+	方法二：实现一个接口Action
+	import com.opensymphony.xwork2.Action;
+	// 里面有execute方法,提供action方法的规范.
+	// Action接口预置了一些字符串.可以在返回结果时使用.为了方便
+	public class DemoAction implements Action {
+		@Override
+		public String execute() throws Exception {
+			return null;
+		}
+	}
+	方法三：继承ActionSupport
+	// 帮我们实现了 Validateable, ValidationAware, TextProvider, LocaleProvider .
+	//如果我们需要用到这些接口的实现时,不需要自己来实现了.
+	public class Demo5Action  extends ActionSupport{}
+
+创建struts主配置文件在src下创建struts.xml
+导入约束window菜单--&gt; preference--&gt;cata 在web App Libraries--struts2-core-2.3.24.jar--struts-2.3.dtd
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE struts PUBLIC
+&quot;-//Apache Software Foundation//DTD Struts Configuration 2.3//EN&quot;
+&quot;http://struts.apache.org/dtds/struts-2.3.dtd&quot;&gt;
+&lt;struts&gt;
+		&lt;!-- package:将Action配置封装.就是可以在Package中配置很多action.
+			name属性: 给包起个名字,起到标识作用.随便起.不能其他包名重复.
+			namespace属性:给action的访问路径中定义一个命名空间
+			extends属性: 继承一个 指定包
+			abstract属性:包是否为抽象的; 标识性属性.标识该包不能独立运行.专门被继承 --&gt;
+	&lt;package name=&quot;hello&quot; namespace=&quot;/hello&quot; extends=&quot;struts-default&quot;&gt;
+			&lt;!-- action元素:配置action类
+				name属性: 决定了Action访问资源名.
+				class属性: action的完整类名
+				method属性: 指定调用Action中的哪个方法来处理请求 --&gt;
+		&lt;action name=&quot;TestAction&quot; class=&quot;com.junye.test.HelloAction&quot; method=&quot;fun&quot;&gt;
+			&lt;!-- result元素:结果配置 
+				name属性: 标识结果处理的名称.与action方法的返回值对应.
+				type属性: 指定调用哪一个result类来处理结果,默认使用转发.
+				标签体:填写页面的相对路径--&gt;
+			&lt;result name=&quot;success&quot;&gt;/hello.jsp&lt;/result&gt;
+		&lt;/action&gt;
+	&lt;/package&gt;
+	&lt;!-- 引入其他struts配置文件 --&gt;
+	&lt;include file=&quot;cn/junye/b_dynamic/struts.xml&quot;&gt;&lt;/include&gt;
+&lt;/struts&gt;
+
+将struts2核心过滤器配置到web.xml,配置在欢迎页前面
+	&lt;filter&gt;
+		&lt;filter-name&gt;struts2&lt;/filter-name&gt;
+		&lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+	&lt;/filter&gt;
+	&lt;filter-mapping&gt;
+		&lt;filter-name&gt;struts2&lt;/filter-name&gt;
+		&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+	&lt;/filter-mapping&gt;
+	
+测试:访问http://localhost:8080/mystruts/hello/TestAction
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_3-strust-xml配置详解" tabindex="-1"><a class="header-anchor" href="#_3-strust-xml配置详解"><span>3. strust.xml配置详解</span></a></h1><ul><li>struts2常量配置方式(先后也是加载顺序)后加载覆盖</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>方式1:src/struts.xml（只用这个）
+	&lt;constant name=&quot;struts.i18n.encoding&quot; value=&quot;UTF8&quot;&gt;&lt;/constant&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>方式2:在src下创建struts.properties：
+struts.i18n.encoding=UTF8
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>方式3:在项目的web.xml中
+&lt;context-param&gt;
+	&lt;param-name&gt;struts.i18n.encoding&lt;/param-name&gt;
+	&lt;param-value&gt;UTF-8&lt;/param-value&gt;
+&lt;/context-param&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>struts2常量配置位置App Libraries--struts2-core-2.3.24.jar--org.apache.struts2-default.properties;</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;!--常量配置struts.xml--&gt;
+&lt;!-- i18n:国际化. 解决post提交乱码 get提交，按以前的方式--&gt;
+&lt;constant name=&quot;struts.i18n.encoding&quot; value=&quot;UTF-8&quot;&gt;&lt;/constant&gt;
+&lt;!-- 指定访问action时的后缀名 
+http://localhost:8080/struts2_day01/hello/HelloAction.？默认.action 和 “空”--&gt;
+&lt;constant name=&quot;struts.action.extension&quot; value=&quot;？&quot;&gt;&lt;/constant&gt;
+&lt;!-- 指定struts2是否以开发模式运行1.热加载主配置.(不需要重启即可生效)2.提供更多错误信息输出,方便开发时的调试--&gt;
+&lt;constant name=&quot;struts.devMode&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>struts2动态方法调用(struts.xml)</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>通配符方式  使用{1} 取出第一个星号通配的内容
+&lt;package name=&quot;dynamic&quot; namespace=&quot;/dynamic&quot; extends=&quot;struts-default&quot; &gt;
+	&lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.b.Demo1Action&quot; method=&quot;{1}&quot; &gt;
+		&lt;result name=&quot;success&quot; &gt;/{1}.jsp&lt;/result&gt;
+	&lt;/action&gt;
+&lt;/package&gt;	
+访问http://localhost:8080/struts2_day01/dynamic/Demo1Action_find.action跳转到find.jsp
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>struts2中的默认配置</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;package name=&quot;default&quot; namespace=&quot;/default&quot; extends=&quot;struts-default&quot; &gt;
+	&lt;!--不声明则默认访问,不管整合没整合--&gt;
+	&lt;!--&lt;default-class-ref class=&quot;com.opensymphony.xwork2.ActionSupport&quot; /&gt;--&gt;
+	&lt;!-- 声明后找不到包下的action,会使用Demo2Action作为默认action处理请求 --&gt;
+	&lt;default-action-ref name=&quot;Demo2Action&quot;&gt;&lt;/default-action-ref&gt;
+	&lt;!-- method属性:execute result的name属性:success   result的type属性:dispatcher转发  --&gt;
+	&lt;!-- class属性:com.opensymphony.xwork2.ActionSupport --&gt;
+	&lt;action name=&quot;Demo2Action&quot;   &gt;
+		&lt;result  &gt;/hello.jsp&lt;/result&gt;
+	&lt;/action&gt;
+&lt;/package&gt;
+http://localhost:8080/struts2_day01/default/xxxx.action,默认访问Demo2Action
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>结果跳转方式struts.xml中（result的type属性）用于post/get提交</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	转发
+	&lt;action name=&quot;Demo1Action&quot; class=&quot;cn.a_result.Demo1Action&quot; method=&quot;execute&quot; &gt;
+		&lt;result name=&quot;success&quot; type=&quot;dispatcher&quot; &gt;/hello.jsp&lt;/result&gt;
+	&lt;/action&gt;
+
+	重定向地址栏发生变化
+	&lt;action name=&quot;Demo2Action&quot; class=&quot;cn.a_result.Demo2Action&quot; method=&quot;execute&quot; &gt;
+		&lt;result name=&quot;success&quot; type=&quot;redirect&quot; &gt;/hello.jsp&lt;/result&gt;
+	&lt;/action&gt;
+
+	转发到Action
+	&lt;action name=&quot;Demo3Action&quot; class=&quot;cn.a_result.Demo3Action&quot; method=&quot;execute&quot; &gt;
+		&lt;result name=&quot;success&quot; type=&quot;chain&quot;&gt;
+			&lt;param name=&quot;actionName&quot;&gt;Demo1Action&lt;/param&gt;
+			&lt;param name=&quot;namespace&quot;&gt;/&lt;/param&gt;//转发的命名空间
+		&lt;/result&gt;
+	&lt;/action&gt;
+
+	重定向到Action
+	&lt;action name=&quot;Demo4Action&quot; class=&quot;cn.a_result.Demo4Action&quot; method=&quot;execute&quot; &gt;
+		&lt;result  name=&quot;success&quot;  type=&quot;redirectAction&quot;&gt;
+			&lt;param name=&quot;actionName&quot;&gt;Demo1Action&lt;/param&gt;
+			&lt;param name=&quot;namespace&quot;&gt;/&lt;/param&gt;//转发的命名空间
+		&lt;/result&gt;
+	&lt;/action&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>全局结果集</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;global-result&gt;
+	&lt;result name=&quot;&quot; type=&quot;redirect&quot;&gt;/login.jsp&lt;/result&gt;
+&lt;/global-result&gt;
+&lt;global-exception-mappings&gt;
+	&lt;exception-mapping result=&quot;error&quot; exception=&quot;java.lang.RuntimeException&quot;&gt;
+&lt;/exception-mapping&gt;
+&lt;/global-exception-mappings&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_4-action生命周期" tabindex="-1"><a class="header-anchor" href="#_4-action生命周期"><span>4. Action生命周期</span></a></h1><ul><li>1.每次请求到来时,都会创建一个新的Action实例、</li><li>2.Action是线程安全的.可以使用成员变量接收参数,servlet线程不安全</li></ul><h1 id="_5-actioncontext内容" tabindex="-1"><a class="header-anchor" href="#_5-actioncontext内容"><span>5. ActionContext内容</span></a></h1><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/01a9aa1dcc1e771d064fe.png" alt="ActionContext.png" tabindex="0"><figcaption>ActionContext.png</figcaption></figure><ul><li>attr域以最小的域的map的键为准、request域就是request中的一个map</li></ul><h1 id="_6-访问servletapi方式" tabindex="-1"><a class="header-anchor" href="#_6-访问servletapi方式"><span>6. 访问servletAPI方式</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>通过ActionContext,通过Map原来的方法键值对获得,或者通过封装好的方法获得
+//request域=&gt; map (不推荐,ActionContext生命周期和request一样，推荐ActionContext)
+//不推荐Map&lt;String, Object&gt; requestScope = (Map&lt;String, Object&gt;) ActionContext.getContext().get(&quot;request&quot;);
+ActionContext.getContext().put(&quot;name&quot;, &quot;requestTom&quot;);//推荐
+
+//session域 =&gt; map
+Map&lt;String, Object&gt; sessionScope = ActionContext.getContext().getSession();
+sessionScope.put(&quot;name&quot;, &quot;sessionTom&quot;);
+销毁session：ActionContext.getContext().getSession().invalidate();
+
+//application域=&gt;map
+Map&lt;String, Object&gt;applicationScope =ActionContext.getContext().getApplication(); 
+操作map put(&quot;name&quot;,&quot;Tom&quot;)、remove(&quot;name&quot;, &quot;Tom&quot;)、get(&quot;&quot;,&quot;&quot;);
+
+//获得原生response的方法(推荐)
+HttpServletResponse response = ServletActionContext.getResponse();
+	
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>通过ServletActionContext（不推荐）获得各种原生域
+HttpServletRequest request = ServletActionContext.getRequest();
+HttpSession session = request.getSession();
+HttpServletResponse response = ServletActionContext.getResponse();
+ServletContext servletContext = ServletActionContext.getServletContext();
+PageContext pageContext = ServletActionContext.getPageContext();
+操作各种域：setAttribute、addAttribute、getAttribute、removeAttribute
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>通过实现接口方式（用拦截器完成的）
+public class Demo7Action extends ActionSupport implements ServletRequestAware {
+	private HttpServletRequest request;
+	public String execute() throws Exception { 	
+		System.out.println(&quot;原生request:&quot;+request);
+		return SUCCESS;
+	}
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}	
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_7-jsp获得" tabindex="-1"><a class="header-anchor" href="#_7-jsp获得"><span>7. jsp获得</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>page：${pageScope.name};
+request: ${requestScope.name}
+session:${sessionScope.name}
+application:${applicationScope.name}
+${name}按顺序取
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_8-action接收参数" tabindex="-1"><a class="header-anchor" href="#_8-action接收参数"><span>8. Action接收参数</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>表单
+&lt;form action=&quot;${pageContext.request.contextPath}/Demo8Action&quot;&gt;
+	用户名:&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;br&gt;
+	年龄:&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br&gt;
+	生日:&lt;input type=&quot;text&quot; name=&quot;birthday&quot; /&gt;&lt;br&gt;
+		&lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+&lt;/form&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>单个类型：能获得radio和chekbox的值
+属性驱动获得参数：set/get方法
+public class Demo8Action extends ActionSupport  {
+	//准备与参数键名称相同的属性
+	private String name;
+	//自动类型转换 只能转换8大基本数据类型以及对应包装类
+	private Integer age;
+	//支持特定类型字符串转换为Date ,例如 yyyy-MM-dd，一定要有set/get方法
+	private Date   birthday;
+	public String execute() throws Exception { 
+		System.out.println(&quot;name参数值:&quot;+name+&quot;,age参数值:&quot;+age+&quot;,生日:&quot;+birthday);
+		return SUCCESS;
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>对象驱动获得参数
+public class Demo9Action extends ActionSupport  {
+	private User user;//生成set/get方法
+	public String execute() throws Exception { 	
+		System.out.println(user);
+		return SUCCESS;
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>模型驱动获得参数实现接口（只能返回一个对象）
+public class Demo10Action extends ActionSupport implements ModelDriven&lt;User&gt; {
+	private User user =new User();
+	public String execute() throws Exception { 
+		System.out.println(user);
+		return SUCCESS;
+	}
+	@Override
+	public User getModel() {
+		return user;
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	④radio或checkbox的获取
+	只要将属性名字设置成对应的radio或checkbox的值即可获得提交的参数，
+	radio是单个值，而checkbox是一行value，空格value的结构，拆分即可
+	String[] split = hobby.split(&quot;, &quot;);
+	for(String s:split) {
+		System.err.println(s);
+	}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	⑤集合类型参数封装
+	list:&lt;input type=&quot;text&quot; name=&quot;list&quot; /&gt;&lt;br&gt;//不指定索引则一个一个塞
+	list:&lt;input type=&quot;text&quot; name=&quot;list[3]&quot; /&gt;&lt;br&gt;//指定就放到规定的地方，不指定就null
+	private List&lt;String&gt; list;set、get方法
+	map:&lt;input type=&quot;text&quot; name=&quot;map[&#39;haha&#39;]&quot; /&gt;&lt;br&gt;//值封装到键值haha上
+	private Map&lt;String,String&gt; map;set/get方法
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_9-struts、hibernate的javassist-3-18-1-ga-jar包重复-删除版本低的" tabindex="-1"><a class="header-anchor" href="#_9-struts、hibernate的javassist-3-18-1-ga-jar包重复-删除版本低的"><span>9. struts、hibernate的javassist-3.18.1-GA.jar包重复,删除版本低的.</span></a></h1><h1 id="_10-ognl表达式" tabindex="-1"><a class="header-anchor" href="#_10-ognl表达式"><span>10. OGNL表达式</span></a></h1><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/ade13c1a8726195fa2700.png" alt="Ognl.png" tabindex="0"><figcaption>Ognl.png</figcaption></figure><ul><li>OGNL:对象视图导航语言. ${<a href="http://user.addr.name" target="_blank" rel="noopener noreferrer">user.addr.name<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>} 这种写法就叫对象视图导航.</li><li>OGNL不仅仅可以视图导航.支持比EL表达式（11内置对象）更加丰富的功能.</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	使用OGNL准备工作：struts2 的包中已经包含了ognl-3.0.6.jar.不需要导入额外的jar包
+	保存
+	root和context可以放多个对象或者map，查找时只输入key或者属性名即可。从栈顶一直查到栈低，重复的查不到两个
+	User rootUser = new User(&quot;tom&quot;,18);
+	Map&lt;String,User&gt; context = new HashMap&lt;String,User&gt;();
+	context.put(&quot;user1&quot;, new User(&quot;jack&quot;,18));
+	context.put(&quot;user2&quot;, new User(&quot;rose&quot;,22));
+	OgnlContext oc = new OgnlContext();
+	oc.setRoot(rootUser);//将rootUser作为root部分
+	oc.setValues(context);//将context这个Map作为Context部分
+
+	基本取值
+	//取出root中user对象的name属性
+	String name = (String) Ognl.getValue(&quot;name&quot;, oc, oc.getRoot());
+	Integer age = (Integer) Ognl.getValue(&quot;age&quot;, oc, oc.getRoot());
+	//取出context中键为user1对象的name属性#代表context
+	String name = (String) Ognl.getValue(&quot;#user1.name&quot;, oc, oc.getRoot());
+	String name2 = (String) Ognl.getValue(&quot;#user2.name&quot;, oc, oc.getRoot());
+	Integer age = (Integer) Ognl.getValue(&quot;#user2.age&quot;, oc, oc.getRoot());
+
+	赋值
+	//将root中的user对象的name属性赋值
+	Ognl.getValue(&quot;name=&#39;jerry&#39;&quot;, oc, oc.getRoot());
+	String name2 = (String) Ognl.getValue(&quot;#user1.name=&#39;a&#39;,#user1.name&quot;, oc, oc.getRoot());
+
+	调用方法（赋值和取值）
+	//调用root中user对象的setName方法
+	Ognl.getValue(&quot;setName(&#39;lilei&#39;)&quot;, oc, oc.getRoot());
+	String name = (String) Ognl.getValue(&quot;getName()&quot;, oc, oc.getRoot());
+	String name2 = (String)Ognl.getValue(&quot;#user1.setName(&#39;lucy&#39;),#user1.getName()&quot;, oc, oc.getRoot());
+
+	调用静态方法（static）
+	String name = (String) Ognl.getValue(&quot;@cn.a_ognl.HahaUtils@echo(&#39;hello 强勇!&#39;)&quot;, oc, oc.getRoot());//@完整类名
+	//Double pi = (Double) Ognl.getValue(&quot;@java.lang.Math@PI&quot;, oc, oc.getRoot());
+	Double pi = (Double) Ognl.getValue(&quot;@@PI&quot;, oc, oc.getRoot())
+
+	创建对象(List,Map)
+	Integer size = (Integer) Ognl.getValue(&quot;{&#39;tom&#39;,&#39;jerry&#39;,&#39;jack&#39;,&#39;rose&#39;}.size()&quot;, oc, oc.getRoot());
+	String name = (String) Ognl.getValue(&quot;{&#39;tom&#39;,&#39;jerry&#39;,&#39;jack&#39;,&#39;rose&#39;}[0]&quot;, oc, oc.getRoot());//tom
+	String name2 = (String) Ognl.getValue(&quot;{&#39;tom&#39;,&#39;jerry&#39;,&#39;jack&#39;,&#39;rose&#39;}.get(1)&quot;, oc, oc.getRoot());//jerry
+	Integer size2 = (Integer) Ognl.getValue(&quot;#{&#39;name&#39;:&#39;tom&#39;,&#39;age&#39;:18}.size()&quot;, oc, oc.getRoot());
+	String name3  = (String) Ognl.getValue(&quot;#{&#39;name&#39;:&#39;tom&#39;,&#39;age&#39;:18}[&#39;name&#39;]&quot;, oc, oc.getRoot());
+	Integer age  = (Integer) Ognl.getValue(&quot;#{&#39;name&#39;:&#39;tom&#39;,&#39;age&#39;:18}.get(&#39;age&#39;)&quot;, oc, oc.getRoot());
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_10-1-ognl与struts2的结合原理" tabindex="-1"><a class="header-anchor" href="#_10-1-ognl与struts2的结合原理"><span>10.1. OGNL与Struts2的结合原理</span></a></h2><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/dee2b3721039564887ecb.png" alt="Struts2与Ognl结合原理.png" tabindex="0"><figcaption>Struts2与Ognl结合原理.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	接口ValueStack实现类OgnlValueStack包括root和context两部分
+	public class OgnlValueStack implements ValueStack{
+		CompoundRoot root;//栈结构
+		transient Map&lt;String,Object&gt; context;//map结构
+	}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	//root是栈，是由ArrayList和栈方法模拟的，访问栈中属性的特点.由上到下
+	//默认情况下，root放置的是被访问的当前Aciton,请求参数被封装到Action中
+	public class CompoundRoot extends ArrayList{
+		//栈方法：弹栈
+		public Object pop(){
+			return remove(0);
+		}
+		//栈方法：压栈
+		public Object push(Object o){
+			add(0,o);
+		}
+	}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	查看值栈中两部分内容
+	(使用DEBUG标签)&lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_10-2-struts2与ognl结合体现" tabindex="-1"><a class="header-anchor" href="#_10-2-struts2与ognl结合体现"><span>10.2. struts2与ognl结合体现</span></a></h2><ul><li>参数接收</li></ul><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/01fe1aa30249f33864027.jpg" alt="ognl与struts2结合.JPG" tabindex="0"><figcaption>ognl与struts2结合.JPG</figcaption></figure><ul><li><p>获得ValueStack和ActionContext的方法</p><ul><li>获得ActionContext数据中心: ActionContext.getContext();</li><li>获得值栈：ActionContext.getContext().getValueStack();</li></ul></li><li><p>ValueStack的API（少用）常用来接收表单数据，很少往这root放数据</p><ul><li>将数据obj放入值栈ValueStack中的Root：ActionContext.getContext().getValueStack().push(obj);</li><li>从值栈ValueStack中的Root将数据obj取出：ActionContext.getContext().getValueStack().pop();</li><li>从值栈ValueStack中的Root将查询数据Object findValue = ActionContext.getContext().getValueStack().findValue(&quot;name&quot;);</li><li>从值栈ValueStack中的Root将修改数据ActionContext.getContext().getValueStack().setParameter(&quot;name&quot;, &quot;name&quot;);</li><li>通过键值对key和value将数据放入值栈ValueStack中的Context：ActionContext.getContext().put(key, value);</li><li>通过键名找到值栈ValueStack中的对象Object object = ActionContext.getContext().get(&quot;name&quot;);</li><li>可以通过EL表达式${}从值栈中的Context取数据</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;action name=&quot;Demo4Action&quot; class=&quot;cn.a_result.Demo4Action&quot; method=&quot;execute&quot; &gt;
+	&lt;result  name=&quot;success&quot;  type=&quot;redirectAction&quot;&gt;
+		&lt;param name=&quot;actionName&quot;&gt;Demo1Action&lt;/param&gt;
+		&lt;param name=&quot;namespace&quot;&gt;/&lt;/param&gt;//转发的命名空间
+		&lt;param name=&quot;name&quot;&gt;{{name}}&lt;/param&gt;//转发的命名空间
+	&lt;/result&gt;
+&lt;/action&gt;
+语法:${ognl表达式}，将数据传递到结果那边，不过一般都是在域中传递，不常用
+可以通过EL表达式${}从值栈中的Context取数据
+
+扩展:request对象的getAttribute方法
+同时也是ognl表达式获得参数的方法（查找顺序）
+request.getAttribute()
+原生request域
+查找valueStack的Root部分（栈）
+查找valueStack的context部分（ActionContext）
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_11-自定义拦截器" tabindex="-1"><a class="header-anchor" href="#_11-自定义拦截器"><span>11. 自定义拦截器</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//拦截器生命周期:随项目的启动而创建,随项目关闭而销毁
+①拦截器创建
+方法一：实现Interceptor接口并实现其三个方法
+public class MyInterceptor implements Intercepter{}
+
+方法二：继承AbstractInterceptor
+空实现了init 和 destory方法. 我们如果不需要实现这两个方法,就可以只实现intercept方法
+public class MyInterceptor2 extends AbstractInterceptor {}
+
+方法三：继承MethodFilterInterceptor 方法过滤拦截器并复写doIntercept方法
+//功能: 定制拦截器拦截的方法.  定制哪些方法需要拦截、哪些方法不需要拦截
+public class MyInterceptor3 extends MethodFilterInterceptor{
+	doIntercept(ActionInvocation invocation){
+		放行+前后处理:
+		//前处理
+		invocation.invoke();
+		//后处理
+		//不处理直接放行
+		return invocation.invoke();
+		不放行,直接跳转到一个结果页面
+		return &quot;success&quot;;//不执行后续的拦截器以及Action,直接交给Result处理结果.进行页面跳转
+	}
+}
+
+②配置struts.xml，在default.properties中可以找到相应的默认配置
+注册拦截器&lt;interceptor name=&quot;&quot; class=&quot;&quot;&gt;&lt;/interceptor&gt;
+
+定制拦截方法并配置拦截器栈
+&lt;interceptor-stack name=&quot;myStack&quot;&gt;
+	&lt;!-- 自定义拦截器引入(建议放在20个拦截器之前) --&gt;
+	&lt;interceptor-ref name=&quot;myInter3&quot;&gt;
+		&lt;!-- 指定哪些方法不拦截
+		&lt;param name=&quot;excludeMethods&quot;&gt;add,delete&lt;/param&gt; --&gt;
+		&lt;!-- 指定哪些方法需要拦截 --&gt;
+		&lt;param name=&quot;includeMethods&quot;&gt;add,delete&lt;/param&gt;
+	&lt;/interceptor-ref&gt;
+	&lt;!-- 引用默认的拦截器栈(20个) --&gt;
+	&lt;interceptor-ref name=&quot;defaultStack&quot;&gt;&lt;/interceptor-ref&gt;
+&lt;/interceptor-stack&gt;
+
+指定包中默认拦截器栈&lt;default-interceptor-ref name=&quot;myStack&quot;&gt;&lt;/default-interceptor-ref&gt;
+
+Action指定拦截器
+&lt;action name=&quot;Demo1Action_*&quot; class=&quot;cn.interceptor.Demo1Action&quot; method=&quot;{1}&quot; &gt;
+	&lt;!-- 为Action单独指定走哪个拦截器(栈) 
+	&lt;interceptor-ref name=&quot;myStack&quot;&gt;&lt;/interceptor-ref&gt;--&gt;
+	&lt;result name=&quot;success&quot; type=&quot;dispatcher&quot; &gt;/index.jsp&lt;/result&gt;
+&lt;/action&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_12-struts2标签-了解" tabindex="-1"><a class="header-anchor" href="#_12-struts2标签-了解"><span>12. struts2标签(了解)</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	控制标签
+	遍历标签 iterator 
+	&lt;s:iterator value=&quot;#list&quot; &gt;
+		&lt;s:property /&gt;&lt;br&gt;
+	&lt;/s:iterator&gt;
+
+	&lt;s:iterator value=&quot;#list&quot; var=&quot;name&quot; &gt;
+		&lt;s:property value=&quot;#name&quot; /&gt;&lt;br&gt;
+	&lt;/s:iterator&gt;
+
+	&lt;s:iterator begin=&quot;1&quot; end=&quot;100&quot; step=&quot;1&quot;  &gt;
+		&lt;s:property /&gt;
+	&lt;/s:iterator&gt;
+
+	if标签
+	&lt;s:if test=&quot;#list.size()==4&quot;&gt;
+		list长度为4!
+	&lt;/s:if&gt;
+	&lt;s:elseif test=&quot;#list.size()==3&quot;&gt;
+		list长度为3!
+	&lt;/s:elseif&gt;
+	&lt;s:else&gt;
+		list不3不4!
+	&lt;/s:else&gt;
+	判断boolean值不要自己用==true判断
+
+	数据标签
+	&lt;!--property 配合ognl表达式页面取值,Action没有返回数据时没有值--&gt;
+	&lt;s:property value=&quot;#list.size()&quot; /&gt;
+	&lt;!--获得session中的值，常用于表达登录用户信息--&gt;
+	&lt;s:property value=&quot;#session.user.name&quot; /&gt;
+
+	表单标签
+	&lt;!-- 好处1: 内置了一套样式.  - 好处2: 自动回显,根据栈中的属性  --&gt;
+	&lt;!-- theme:指定表单的主题，就是表单的style，xhtml:默认，simple:没有主题--&gt;
+	&lt;s:form action=&quot;Demo3Action&quot; namespace=&quot;/&quot; theme=&quot;xhtml&quot; &gt;
+		&lt;s:textfield name=&quot;name&quot; label=&quot;用户名&quot;  &gt;&lt;/s:textfield&gt;
+		&lt;s:password name=&quot;password&quot; label=&quot;密码&quot; &gt;&lt;/s:password&gt;
+		&lt;s:radio list=&quot;{&#39;男&#39;,&#39;女&#39;}&quot; name=&quot;gender&quot; label=&quot;性别&quot; &gt;&lt;/s:radio&gt;
+		&lt;s:radio list=&quot;#{1:&#39;男&#39;,0:&#39;女&#39;}&quot; name=&quot;gender&quot; label=&quot;性别&quot; &gt;&lt;/s:radio&gt;
+		&lt;s:checkboxlist list=&quot;#{2:&#39;抽烟&#39;,1:&#39;喝酒&#39;,0:&#39;烫头&#39;}&quot; name=&quot;habits&quot; label=&quot;爱好&quot; &gt;&lt;/s:checkboxlist&gt;
+		&lt;s:select list=&quot;#{2:&#39;大专&#39;,1:&#39;本科&#39;,0:&#39;硕士&#39;}&quot; headerKey=&quot;&quot; headerValue=&quot;---请选择---&quot; name=&quot;edu&quot; label=&quot;学历&quot; &gt;&lt;/s:select&gt;
+		&lt;s:file name=&quot;photo&quot; label=&quot;近照&quot; &gt;&lt;/s:file&gt;
+		&lt;s:textarea name=&quot;desc&quot; label=&quot;个人简介&quot; &gt;&lt;/s:textarea&gt;
+		&lt;s:submit value=&quot;提交&quot; &gt;&lt;/s:submit&gt;
+	&lt;/s:form&gt;
+
+	非表单标签
+	在action中添加错误信息this.addActionError(&quot;你错了&quot;);
+	取出错误信息&lt;s:actionerror&gt;
+	&lt;s:debug&gt;&lt;/s:debug&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_13-表现层抽取" tabindex="-1"><a class="header-anchor" href="#_13-表现层抽取"><span>13. 表现层抽取</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	//表现层通用实现
+	public class BaseAction&lt;T&gt; extends ActionSupport implements ModelDriven&lt;T&gt; {
+		//模型对象
+		private T model;
+		public T getModel() {
+			return model;
+		}
+		
+		//在构造方法中动态获取实体类型，通过反射创建model对象
+		public BaseAction() {
+			ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+			//获得BaseAction上声明的泛型数组
+			Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
+			Class&lt;T&gt; entityClass = (Class&lt;T&gt;) actualTypeArguments[0];
+			//通过反射创建对象
+			try {
+				model = entityClass.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_14-文件上传" tabindex="-1"><a class="header-anchor" href="#_14-文件上传"><span>14. 文件上传</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	&lt;!-- 文件上传页面三个要求：
+	表单必须post提交，
+	表单提交类型，必须多项式，
+	文件上传使用&lt;input type=&quot;file&quot;/&gt;组件 --&gt;
+	&lt;FORM id=form1 name=form1
+	action=&quot;${pageContext.request.contextPath }/CustomerAction_add&quot;
+	method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+	&lt;input type=&quot;file&quot; name=&quot;photo&quot;/&gt;
+	&lt;/FORM&gt;
+	//上传的文件自动封装到File对象,
+	//只需后台提供一个FIle属性且名字与前台file的name属性名相同的字段
+	private File photo;
+	//在提交键名后加上固定后缀FIleName，文件名会自动封装到属性中
+	private String photoFileName;
+	//在提交键名后加上固定后缀ContentType，文件MIME类型会自动封装到属性中
+	//image/jpeg等
+	private String photoContentType;
+	set/get方法
+
+	//测试上传，上传文件保存到指定位置
+	//默认保存到？
+	photo.renameTo(new File(&quot;F:/testupload/test.jpg&quot;));
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_15-处理ajax请求" tabindex="-1"><a class="header-anchor" href="#_15-处理ajax请求"><span>15. 处理Ajax请求</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public String fun(){
+	通过ServletAPI方式		
+	/*使用jsonlib将pageBean转为json，通过输出流写回页面中 
+	JSONObject将单一对象转为json,不用看里面是什么，主要看本来的性质
+	JSONArray将数组或者集合对象转为json*/
+	JsonConfig jsonConfig = new JsonConfig();
+	jsonConfig.setExcludes(new String[] {&quot;currentPage&quot;,&quot;detachedCriteria&quot;,&quot;pageSize&quot;});
+	String json = JSONObject.fromObject(pageBean).toString();
+
+	//ServletActionContext.getResponse().setContentType(&quot;text/json;charset=utf-8&quot;);
+	ServletActionContext.getResponse().setContentType(&quot;text/html;charset=utf-8&quot;);
+	ServletActionContext.getResponse().getWriter().print(f);
+	return null;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/webframework/struts2.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><a class="route-link nav-link prev" href="/backend/webframework/springwebflux.html" aria-label="Spring Webflux"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->Spring Webflux</div></a><!----></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/searchengine/elasticsearch.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="ElasticSearch"><meta property="og:description" content="ElasticSearch ElasticSearch介绍 注意： 在没有创建库的时候搜索，ES会创建一个库并自动创建该字段并且设置为String类型也就是text 什么是elasticsearch？一个开源的分布式搜索引擎，可以用来实现从海量数据存储、搜索、分析等功能。底层是基于lucene(Java语言的搜索引擎类库)来实现。 什么是elastic..."><meta property="og:type" content="article"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ElasticSearch","image":[""],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>ElasticSearch | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/elasticsearch.html-BaGtPueZ.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/searchengine/lucene.html" aria-label="lucene"><!---->lucene<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/searchengine/solr.html" aria-label="solr"><!---->solr<!----></a></li><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/searchengine/elasticsearch.html" aria-label="ElasticSearch"><!---->ElasticSearch<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->ElasticSearch</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 5604 字</span><meta property="wordCount" content="5604"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 19 分钟</span><meta property="timeRequired" content="PT19M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#elasticsearch介绍">ElasticSearch介绍</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#es参考文档">es参考文档</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#正向索引和倒排索引">正向索引和倒排索引</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#es数据库基本概念">ES数据库基本概念</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#mapping属性">Mapping属性</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#mysql与elasticsearch比较">mysql与elasticsearch比较</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#分词器">分词器</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#docker部署单点es">docker部署单点es</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><h1 id="elasticsearch" tabindex="-1"><a class="header-anchor" href="#elasticsearch"><span>ElasticSearch</span></a></h1><h2 id="elasticsearch介绍" tabindex="-1"><a class="header-anchor" href="#elasticsearch介绍"><span>ElasticSearch介绍</span></a></h2><ul><li>注意： 在没有创建库的时候搜索，ES会创建一个库并自动创建该字段并且设置为String类型也就是text</li><li>什么是elasticsearch？一个开源的分布式搜索引擎，可以用来实现从海量数据存储、搜索、分析等功能。底层是基于lucene(Java语言的搜索引擎类库)来实现。</li><li>什么是elastic stack（ELK）？以elasticsearch为核心的技术栈，包括beats、Logstash、kibana(可视化界面)、elasticsearch，被广泛应用在日志数据分析、实时监控等领域：</li><li>什么是Lucene？Apache的开源搜索引擎类库，提供了搜索引擎的核心API</li></ul><h2 id="es参考文档" tabindex="-1"><a class="header-anchor" href="#es参考文档"><span>es参考文档</span></a></h2><ul><li><a href="https://www.cnblogs.com/buchizicai/p/17093719.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/buchizicai/p/17093719.html<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li></ul><h2 id="正向索引和倒排索引" tabindex="-1"><a class="header-anchor" href="#正向索引和倒排索引"><span>正向索引和倒排索引</span></a></h2><ul><li><p>倒排索引的概念是基于MySQL这样的正向索引而言的。</p></li><li><p>正向索引：设置了索引的查询速度快，但要是模糊查询则就很慢！需要全表扫描</p></li><li><p>倒排索引</p><ul><li>词条（Term）：对文档数据或用户搜索数据，利用某种算法分词，得到的具备含义的词语就是词条。例如：我是中国人，就可以分为：我、是、中国人、中国、国人这样的几个词条</li><li>创建倒排索引流程： <ul><li>将每一个文档的数据利用算法分词，得到一个个词条</li><li>创建表，每行数据包括词条、词条所在文档id、位置等信息</li><li>因为词条唯一性，可以给词条创建索引，例如hash表结构索引</li></ul></li><li>查询时虽然要先查询倒排索引，再查询倒排索引，但是无论是词条、还是文档id都建立了索引，查询速度非常快！无需全表扫描。</li></ul></li><li><p>正向和倒排对比</p><ul><li>正向索引是最传统的，根据id索引的方式。但根据词条查询时，必须先逐条获取每个文档，然后判断文档中是否包含所需要的词条，是根据文档找词条的过程。</li><li>而倒排索引则相反，是先找到用户要搜索的词条，根据词条得到保护词条的文档的id，然后根据id获取文档。是根据词条找文档的过程。</li></ul></li><li><p>正向索引：</p><ul><li>优点：可以给多个字段创建索引、根据索引字段搜索、排序速度非常快</li><li>缺点：根据非索引字段，或者索引字段中的部分词条查找时，只能全表扫描。</li></ul></li><li><p>倒排索引：</p><ul><li>优点：根据词条搜索、模糊搜索时，速度非常快</li><li>缺点：只能给词条创建索引，而不是字段、无法根据字段做排序</li></ul></li></ul><h2 id="es数据库基本概念" tabindex="-1"><a class="header-anchor" href="#es数据库基本概念"><span>ES数据库基本概念</span></a></h2><table><thead><tr><th style="text-align:center;">MySQL</th><th style="text-align:center;">Elasticsearch</th><th style="text-align:center;">说明</th></tr></thead><tbody><tr><td style="text-align:center;">Table</td><td style="text-align:center;">Index</td><td style="text-align:center;">索引(index)，就是文档的集合，类似数据库的表(table)</td></tr><tr><td style="text-align:center;">Row</td><td style="text-align:center;">Document</td><td style="text-align:center;">文档（Document），就是一条条的数据，类似数据库中的行（Row），文档都是JSON格式</td></tr><tr><td style="text-align:center;">Column</td><td style="text-align:center;">Field</td><td style="text-align:center;">字段（Field），就是JSON文档中的字段，类似数据库中的列（Column）</td></tr><tr><td style="text-align:center;">Schema</td><td style="text-align:center;">Mapping</td><td style="text-align:center;">Mapping（映射）是索引中文档的约束，例如字段类型约束。类似数据库的表结构（Schema）</td></tr><tr><td style="text-align:center;">SQL</td><td style="text-align:center;">DSL</td><td style="text-align:center;">DSL是elasticsearch提供的JSON风格的请求语句，用来操作elasticsearch，实现CRUD</td></tr></tbody></table><h2 id="mapping属性" tabindex="-1"><a class="header-anchor" href="#mapping属性"><span>Mapping属性</span></a></h2><ul><li>type：字段数据类型，常见的简单类型有： <ul><li>字符串：text（可分词的文本）、keyword（不可分词，只能整体搜索，不支持搜索部分内容。例如：品牌、国家、ip地址）</li><li>数值：long、integer、short、byte、double、float、</li><li>布尔：boolean</li><li>日期：date</li><li>对象：object</li><li>geo_point地理坐标:由纬度(latitude)和经度(longitude)确定的一个点。例如:&quot;32.8752345,120.2981576&quot;</li><li>geo_shape:有多个geo_point组成的复杂几何图形。例如一条直线，&quot;LINESTRING(-770365338.897676,-77009051 38.889939)&quot;</li><li>completion：用来实现自动补全功能。这个查询会匹配以用户输入内容开头的词条并返回。字段的内容一般是用来补全的多个词条形成的数组。</li></ul></li><li>index：是否创建索引，默认为true</li><li>analyzer：使用哪种分词器</li><li>properties：该字段的子字段</li><li>copy_to:将当前字段值拷贝到另一个字段上，供用户搜索</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>例如下面的json文档：
+
+{
+    &quot;age&quot;: 21,
+    &quot;weight&quot;: 52.1,
+    &quot;isMarried&quot;: false,
+    &quot;info&quot;: &quot;真相只有一个！&quot;,
+    &quot;email&quot;: &quot;zy@itcast.cn&quot;,
+    &quot;score&quot;: [99.1, 99.5, 98.9],
+    &quot;name&quot;: {
+        &quot;firstName&quot;: &quot;柯&quot;,
+        &quot;lastName&quot;: &quot;南&quot;
+    }
+}
+对应的每个字段映射（mapping）：
+age：类型为 integer；参与搜索，因此需要index为true；无需分词器
+weight：类型为float；参与搜索，因此需要index为true；无需分词器
+isMarried：类型为boolean；参与搜索，因此需要index为true；无需分词器
+info：类型为字符串，需要分词，因此是text；参与搜索，因此需要index为true；分词器可以用ik_smart
+email：类型为字符串，但是不需要分词，因此是keyword；不参与搜索，因此需要index为false；无需分词器
+score：虽然是数组，但是我们只看元素的类型，类型为float；参与搜索，因此需要index为true；无需分词器
+name：类型为object，需要定义多个子属性
+name.firstName；类型为字符串，但是不需要分词，因此是keyword；参与搜索，因此需要index为true；无需分词器
+name.lastName；类型为字符串，但是不需要分词，因此是keyword；参与搜索，因此需要index为true；无需分词器
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="mysql与elasticsearch比较" tabindex="-1"><a class="header-anchor" href="#mysql与elasticsearch比较"><span>mysql与elasticsearch比较</span></a></h2><ul><li>Mysql：擅长事务类型操作，可以确保数据的安全和一致性.对安全性要求较高的写操作，使用mysql实现</li><li>Elasticsearch：擅长海量数据的搜索、分析、计算.对查询性能要求较高的搜索需求，使用elasticsearch实现</li><li>两者再基于某种方式，实现数据的同步，保证一致性</li></ul><h2 id="分词器" tabindex="-1"><a class="header-anchor" href="#分词器"><span>分词器</span></a></h2><ul><li>分词器的作用是什么？创建倒排索引时对文档分词、用户搜索时，对输入的内容分词搜索</li><li>IK分词器有几种模式？ik_smart：智能切分、粗粒度；ik_max_word：最细切分，细粒度</li><li>IK分词器如何拓展词条？如何停用词条？利用config目录的IkAnalyzer.cfg.xml文件添加拓展词典和停用词典；在词典中添加拓展词条或者停用词条</li><li>注意:只有类型是text的才能分词</li></ul><h2 id="docker部署单点es" tabindex="-1"><a class="header-anchor" href="#docker部署单点es"><span>docker部署单点es</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>docker run -d \
+	--name es \
+    -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot; \
+    -e &quot;discovery.type=single-node&quot; \
+    -v es-data:/usr/share/elasticsearch/data \
+    -v es-plugins:/usr/share/elasticsearch/plugins \
+    --privileged \
+    -p 9200:9200 \
+    -p 9300:9300 \
+elasticsearch:7.12.1
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>-e &quot;cluster.name=es-docker-cluster&quot;：设置集群名称<br> -e &quot;http.host=0.0.0.0&quot;：监听的地址，可以外网访问<br> -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;：内存大小<br> -e &quot;discovery.type=single-node&quot;：非集群模式<br> -v es-data:/usr/share/elasticsearch/data：挂载逻辑卷，绑定es的数据目录<br> -v es-logs:/usr/share/elasticsearch/logs：挂载逻辑卷，绑定es的日志目录<br> -v es-plugins:/usr/share/elasticsearch/plugins：挂载逻辑卷，绑定es的插件目录<br> --privileged：授予逻辑卷访问权<br> --network es-net ：加入一个名为es-net的网络中<br> -p 9200:9200：端口映射配置</p><ul><li>下载ik分词器并安装 <ul><li>在线安装：./bin/elasticsearch-plugin install elasticsearch-analysis-ik-7.12.1.zip</li><li>离线安装：下载包后，放到plugins文件夹下</li><li>修改配置文件,并添加/停用自定义分词字典</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE properties SYSTEM &quot;http://java.sun.com/dtd/properties.dtd&quot;&gt;
+&lt;properties&gt;
+	&lt;comment&gt;IK Analyzer 扩展配置&lt;/comment&gt;
+	&lt;!--用户可以在这里配置自己的扩展字典 --&gt;
+	&lt;entry key=&quot;ext_dict&quot;&gt;xxx.dic&lt;/entry&gt;
+	 &lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;
+	&lt;entry key=&quot;ext_stopwords&quot;&gt;&lt;/entry&gt;
+	&lt;!--用户可以在这里配置远程扩展字典 --&gt;
+	&lt;!-- &lt;entry key=&quot;remote_ext_dict&quot;&gt;words_location&lt;/entry&gt; --&gt;
+	&lt;!--用户可以在这里配置远程扩展停止词字典--&gt;
+	&lt;!-- &lt;entry key=&quot;remote_ext_stopwords&quot;&gt;words_location&lt;/entry&gt; --&gt;
+&lt;/properties&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>下载拼音分词器并安装 <ul><li>在线安装: ./bin/elasticsearch-plugin install <a href="https://github.com/medcl/elasticsearch-analysis-pinyin" target="_blank" rel="noopener noreferrer">https://github.com/medcl/elasticsearch-analysis-pinyin<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li><li>离线安装：下载包后，放到plugins文件夹下</li></ul></li><li>安装/移除windows服务./bin/elasticsearch-plugin elasticsearch-service.bat start/remove</li><li>重置密码:./bin elasticsearch-reset-password -u elastic</li></ul><h1 id="es基本命令" tabindex="-1"><a class="header-anchor" href="#es基本命令"><span>ES基本命令</span></a></h1><ul><li>分词分析与自定义分词器</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>
+POST /_analyze
+{
+  &quot;analyzer&quot;: &quot;ik_max_word&quot;,//分词器模式
+  &quot;text&quot;: &quot;黑马程序员学习java太棒了&quot;
+}
+# elasticsearch中分词器（analyzer）的组成包含三部分：
+  - character filters：在tokenizer之前对文本进行处理。例如删除字符、替换字符
+  - tokenizer：将文本按照一定的规则切割成词条（term）。例如keyword，就是不分词；还有ik_smart
+  - tokenizer filter：将tokenizer输出的词条做进一步处理。例如大小写转换、同义词处理、拼音处理等
+PUT /test
+{
+  &quot;settings&quot;: {
+    &quot;analysis&quot;: {
+      &quot;analyzer&quot;: { // 自定义分词器
+        &quot;my_analyzer&quot;: {  // 分词器名称
+          &quot;tokenizer&quot;: &quot;ik_max_word&quot;,
+          &quot;filter&quot;: &quot;py&quot;
+        }
+      },
+      &quot;filter&quot;: {   // 自定义tokenizer filter
+        &quot;py&quot;: {  // 过滤器名称
+          &quot;type&quot;: &quot;pinyin&quot;, // 过滤器类型，这里是pinyin
+		  &quot;keep_full_pinyin&quot;: false,
+          &quot;keep_joined_full_pinyin&quot;: true,
+          &quot;keep_original&quot;: true,
+          &quot;limit_first_letter_length&quot;: 16,
+          &quot;remove_duplicated_term&quot;: true,
+          &quot;none_chinese_pinyin_tokenize&quot;: false
+        }
+      }
+    }
+  },
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;analyzer&quot;: &quot;my_analyzer&quot;,
+        &quot;search_analyzer&quot;: &quot;ik_smart&quot;
+      }
+    }
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>索引库的CRUD</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code># 创建索引库和映射
+PUT /索引库名称
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;testtext&quot;:{
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;analyzer&quot;: &quot;ik_smart&quot;
+      },
+      &quot;testnumber&quot;:{
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;analyzer&quot;:&quot;ik_max_word&quot;
+      },
+      &quot;testobject&quot;:{
+        &quot;properties&quot;: {
+          &quot;testobjectproperties&quot;: {
+            &quot;type&quot;: &quot;keyword&quot;
+          }
+        }
+      }
+    }
+  }
+}
+
+# 查询索引库 GET /索引库名
+
+# 修改索引库（只能增加新的字段到mapping中）/索引库名/_mapping
+# 倒排索引结构一旦数据结构改变（比如分词器），就需要重新创建倒排索引，因此索引库创建后无法修改mapping中已有的字段。但可以添加新的字段到mapping中，因为不会对倒排索引产生影响。
+{
+  &quot;properties&quot;: {
+    &quot;testtext2&quot;:{
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;analyzer&quot;: &quot;ik_max_word&quot;
+    }
+  }
+}
+
+
+# 删除索引库：DELETE /索引库名
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>文档操作</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code># 创建文档：POST /{索引库名}/_doc/文档id（没有则会立即创建）
+POST /索引库名/_doc/文档id
+{
+    &quot;字段1&quot;: &quot;值1&quot;,
+    &quot;字段2&quot;: &quot;值2&quot;,
+    &quot;字段3&quot;: {
+        &quot;子属性1&quot;: &quot;值3&quot;,
+        &quot;子属性2&quot;: &quot;值4&quot;
+    },
+    // ...
+}
+
+# 查询文档：GET /{索引库名}/_doc/文档id
+# 批量查询：查询该索引库下的全部文档 GET /{索引库名称}/_search
+
+# 删除文档：DELETE /{索引库名}/_doc/文档id
+
+
+# 全量修改文档：PUT /{索引库名}/_doc/文档id
+# 本质：根据指定的id删除文档，不管id存不存在都新增一个相同id的文档
+{
+  &quot;testtext&quot;:&quot;斑猪活动实在太棒了2&quot;,
+  &quot;testnumber&quot;:321,
+  &quot;testobject&quot;:{
+      &quot;testobjectproperties&quot;: &quot;斑猪秀秀也不错2&quot;
+  }
+}
+
+
+# 增量修改文档 ：POST /{索引库名}/_update/文档id { &quot;doc&quot;: {字段}}
+{
+  &quot;doc&quot;:{
+    &quot;testtext&quot;:&quot;斑猪活动实在太棒了3&quot;,
+    &quot;testnumber&quot;:321,
+    &quot;testobject&quot;:{
+        &quot;testobjectproperties&quot;: &quot;斑猪秀秀也不错3&quot;
+    }
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>查询</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code># Elasticsearch提供了基于JSON的DSL（Domain Specific Language）来定义查询。常见的查询类型包括：
+  - 查询所有：查询出所有数据，一般测试用。例如：match_all
+  - 全文检索（full text）查询：利用分词器对用户输入内容分词，然后去倒排索引库中匹配
+    - match:根据一个字段查询【推荐：使用copy_to构造all字段】
+    - multi_match:根据多个字段查询，参与查询字段越多，查询性能越差。建议采用copy_to，然后单字段查询的方式
+  - 精确查询：
+    - term:根据精确词条值查找数据，一般是查找keyword、数值、日期、boolean等类型字段。例如：ids、range、term
+    - range：根据数值范围查询，可以是数值、日期的范围
+  - 地理（geo）查询：根据经纬度查询。附近的地点。矩形氛围搜索，原型范围搜索 。例如：geo_distance、geo_bounding_box
+  - 复合（compound）查询：复合查询可以将上述各种查询条件组合起来，合并查询条件。例如：bool、function_score
+  - suggest查询: 用于实现搜索框自动补全功能
+# 查询语法 
+GET /{索引库名}/_search
+{
+  &quot;query&quot;: {
+    &quot;查询类型&quot;: {
+      &quot;查询条件(属性名)&quot;: &quot;条件值&quot;
+    }
+  }
+}
+# match
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;testtext&quot;: &quot;斑猪&quot;
+    }
+  }
+}
+# mulit_match
+{
+  &quot;query&quot;: {
+    &quot;mulit_match&quot;: {
+      &quot;query&quot;: &quot;斑猪&quot;,
+      &quot;fields&quot;: [&quot;testtext&quot;, &quot; testtext2&quot;]
+    }
+  }
+}
+# term
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;testtext&quot;: &quot;斑猪&quot;
+    }
+  }
+}
+# range:
+{
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;testnumber&quot;: {
+        &quot;gte&quot;:100,
+        &quot;lte&quot;:200
+      }
+    }
+  }
+}
+# 矩形范围查询
+// geo_bounding_box查询
+GET /indexName/_search
+{
+  &quot;query&quot;: {
+    &quot;geo_bounding_box&quot;: {
+      &quot;testgeo_point&quot;: {
+        &quot;top_left&quot;: { // 左上点
+          &quot;lat&quot;: 31.1,
+          &quot;lon&quot;: 121.5
+        },
+        &quot;bottom_right&quot;: { // 右下点
+          &quot;lat&quot;: 30.9,
+          &quot;lon&quot;: 121.7
+        }
+      }
+    }
+  }
+}
+# 附近(圆形)查询
+{
+  &quot;query&quot;: {
+    &quot;geo_distance&quot;: {
+      &quot;distance&quot;: &quot;15km&quot;, // 半径
+      &quot;testgeo_point&quot;: &quot;31.21,121.5&quot; // 圆心
+    }
+  }
+}
+# 复合查询
+# fuction score：算分函数查询，可以控制文档相关性算分，控制文档排名(广告优先)。三要素：过滤条件(哪些文档要加分)、算分函数(如何计算function score)、加权方式(function score 与 query score如何运算)
+# bool query：布尔查询，利用逻辑关系组合多个其它的查询，实现复杂搜索
+# elasticsearch会根据词条和文档的相关度做打分，包括TF-IDF算法、BM25算法。TF-IDF算法缺点是词条频率越高，文档得分也会越高，单个词条对文档影响较大。而BM25则会让单个词条的算分有一个上限，曲线更加平滑
+# match查询结果会根据文档与搜索词条的关联度打分（_score），返回结果时按照分值降序排列
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      //搜索时，参与打分的字段越多，查询的性能也越差。建议搜索框的关键字搜索，是全文检索查询，使用must查询，参与算分；其它过滤条件采用filter查询。不参与算分           
+      &quot;query&quot;: { // 原始查询算分，搜索文档并根据相关性基于BM25算法打分
+          &quot;bool&quot;: {
+              &quot;must&quot;: [ //必须匹配每个子查询，类似“与”
+                  {&quot;term&quot;: {&quot;city&quot;: &quot;上海&quot; }}
+              ],
+              &quot;should&quot;: [ //选择性匹配子查询，类似“或”
+                  {&quot;term&quot;: {&quot;brand&quot;: &quot;皇冠假日&quot; }},
+                  {&quot;term&quot;: {&quot;brand&quot;: &quot;华美达&quot; }}
+              ],
+              &quot;must_not&quot;: [ //必须不匹配，不参与算分，类似“非”
+                  { &quot;range&quot;: { &quot;price&quot;: { &quot;lte&quot;: 500 } }}
+              ],
+              &quot;filter&quot;: [ //必须匹配，不参与算分
+                  { &quot;range&quot;: {&quot;score&quot;: { &quot;gte&quot;: 45 } }}
+              ]
+          }
+      },
+      &quot;functions&quot;: [ // 算分函数算分
+        {
+          &quot;filter&quot;: { // 符合条件的才会重新算分
+            &quot;term&quot;: {
+              &quot;brand&quot;: &quot;如家&quot;
+            }
+          },
+          &quot;weight&quot;: 2 // 算分权重为2，函数结果是常量
+          &quot;field_value_factor&quot;: 以文档中的某个字段值作为函数结果
+          &quot;random_score&quot;:以随机数作为函数结果
+          &quot;script_score&quot;:自定义算分函数算法
+        }
+      ],
+      &quot;boost_mode&quot;: &quot;sum&quot;//算分函数和原始查询的算分，两者结果的运算方式，包括sum、avg、max、min、multiply(相乘)、replace(function score替换query score)
+    }
+  }  
+}
+
+# Completion Suggester查询实现自动补全功能。参与补全查询的字段必须是completion类型。
+// 创建索引库
+PUT test
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;title&quot;:{
+        &quot;type&quot;: &quot;completion&quot;
+      }
+    }
+  }
+}
+//然后插入下面的数据：
+POST test/_doc
+{
+  &quot;title&quot;: [&quot;Sony&quot;, &quot;WH-1000XM3&quot;]
+}
+POST test/_doc
+{
+  &quot;title&quot;: [&quot;SK-II&quot;, &quot;PITERA&quot;]
+}
+POST test/_doc
+{
+  &quot;title&quot;: [&quot;Nintendo&quot;, &quot;switch&quot;]
+}
+// 自动补全查询
+GET /test/_search
+{
+  &quot;suggest&quot;: {
+    &quot;title_suggest&quot;: {	//设置这个自动查询操作的名称
+      &quot;text&quot;: &quot;s&quot;, // 关键字
+      &quot;completion&quot;: {
+        &quot;field&quot;: &quot;title&quot;, // 补全查询的字段名
+        &quot;skip_duplicates&quot;: true, // 跳过重复的
+        &quot;size&quot;: 10 // 获取前10条结果
+      }
+    }
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>搜索结果分类</li><li>查询的DSL是一个大的JSON对象，包含下列属性： <ul><li>query：查询条件</li><li>from和size：分页条件 elasticsearch会禁止from+ size 超过10000的请求.默认情况下只返回top10的数据</li><li>sort：排序条件 在使用排序后就不会进行算分了，根据排序设置的规则排列\普通字段是根据字典序排序\地理坐标是根据距离远近排序</li><li>highlight：高亮条件 高亮是对关键字高亮，因此搜索条件必须带有关键字，而不能是范围这样的查询。非搜索字段高亮，则需要添加一个属性：required_field_match=false</li><li>aggs：定义聚合 <ul><li>桶（Bucket）聚合：用来对文档做分组 <ul><li>term：按照文档字段值分组，例如按照品牌值分组、按照国家分组</li><li>Date Histogram：按照日期阶梯分组，例如一周为一组，或者一月为一组</li></ul></li><li>度量（Metric）聚合：用以计算一些值，比如：最大值Max、最小值Min、平均值Avg,Stats：同时求max、min、avg、sum等等</li><li>管道（pipeline）聚合：其它聚合的结果为基础做聚合.如：用桶聚合实现种类排序，然后使用度量聚合实现各个桶的最大值、最小值、平均值等</li></ul></li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>{
+  &quot;query&quot;: { //查询条件
+    &quot;match&quot;: {
+      &quot;name&quot;:&quot;如家&quot;
+    }
+  },
+  &quot;from&quot;:0，// 分页开始的位置 分页条件
+  &quot;size&quot;: 20，// 期望获取的文档总数
+  &quot;sort&quot;: [ //当第一个条件相等时，再按照第二个条件排序，以此类推
+    { &quot;price&quot;:&quot;asc&quot;}，// 普通排序
+    &quot;_geo_distance&quot; : { // 距离排序
+      &quot;location&quot; : &quot;31.040699,121.618075&quot;，
+      &quot;order&quot; : &quot;asc&quot;,
+      &quot;unit&quot; : &quot;km&quot;
+    }
+  ]
+  &quot;highlight&quot;:{
+    &quot;fields&quot;:{ // 高亮字段
+      &quot;name&quot;: {
+        &quot;pre_tags&quot;: &quot;&lt;em&gt;&quot;,用来标记高亮字段的前置标签
+        &quot;post_tags&quot;: &quot;&lt;/em&gt;&quot;用来标记高亮字段的后置标签
+      }
+    }
+  }
+  &quot;aggs&quot;:{ //定义聚合 参加聚合的字段必须是keyword、日期、数值、布尔类型
+    &quot;brandAgg&quot;:{ //聚合名字
+      &quot;terms&quot;:{ // 聚合的类型，按照品牌值聚合，所以选择term
+        &quot;field&quot;:&quot;brand&quot;，// 参与聚合的字段
+        &quot;order&quot;:{
+          &quot;doc_count&quot;: &quot;asc&quot; //.对聚合结果按照doc_count升序排列
+        }
+        &quot;size&quot;:20 // 聚合结果数量【设置多少就最多只显示多少】
+      }
+    }
+  }
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="restapi" tabindex="-1"><a class="header-anchor" href="#restapi"><span>RestAPI</span></a></h1><ul><li>ES官方提供了各种不同语言的客户端操作ES。本质就是组装DSL语句，通过http请求发送给ES。官方文档地址：<a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" target="_blank" rel="noopener noreferrer">https://www.elastic.co/guide/en/elasticsearch/client/index.html<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li><li>Java HighLevel Rest Client客户端。API操作elasticsearch的流程基本类似。核心是client.indices()方法来获取索引库的操作对象。</li><li>API索引库操作的基本步骤： <ul><li>初始化RestHighLevelClient</li><li>创建XxxIndexRequest。XXX是Create、Get、Delete</li><li>准备DSL（ Create时需要，其它是无参）</li><li>发送请求。调用RestHighLevelClient#indices().xxx()方法，xxx是create、exists、delete</li></ul></li><li>mapping映射分析 <ul><li>根据MySQL数据库表结构（建表语句），去写索引库结构JSON。表和索引库一一对应</li><li>注意：地理坐标、组合字段。索引库里的地理坐标是一个字段：坐标：维度,精度 。copy_to组合字段作用是供用户查询（输入关键字可以查询多个字段）</li><li>mapping映射要考虑的信息包括：字段名、字段数据类型、是否参与搜索、是否需要分词、分词的分词器(ik_max_word)</li></ul></li></ul><h1 id="springboot整合es客户端" tabindex="-1"><a class="header-anchor" href="#springboot整合es客户端"><span>springboot整合es客户端</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-elasticsearch&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+spring:
+  elasticsearch:
+    rest:
+      password: elasticBanzhu
+      username: elastic
+      connection-timeout: 1s
+      uris: 127.0.0.1:9200
+      read-timeout: 30s
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Document(indexName = &quot;action&quot;, // 索引名
+  shards = 1, // 默认索引分区数
+  replicas = 0, // 每个分区的备份数
+  refreshInterval = &quot;-1&quot; // 刷新间隔
+)
+@Data
+public class ActionDO {
+    CustomConversions customConversions;
+    @Id
+    private Integer id;
+
+    @Field(analyzer = &quot;ik_max_word&quot;, type = FieldType.Text)
+    private String title;
+
+    @Field(analyzer = &quot;ik_smart&quot;, type = FieldType.Text)
+    private String title2;
+}
+
+public interface ActionRepository extends ElasticsearchRepository&lt;ActionDO, Integer&gt; {}
+
+@Service
+public class ActionESServiceImpl implements ActionESService {
+
+    @Autowired
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+    @Resource
+    private ActionRepository actionRepository;
+
+    @Override
+    public void saveAction(){
+        ActionDO actionDO = new ActionDO();
+        actionDO.setId(1);
+        actionDO.setTitle(&quot;我是测试活动&quot;);
+        elasticsearchRestTemplate.save(actionDO);
+    }
+
+    @Override
+    public void updateAction(){
+        ActionDO actionDO = new ActionDO();
+        actionDO.setId(1);
+        actionDO.setTitle(&quot;我是测试更新活动&quot;);
+        actionRepository.save(actionDO);
+    }
+
+    @Override
+    public void deleteActionById(){
+        actionRepository.deleteById(1);
+    }
+
+    @Override
+    public void selectById(){
+        Iterable&lt;ActionDO&gt; actionDOS = actionRepository.findAllById(Arrays.asList(1, 4));
+        actionDOS.forEach(System.out::println);
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="es与mysql数据同步" tabindex="-1"><a class="header-anchor" href="#es与mysql数据同步"><span>ES与MySQL数据同步</span></a></h1><ul><li>同步调用:实现简单，粗暴、业务耦合度高</li><li>异步通知【常用】：低耦合，实现难度一般、依赖mq的可靠性</li><li>监听binlog：解耦合，开启binlog增加数据库负担、实现复杂度高。基于canal监听binlog变化，实时更新elasticsearch中的内容</li></ul><h1 id="es集群搭建" tabindex="-1"><a class="header-anchor" href="#es集群搭建"><span>ES集群搭建</span></a></h1><ul><li>创建ES集群：至少有4G的内存空间 <ul><li>创建docker-compose文件</li><li>es运行需要修改一些linux系统权限，修改/etc/sysctl.conf文件并添加vm.max_map_count=262144，执行sysctl -p生效</li><li>docker-compose up -d启动集群</li></ul></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>version: &#39;2.2&#39;
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="集群状态监控" tabindex="-1"><a class="header-anchor" href="#集群状态监控"><span>集群状态监控</span></a></h1><ul><li>kibana或者cerebro来监控es集群状态，官方网址：<a href="https://github.com/lmenezes/cerebro" target="_blank" rel="noopener noreferrer">https://github.com/lmenezes/cerebro<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li></ul><h1 id="集群其他问题" tabindex="-1"><a class="header-anchor" href="#集群其他问题"><span>集群其他问题</span></a></h1><ul><li>master eligible节点的作用是什么？参与集群选主（主节点可以管理集群状态、管理分片信息、处理创建和删除索引库的请求）</li><li>data节点的作用是什么？数据的CRUD</li><li>coordinator节点的作用是什么？路由请求到其它节点。合并查询到的结果，返回给用户</li></ul><h1 id="集群职责划分" tabindex="-1"><a class="header-anchor" href="#集群职责划分"><span>集群职责划分</span></a></h1><ul><li>通过改变配置文件中的 true——&gt; false 来改变职责。如data数据职责节点就只保留data为true其他为false</li><li>注意：每个节点都是路由，这样可以保证不管哪个节点接收到请求可以分给其他人已经从其他人那接收信息。</li><li>默认情况下，集群中的任何一个节点都同时具备下述四种角色。<br> |节点类型|配置参数|默认值|节点职责|要求|<br> |:-😐:-😐:-😐:-😐:-😐<br> |master eligible|node.master|true|备选主节点:主节点可以管理和记录集群状态、决定。分片在哪个节点、处理创建和删除索引库的请求|对CPU要求高，但是内存要求低|<br> |data|node.data|true|数据节点:存储数据、搜索、聚合、CRUD|对CPU和内存要求都高|<br> |ingest|node.ingest|true|数据存储之前的预处理|<br> |coordinating|上面3个参数都为false则为coordinating节点|无|路由请求到其它节点。合并其它节点处理的结果，返回给用户|对网络带宽、CPU要求高|<br> image</li></ul><h1 id="脑裂问题" tabindex="-1"><a class="header-anchor" href="#脑裂问题"><span>脑裂问题</span></a></h1><ul><li>ES 7.0后默认配置了(eligible节点数量+1)/2来解决脑裂问题</li><li>脑裂是因为集群中的节点失联导致的。假设集群中有三个节点，主节点node1与node2和3失联，重新选举，node3成为主节点，node1自成集群，node2、3自成集群，网络恢复后，2个集群状态不一致</li><li>解决脑裂的方案是，要求选票超过(eligible节点数量 + 1)/ 2 才能当选为主，因此eligible节点数量最好是奇数。对应配置项是discovery.zen.minimum_master_nodes，在es7.0以后，已经成为默认配置，因此一般不会发生脑裂问题</li></ul><h1 id="集群分布式存储" tabindex="-1"><a class="header-anchor" href="#集群分布式存储"><span>集群分布式存储</span></a></h1><ul><li>当新增文档时，elasticsearch会通过hash算法来计算文档应该存储到哪个分片，保证数据均衡，shard = hash(_routing文档id) % number_of_shards分片数</li><li>算法与分片数量有关，因此索引库一旦创建，分片数量不能修改！</li></ul><h1 id="集群分布式查询原理" tabindex="-1"><a class="header-anchor" href="#集群分布式查询原理"><span>集群分布式查询原理：</span></a></h1><ul><li>elasticsearch的查询分成两个阶段： <ul><li>scatter phase：分散阶段，coordinating node会把请求分发到每一个分片</li><li>gather phase：聚集阶段，coordinating node汇总data node的搜索结果，并处理为最终结果集返回给用户</li></ul></li></ul><h1 id="集群故障转移" tabindex="-1"><a class="header-anchor" href="#集群故障转移"><span>集群故障转移</span></a></h1><ul><li>集群的master节点会监控集群中的节点状态，如果发现有节点宕机，会立即将宕机节点的分片数据迁移到其它节点，确保数据安全，这个叫做故障转移。</li><li>ES默认配置好了有集群故障转移</li></ul></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/searchengine/elasticsearch.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><a class="route-link nav-link prev" href="/backend/searchengine/solr.html" aria-label="solr"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->solr</div></a><!----></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

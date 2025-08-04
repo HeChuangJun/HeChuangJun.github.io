@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/searchengine/lucene.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="lucene"><meta property="og:description" content="lucene 1. 全文检索介绍 2. Lucene介绍 3. Lucene实现全文检索的流程 4. Lucene使用 1. 全文检索介绍 数据分类 结构化数据：指具有固定格式或有限长度的数据，如数据库，元数据等。 非结构化数据：指不定长或无固定格式的数据，如邮件，word文档等磁盘上的文件 顺序扫描法(Serial Scanning)顺序遍历所有文档..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/eabbde040a19fe3ae942a.png"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"lucene","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/eabbde040a19fe3ae942a.png","https://290ff162.telegraph-image-eg9.pages.dev/file/ee25b2bd28aa2f116963c.png","https://290ff162.telegraph-image-eg9.pages.dev/file/88cb3f7a269de2dce082e.png","https://290ff162.telegraph-image-eg9.pages.dev/file/70c59e47babacadd5ed42.png"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>lucene | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/lucene.html-9N8tj_gM.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/searchengine/lucene.html" aria-label="lucene"><!---->lucene<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/searchengine/solr.html" aria-label="solr"><!---->solr<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/searchengine/elasticsearch.html" aria-label="ElasticSearch"><!---->ElasticSearch<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->lucene</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 4408 字</span><meta property="wordCount" content="4408"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 15 分钟</span><meta property="timeRequired" content="PT15M"></span></div><hr></div><!----><!--[--><!----><!--]--><div class="theme-hope-content"><p>lucene</p><ul><li><a href="#1-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E4%BB%8B%E7%BB%8D">1. 全文检索介绍</a></li><li><a href="#2-lucene%E4%BB%8B%E7%BB%8D">2. Lucene介绍</a></li><li><a href="#3-lucene%E5%AE%9E%E7%8E%B0%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E7%9A%84%E6%B5%81%E7%A8%8B">3. Lucene实现全文检索的流程</a></li><li><a href="#4-lucene%E4%BD%BF%E7%94%A8">4. Lucene使用</a></li></ul><h1 id="_1-全文检索介绍" tabindex="-1"><a class="header-anchor" href="#_1-全文检索介绍"><span>1. 全文检索介绍</span></a></h1><ul><li>数据分类 <ul><li>结构化数据：指具有固定格式或有限长度的数据，如数据库，元数据等。</li><li>非结构化数据：指不定长或无固定格式的数据，如邮件，word文档等磁盘上的文件 <ul><li>顺序扫描法(Serial Scanning)顺序遍历所有文档的内容,直到扫描完所有的文档,如利用windows的搜索也可以搜索文件内容，只是慢</li><li>全文检索(Full-text Search)先从非结构化数据中提取出的然后重新组织的信息(索引)再对索引进行搜索</li></ul></li></ul></li></ul><h1 id="_2-lucene介绍" tabindex="-1"><a class="header-anchor" href="#_2-lucene介绍"><span>2. Lucene介绍</span></a></h1><ul><li>Lucene是apache下的一个开放源代码的全文检索引擎工具包。提供了完整的查询引擎和索引引擎，部分文本分析引擎。</li><li>对于数据量大、数据结构不固定的数据可采用全文检索方式搜索，比如百度、Google等搜索引擎、论坛站内搜索、电商网站站内搜索等。</li></ul><h1 id="_3-lucene实现全文检索的流程" tabindex="-1"><a class="header-anchor" href="#_3-lucene实现全文检索的流程"><span>3. Lucene实现全文检索的流程</span></a></h1><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/eabbde040a19fe3ae942a.png" alt="图片1.png" tabindex="0"><figcaption>图片1.png</figcaption></figure><ul><li>绿色表示索引过程，对要搜索的原始内容进行索引构建一个索引库，索引过程包括：确定原始内容即要搜索的内容→采集文档→创建文档→分析文档→索引文档</li><li>红色表示搜索过程，从索引库中搜索内容，搜索过程包括：用户通过搜索界面→创建查询→执行搜索，从索引库搜索→渲染搜索结果</li></ul><h1 id="_4-lucene使用" tabindex="-1"><a class="header-anchor" href="#_4-lucene使用"><span>4. Lucene使用</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>从官方网站：http://lucene.apache.org/ 下载Lucene4.10.3，并解压。
+Jdk要求：1.7以上
+
+jar包
+lucene-core-4.10.3.jar
+lucene-analyzers-common-4.10.3.jar
+lucene-queryparser-4.10.3.jar
+其它：
+commons-io-2.4.jar
+junit-4.9.jar
+
+功能一：创建索引库
+使用indexwriter对象创建索引
+第一步：创建一个java工程，并导入jar包。
+第二步：创建一个indexwriter对象。
+1）指定索引库的存放位置Directory对象
+2）指定一个分析器，对文档内容进行分析。
+第二步：创建document对象。
+第三步：创建field对象，将field添加到document对象中。
+第四步：使用indexwriter对象将document对象写入索引库，此过程进行索引创建。并将索引和document对象写入索引库。
+第五步：关闭IndexWriter对象。
+
+@Test
+public void createIndex() throws Exception {
+	//指定索引库存放的路径
+	//D:\temp\0108\index
+	Directory directory = FSDirectory.open(new File(&quot;D:\\temp\\0108\\index&quot;));
+	//索引库还可以存放到内存中
+	//Directory directory = new RAMDirectory();
+	//创建一个标准分析器
+	//Analyzer analyzer = new StandardAnalyzer();// 官方推荐
+	Analyzer analyzer = new IKAnalyzer();// 官方推荐
+	//创建indexwriterCofig对象
+	//第一个参数： Lucene的版本信息，可以选择对应的lucene版本也可以使用LATEST
+	//第二根参数：分析器对象
+	IndexWriterConfig config = new IndexWriterConfig(Version.LATEST, analyzer);
+	//创建indexwriter对象
+	IndexWriter indexWriter = new IndexWriter(directory, config);
+	//原始文档的路径D:\传智播客\01.课程\04.lucene\01.参考资料\searchsource
+	File dir = new File(&quot;D:\\传智播客\\01.课程\\04.lucene\\01.参考资料\\searchsource&quot;);
+	for (File f : dir.listFiles()) {
+		//文件名
+		String fileName = f.getName();
+		//文件内容
+		String fileContent = FileUtils.readFileToString(f);
+		//文件路径
+		String filePath = f.getPath();
+		//文件的大小
+		long fileSize  = FileUtils.sizeOf(f);
+		//创建文件名域
+		//第一个参数：域的名称
+		//第二个参数：域的内容
+		//第三个参数：是否存储
+		Field fileNameField = new TextField(&quot;filename&quot;, fileName, Store.YES);
+		//Field域的属性
+		//是否分析：是否对域的内容进行分词处理。前提是我们要对域的内容进行查询。
+		//是否索引：将Field分析后的词或整个Field值进行索引，只有索引方可搜索到。
+		//比如：商品名称、商品简介分析后进行索引，订单号、身份证号不用分析但也要索引，这些将来都要作为查询条件。
+		//是否存储：将Field值存储在文档中，存储在文档中的Field才可以从Document中获取
+		//是否存储的标准：是否要将内容展示给用户
+		//比如：商品名称、订单号，凡是将来要从Document中获取的Field都要存储。
+		//文件内容域
+		Field fileContentField = new TextField(&quot;content&quot;, fileContent, Store.YES);
+		//文件路径域（不分析、不索引、只存储）
+		Field filePathField = new StoredField(&quot;path&quot;, filePath);
+		//文件大小域
+		Field fileSizeField = new LongField(&quot;size&quot;, fileSize, Store.YES);
+		
+		//创建document对象
+		Document document = new Document();
+		document.add(fileNameField);
+		document.add(fileContentField);
+		document.add(filePathField);
+		document.add(fileSizeField);
+		//创建索引，并写入索引库
+		indexWriter.addDocument(document);
+	}
+	//关闭indexwriter
+	indexWriter.close();
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/ee25b2bd28aa2f116963c.png" alt="图片6.png"><br> 使用Luke工具查看索引文件<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/88cb3f7a269de2dce082e.png" alt="图片7.png"></p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>功能二：查询索引
+实现步骤
+第一步：创建一个Directory对象，也就是索引库存放的位置。
+第二步：创建一个indexReader对象，需要指定Directory对象。
+第三步：创建一个indexsearcher对象，需要指定IndexReader对象
+第四步：创建一个TermQuery对象，指定查询的域和查询的关键词。
+第五步：执行查询。
+第六步：返回查询结果。遍历查询结果并输出。
+第七步：关闭IndexReader对象
+
+@Test
+public void searchIndex() throws Exception {
+	//指定索引库存放的路径
+	//D:\temp\0108\index
+	Directory directory = FSDirectory.open(new File(&quot;D:\\temp\\0108\\index&quot;));
+	//创建indexReader对象
+	IndexReader indexReader = DirectoryReader.open(directory);
+	//创建indexsearcher对象
+	IndexSearcher indexSearcher = new IndexSearcher(indexReader);
+	//创建一个TermQuery对象，指定查询的域和查询的关键词。
+	Query query = new TermQuery(new Term(&quot;filename&quot;, &quot;apache&quot;));
+	//执行查询
+	//第一个参数是查询对象，第二个参数是查询结果返回的最大值
+	//indexSearcher.search(query, n)	根据Query搜索，返回评分最高的n条记录
+	//indexSearcher.search(query, filter, n)	根据Query搜索，添加过滤策略，返回评分最高的n条记录
+	//indexSearcher.search(query, n, sort)	根据Query搜索，添加排序策略，返回评分最高的n条记录
+	//indexSearcher.search(booleanQuery, filter, n, sort)	根据Query搜索，添加过滤策略，添加排序策略，返回评分最高的n条记录
+	TopDocs topDocs = indexSearcher.search(query, 10);
+
+	//查询结果的总条数
+	//TopDocs.totalHits：是匹配索引库中所有记录的数量
+	//TopDocs.scoreDocs：匹配相关度高的前边记录数组，scoreDocs的长度小于等于search方法指定的参数n
+	System.out.println(&quot;查询结果的总条数：&quot;+ topDocs.totalHits);
+	//遍历查询结果
+	//topDocs.scoreDocs存储了document对象的id
+	for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
+		//scoreDoc.doc属性就是document对象的id
+		//根据document的id找到document对象
+		Document document = indexSearcher.doc(scoreDoc.doc);
+		System.out.println(document.get(&quot;filename&quot;));
+		//System.out.println(document.get(&quot;content&quot;));
+		System.out.println(document.get(&quot;path&quot;));
+		System.out.println(document.get(&quot;size&quot;));
+	}
+	//关闭indexreader对象
+	indexReader.close();
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>功能三：支持中文分词
+分析器（Analyzer）的执行过程语汇单元的生成过程：Reader-&gt;Tokenizer-&gt;TokenFilter-&gt;TokenFilter-&gt;TokenFilter-&gt;Tokens
+要看分析器的分析效果，只需要看Tokenstream中的内容就可以了。每个分析器都有一个方法tokenStream，返回一个tokenStream对象。
+
+分析器的分词效果
+//查看标准分析器的分词效果
+@Test
+public void testTokenStream() throws Exception {
+	//创建一个标准分析器对象
+	Analyzer analyzer = new IKAnalyzer();
+	//获得tokenStream对象
+	//第一个参数：域名，可以随便给一个
+	//第二个参数：要分析的文本内容
+	TokenStream tokenStream = analyzer.tokenStream(&quot;test&quot;, &quot;The Spring Framework provides a comprehensive programming and configuration model.&quot;);
+	//添加一个引用，可以获得每个关键词
+	CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
+	//添加一个偏移量的引用，记录了关键词的开始位置以及结束位置
+	OffsetAttribute offsetAttribute = tokenStream.addAttribute(OffsetAttribute.class);
+	//将指针调整到列表的头部
+	tokenStream.reset();
+	//遍历关键词列表，通过incrementToken方法判断列表是否结束
+	while(tokenStream.incrementToken()) {
+		//关键词的起始位置
+		System.out.println(&quot;start-&gt;&quot; + offsetAttribute.startOffset());
+		//取关键词
+		System.out.println(charTermAttribute);
+		//结束位置
+		System.out.println(&quot;end-&gt;&quot; + offsetAttribute.endOffset());
+	}
+	tokenStream.close();
+}
+IKAnalyzer.cfg.xml扩展ik分析器
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE properties SYSTEM &quot;http://java.sun.com/dtd/properties.dtd&quot;&gt;  
+&lt;properties&gt;  
+	&lt;comment&gt;IK Analyzer 扩展配置&lt;/comment&gt;
+	&lt;!--用户可以在这里配置自己的扩展字典 --&gt;
+	&lt;entry key=&quot;ext_dict&quot;&gt;ext.dic;&lt;/entry&gt; 
+	
+	&lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;
+	&lt;entry key=&quot;ext_stopwords&quot;&gt;stopword.dic;&lt;/entry&gt; 
+	
+&lt;/properties&gt;
+中文分析器
+Lucene自带中文分词器
+StandardAnalyzer：单字分词：就是按照中文一个字一个字地进行分词。如：“我爱中国”， 效果：“我”、“爱”、“中”、“国”。
+CJKAnalyzer：二分法分词：按两个字进行切分。如：“我是中国人”，效果：“我是”、“是中”、“中国”“国人”。
+上边两个分词器无法满足需求。SmartChineseAnalyzer 对中文支持较好，但扩展性差，扩展词库，禁用词库和同义词库等不好处理
+第三方中文分析器IK-analyzer(zhongdian)： 最新版在https://code.google.com/p/ik-analyzer/上，支持Lucene 4.10从2006年12月推出1.0版开始， 
+IKAnalyzer已经推出了4个大版本。最初，它是以开源项目Luence为应用主体的，结合词典分词和文法分析算法的中文分词组件。
+从3.0版本开 始，IK发展为面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。
+在2012版本中，IK实现了简单的分词 歧义排除算法，标志着IK分词器从单纯的词典分词向模拟语义分词衍化。 
+
+
+IKAnalyzer
+使用方法：
+第一步：把jar包添加到工程中
+第二步：把配置文件和扩展词典和停用词词典添加到classpath下
+注意：mydict.dic和ext_stopword.dic文件的格式为UTF-8，注意是无BOM 的UTF-8 编码。
+使用EditPlus.exe保存为无BOM 的UTF-8 编码格式
+Analyzer使用时机
+索引时使用Analyzer
+输入关键字进行搜索，当需要让该关键字与文档域内容所包含的词进行匹配时需要对文档域内容进行分析，
+需要经过Analyzer分析器处理生成语汇单元（Token）。分析器分析的对象是文档中的Field域。
+当Field的属性tokenized（是否分词）为true时会对Field值进行分析，如下图：
+对于一些Field可以不用分析：
+1、不作为查询条件的内容，比如文件路径
+2、不是匹配内容中的词而匹配Field的整体内容，比如订单号、身份证号等。
+
+搜索时使用Analyzer
+对搜索关键字进行分析和索引分析一样，使用Analyzer对搜索关键字进行分析、分词处理，
+使用分析后每个词语进行搜索。比如：搜索关键字：spring web ，经过分析器进行分词，
+得出：spring  web拿词去索引词典表查找 ，找到索引链接到Document，解析Document内容。
+对于匹配整体Field域的查询可以在搜索时不分析，比如根据订单号、身份证号查询等。
+注意：搜索使用的分析器要和索引使用的分析器一致。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/70c59e47babacadd5ed42.png" alt="图片10.png" tabindex="0"><figcaption>图片10.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>索引库的维护
+索引库的添加
+	向索引库中添加document对象。
+	第一步：先创建一个indexwriter对象
+	第二步：创建一个document对象
+	第三步：把document对象写入索引库
+	第四步：关闭indexwriter。
+
+	//添加索引
+	@Test
+	public void addDocument() throws Exception {
+		//索引库存放路径
+		Directory directory = FSDirectory.open(new File(&quot;D:\\temp\\0108\\index&quot;));	
+		IndexWriterConfig config = new IndexWriterConfig(Version.LATEST, new IKAnalyzer());
+		//创建一个indexwriter对象
+		IndexWriter indexWriter = new IndexWriter(directory, config);
+		//创建一个Document对象
+		Document document = new Document();
+		//向document对象中添加域。
+		//不同的document可以有不同的域，同一个document可以有相同的域。
+		document.add(new TextField(&quot;filename&quot;, &quot;新添加的文档&quot;, Store.YES));
+		document.add(new TextField(&quot;content&quot;, &quot;新添加的文档的内容&quot;, Store.NO));
+		document.add(new TextField(&quot;content&quot;, &quot;新添加的文档的内容第二个content&quot;, Store.YES));
+		document.add(new TextField(&quot;content1&quot;, &quot;新添加的文档的内容要能看到&quot;, Store.YES));
+		//添加文档到索引库
+		indexWriter.addDocument(document);
+		//关闭indexwriter
+		indexWriter.close();	
+	}
+
+索引库删除
+	将索引目录的索引信息全部删除，直接彻底删除，无法恢复。此方法慎用！！
+	//删除全部索引
+	@Test
+	public void deleteAllIndex() throws Exception {
+		IndexWriter indexWriter = getIndexWriter();
+		//删除全部索引
+		indexWriter.deleteAll();
+		//关闭indexwriter
+		indexWriter.close();
+	}
+
+指定查询条件删除
+	//根据查询条件删除索引
+	@Test
+	public void deleteIndexByQuery() throws Exception {
+		IndexWriter indexWriter = getIndexWriter();
+		//创建一个查询条件
+		Query query = new TermQuery(new Term(&quot;filename&quot;, &quot;apache&quot;));
+		//根据查询条件删除
+		indexWriter.deleteDocuments(query);
+		//关闭indexwriter
+		indexWriter.close();
+	}
+
+索引库的修改
+	原理就是先删除后添加。
+	//修改索引库
+	@Test
+	public void updateIndex() throws Exception {
+		IndexWriter indexWriter = getIndexWriter();
+		//创建一个Document对象
+		Document document = new Document();
+		//向document对象中添加域。
+		//不同的document可以有不同的域，同一个document可以有相同的域。
+		document.add(new TextField(&quot;filename&quot;, &quot;要更新的文档&quot;, Store.YES));
+		document.add(new TextField(&quot;content&quot;, &quot;2013年11月18日 - Lucene 简介 Lucene 是一个基于 Java 的全文信息检索工具包,&quot;+&quot;
+		它不是一个完整的搜索应用程序,而是为你的应用程序提供索引和搜索功能。&quot;, Store.YES));
+		//先根据content域为java查找到文档，新文档覆盖该文档，原文档的content域及其文档本身不再存在于新索引库中，被整个新文档的域和新文档本身取代
+		//先根据content域为java查找到文档，如果有就更新它(如果有多条，最后更新后只有一条)。如果没有就新增.
+		indexWriter.updateDocument(new Term(&quot;content&quot;, &quot;java&quot;), document);
+		//关闭indexWriter
+		indexWriter.close();
+	}
+
+索引库查询（重点）
+	对要搜索的信息创建Query查询对象，Lucene会根据Query查询对象生成最终的查询语法，
+	可通过两种方法创建查询对象：
+	1）使用Lucene提供Query子类
+	Query是一个抽象类，lucene提供了很多查询对象，比如TermQuery项精确查询，NumericRangeQuery数字范围查询等。
+	Query query = new TermQuery(new Term(&quot;name&quot;, &quot;lucene&quot;));
+
+	2）使用QueryParse解析查询表达式
+	QueryParse会将用户输入的查询表达式解析成Query对象实例。
+	QueryParser queryParser = new QueryParser(&quot;name&quot;, new IKAnalyzer());
+	Query query = queryParser.parse(&quot;name:lucene&quot;);
+
+
+使用query的子类查询
+	MatchAllDocsQuery
+	使用MatchAllDocsQuery查询索引目录中的所有文档
+	@Test
+	public void testMatchAllDocsQuery() throws Exception {
+		IndexSearcher indexSearcher = getIndexSearcher();
+		//创建查询条件
+		Query query = new MatchAllDocsQuery();
+		//执行查询
+		printResult(query, indexSearcher);
+	}
+
+	TermQuery
+	TermQuery，通过项查询，TermQuery不使用分析器所以建议匹配不分词的Field域查询，比如订单号、分类ID号等。
+	指定要查询的域和要查询的关键词。
+	@Test
+	public void testTermQuery() throws Exception {
+		IndexSearcher indexSearcher = getIndexSearcher();
+		//创建查询对象
+		Query query = new TermQuery(new Term(&quot;content&quot;, &quot;lucene&quot;));
+		//执行查询
+		TopDocs topDocs = indexSearcher.search(query, 10);
+		//共查询到的document个数
+		System.out.println(&quot;查询结果总数量：&quot; + topDocs.totalHits);
+		//遍历查询结果
+		for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
+			Document document = indexSearcher.doc(scoreDoc.doc);
+			System.out.println(document.get(&quot;filename&quot;));
+			//System.out.println(document.get(&quot;content&quot;));
+			System.out.println(document.get(&quot;path&quot;));
+			System.out.println(document.get(&quot;size&quot;));
+		}
+		//关闭indexreader
+		indexSearcher.getIndexReader().close();
+	}
+
+	NumericRangeQuery
+	可以根据数值范围查询。
+	//数值范围查询
+	@Test
+	public void testNumericRangeQuery() throws Exception {
+		IndexSearcher indexSearcher = getIndexSearcher();
+		//创建查询
+		//参数：
+		//1.域名
+		//2.最小值
+		//3.最大值
+		//4.是否包含最小值
+		//5.是否包含最大值
+		Query query = NumericRangeQuery.newLongRange(&quot;size&quot;, 1l, 1000l, true, true);
+		//执行查询
+		printResult(query, indexSearcher);
+	}
+
+	BooleanQuery
+	可以组合查询条件。
+	//组合条件查询
+	@Test
+	public void testBooleanQuery() throws Exception {
+		IndexSearcher indexSearcher = getIndexSearcher();
+		//创建一个布尔查询对象
+		BooleanQuery query = new BooleanQuery();
+		//创建第一个查询条件
+		Query query1 = new TermQuery(new Term(&quot;filename&quot;, &quot;apache&quot;));
+		Query query2 = new TermQuery(new Term(&quot;content&quot;, &quot;apache&quot;));
+		//组合查询条件
+		//Occur.MUST：必须满足此条件，相当于and
+		//Occur.SHOULD：应该满足，但是不满足也可以，相当于or
+		//Occur.MUST_NOT：必须不满足。相当于not
+		query.add(query1, Occur.MUST);
+		query.add(query2, Occur.MUST);
+		//执行查询
+		printResult(query, indexSearcher);
+	}
+
+	
+
+
+使用queryparser查询
+	通过QueryParser也可以创建Query，QueryParser提供一个Parse方法，此方法可以直接根据查询语法来查询。
+	Query对象执行的查询语法可通过System.out.println(query);查询。
+	需要使用到分析器。建议创建索引时使用的分析器和查询索引时使用的分析器要一致。
+
+	需要加入queryParser依赖的jar包。
+	lucene-queryparser-4.10.3.jar
+	@Test
+	public void testQueryParser() throws Exception {
+		IndexSearcher indexSearcher = getIndexSearcher();
+		//创建queryparser对象
+		//第一个参数默认搜索的域*:*全部查的语法
+		//第二个参数就是分析器对象
+		QueryParser queryParser = new QueryParser(&quot;content&quot;, new IKAnalyzer());
+		//执行*:*
+		Query query = queryParser.parse(&quot;Lucene是java开发的&quot;);
+		//执行fileName:test
+		//Query query = queryParser.parse(&quot;fileName:test&quot;);
+		//执行查询
+		printResult(query, indexSearcher);
+	}
+
+查询语法
+1、基础的查询语法，关键词查询：
+	域名+“：”+搜索的关键字
+	例如：content:java
+2、范围查询
+	域名+“:”+[最小值 TO 最大值]
+	例如：size:[1 TO 1000]
+	范围查询在lucene中支持数值类型，不支持字符串类型。在solr中支持字符串类型。
+3、组合条件查询
+1）+条件1 +条件2：两个条件之间是并且的关系and
+例如：+filename:apache +content:apache
+2）+条件1 条件2：必须满足第一个条件，应该满足第二个条件
+例如：+filename:apache content:apache
+3）条件1 条件2：两个条件满足其一即可。
+例如：filename:apache content:apache
+4）-条件1 条件2：必须不满足条件1，要满足条件2
+例如：-filename:apache content:apache
+Occur.MUST 查询条件必须满足，相当于and	+（加号）
+Occur.SHOULD 查询条件可选，相当于or 空（不用符号）
+Occur.MUST_NOT 查询条件不能满足，相当于not非	-（减号）
+
+第二种写法：
+条件1 AND 条件2
+条件1 OR 条件2
+条件1 NOT 条件2
+
+MultiFieldQueryParser
+可以指定多个默认搜索域
+@Test
+public void testMultiFiledQueryParser() throws Exception {
+	IndexSearcher indexSearcher = getIndexSearcher();
+	//可以指定默认搜索的域是多个
+	String[] fields = {&quot;filename&quot;, &quot;content&quot;};
+	//创建一个MulitFiledQueryParser对象
+	MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields, new IKAnalyzer());
+	Query query = queryParser.parse(&quot;java AND apache&quot;);
+	System.out.println(query);
+	//执行查询
+	printResult(query, indexSearcher);
+	
+	}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/searchengine/lucene.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/backend/searchengine/solr.html" aria-label="solr"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">solr<!----></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

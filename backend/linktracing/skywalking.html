@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/linktracing/skywalking.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="Skywalking"><meta property="og:description" content="Skywalking Skywalking是专为微服务、云原生和基于容器的（Kubernetes）架构设计的分布式系统性能监控工具。 Skywalking关键特性 分布式跟踪:端到端分布式跟踪。服务拓扑分析、以服务为中心的可观察性和API仪表板。 针对您的技术栈的代理:Java、.Net Core、PHP、NodeJS、Golang、LUA、Rust、..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/8c7f59ec782d865f3db03.jpg"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Skywalking","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/8c7f59ec782d865f3db03.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/13ad44ad9260b2a4c8c1a.jpg","https://290ff162.telegraph-image-eg9.pages.dev/file/82cc1e58f1c0ea7df5af0.jpg"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":null,"author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>Skywalking | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/skywalking.html-6bgBnKFd.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/linktracing/skywalking.html" aria-label="Skywalking"><!---->Skywalking<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/linktracing/zipkin.html" aria-label="Zipkin"><!---->Zipkin<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/linktracing/cat.html" aria-label="Cat"><!---->Cat<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/linktracing/pinpoint.html" aria-label="Pinpoint"><!---->Pinpoint<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->Skywalking</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 4283 字</span><meta property="wordCount" content="4283"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 14 分钟</span><meta property="timeRequired" content="PT14M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#skywalking">Skywalking</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#skywalking关键特性">Skywalking关键特性</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#skywalking搭建">Skywalking搭建</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#springboot整合-日志">Springboot整合+日志</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#skywalking的agent注册了这些service">SkyWalking的agent注册了这些Service</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><h2 id="skywalking" tabindex="-1"><a class="header-anchor" href="#skywalking"><span>Skywalking</span></a></h2><p>Skywalking是专为微服务、云原生和基于容器的（Kubernetes）架构设计的分布式系统性能监控工具。</p><h2 id="skywalking关键特性" tabindex="-1"><a class="header-anchor" href="#skywalking关键特性"><span>Skywalking关键特性</span></a></h2><ul><li>分布式跟踪:端到端分布式跟踪。服务拓扑分析、以服务为中心的可观察性和API仪表板。</li><li>针对您的技术栈的代理:Java、.Net Core、PHP、NodeJS、Golang、LUA、Rust、C++、客户端JavaScript和Python代理，持续积极开发和维护。</li><li>早期采用eBPF技术:Rover代理作为指标收集器和性能分析工具，采用eBPF技术来诊断CPU和网络性能问题。</li><li>扩展能力:从一个SkyWalking集群中可以收集和分析1000亿级别的遥测数据。</li><li>成熟的遥测生态系统支持:支持成熟的遥测生态系统的指标、跟踪和日志，例如Zipkin、OpenTelemetry、Prometheus、Zabbix、Fluentd等。</li><li>原生APM数据库:BanyanDB是一个2022年创建的可观察性数据库，旨在接收、分析和存储遥测/可观察性数据。</li><li>一致的指标聚合:SkyWalking本机的度量格式和广泛使用的度量格式（如OpenCensus、OTLP、Telegraf、Zabbix等）通过相同的脚本管道进行处理。</li><li>日志管理管道:通过脚本管道支持日志格式化、提取指标和各种采样策略，具有高性能。</li><li>报警和遥测管道:支持基于服务、基于部署和基于API的报警规则设置。支持将报警和所有遥测数据转发给第三方。</li></ul><h2 id="skywalking搭建" tabindex="-1"><a class="header-anchor" href="#skywalking搭建"><span>Skywalking搭建</span></a></h2><ol><li>安装Skywalking</li></ol><div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/sca/skywalking
+<span class="token builtin class-name">cd</span> /etc/sca/skywalking
+<span class="token function">cat</span> <span class="token operator">&gt;</span> docker-compose.yaml <span class="token operator">&lt;&lt;-</span><span class="token string">&#39;EOF&#39;
+version: &#39;3&#39;
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - &quot;3306:3306&quot;
+  nacos:
+    image: nacos/nacos-server:v2.2.1-slim
+    container_name: nacos
+    restart: always
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - NACOS_AUTH_IDENTITY_KEY=2222
+      - NACOS_AUTH_IDENTITY_VALUE=2xxx
+      - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+    depends_on:
+      - mysql
+    ports:
+      - &quot;7848:7848&quot;
+      - &quot;8848:8848&quot;
+      - &quot;9848:9848&quot;
+  oap:
+    image: apache/skywalking-oap-server:9.4.0
+    container_name: oap
+    restart: always
+    ports:
+      - &quot;11800:11800&quot;
+      - &quot;12800:12800&quot;
+
+  oap-ui:
+    image: apache/skywalking-ui:9.4.0
+    container_name: oap-ui
+    restart: always
+    environment:
+      SW_OAP_ADDRESS: http://oap:12800
+    ports:
+      - &quot;8080:8080&quot;
+    depends_on:
+      - oap
+EOF</span>
+<span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li>11800端口用于skywalking将应用的服务监控信息收集端口</li><li>12800端口用于skywalking对UI提供查询接口</li><li>8080端口是Skywalking WebUI接口提供可视化交互</li><li>Agent下载地址：<a href="https://skywalking.apache.org/downloads/" target="_blank" rel="noopener noreferrer">https://skywalking.apache.org/downloads/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li><li>Java Agent说明文档：<a href="https://skywalking.apache.org/docs/skywalking-java/v8.15.0/readme/" target="_blank" rel="noopener noreferrer">https://skywalking.apache.org/docs/skywalking-java/v8.15.0/readme/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></li></ul><ol start="2"><li>安装Java Agent</li></ol><ul><li>下载后apache-skywalking-java-agent-8.15.0.tgz后解压缩到D:\java-agent<br> 打开D:\java-agent\config\agent.config，将104行127.0.0.1:11800改成 宿主机IP:11800</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>collector.backend_service=${SW_AGENT_COLLECTOR_BACKEND_SERVICES:192.168.31.230:11800}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">java</span> jar <span class="token punctuation">\</span>
+-javaagent:D:<span class="token punctuation">\</span>java-agent<span class="token punctuation">\</span>skywalking-agent.jar <span class="token punctuation">\</span>
+<span class="token parameter variable">-Dskywalking.agent.service_name</span><span class="token operator">=</span>c-service <span class="token punctuation">\</span>
+<span class="token parameter variable">-Dskywalking.logging.file_name</span><span class="token operator">=</span>c-service-api.log <span class="token punctuation">\</span>
+xxx.jar
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>idea的配置<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/8c7f59ec782d865f3db03.jpg" alt="agentidea.png"></p><p>通过WebUI获取监控数据<br><a href="http://192.168.31.230:8080/" target="_blank" rel="noopener noreferrer">http://192.168.31.230:8080/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a><br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/13ad44ad9260b2a4c8c1a.jpg" alt="skywalking.png"></p><h2 id="springboot整合-日志" tabindex="-1"><a class="header-anchor" href="#springboot整合-日志"><span>Springboot整合+日志</span></a></h2><ol><li>pom.xml,注意版本号与Skywalking的一致</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;!-- 该引用用于logback获取tranceId,也就是tid --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.skywalking&lt;/groupId&gt;
+    &lt;artifactId&gt;apm-toolkit-logback-1.x&lt;/artifactId&gt;
+    &lt;version&gt;9.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- 该引用用于代码获取tranceId --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.skywalking&lt;/groupId&gt;
+    &lt;artifactId&gt;apm-toolkit-trace&lt;/artifactId&gt;
+    &lt;version&gt;9.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="2"><li>logback配置logback.xml</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration scan=&quot;true&quot; scanPeriod=&quot; 5 seconds&quot;&gt;
+
+    &lt;appender name=&quot;stdout&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;encoder class=&quot;ch.qos.logback.core.encoder.LayoutWrappingEncoder&quot;&gt;
+            &lt;layout class=&quot;org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout&quot;&gt;
+                &lt;Pattern&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{tid}] [%thread] %-5level %logger{36} -%msg%n&lt;/Pattern&gt;
+            &lt;/layout&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;appender name=&quot;grpc-log&quot; class=&quot;org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender&quot;&gt;
+        &lt;encoder class=&quot;ch.qos.logback.core.encoder.LayoutWrappingEncoder&quot;&gt;
+            &lt;layout class=&quot;org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout&quot;&gt;
+                &lt;Pattern&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{tid}] [%thread] %-5level %logger{36} -%msg%n&lt;/Pattern&gt;
+            &lt;/layout&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;appender name=&quot;fileAppender&quot; class=&quot;ch.qos.logback.core.FileAppender&quot;&gt;
+        &lt;file&gt;/tmp/skywalking-logs/logback/e2e-service-provider.log&lt;/file&gt;
+        &lt;encoder class=&quot;ch.qos.logback.core.encoder.LayoutWrappingEncoder&quot;&gt;
+            &lt;layout class=&quot;org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout&quot;&gt;
+                &lt;Pattern&gt;[%sw_ctx] [%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger:%line - %msg%n&lt;/Pattern&gt;
+            &lt;/layout&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;!--需要将日志单独输出的包路径--&gt;
+    &lt;logger name=&quot;com.itlaoqi.aservice&quot; additivity=&quot;false&quot; level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;stdout&quot;/&gt;
+        &lt;appender-ref ref=&quot;grpc-log&quot;/&gt;
+        &lt;appender-ref ref=&quot;fileAppender&quot;/&gt;
+    &lt;/logger&gt;
+
+    &lt;root level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;grpc-log&quot;/&gt;
+        &lt;appender-ref ref=&quot;stdout&quot;/&gt;
+    &lt;/root&gt;
+    &lt;logger name=&quot;fileLogger&quot; level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;fileAppender&quot;/&gt;
+    &lt;/logger&gt;
+&lt;/configuration&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="3"><li>配置agent配置文件，config/agent.config</li></ol><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>agent.service_name=my-application
+collector.backend_service=oap-server-host:11800
+logging.level=DEBUG
+
+plugin.logging=true
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="4"><li>其他的跟上面差不多</li><li>应用里面使用@Sl4j打印日志即可</li><li>查看日志收集结果<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/82cc1e58f1c0ea7df5af0.jpg" alt="skywalkinglog.png"></li></ol><h1 id="sky源码" tabindex="-1"><a class="header-anchor" href="#sky源码"><span>Sky源码</span></a></h1><ul><li>controller中traceId产生：SkyWalkingAgent的premain方法，访问每个插件的skywalking-plugin.def文件加载所有插件包括接口插件（org.apache.skywalking.apm.plugin.spring.mvc.v5.define.ControllerInstrumentation,指定拦截org.springframework.stereotype.Controller类，而它的父类AbstractControllerInstrumentation，已经拦截了RequestMapping，拦截类是RestMappingMethodInterceptor），同时调用installClassTransformer方法增强对应插件类名的类，里面调用了静态内部类Transformer的transform方法，调用所有插件的define方法，而所有插件继承了AbstractClassEnhancePluginDefine类，它的默认define方法调用子类ClassEnhancePluginDefine的enhanceClass和enhanceInstance分别增强了构造方法、实例方法和静态方法，都是调用子类插件的getConstructorsInterceptPoints(),getInstanceMethodsInterceptPoints(),getStaticMethodsInterceptPoints()3个方法返回拦截器的全类名实现调用拦截器接口实现类InstanceMethodsAroundInterceptor的beforeMethod目的，而traceId的产生由RestMappingMethodInterceptor的父类AbstractMethodInterceptor调用beforeMethod，然后里面再调用ContextManager的createEntrySpan方法创建Span，同时采集其他请求信息，服务间调用的时候通过HttpClientDoExecuteInterceptor的beforeMethod方法将trace信息添加到请求头</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class SkyWalkingAgent {
+    //主入口。使用byte-buddy transform 来增强所有在插件中定义的类。
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws PluginException {
+        final PluginFinder pluginFinder;
+        try {
+            //加载配置
+            SnifferConfigInitializer.initializeCoreConfig(agentArgs);
+        } catch (Exception e) {
+            // try to resolve a new logger, and use the new logger to write the error log here
+            LogManager.getLogger(SkyWalkingAgent.class)
+                    .error(e, &quot;SkyWalking agent initialized failure. Shutting down.&quot;);
+            return;
+        } finally {
+            // refresh logger again after initialization finishes
+            LOGGER = LogManager.getLogger(SkyWalkingAgent.class);
+        }
+
+        if (!Config.Agent.ENABLE) {
+            LOGGER.warn(&quot;SkyWalking agent is disabled.&quot;);
+            return;
+        }
+
+        try {
+            //加载插件
+            pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
+        } catch (AgentPackageNotFoundException ape) {
+            LOGGER.error(ape, &quot;Locate agent.jar failure. Shutting down.&quot;);
+            return;
+        } catch (Exception e) {
+            LOGGER.error(e, &quot;SkyWalking agent initialized failure. Shutting down.&quot;);
+            return;
+        }
+
+        try {
+            //方法增强
+            installClassTransformer(instrumentation, pluginFinder);
+        } catch (Exception e) {
+            LOGGER.error(e, &quot;Skywalking agent installed class transformer failure.&quot;);
+        }
+
+        try {
+            //启动服务
+            ServiceManager.INSTANCE.boot();
+        } catch (Exception e) {
+            LOGGER.error(e, &quot;Skywalking agent boot failure.&quot;);
+        }
+
+        Runtime.getRuntime()
+               .addShutdownHook(new Thread(ServiceManager.INSTANCE::shutdown, &quot;skywalking service shutdown thread&quot;));
+    }
+
+    static void installClassTransformer(Instrumentation instrumentation, PluginFinder pluginFinder) throws Exception {
+        LOGGER.info(&quot;Skywalking agent begin to install transformer ...&quot;);
+
+        AgentBuilder agentBuilder = newAgentBuilder().ignore(
+            nameStartsWith(&quot;net.bytebuddy.&quot;)
+                .or(nameStartsWith(&quot;org.slf4j.&quot;))
+                .or(nameStartsWith(&quot;org.groovy.&quot;))
+                .or(nameContains(&quot;javassist&quot;))
+                .or(nameContains(&quot;.asm.&quot;))
+                .or(nameContains(&quot;.reflectasm.&quot;))
+                .or(nameStartsWith(&quot;sun.reflect&quot;))
+                .or(allSkyWalkingAgentExcludeToolkit())
+                .or(ElementMatchers.isSynthetic()));
+
+        JDK9ModuleExporter.EdgeClasses edgeClasses = new JDK9ModuleExporter.EdgeClasses();
+        try {
+            agentBuilder = BootstrapInstrumentBoost.inject(pluginFinder, instrumentation, agentBuilder, edgeClasses);
+        } catch (Exception e) {
+            throw new Exception(&quot;SkyWalking agent inject bootstrap instrumentation failure. Shutting down.&quot;, e);
+        }
+
+        try {
+            agentBuilder = JDK9ModuleExporter.openReadEdge(instrumentation, agentBuilder, edgeClasses);
+        } catch (Exception e) {
+            throw new Exception(&quot;SkyWalking agent open read edge in JDK 9+ failure. Shutting down.&quot;, e);
+        }
+        //核心。agentBuilder#transform,
+        agentBuilder.type(pluginFinder.buildMatch())
+                    .transform(new Transformer(pluginFinder))
+                    .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+                    .with(new RedefinitionListener())
+                    .with(new Listener())
+                    .installOn(instrumentation);
+
+        PluginFinder.pluginInitCompleted();
+
+        LOGGER.info(&quot;Skywalking agent transformer has installed.&quot;);
+    }
+
+    private static class Transformer implements AgentBuilder.Transformer {
+        private PluginFinder pluginFinder;
+
+        Transformer(PluginFinder pluginFinder) {
+            this.pluginFinder = pluginFinder;
+        }
+
+        @Override
+        //调用所有插件的define
+        public DynamicType.Builder&lt;?&gt; transform(final DynamicType.Builder&lt;?&gt; builder,
+                                                final TypeDescription typeDescription,
+                                                final ClassLoader classLoader,
+                                                final JavaModule javaModule,
+                                                final ProtectionDomain protectionDomain) {
+            LoadedLibraryCollector.registerURLClassLoader(classLoader);
+            List&lt;AbstractClassEnhancePluginDefine&gt; pluginDefines = pluginFinder.find(typeDescription);
+            if (pluginDefines.size() &gt; 0) {
+                DynamicType.Builder&lt;?&gt; newBuilder = builder;
+                EnhanceContext context = new EnhanceContext();
+                for (AbstractClassEnhancePluginDefine define : pluginDefines) {
+                    DynamicType.Builder&lt;?&gt; possibleNewBuilder = define.define(
+                        typeDescription, newBuilder, classLoader, context);
+                    if (possibleNewBuilder != null) {
+                        newBuilder = possibleNewBuilder;
+                    }
+                }
+                if (context.isEnhanced()) {
+                    LOGGER.debug(&quot;Finish the prepare stage for {}.&quot;, typeDescription.getName());
+                }
+
+                return newBuilder;
+            }
+
+            LOGGER.debug(&quot;Matched class {}, but ignore by finding mechanism.&quot;, typeDescription.getTypeName());
+            return builder;
+        }
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public abstract class AbstractClassEnhancePluginDefine {
+    /**
+     * Main entrance of enhancing the class.
+     *
+     * @param typeDescription target class description.
+     * @param builder         byte-buddy&#39;s builder to manipulate target class&#39;s bytecode.
+     * @param classLoader     load the given transformClass
+     * @return the new builder, or &lt;code&gt;null&lt;/code&gt; if not be enhanced.
+     * @throws PluginException when set builder failure.
+     */
+    public DynamicType.Builder&lt;?&gt; define(TypeDescription typeDescription, DynamicType.Builder&lt;?&gt; builder,
+        ClassLoader classLoader, EnhanceContext context) throws PluginException {
+        String interceptorDefineClassName = this.getClass().getName();
+        String transformClassName = typeDescription.getTypeName();
+        if (StringUtil.isEmpty(transformClassName)) {
+            LOGGER.warn(&quot;classname of being intercepted is not defined by {}.&quot;, interceptorDefineClassName);
+            return null;
+        }
+
+        LOGGER.debug(&quot;prepare to enhance class {} by {}.&quot;, transformClassName, interceptorDefineClassName);
+        WitnessFinder finder = WitnessFinder.INSTANCE;
+        /**
+         * find witness classes for enhance class
+         */
+        String[] witnessClasses = witnessClasses();
+        if (witnessClasses != null) {
+            for (String witnessClass : witnessClasses) {
+                if (!finder.exist(witnessClass, classLoader)) {
+                    LOGGER.warn(&quot;enhance class {} by plugin {} is not activated. Witness class {} does not exist.&quot;, transformClassName, interceptorDefineClassName, witnessClass);
+                    return null;
+                }
+            }
+        }
+        List&lt;WitnessMethod&gt; witnessMethods = witnessMethods();
+        if (!CollectionUtil.isEmpty(witnessMethods)) {
+            for (WitnessMethod witnessMethod : witnessMethods) {
+                if (!finder.exist(witnessMethod, classLoader)) {
+                    LOGGER.warn(&quot;enhance class {} by plugin {} is not activated. Witness method {} does not exist.&quot;, transformClassName, interceptorDefineClassName, witnessMethod);
+                    return null;
+                }
+            }
+        }
+
+        /**
+         * find origin class source code for interceptor
+         */
+        DynamicType.Builder&lt;?&gt; newClassBuilder = this.enhance(typeDescription, builder, classLoader, context);
+
+        context.initializationStageCompleted();
+        LOGGER.debug(&quot;enhance class {} by {} completely.&quot;, transformClassName, interceptorDefineClassName);
+
+        return newClassBuilder;
+    }
+
+    /**
+     * Begin to define how to enhance class. After invoke this method, only means definition is finished.
+     *
+     * @param typeDescription target class description
+     * @param newClassBuilder byte-buddy&#39;s builder to manipulate class bytecode.
+     * @return new byte-buddy&#39;s builder for further manipulation.
+     */
+    protected DynamicType.Builder&lt;?&gt; enhance(TypeDescription typeDescription, DynamicType.Builder&lt;?&gt; newClassBuilder,
+                                             ClassLoader classLoader, EnhanceContext context) throws PluginException {
+        newClassBuilder = this.enhanceClass(typeDescription, newClassBuilder, classLoader);
+
+        newClassBuilder = this.enhanceInstance(typeDescription, newClassBuilder, classLoader, context);
+
+        return newClassBuilder;
+    }
+
+    /**
+     * Enhance a class to intercept constructors and class instance methods.
+     *
+     * @param typeDescription target class description
+     * @param newClassBuilder byte-buddy&#39;s builder to manipulate class bytecode.
+     * @return new byte-buddy&#39;s builder for further manipulation.
+     */
+    protected abstract DynamicType.Builder&lt;?&gt; enhanceInstance(TypeDescription typeDescription,
+                                                     DynamicType.Builder&lt;?&gt; newClassBuilder, ClassLoader classLoader,
+                                                     EnhanceContext context) throws PluginException;
+
+    /**
+     * Enhance a class to intercept class static methods.
+     *
+     * @param typeDescription target class description
+     * @param newClassBuilder byte-buddy&#39;s builder to manipulate class bytecode.
+     * @return new byte-buddy&#39;s builder for further manipulation.
+     */
+    protected abstract DynamicType.Builder&lt;?&gt; enhanceClass(TypeDescription typeDescription, DynamicType.Builder&lt;?&gt; newClassBuilder,
+                                                  ClassLoader classLoader) throws PluginException;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public abstract class ClassEnhancePluginDefine extends AbstractClassEnhancePluginDefine {
+    private static final ILog LOGGER = LogManager.getLogger(ClassEnhancePluginDefine.class);
+
+    /**
+     * Enhance a class to intercept constructors and class instance methods.
+     *
+     * @param typeDescription target class description
+     * @param newClassBuilder byte-buddy&#39;s builder to manipulate class bytecode.
+     * @return new byte-buddy&#39;s builder for further manipulation.
+     */
+    @Override
+    protected DynamicType.Builder&lt;?&gt; enhanceInstance(TypeDescription typeDescription,
+        DynamicType.Builder&lt;?&gt; newClassBuilder, ClassLoader classLoader,
+        EnhanceContext context) throws PluginException {
+        ConstructorInterceptPoint[] constructorInterceptPoints = getConstructorsInterceptPoints();
+        InstanceMethodsInterceptPoint[] instanceMethodsInterceptPoints = getInstanceMethodsInterceptPoints();
+        String enhanceOriginClassName = typeDescription.getTypeName();
+        boolean existedConstructorInterceptPoint = false;
+        if (constructorInterceptPoints != null &amp;&amp; constructorInterceptPoints.length &gt; 0) {
+            existedConstructorInterceptPoint = true;
+        }
+        boolean existedMethodsInterceptPoints = false;
+        if (instanceMethodsInterceptPoints != null &amp;&amp; instanceMethodsInterceptPoints.length &gt; 0) {
+            existedMethodsInterceptPoints = true;
+        }
+        DelegateNamingResolver delegateNamingResolver = new DelegateNamingResolver(typeDescription.getTypeName(), this);
+
+        /**
+         * nothing need to be enhanced in class instance, maybe need enhance static methods.
+         */
+        if (!existedConstructorInterceptPoint &amp;&amp; !existedMethodsInterceptPoints) {
+            return newClassBuilder;
+        }
+
+        /**
+         * Manipulate class source code.&lt;br/&gt;
+         *
+         * new class need:&lt;br/&gt;
+         * 1.Add field, name {@link #CONTEXT_ATTR_NAME}.
+         * 2.Add a field accessor for this field.
+         *
+         * And make sure the source codes manipulation only occurs once.
+         *
+         */
+        if (!typeDescription.isAssignableTo(EnhancedInstance.class)) {
+            if (!context.isObjectExtended()) {
+                newClassBuilder = newClassBuilder.defineField(
+                    CONTEXT_ATTR_NAME, Object.class, ACC_PRIVATE | ACC_VOLATILE)
+                                                 .implement(EnhancedInstance.class)
+                                                 .intercept(FieldAccessor.ofField(CONTEXT_ATTR_NAME));
+                context.extendObjectCompleted();
+            }
+        }
+
+        /**
+         * 2. enhance constructors
+         */
+        if (existedConstructorInterceptPoint) {
+            for (ConstructorInterceptPoint constructorInterceptPoint : constructorInterceptPoints) {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.constructor(constructorInterceptPoint.getConstructorMatcher())
+                                                     .intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.withDefaultConfiguration()
+                                                                                                                 .to(BootstrapInstrumentBoost
+                                                                                                                     .forInternalDelegateClass(constructorInterceptPoint
+                                                                                                                         .getConstructorInterceptor()))));
+                } else {
+                    newClassBuilder = newClassBuilder.constructor(constructorInterceptPoint.getConstructorMatcher())
+                                                     .intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.withDefaultConfiguration()
+                                                                                                                 .to(new ConstructorInter(constructorInterceptPoint
+                                                                                                                     .getConstructorInterceptor(), classLoader), delegateNamingResolver.resolve(constructorInterceptPoint))));
+                }
+            }
+        }
+
+        /**
+         * 3. enhance instance methods
+         */
+        if (existedMethodsInterceptPoints) {
+            for (InstanceMethodsInterceptPoint instanceMethodsInterceptPoint : instanceMethodsInterceptPoints) {
+                String interceptor = instanceMethodsInterceptPoint.getMethodsInterceptor();
+                if (StringUtil.isEmpty(interceptor)) {
+                    throw new EnhanceException(&quot;no InstanceMethodsAroundInterceptor define to enhance class &quot; + enhanceOriginClassName);
+                }
+                ElementMatcher.Junction&lt;MethodDescription&gt; junction = not(isStatic()).and(instanceMethodsInterceptPoint.getMethodsMatcher());
+                if (instanceMethodsInterceptPoint instanceof DeclaredInstanceMethodsInterceptPoint) {
+                    junction = junction.and(ElementMatchers.&lt;MethodDescription&gt;isDeclaredBy(typeDescription));
+                }
+                if (instanceMethodsInterceptPoint.isOverrideArgs()) {
+                    if (isBootstrapInstrumentation()) {
+                        newClassBuilder = newClassBuilder.method(junction)
+                                                         .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                    .withBinders(Morph.Binder.install(OverrideCallable.class))
+                                                                                    .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                    } else {
+                        newClassBuilder = newClassBuilder.method(junction)
+                                                         .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                    .withBinders(Morph.Binder.install(OverrideCallable.class))
+                                                                                    .to(new InstMethodsInterWithOverrideArgs(interceptor, classLoader), delegateNamingResolver.resolve(instanceMethodsInterceptPoint)));
+                    }
+                } else {
+                    if (isBootstrapInstrumentation()) {
+                        newClassBuilder = newClassBuilder.method(junction)
+                                                         .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                    .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                    } else {
+                        newClassBuilder = newClassBuilder.method(junction)
+                                                         .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                    .to(new InstMethodsInter(interceptor, classLoader), delegateNamingResolver.resolve(instanceMethodsInterceptPoint)));
+                    }
+                }
+            }
+        }
+
+        return newClassBuilder;
+    }
+
+    /**
+     * Enhance a class to intercept class static methods.
+     *
+     * @param typeDescription target class description
+     * @param newClassBuilder byte-buddy&#39;s builder to manipulate class bytecode.
+     * @return new byte-buddy&#39;s builder for further manipulation.
+     */
+    @Override
+    protected DynamicType.Builder&lt;?&gt; enhanceClass(TypeDescription typeDescription, DynamicType.Builder&lt;?&gt; newClassBuilder,
+        ClassLoader classLoader) throws PluginException {
+        StaticMethodsInterceptPoint[] staticMethodsInterceptPoints = getStaticMethodsInterceptPoints();
+        String enhanceOriginClassName = typeDescription.getTypeName();
+        if (staticMethodsInterceptPoints == null || staticMethodsInterceptPoints.length == 0) {
+            return newClassBuilder;
+        }
+        DelegateNamingResolver delegateNamingResolver = new DelegateNamingResolver(typeDescription.getTypeName(), this);
+
+        for (StaticMethodsInterceptPoint staticMethodsInterceptPoint : staticMethodsInterceptPoints) {
+            String interceptor = staticMethodsInterceptPoint.getMethodsInterceptor();
+            if (StringUtil.isEmpty(interceptor)) {
+                throw new EnhanceException(&quot;no StaticMethodsAroundInterceptor define to enhance class &quot; + enhanceOriginClassName);
+            }
+
+            if (staticMethodsInterceptPoint.isOverrideArgs()) {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.method(isStatic().and(staticMethodsInterceptPoint.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                .withBinders(Morph.Binder.install(OverrideCallable.class))
+                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                } else {
+                    newClassBuilder = newClassBuilder.method(isStatic().and(staticMethodsInterceptPoint.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                .withBinders(Morph.Binder.install(OverrideCallable.class))
+                                                                                .to(new StaticMethodsInterWithOverrideArgs(interceptor), delegateNamingResolver.resolve(staticMethodsInterceptPoint)));
+                }
+            } else {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.method(isStatic().and(staticMethodsInterceptPoint.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                } else {
+                    newClassBuilder = newClassBuilder.method(isStatic().and(staticMethodsInterceptPoint.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+                                                                                .to(new StaticMethodsInter(interceptor), delegateNamingResolver.resolve(staticMethodsInterceptPoint)));
+                }
+            }
+
+        }
+
+        return newClassBuilder;
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class TraceContextActivation extends ClassStaticMethodsEnhancePluginDefine {
+  //三个拦截器负责生成traceId,spanId,SegementId,都是由ContextManager生成
+    public static final String TRACE_ID_INTERCEPT_CLASS = &quot;org.apache.skywalking.apm.toolkit.activation.trace.TraceIDInterceptor&quot;;
+    public static final String SEGMENT_ID_INTERCEPT_CLASS = &quot;org.apache.skywalking.apm.toolkit.activation.trace.SegmentIDInterceptor&quot;;
+    public static final String SPAN_ID_INTERCEPT_CLASS = &quot;org.apache.skywalking.apm.toolkit.activation.trace.SpanIDInterceptor&quot;;
+
+  @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[] {
+            new StaticMethodsInterceptPoint() {
+                @Override
+                public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                    return named(ENHANCE_TRACE_ID_METHOD);
+                }
+
+                @Override
+                public String getMethodsInterceptor() {
+                    return TRACE_ID_INTERCEPT_CLASS;
+                }
+
+                @Override
+                public boolean isOverrideArgs() {
+                    return false;
+                }
+            },
+            new StaticMethodsInterceptPoint() {
+                @Override
+                public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                    return named(ENHANCE_SEGMENT_ID_METHOD);
+                }
+
+                @Override
+                public String getMethodsInterceptor() {
+                    return SEGMENT_ID_INTERCEPT_CLASS;
+                }
+
+                @Override
+                public boolean isOverrideArgs() {
+                    return false;
+                }
+            },
+            new StaticMethodsInterceptPoint() {
+                @Override
+                public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                    return named(ENHANCE_SPAN_ID_METHOD);
+                }
+
+                @Override
+                public String getMethodsInterceptor() {
+                    return SPAN_ID_INTERCEPT_CLASS;
+                }
+
+                @Override
+                public boolean isOverrideArgs() {
+                    return false;
+                }
+            },
+
+            new StaticMethodsInterceptPoint() {
+                @Override
+                public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                    return named(ENHANCE_GET_CORRELATION_METHOD);
+                }
+
+                @Override
+                public String getMethodsInterceptor() {
+                    return INTERCEPT_GET_CORRELATION_CLASS;
+                }
+
+                @Override
+                public boolean isOverrideArgs() {
+                    return false;
+                }
+            },
+            new StaticMethodsInterceptPoint() {
+                @Override
+                public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                    return named(ENHANCE_PUT_CORRELATION_METHOD);
+                }
+
+                @Override
+                public String getMethodsInterceptor() {
+                    return INTERCEPT_PUT_CORRELATION_CLASS;
+                }
+
+                @Override
+                public boolean isOverrideArgs() {
+                    return false;
+                }
+            }
+        };
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class ContextManager implements BootService {
+  private static ThreadLocal&lt;AbstractTracerContext&gt; CONTEXT = new ThreadLocal&lt;AbstractTracerContext&gt;();
+  private static AbstractTracerContext get() {
+        return CONTEXT.get();
+    }
+
+    /**
+     * @return the first global trace id when tracing. Otherwise, &quot;N/A&quot;.
+     */
+    public static String getGlobalTraceId() {
+        AbstractTracerContext context = CONTEXT.get();
+        return Objects.nonNull(context) ? context.getReadablePrimaryTraceId() : EMPTY_TRACE_CONTEXT_ID;
+    }
+
+    /**
+     * @return the current segment id when tracing. Otherwise, &quot;N/A&quot;.
+     */
+    public static String getSegmentId() {
+        AbstractTracerContext context = CONTEXT.get();
+        return Objects.nonNull(context) ? context.getSegmentId() : EMPTY_TRACE_CONTEXT_ID;
+    }
+
+    /**
+     * @return the current span id when tracing. Otherwise, the value is -1.
+     */
+    public static int getSpanId() {
+        AbstractTracerContext context = CONTEXT.get();
+        return Objects.nonNull(context) ? context.getSpanId() : -1;
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="插件定义" tabindex="-1"><a class="header-anchor" href="#插件定义"><span>插件定义</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>/**
+ * 插件的定义,继承xxxPluginDefine,通常命名为xxxInstrumentation
+ */
+public class DruidDataSourceInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+    private static final String ENHANCE_CLASS = &quot;com.alibaba.druid.pool.DruidDataSource&quot;;
+    private static final String ENHANCE_METHOD = &quot;getConnection&quot;;
+    private static final String INTERCEPTOR_CLASS = &quot;org.apache.skywalking.apm.plugin.druid.v1.PoolingGetConnectInterceptor&quot;;
+
+    /**
+     * 在哪个类进行字节码增强
+     * */
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byName(ENHANCE_CLASS);
+    }
+    /**
+     * 进行构造方法的拦截
+     * */
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+    /**
+     * 进行实例方法的拦截
+     * */
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[]{
+                new InstanceMethodsInterceptPoint() {
+                    //对getConnection无参方法记性增强
+                    @Override
+                    public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                        return named(ENHANCE_METHOD).and(takesNoArguments());
+                    }
+                    //增强逻辑在哪个具体的插件类中执行
+                    @Override
+                    public String getMethodsInterceptor() {
+                        return INTERCEPTOR_CLASS;
+                    }
+
+                    @Override
+                    public boolean isOverrideArgs() {
+                        return false;
+                    }
+                },
+                new InstanceMethodsInterceptPoint() {
+                    //对getConnection有参方法记性增强
+                    @Override
+                    public ElementMatcher&lt;MethodDescription&gt; getMethodsMatcher() {
+                        return named(ENHANCE_METHOD).and(takesArguments(String.class, String.class));
+                    }
+                    //增强逻辑在哪个具体的插件类中执行
+                    @Override
+                    public String getMethodsInterceptor() {
+                        return INTERCEPTOR_CLASS;
+                    }
+                    //在增强时是否要对原方法的入参进行改变
+                    @Override
+                    public boolean isOverrideArgs() {
+                        return false;
+                    }
+                }
+        };
+    }
+
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="skywalking链路追踪traceid" tabindex="-1"><a class="header-anchor" href="#skywalking链路追踪traceid"><span>Skywalking链路追踪traceId</span></a></h1><p>SkyWalking 中使用 DistributedTraceId 类来抽象 Trace ID，其中封装了一个 ID 类型的字段。DistributedTraceId 有两个实现类</p><ul><li><p>NewDistirbutedTraceId 负责生成新 Trace ID，请求刚刚进入系统时，会创建 NewDistirbutedTraceId 对象，其构造方法内部会调用 GlobalIdGenerator.generate() 方法生成 ID 对象。</p></li><li><p>PropagatedTraceId 负责处理 Trace 传播过程中的 TraceId。PropagatedTraceId 的构造方法接收一个 String 类型参数（也就是在跨进程传播时序列化后的 Trace ID），解析之后得到 ID 对象。</p></li><li><p>在 SkyWalking 中，TraceSegment 是一个介于 Trace 与 Span 之间的概念，它是一条 Trace 的一段，可以包含多个 Span。在微服务架构中，一个请求基本都会涉及跨进程（以及跨线程）的操作，例如， RPC 调用、通过 MQ 异步执行、HTTP 请求远端资源等，处理一个请求就需要涉及到多个服务的多个线程。TraceSegment 记录了一个请求在一个线程中的执行流程（即 Trace 信息）。将该请求关联的 TraceSegment 串联起来，就能得到该请求对应的完整 Trace。</p></li><li><p>TraceId的生成：ContextManager的createEntrySpan方法，调用getOrCreate方法，再调用ContextManagerExtendService的createTraceContext方法，里面创建了TracingContext(operationName, spanLimitWatcher);里面包含了traceId，SegmentId等<br> Skwalking的TraceId的生成是通过GlobalIdGenerator的generate()方法来生成的，<br> 第一部分：具体是应用程序实例 ID<br> 第二部分：线程 ID<br> 第三部分：时间戳*10000+当前线程中的 seq，seq的值介于 0（包含）和 9999（包含）之间<br> 三部分通过.来分隔开</p></li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class ContextManager implements BootService {
+    public static AbstractSpan createEntrySpan(String operationName, ContextCarrier carrier) {
+        AbstractSpan span;
+        AbstractTracerContext context;
+        operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
+        if (carrier != null &amp;&amp; carrier.isValid()) {
+            SamplingService samplingService = ServiceManager.INSTANCE.findService(SamplingService.class);
+            samplingService.forceSampled();
+            context = getOrCreate(operationName, true);
+            span = context.createEntrySpan(operationName);
+            context.extract(carrier);
+        } else {
+            context = getOrCreate(operationName, false);
+            span = context.createEntrySpan(operationName);
+        }
+        return span;
+    }
+
+    private static AbstractTracerContext getOrCreate(String operationName, boolean forceSampling) {
+        AbstractTracerContext context = CONTEXT.get();
+        if (context == null) {
+            if (StringUtil.isEmpty(operationName)) {
+                if (LOGGER.isDebugEnable()) {
+                    LOGGER.debug(&quot;No operation name, ignore this trace.&quot;);
+                }
+                context = new IgnoredTracerContext();
+            } else {
+                if (EXTEND_SERVICE == null) {
+                    EXTEND_SERVICE = ServiceManager.INSTANCE.findService(ContextManagerExtendService.class);
+                }
+                context = EXTEND_SERVICE.createTraceContext(operationName, forceSampling);
+
+            }
+            CONTEXT.set(context);
+        }
+        return context;
+    }
+
+    public static AbstractSpan createLocalSpan(String operationName) {
+        operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
+        AbstractTracerContext context = getOrCreate(operationName, false);
+        return context.createLocalSpan(operationName);
+    }
+
+    public static AbstractSpan createExitSpan(String operationName, ContextCarrier carrier, String remotePeer) {
+        if (carrier == null) {
+            throw new IllegalArgumentException(&quot;ContextCarrier can&#39;t be null.&quot;);
+        }
+        operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
+        AbstractTracerContext context = getOrCreate(operationName, false);
+        AbstractSpan span = context.createExitSpan(operationName, remotePeer);
+        context.inject(carrier);
+        return span;
+    }
+
+    public static AbstractSpan createExitSpan(String operationName, String remotePeer) {
+        operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
+        AbstractTracerContext context = getOrCreate(operationName, false);
+        return context.createExitSpan(operationName, remotePeer);
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class TracingContext implements AbstractTracerContext {
+
+  TracingContext(String firstOPName, SpanLimitWatcher spanLimitWatcher) {
+        this.segment = new TraceSegment();
+        this.spanIdGenerator = 0;
+        isRunningInAsyncMode = false;
+        createTime = System.currentTimeMillis();
+        running = true;
+
+        // profiling status
+        if (PROFILE_TASK_EXECUTION_SERVICE == null) {
+            PROFILE_TASK_EXECUTION_SERVICE = ServiceManager.INSTANCE.findService(ProfileTaskExecutionService.class);
+        }
+        this.profileStatus = PROFILE_TASK_EXECUTION_SERVICE.addProfiling(
+            this, segment.getTraceSegmentId(), firstOPName);
+
+        this.correlationContext = new CorrelationContext();
+        this.extensionContext = new ExtensionContext();
+        this.spanLimitWatcher = spanLimitWatcher;
+    }
+
+    @Override
+    public AbstractSpan createEntrySpan(final String operationName) {
+        if (isLimitMechanismWorking()) {
+            NoopSpan span = new NoopSpan();
+            return push(span);
+        }
+        AbstractSpan entrySpan;
+        TracingContext owner = this;
+        final AbstractSpan parentSpan = peek();
+        final int parentSpanId = parentSpan == null ? -1 : parentSpan.getSpanId();
+        if (parentSpan != null &amp;&amp; parentSpan.isEntry()) {
+            /*
+             * Only add the profiling recheck on creating entry span,
+             * as the operation name could be overrided.
+             */
+            profilingRecheck(parentSpan, operationName);
+            parentSpan.setOperationName(operationName);
+            entrySpan = parentSpan;
+            return entrySpan.start();
+        } else {
+            entrySpan = new EntrySpan(
+                spanIdGenerator++, parentSpanId,
+                operationName, owner
+            );
+            entrySpan.start();
+            return push(entrySpan);
+        }
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@DefaultImplementor
+public class ContextManagerExtendService implements BootService, GRPCChannelListener {
+    public AbstractTracerContext createTraceContext(String operationName, boolean forceSampling) {
+        AbstractTracerContext context;
+        /*
+         * Don&#39;t trace anything if the backend is not available.
+         */
+        if (!Config.Agent.KEEP_TRACING &amp;&amp; GRPCChannelStatus.DISCONNECT.equals(status)) {
+            return new IgnoredTracerContext();
+        }
+
+        int suffixIdx = operationName.lastIndexOf(&quot;.&quot;);
+        if (suffixIdx &gt; -1 &amp;&amp; ignoreSuffixSet.contains(operationName.substring(suffixIdx))) {
+            context = new IgnoredTracerContext();
+        } else {
+            SamplingService samplingService = ServiceManager.INSTANCE.findService(SamplingService.class);
+            if (forceSampling || samplingService.trySampling(operationName)) {
+                context = new TracingContext(operationName, spanLimitWatcher);
+            } else {
+                context = new IgnoredTracerContext();
+            }
+        }
+
+        return context;
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//生成id的类
+public final class GlobalIdGenerator {
+    public static String generate() {
+      return StringUtil.join(
+          &#39;.&#39;,
+          PROCESS_ID,
+          String.valueOf(Thread.currentThread().getId()),
+          String.valueOf(THREAD_ID_SEQUENCE.get().nextSeq())
+      );
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class NewDistributedTraceId extends DistributedTraceId {
+    public NewDistributedTraceId() {
+        super(GlobalIdGenerator.generate());
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class TraceSegment {
+    public TraceSegment() {
+        this.traceSegmentId = GlobalIdGenerator.generate();
+        this.spans = new LinkedList&lt;&gt;();
+        this.relatedGlobalTraceId = new NewDistributedTraceId();
+        this.createTime = System.currentTimeMillis();
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="skywalking的agent注册了这些service" tabindex="-1"><a class="header-anchor" href="#skywalking的agent注册了这些service"><span>SkyWalking的agent注册了这些Service</span></a></h2><p>org.apache.skywalking.apm.agent.core.remote.TraceSegmentServiceClient<br> org.apache.skywalking.apm.agent.core.context.ContextManager<br> org.apache.skywalking.apm.agent.core.sampling.SamplingService<br> org.apache.skywalking.apm.agent.core.remote.GRPCChannelManager<br> org.apache.skywalking.apm.agent.core.jvm.JVMMetricsSender<br> org.apache.skywalking.apm.agent.core.jvm.JVMService<br> org.apache.skywalking.apm.agent.core.remote.ServiceManagementClient<br> org.apache.skywalking.apm.agent.core.context.ContextManagerExtendService<br> org.apache.skywalking.apm.agent.core.commands.CommandService<br> org.apache.skywalking.apm.agent.core.commands.CommandExecutorService<br> org.apache.skywalking.apm.agent.core.profile.ProfileTaskChannelService<br> org.apache.skywalking.apm.agent.core.profile.ProfileSnapshotSender<br> org.apache.skywalking.apm.agent.core.profile.ProfileTaskExecutionService<br> org.apache.skywalking.apm.agent.core.meter.MeterService<br> org.apache.skywalking.apm.agent.core.meter.MeterSender<br> org.apache.skywalking.apm.agent.core.context.status.StatusCheckService<br> org.apache.skywalking.apm.agent.core.remote.LogReportServiceClient<br> org.apache.skywalking.apm.agent.core.conf.dynamic.ConfigurationDiscoveryService<br> org.apache.skywalking.apm.agent.core.remote.EventReportServiceClient<br> org.apache.skywalking.apm.agent.core.ServiceInstanceGenerator</p><p>TraceSegmentServiceClient</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Override
+public void prepare() {
+    //在GRPCChannelManager中注册statusChanged方法
+    ServiceManager.INSTANCE.findService(GRPCChannelManager.class).addChannelListener(this);
+}
+
+@Override
+public void boot() {
+    lastLogTime = System.currentTimeMillis();
+    segmentUplinkedCounter = 0;
+    segmentAbandonedCounter = 0;
+    carrier = new DataCarrier&lt;&gt;(CHANNEL_SIZE, BUFFER_SIZE, BufferStrategy.IF_POSSIBLE);
+    carrier.consume(this, 1);
+}
+
+@Override
+public void onComplete() {
+    //在ListenerManager中注册 afterFinished(TraceSegment traceSegment);
+    TracingContext.ListenerManager.add(this);
+}
+
+@Override
+public void statusChanged(GRPCChannelStatus status) {
+    if (CONNECTED.equals(status)) {
+        Channel channel = ServiceManager.INSTANCE.findService(GRPCChannelManager.class).getChannel();
+        serviceStub = TraceSegmentReportServiceGrpc.newStub(channel);
+    }
+    this.status = status;
+}
+
+@Override
+public void afterFinished(TraceSegment traceSegment) {
+    if (traceSegment.isIgnore()) {
+        return;
+    }
+    if (!carrier.produce(traceSegment)) {
+        if (LOGGER.isDebugEnable()) {
+            LOGGER.debug(&quot;One trace segment has been abandoned, cause by buffer is full.&quot;);
+        }
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>ContextManager的bootService都是空实现</p><p>SamplingService</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Override
+public void prepare() {}
+
+  private void resetSamplingFactor() {
+      samplingFactorHolder = new AtomicInteger(0);
+  }
+
+
+@Override
+public void boot() {
+  
+    service = Executors.newSingleThreadScheduledExecutor(
+            new DefaultNamedThreadFactory(&quot;SamplingService&quot;));
+    //监听配置更新        
+    samplingRateWatcher = new SamplingRateWatcher(&quot;agent.sample_n_per_3_secs&quot;, this);
+    ServiceManager.INSTANCE.findService(ConfigurationDiscoveryService.class)
+                            .registerAgentConfigChangeWatcher(samplingRateWatcher);
+    //启动定时任务，每隔3秒调用resetSamplingFactor();
+    handleSamplingRateChanged();
+}
+
+public void handleSamplingRateChanged() {
+    if (samplingRateWatcher.getSamplingRate() &gt; 0) {
+        if (!on) {
+            on = true;
+            this.resetSamplingFactor();
+            scheduledFuture = service.scheduleAtFixedRate(new RunnableWithExceptionProtection(
+                this::resetSamplingFactor, t -&gt; LOGGER.error(&quot;unexpected exception.&quot;, t)), 0, 3, TimeUnit.SECONDS);
+            LOGGER.debug(
+                &quot;Agent sampling mechanism started. Sample {} traces in 3 seconds.&quot;,
+                samplingRateWatcher.getSamplingRate()
+            );
+        }
+    } else {
+        if (on) {
+            if (scheduledFuture != null) {
+                scheduledFuture.cancel(true);
+            }
+            on = false;
+        }
+    }
+}
+
+@Override
+public void onComplete() {}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>GRPCChannelManager</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Override
+public void prepare() {
+
+}
+//创建单线程定时线程池链接oap server
+@Override
+public void boot() {
+    if (Config.Collector.BACKEND_SERVICE.trim().length() == 0) {
+        LOGGER.error(&quot;Collector server addresses are not set.&quot;);
+        LOGGER.error(&quot;Agent will not uplink any data.&quot;);
+        return;
+    }
+    grpcServers = Arrays.asList(Config.Collector.BACKEND_SERVICE.split(&quot;,&quot;));
+    connectCheckFuture = Executors.newSingleThreadScheduledExecutor(
+        new DefaultNamedThreadFactory(&quot;GRPCChannelManager&quot;)
+    ).scheduleAtFixedRate(
+        new RunnableWithExceptionProtection(
+            this,
+            t -&gt; LOGGER.error(&quot;unexpected exception.&quot;, t)
+        ), 0, Config.Collector.GRPC_CHANNEL_CHECK_INTERVAL, TimeUnit.SECONDS
+    );
+}
+
+@Override
+public void onComplete() {}
+
+@Override
+public void run() {
+    LOGGER.debug(&quot;Selected collector grpc service running, reconnect:{}.&quot;, reconnect);
+    //IS_RESOLVE_DNS_PERIODICALLY 如果为 True，Skywalking 代理将定期解析 DNS 以更新接收者服务地址。
+    if (IS_RESOLVE_DNS_PERIODICALLY &amp;&amp; reconnect) {
+        grpcServers = Arrays.stream(Config.Collector.BACKEND_SERVICE.split(&quot;,&quot;))
+                .filter(StringUtil::isNotBlank)
+                .map(eachBackendService -&gt; eachBackendService.split(&quot;:&quot;))
+                .filter(domainPortPairs -&gt; {
+                    if (domainPortPairs.length &lt; 2) {
+                        LOGGER.debug(&quot;Service address [{}] format error. The expected format is IP:port&quot;, domainPortPairs[0]);
+                        return false;
+                    }
+                    return true;
+                })
+                .flatMap(domainPortPairs -&gt; {
+                    try {
+                        return Arrays.stream(InetAddress.getAllByName(domainPortPairs[0]))
+                                .map(InetAddress::getHostAddress)
+                                .map(ip -&gt; String.format(&quot;%s:%s&quot;, ip, domainPortPairs[1]));
+                    } catch (Throwable t) {
+                        LOGGER.error(t, &quot;Failed to resolve {} of backend service.&quot;, domainPortPairs[0]);
+                    }
+                    return Stream.empty();
+                })
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    if (reconnect) {
+        if (grpcServers.size() &gt; 0) {
+            String server = &quot;&quot;;
+            try {
+                int index = Math.abs(random.nextInt()) % grpcServers.size();
+                if (index != selectedIdx) {
+                    selectedIdx = index;
+
+                    server = grpcServers.get(index);
+                    String[] ipAndPort = server.split(&quot;:&quot;);
+
+                    if (managedChannel != null) {
+                        managedChannel.shutdownNow();
+                    }
+
+                    managedChannel = GRPCChannel.newBuilder(ipAndPort[0], Integer.parseInt(ipAndPort[1]))
+                                                .addManagedChannelBuilder(new StandardChannelBuilder())
+                                                .addManagedChannelBuilder(new TLSChannelBuilder())
+                                                .addChannelDecorator(new AgentIDDecorator())
+                                                .addChannelDecorator(new AuthenticationDecorator())
+                                                .build();
+                    reconnectCount = 0;
+                    reconnect = false;
+                    notify(GRPCChannelStatus.CONNECTED);
+                } else if (managedChannel.isConnected(++reconnectCount &gt; Config.Agent.FORCE_RECONNECTION_PERIOD)) {
+                    // Reconnect to the same server is automatically done by GRPC,
+                    // therefore we are responsible to check the connectivity and
+                    // set the state and notify listeners
+                    reconnectCount = 0;
+                    reconnect = false;
+                    notify(GRPCChannelStatus.CONNECTED);
+                }
+
+                return;
+            } catch (Throwable t) {
+                LOGGER.error(t, &quot;Create channel to {} fail.&quot;, server);
+            }
+        }
+
+        LOGGER.debug(
+            &quot;Selected collector grpc service is not available. Wait {} seconds to retry&quot;,
+            Config.Collector.GRPC_CHANNEL_CHECK_INTERVAL
+        );
+    }
+}
+//通知所有监听器状态更新
+private void notify(GRPCChannelStatus status) {
+    for (GRPCChannelListener listener : listeners) {
+        try {
+            listener.statusChanged(status);
+        } catch (Throwable t) {
+            LOGGER.error(t, &quot;Fail to notify {} about channel connected.&quot;, listener.getClass().getName());
+        }
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/linktracing/skywalking.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><!----><!----></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/backend/linktracing/zipkin.html" aria-label="Zipkin"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">Zipkin<!----></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

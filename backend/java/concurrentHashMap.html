@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/java/concurrentHashMap.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="ConcurrentHashMap"><meta property="og:description" content="ConcurrentHashMap ConcurrentHashMap 产生原因： 并发编程中使用HashMap可能导致程序死循环。导致HashMap的Entry链表形成环形数据结构，一旦形成环形数据结构，Entry的next节点永远不为空，就会产生死循环获取Entry。 而使用线程安全的HashTable效率低。HashTable容器使用synchr..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/1e11ee1378bca91c1d8d8.jpg"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ConcurrentHashMap","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/1e11ee1378bca91c1d8d8.jpg"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>ConcurrentHashMap | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/concurrentHashMap.html-bkIWWT_Z.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->ConcurrentHashMap</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 6568 字</span><meta property="wordCount" content="6568"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 22 分钟</span><meta property="timeRequired" content="PT22M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#产生原因">产生原因：</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实现高性能原理">实现高性能原理</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#concurrenthashmap的结构">ConcurrentHashMap的结构</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#concurrenthashmap的初始化">ConcurrentHashMap的初始化</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#concurrenthashmap的put方法">ConcurrentHashMap的put方法</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><p>ConcurrentHashMap</p><h1 id="concurrenthashmap" tabindex="-1"><a class="header-anchor" href="#concurrenthashmap"><span>ConcurrentHashMap</span></a></h1><h2 id="产生原因" tabindex="-1"><a class="header-anchor" href="#产生原因"><span>产生原因：</span></a></h2><ul><li>并发编程中使用HashMap可能导致程序死循环。导致HashMap的Entry链表形成环形数据结构，一旦形成环形数据结构，Entry的next节点永远不为空，就会产生死循环获取Entry。</li><li>而使用线程安全的HashTable效率低。HashTable容器使用synchronized来保证线程安全，竞争越激烈效率越低</li></ul><h2 id="实现高性能原理" tabindex="-1"><a class="header-anchor" href="#实现高性能原理"><span>实现高性能原理</span></a></h2><ul><li>ConcurrentHashMap使用分段锁来保证在多线程下的性能。一次锁住一个桶。将hash表分为16个桶，诸如 get,put,remove 等常用操作只锁当前需要用到的桶</li><li>ConcurrentHashMap使用了一种不同的迭代方式。当 iterator被创建后集合再发生改变就不再是抛出ConcurrentModificationException异常，而是在改变时new新的数据从而不影响原有的数据，iterator完成后再将头指针替换为新的数据 ，这样iterator线程可以使用原来老的数据，而写线程也可以并发的完成改变</li></ul><h2 id="concurrenthashmap的结构" tabindex="-1"><a class="header-anchor" href="#concurrenthashmap的结构"><span>ConcurrentHashMap的结构</span></a></h2><ul><li>ConcurrentHashMap是由Segment（ReentrantLock）数组结构和HashEntry(存储键值对数据)数组结构组成。一个ConcurrentHashMap里包含一个Segment数组。一个Segment里包含一个HashEntry数组，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁</li><li>Segment与HashMap类似，是一种数组和链表结构。每个HashEntry是一个链表结构的元素</li></ul><h2 id="concurrenthashmap的初始化" tabindex="-1"><a class="header-anchor" href="#concurrenthashmap的初始化"><span>ConcurrentHashMap的初始化</span></a></h2><ul><li>ConcurrentHashMap初始化方法是通过initialCapacity、loadFactor和concurrencyLevel等几个参数来初始化segment数组、段偏移量segmentShift、段掩码segmentMask和每个segment里的HashEntry数组来实现</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//负载因子，默认值75%。当table使用率达到75%，为减少hash碰撞，将table的长度扩容一倍。
+private static final float LOAD_FACTOR = 0.75f;
+
+//默认值为8。当链表的长度大于8时，结构由链表转为红黑树。
+static final int TREEIFY_THRESHOLD = 8;
+
+//默认值为6，红黑树转为链表的阈值。
+static final int UNTREEIFY_THRESHOLD = 6;
+
+//默认值16.当table扩容时，每个线程最少迁移table的槽位数。
+private static final int MIN_TRANSFER_STRIDE = 16;
+
+//table迁移过程的临时变量，在迁移过程中将元素全都迁移到nextTable上。
+private transient volatile Node&lt;K,V&gt;[] nextTable;
+
+//表示table容量从n扩容到2n时，是从索引n-&gt;1元素开始迁移， transferIndex代表当前已经迁移的元素的下标。
+private transient volatile int transferIndex; 
+
+//一个特殊的Node节点，其hashcode=MOVED，代表此时table正在做扩容。当下一个线程向这个元素插入数据时，检查hashcode=MOVED，就会帮着扩容。
+ForwardingNode ：
+
+
+//2^30而不是2^31原因在于int的范围是 -2^31~2^31-1，所以会越界(容量是要为 2^n)
+private static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;
+
+/* 表初始化和调整大小控件。
+* 如果sizeCtl = 0，表示哈希表未初始化，并且数组的初始容量是16；
+* 如果sizeCtl = -1,表示哈希表正在进行初始化；
+* 如果sizeCtl &lt; 0并且sizeCtl != -1，表示哈希表正在扩容，二进制的低16位数值为 M=(sizeCtl&amp;31)，此时有M-1个线程进行扩容
+* sizeCtl高16位表示扩容标记，低16位表示并行扩容的线程数，（16位）
+* 初始化后，保存要调整表大小的下一个元素计数值。
+*/
+private transient volatile int sizeCtl;
+
+
+public ConcurrentHashMap(int initialCapacity) {
+    //校验指定的初始容量大小是否大于等于最大容量大小的一半
+    //如果大于等于最大容量大小的一半则在后续第一次添加元素的时候使用最大容量大小创建数组
+    //如果小于最大容量大小的一半则根据指定容量来计算最接近指定容量大小并大于指定容量的2的次方
+    //指定容量大小如果等于最大容量大小的一半则说明指定容量大小是2的29次方,为什么不使用指定容量大小,而是使用最大的容量大小?因为如果使用的话就会越界
+    if (initialCapacity &lt; 0)
+        throw new IllegalArgumentException();
+    int cap = ((initialCapacity &gt;= (MAXIMUM_CAPACITY &gt;&gt;&gt; 1)) ?
+                MAXIMUM_CAPACITY :
+                tableSizeFor(initialCapacity + (initialCapacity &gt;&gt;&gt; 1) + 1));
+    this.sizeCtl = cap;
+}
+
+/**
+* 获得n最大的2^n数
+* 思路：2^n本质是1&gt;&gt;&gt;n(1后面全部是0)，可以由n-1个1组成的数加1得到，即先求2^n-1最后再+1
+* 实现：使用了或运算性质将某些位置为1，然后每次翻倍将数据置为1
+* 之所以在开始移位前先将容量-1，是为了避免给定容量已经是8,16这样2的幂时，不减一直接移位会导致得到的结果比预期大。比如预期16得到应该是16，直接移位的话会得到32。在上图中就是所有x本身已经是0的情况下，不减1得到的结果变大了。
+*/
+private static final int tableSizeFor(int c) {
+    int n = c - 1;
+    n |= n &gt;&gt;&gt; 1;
+    n |= n &gt;&gt;&gt; 2;
+    n |= n &gt;&gt;&gt; 4;
+    n |= n &gt;&gt;&gt; 8;
+    n |= n &gt;&gt;&gt; 16;
+    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/1e11ee1378bca91c1d8d8.jpg" alt="tableSizeFor原理.png" tabindex="0"><figcaption>tableSizeFor原理.png</figcaption></figure><h2 id="concurrenthashmap的put方法" tabindex="-1"><a class="header-anchor" href="#concurrenthashmap的put方法"><span>ConcurrentHashMap的put方法</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>//值为-1。当Node.hash为MOVED时，代表table正在扩容。
+static final int MOVED = -1;
+
+//值为-2。代表此元素后接红黑树
+static final int TREEBIN = -2;
+
+public V put(K key, V value) {
+    return putVal(key, value, false);
+}
+
+/** Implementation for put and putIfAbsent */
+final V putVal(K key, V value, boolean onlyIfAbsent) {
+    if (key == null || value == null) throw new NullPointerException();
+    int hash = spread(key.hashCode());
+    int binCount = 0;
+    for (Node&lt;K,V&gt;[] tab = table;;) {
+        Node&lt;K,V&gt; f; int n, i, fh;
+        if (tab == null || (n = tab.length) == 0)
+            tab = initTable();
+            // key所在的桶没有一个元素，那就直接将当前key作为头节点，put操作完成
+        else if ((f = tabAt(tab, i = (n - 1) &amp; hash)) == null) {
+            // CAS设置头节点，因为可能有其它线程也在设置该头节点
+            if (casTabAt(tab, i, null,
+                            new Node&lt;K,V&gt;(hash, key, value, null)))
+                break;                   // no lock when adding to empty bin
+        }
+        //如果桶中的元素不为空，那就需要从头节点开始遍历，注意，这里遍历的可能是链表也可能是红黑树。
+        //当 put 的时候如果发现正在扩容，则需要帮助 map 完成扩容，相当于扩容可能由多个线程来完成，
+        else if ((fh = f.hash) == MOVED)//-1
+            tab = helpTransfer(tab, f);
+        else {
+            //接下来就要从头节点开始遍历了，链表使用的是尾插法，即新节点作为链表最后一个节点。
+            V oldVal = null;
+            synchronized (f) {
+                if (tabAt(tab, i) == f) {
+                    if (fh &gt;= 0) {//fh=f.hash如果=-1则在扩容，=-2则是红黑树，所以&gt;=0是链表
+                        binCount = 1;
+                        for (Node&lt;K,V&gt; e = f;; ++binCount) {
+                            K ek;
+                            //如果比较hash与equals方法有值则返回
+                            if (e.hash == hash &amp;&amp;
+                                ((ek = e.key) == key ||
+                                    (ek != null &amp;&amp; key.equals(ek)))) {
+                                oldVal = e.val;
+                                if (!onlyIfAbsent)
+                                    e.val = value;
+                                break;
+                            }
+                            //值不存在则放入链表尾部
+                            Node&lt;K,V&gt; pred = e;
+                            if ((e = e.next) == null) {
+                                pred.next = new Node&lt;K,V&gt;(hash, key,
+                                                            value, null);
+                                break;
+                            }
+                        }
+                    }
+                    else if (f instanceof TreeBin) {//红黑树
+                        Node&lt;K,V&gt; p;
+                        binCount = 2;
+                        if ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash, key,
+                                                        value)) != null) {
+                            oldVal = p.val;
+                            if (!onlyIfAbsent)
+                                p.val = value;
+                        }
+                    }
+                }
+            }
+            if (binCount != 0) {
+                if (binCount &gt;= TREEIFY_THRESHOLD)
+                    treeifyBin(tab, i);
+                if (oldVal != null)
+                    return oldVal;
+                break;
+            }
+        }
+    }
+    addCount(1L, binCount);
+    return null;
+}
+//将key本身的hash值的高16位参加运算获取到新的hash值,如果数组的长度的二进制是在低16位二进制中就会导致key高16位的二进制没有参加运算
+//容易导致运算后的key的索引位置发生冲突,所以需要将高16位二进制无符号右移16位与原hash值的二进制进行运算减少索引冲突。
+//static final int HASH_BITS = 0x7fffffff;
+static final int spread(int h) {
+    return (h ^ (h &gt;&gt;&gt; 16)) &amp; HASH_BITS;
+}
+
+private final Node&lt;K,V&gt;[] initTable() {
+    Node&lt;K,V&gt;[] tab; int sc;
+    //第《1》步，判断数组是否未初始化
+    while ((tab = table) == null || tab.length == 0) {
+        //第《2》步，用sc保存sizeCtl的值，作为后面CAS的预期值
+        //第《3》步判断sizeCtl的值是否&lt;0，是的话则发现有其他线程在做数据的初始化，让出CPU
+        if ((sc = sizeCtl) &lt; 0)
+            Thread.yield();
+        //走到这里，说明sizeCtl&gt;=0，则有两种清况：一是数组未初始化。
+        //二是有其他线程在第《1》步之后，第《2》步之前将数组初始化完成，此时sizeCtl为数组的扩容阈值.
+
+        //第《4》步，CAS将SIZECTL值修改为-1，表示本线程开始进行数组的初始化
+        //如果修改成功，开始初始化操作；如果修改失败，则表示有其他线程在《1》《2》之后抢先修改了SIZECTL
+        else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {//竞争锁，与ReentrantLock相似
+            try {
+                 /*第《5》步，double check数组是否初始化，这里为什么要采用双重校验呢？
+                *因为在数组初始化完成之后，sizeCtl的值会，被改成数组的扩容阈值，会是一个大于0的值。
+                *所以完全有可能本线程在《1》之后，有其他线程完成了数组的初始化全过程，
+                * 使得本线程也能进到这个代码块里来。
+                */
+                if ((tab = table) == null || tab.length == 0) {
+                    //第《6》步，执行哈希表的创建工作，
+                    //确定哈希表的容量
+                    int n = (sc &gt; 0) ? sc : DEFAULT_CAPACITY;
+                    @SuppressWarnings(&quot;unchecked&quot;)
+                    Node&lt;K,V&gt;[] nt = (Node&lt;K,V&gt;[])new Node&lt;?,?&gt;[n];
+                    table = tab = nt;
+                    sc = n - (n &gt;&gt;&gt; 2);//第sc=n-n/4，作为扩容的阈值，赋值给sc
+                }
+            } finally {
+                //第《7》步，如果初始化完成，sizeCtl记录的是扩容阈值；
+                //如果初始化失败，则还原sizeCtl
+                sizeCtl = sc;
+            }
+            //走到这里，说明本线程初始化完成了或者其他线程在本线程的
+            //《1》、《2》两步之间完成了哈希表的初始化全过程，此时结束循环
+            break;
+        }
+        //走到这里，说明在发现数组未初始化之后，准确初始化之前，
+        //有其他线程已经抢先开始初始化了
+        //但是其他线程是否将初始化的工作全部正确的完成，并不知道，所以重新开始循环检查
+    }
+    return tab;
+}
+// 获取obj对象中offset偏移地址对应的object型field的值,支持volatile load语义。
+public native Object getObjectVolatile(Object obj, long offset);
+
+//获取数组中第一个元素的偏移量,与arrayIndexScale配合访问数组指定元素
+public native int arrayBaseOffset(java.lang.Class aClass);
+
+//获取数组中一个元素的大小
+public native int arrayIndexScale(java.lang.Class aClass);
+
+/**
+* ABASE = U.arrayBaseOffset(Node[].class);//Node[].class数组中第一个元素的偏移量
+* ASHIFT = 31 - Integer.numberOfLeadingZeros(U.arrayIndexScale(Node[].class));//int范围2^31-1，31-前缀0个数得到每个元素实际位数
+* 数组的元素位置=数组第一个元素偏移量+索引i * 每个元素实际位数
+*/
+static final &lt;K,V&gt; Node&lt;K,V&gt; tabAt(Node&lt;K,V&gt;[] tab, int i) {
+    return (Node&lt;K,V&gt;)U.getObjectVolatile(tab, ((long)i &lt;&lt; ASHIFT) + ABASE);
+}
+//返回无符号整型i的最高非零位前面的n个0的个数，包括符号位。如果i小于0则返回0，等于0则返回32。
+//例：10的二进制为：0000 0000 0000 0000 0000 0000 0000 1010 java的int长度为32位，方法返回的就是28。
+public static int numberOfLeadingZeros(int i) {
+    // HD, Figure 5-6
+    if (i == 0)
+        return 32;
+    int n = 1;
+    if (i &gt;&gt;&gt; 16 == 0) { n += 16; i &lt;&lt;= 16; }//二分法32/2=16
+    if (i &gt;&gt;&gt; 24 == 0) { n +=  8; i &lt;&lt;=  8; }//二分法16/2=8 + 16
+    if (i &gt;&gt;&gt; 28 == 0) { n +=  4; i &lt;&lt;=  4; }//二分法 8/2=4 + 8 + 16
+    if (i &gt;&gt;&gt; 30 == 0) { n +=  2; i &lt;&lt;=  2; }//二分法 4/2=2 + 4 + 8 + 16
+    n -= i &gt;&gt;&gt; 31; //2/2=1 + 2 + 4 + 8 + 16
+    return n;
+}
+
+static final &lt;K,V&gt; boolean casTabAt(Node&lt;K,V&gt;[] tab, int i,
+                                    Node&lt;K,V&gt; c, Node&lt;K,V&gt; v) {
+    return U.compareAndSwapObject(tab, ((long)i &lt;&lt; ASHIFT) + ABASE, c, v);
+}
+/**
+* 判断是否需要扩容
+*/
+private final void addCount(long x, int check) {
+    CounterCell[] as; long b, s;
+    if ((as = counterCells) != null ||
+        !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {
+        CounterCell a; long v; int m;
+        boolean uncontended = true;
+        if (as == null || (m = as.length - 1) &lt; 0 ||
+            (a = as[ThreadLocalRandom.getProbe() &amp; m]) == null ||
+            !(uncontended =
+                U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))) {
+            fullAddCount(x, uncontended);
+            return;
+        }
+        if (check &lt;= 1)
+            return;
+        s = sumCount();
+    }
+    if (check &gt;= 0) {
+        Node&lt;K,V&gt;[] tab, nt; int n, sc;
+        while (s &gt;= (long)(sc = sizeCtl) &amp;&amp; (tab = table) != null &amp;&amp;
+                (n = tab.length) &lt; MAXIMUM_CAPACITY) {
+            int rs = resizeStamp(n) &lt;&lt; RESIZE_STAMP_SHIFT;
+            if (sc &lt; 0) {
+                if (sc == rs + MAX_RESIZERS || sc == rs + 1 ||
+                    (nt = nextTable) == null || transferIndex &lt;= 0)
+                    break;
+                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
+                    transfer(tab, nt);
+            }
+            else if (U.compareAndSwapInt(this, SIZECTL, sc, rs + 2))
+                transfer(tab, null);
+            s = sumCount();
+        }
+    }
+}
+//桶进行树化的最小表容量。(如果一个bin中的节点太多，则会调整表的大小)该值应至少为4 * TREEIFY_THRESHOLD，以避免调整大小阈值与树化阈值之间的冲突。
+static final int MIN_TREEIFY_CAPACITY = 64;
+
+private final void treeifyBin(Node&lt;K,V&gt;[] tab, int index) {
+    Node&lt;K,V&gt; b; int n, sc;
+    if (tab != null) {
+        if ((n = tab.length) &lt; MIN_TREEIFY_CAPACITY)
+            tryPresize(n &lt;&lt; 1);
+        else if ((b = tabAt(tab, index)) != null &amp;&amp; b.hash &gt;= 0) {
+            synchronized (b) {
+                if (tabAt(tab, index) == b) {
+                    TreeNode&lt;K,V&gt; hd = null, tl = null;
+                    for (Node&lt;K,V&gt; e = b; e != null; e = e.next) {
+                        TreeNode&lt;K,V&gt; p =
+                            new TreeNode&lt;K,V&gt;(e.hash, e.key, e.val,
+                                                null, null);
+                        if ((p.prev = tl) == null)
+                            hd = p;
+                        else
+                            tl.next = p;
+                        tl = p;
+                    }
+                    setTabAt(tab, index, new TreeBin&lt;K,V&gt;(hd));
+                }
+            }
+        }
+    }
+}
+
+
+//2次方个数的数组
+transient volatile Node&lt;K,V&gt;[] table;
+
+//在sizeCtl中用于生成戳的位数。对于32位数组，必须至少为6。无法修改
+private static int RESIZE_STAMP_BITS = 16;
+
+//在sizeCtl中记录生成戳的位移。无法修改
+private static final int RESIZE_STAMP_SHIFT = 32 - RESIZE_STAMP_BITS;
+
+//尝试调整表的大小以容纳给定数量的元素。
+private final void tryPresize(int size) {
+    //获得n最接近的2^n ，其中size在传入之前就已经翻倍了，最终c是一个大于等于（size * 1.5 + 1）的2的幂次方数
+    int c = (size &gt;= (MAXIMUM_CAPACITY &gt;&gt;&gt; 1)) ? MAXIMUM_CAPACITY :
+        tableSizeFor(size + (size &gt;&gt;&gt; 1) + 1);
+    int sc;
+    while ((sc = sizeCtl) &gt;= 0) {
+        Node&lt;K,V&gt;[] tab = table; int n;
+        if (tab == null || (n = tab.length) == 0) {//如果临时数组为null，则初始化临时数组，尝试将SIZECTL变为-1扩容中
+            n = (sc &gt; c) ? sc : c;
+            if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
+                try {
+                    if (table == tab) {
+                        @SuppressWarnings(&quot;unchecked&quot;)
+                        Node&lt;K,V&gt;[] nt = (Node&lt;K,V&gt;[])new Node&lt;?,?&gt;[n];
+                        table = nt;
+                        sc = n - (n &gt;&gt;&gt; 2);
+                    }
+                } finally {
+                    sizeCtl = sc;
+                }
+            }
+        }
+        else if (c &lt;= sc || n &gt;= MAXIMUM_CAPACITY)//容量小于控制容量，或者大于桶最大容量则跳出循环
+            break;
+        else if (tab == table) {
+             /**
+             *  返回值作为正在扩容数组的长度n的一个标志位,并且当向左移RESIZE_STAMP_SHIFT=16位时得到一个负数
+             * 扩容戳为啥这么设置未知
+             * static final int resizeStamp(int n) {
+             *   return Integer.numberOfLeadingZeros(n) | (1 &lt;&lt; (RESIZE_STAMP_BITS - 1));
+             * }
+             *   Integer.numberOfLeadingZeros(n)在指定 int 值的二进制补码表示形式中最高位（最左边）的 1 位之前，返回零位的数量
+             * 例如 n为16 0001 0000 则Integer.numberOfLeadingZeros(n)为27，因为n为2的幂次方，因此不同的n此结果也不同
+             * 然后与(1 &lt;&lt; (RESIZE_STAMP_BITS - 1)) | ，相当于2^15 | n中左边0的个数。
+             * (因此其左移16位后符号位为1，结果肯定是个负数)
+             */
+            int rs = resizeStamp(n);
+            if (sc &lt; 0) {//表明在-1初始化中或者-2树状态
+                Node&lt;K,V&gt;[] nt;
+                /**1.第一个判断 sc右移RESIZE_STAMP_SHIFT位，也就是比较高ESIZE_STAMP_BITS位生成戳和rs是否相等
+                    * 相等则代表是同一个n，是在同一容量下进行的扩容，
+                    *  2.第二个和第三个判断 判断当前帮助扩容线程数是否已达到MAX_RESIZERS最大扩容线程数
+                    *  3.第四个和第五个判断 为了确保transfer()方法初始化完毕
+                    */
+                if ((sc &gt;&gt;&gt; RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
+                    sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
+                    transferIndex &lt;= 0)
+                    break;
+                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
+                    transfer(tab, nt);
+            }
+             /**如果没有线程在进行扩容，那么cas修改sizeCtl值，作为扩容的发起，rs左移RESIZE_STAMP_SHIFT位+2
+            * 上面说了，左移RESIZE_STAMP_SHIFT位，肯定是个负数，代表有一个线程正在进行扩容
+            * 此时sizeCtl高RESIZE_STAMP_BITS位为生成戳，低RESIZE_STAMP_SHIFT位为扩容线程数
+            * +2原因未知
+            */
+            else if (U.compareAndSwapInt(this, SIZECTL, sc,
+                                            (rs &lt;&lt; RESIZE_STAMP_SHIFT) + 2))
+                transfer(tab, null);
+        }
+    }
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>static final int NCPU = Runtime.getRuntime().availableProcessors();
+
+//每个转换红黑树步骤的最小重新绑定数。范围被细分以允许多个调整大小线程。此值用作下限，以避免调整大小器遇到过多的内存争用。该值至少为DEFAULT_CAPACITY。
+private static final int MIN_TRANSFER_STRIDE = 16;
+
+private static final long TRANSFERINDEX = U.objectFieldOffset(k.getDeclaredField(&quot;transferIndex&quot;));
+
+private final void transfer(Node&lt;K,V&gt;[] tab, Node&lt;K,V&gt;[] nextTab) {
+    int n = tab.length, stride;
+    //将 (n&gt;&gt;&gt;3相当于 n/8) 然后除以 CPU核心数。如果得到的结果小于 16，那么就使用16
+    //stride每个线程负责迁移数据的区域长度；目的是让每个 CPU 处理的桶一样多，避免出现转移任务不均匀的现象，默认16
+    if ((stride = (NCPU &gt; 1) ? (n &gt;&gt;&gt; 3) / NCPU : n) &lt; MIN_TRANSFER_STRIDE)
+        stride = MIN_TRANSFER_STRIDE; // subdivide range
+         //nextTab未初始化，nextTab是用来扩容的node数组
+    if (nextTab == null) {            // initiating
+        try {
+            @SuppressWarnings(&quot;unchecked&quot;)
+            //扩容2倍
+            Node&lt;K,V&gt;[] nt = (Node&lt;K,V&gt;[])new Node&lt;?,?&gt;[n &lt;&lt; 1];
+            nextTab = nt;
+        } catch (Throwable ex) {      // try to cope with OOME
+            //扩容失败，sizeCtl使用int的最大值
+            sizeCtl = Integer.MAX_VALUE;
+            return;
+        }
+        nextTable = nextTab;//赋值给临时table，在扩容时，由创建新数组的线程初始化这个变量；扩容完成后，将其设置为null；
+        transferIndex = n;//记录下一个线程迁移数据的起始位置；transferIndex-1就是下一个线程迁移数据的起始下标；
+    }
+    int nextn = nextTab.length;
+    //创建一个 fwd 节点，表示一个正在被迁移的Node，并且它的hash值为-1(MOVED)，putval方法会有一个判断MOVED的逻辑。它的作用是用来占位，表示原数组中位置i处的节点完成迁移以后，就会在i位置设置一个fwd来告诉其他线程这个位置已经处理过了
+    ForwardingNode&lt;K,V&gt; fwd = new ForwardingNode&lt;K,V&gt;(nextTab);
+    boolean advance = true;
+    boolean finishing = false; // to ensure sweep before committing nextTab
+    for (int i = 0, bound = 0;;) {
+        Node&lt;K,V&gt; f; int fh;
+        // 这个循环使用CAS不断尝试为当前线程分配任务 直到分配成功或任务队列已经被全部分配完毕
+        // 如果当前线程已经被分配过bucket区域 那么会通过--i指向下一个待处理bucket然后退出该循环
+        while (advance) {
+            //nextIndex=transferIndex，数据迁移的起始下标
+            //nextBound=transferIndex-stride或者0下一个线程处理的起始位置
+            //bound(边界)=nextBound/0是线程迁移数据的结束位置；等于0或者
+            int nextIndex, nextBound;
+            //i=nextIndex-1是每个待处理节点区间的索引，从尾部开始遍历 --i表示下一个待处理的bucket，如果它&gt;=bound,表示当前线程已经分配过bucket区域，退出while循环
+            //finishing是迁移数据结束后的标志
+            if (--i &gt;= bound || finishing)
+                advance = false;
+            //表示所有bucket已经被分配完毕 给nextIndex赋予初始值 = 16(nextIndex=transferIndex=n=tab.length) =24    
+            else if ((nextIndex = transferIndex) &lt;= 0) {
+                i = -1;
+                advance = false;
+            }
+            //通过cas来修改TRANSFERINDEX(其实就是transferIndex),为当前线程分配任务,确定处理的节点区间为[nextBound,nextIndex] =&gt; [bound,i=nextIndex-1]  
+            //transferIndex修改之前的值是迁移数据的起始位置，修改之后的值是结束位置；也作为下一个线程的迁移数据的起始位置；
+            else if (U.compareAndSwapInt
+                        (this, TRANSFERINDEX, nextIndex,
+                        nextBound = (nextIndex &gt; stride ? nextIndex - stride : 0))) {
+                bound = nextBound;
+                i = nextIndex - 1;
+                advance = false;
+            }
+        }
+        //i&lt;0说明已经遍历完旧的数组，也就是当前线程已经处理完所有负责的bucket
+        if (i &lt; 0 || i &gt;= n || i + n &gt;= nextn) {
+            int sc;
+             //如果完成了扩容
+            if (finishing) {
+                //删除成员变量
+                nextTable = null;
+                //更新table数组
+                table = nextTab;
+                //更新阈值 翻倍减去 0.25 ，为新数组大小的 0.75 倍的阈值
+                sizeCtl = (n &lt;&lt; 1) - (n &gt;&gt;&gt; 1);
+                return;
+            }
+            // sizeCtl 在迁移前会设置为 (rs &lt;&lt; RESIZE_STAMP_SHIFT) + 2
+            // 然后，每增加一个线程参与迁移就会将 sizeCtl 加 1，
+            // 这里使用 CAS 操作对 sizeCtl 的低16位进行减 1，代表做完了属于自己的任务
+            if (U.compareAndSwapInt(this, SIZECTL, sc = sizeCtl, sc - 1)) {
+                //第一个扩容的线程，执行transfer方法之前，会设置 sizeCtl = (resizeStamp(n) &lt;&lt; RESIZE_STAMP_SHIFT) + 2
+                //后续帮其扩容的线程，执行transfer方法之前，会设置 sizeCtl = sizeCtl+1
+                //每一个退出transfer的方法的线程，退出之前，会设置 sizeCtl = sizeCtl-1
+                //那么最后一个线程退出时：必然有
+                //sc == (resizeStamp(n) &lt;&lt; RESIZE_STAMP_SHIFT) + 2，即 (sc - 2) == resizeStamp(n) &lt;&lt; RESIZE_STAMP_SHIFT
+                // 如果 sc - 2 不等于标识符左移 16 位。如果他们相等了，说明没有线程在帮助他们扩容了。也就是说，扩容结束了。
+                if ((sc - 2) != resizeStamp(n) &lt;&lt; RESIZE_STAMP_SHIFT)
+                    return;
+                // 如果相等，扩容结束了，更新 finising 变量
+                finishing = advance = true;
+                // 再次循环检查一下整张表
+                i = n; // recheck before commit
+            }
+        }
+         // 如果位置 i 处是空的，没有任何节点，那么放入刚刚初始化的 ForwardingNode ”空节点“
+        else if ((f = tabAt(tab, i)) == null)
+            advance = casTabAt(tab, i, null, fwd);
+        //表示该位置已经完成了迁移，也就是如果线程A已经处理过这个节点，那么线程B处理这个节点时，hash值一定为MOVED    
+        else if ((fh = f.hash) == MOVED)
+            advance = true; // already processed
+        else {
+            //处理节点
+            synchronized (f) {
+                if (tabAt(tab, i) == f) {//双重校验
+                    Node&lt;K,V&gt; ln, hn;
+                    if (fh &gt;= 0) {//fh=f.hash如果=-1则在扩容，=-2则是红黑树，所以&gt;=0是链表
+                        int runBit = fh &amp; n;//只有0 和n两种取值；结果是0，表示扩容后位置不变；结果不为0，表示扩容后位置：i+n；
+                        //链表上的节点，在扩容之后会分成2条链表.而这条链表上有哪些节点扩容之后位置要改变的哪些节点位置是不改变的，这两种节点在链表上的分布是不确定的；
+                        //可以将连续相同的节点看作是一段链表（一个节点也是一段链表），那么这条链表就可以看作2种链表组合组成的；
+                        //而lastRun，是指向最后一段链表的头节点；再配合runBit（偏移量）就可以确定最后一段链表属于哪种节点；因此可以看到再次遍历数组时，遍历到lastRun就结束遍历；
+                        Node&lt;K,V&gt; lastRun = f;
+                        for (Node&lt;K,V&gt; p = f.next; p != null; p = p.next) {
+                            int b = p.hash &amp; n;
+                            if (b != runBit) {
+                                runBit = b;
+                                lastRun = p;
+                            }
+                        }
+                        if (runBit == 0) {//fh &amp; n = 0；扩容后下标不变；fh &amp; n = n；扩容后下标位置改变（i + n）；
+                            ln = lastRun;
+                            hn = null;
+                        }
+                        else {
+                            hn = lastRun;
+                            ln = null;
+                        }
+                        //从头遍历每个链表 ln为原链表，hn为扩容后链表
+                        for (Node&lt;K,V&gt; p = f; p != lastRun; p = p.next) {
+                            int ph = p.hash; K pk = p.key; V pv = p.val;
+                            if ((ph &amp; n) == 0) //头插法，p.next = ln 然后 ln = p ，组成ln链表
+                                ln = new Node&lt;K,V&gt;(ph, pk, pv, ln);
+                            else //头插法，p.next = hn 然后 hn = p ，组成hn链表
+                                hn = new Node&lt;K,V&gt;(ph, pk, pv, hn);
+                        }
+                        //遍历完旧数组的链表后，重新生成了ln，hn 2条链表；
+                        //ln链表插入到新数组的下标：i
+                        setTabAt(nextTab, i, ln);
+                        // hn插入到：i+n位置；
+                        setTabAt(nextTab, i + n, hn);
+                        setTabAt(tab, i, fwd);
+                        advance = true;
+                    }
+                    else if (f instanceof TreeBin) {
+                        TreeBin&lt;K,V&gt; t = (TreeBin&lt;K,V&gt;)f;
+                        //lo：TreeNode链表表头：下标位置不变：i
+                        //loTail:表尾，每次插入节点都在表尾插入
+                        TreeNode&lt;K,V&gt; lo = null, loTail = null;
+                        //hi：TreeNode链表表头：下标位置：i+n;
+                        //hiTail :表尾，每次插入节点都在表尾插入
+                        TreeNode&lt;K,V&gt; hi = null, hiTail = null;
+                        int lc = 0, hc = 0;
+                        for (Node&lt;K,V&gt; e = t.first; e != null; e = e.next) {
+                            int h = e.hash;
+                            TreeNode&lt;K,V&gt; p = new TreeNode&lt;K,V&gt;
+                                (h, e.key, e.val, null, null);
+                            if ((h &amp; n) == 0) {//h &amp; n = 0；扩容后下标不变；h &amp; n = n；扩容后下标位置改变（i + n）；
+                                if ((p.prev = loTail) == null)
+                                    lo = p;
+                                else
+                                    loTail.next = p;//lo链表插入表尾
+                                loTail = p;//更新lo链表表尾
+                                ++lc;//记录lo链表节点个数
+                            }
+                            else {
+                                if ((p.prev = hiTail) == null)
+                                    hi = p;
+                                else
+                                    hiTail.next = p;
+                                hiTail = p;
+                                ++hc;
+                            }
+                        }
+                        //分别判断ln，hn节点个数是否满足生成红黑树的条件；
+                        //不满足则将TreeNode链表转换成Node链表；
+                        //满足则将TreeNode节点重新生成红黑树；
+                        ln = (lc &lt;= UNTREEIFY_THRESHOLD) ? untreeify(lo) :
+                            (hc != 0) ? new TreeBin&lt;K,V&gt;(lo) : t;
+                        hn = (hc &lt;= UNTREEIFY_THRESHOLD) ? untreeify(hi) :
+                            (lc != 0) ? new TreeBin&lt;K,V&gt;(hi) : t;
+                        setTabAt(nextTab, i, ln);
+                        setTabAt(nextTab, i + n, hn);
+                        setTabAt(tab, i, fwd);
+                        advance = true;
+                    }
+                }
+            }
+        }
+    }
+}
+//Helps transfer if a resize is in progress.
+final Node&lt;K,V&gt;[] helpTransfer(Node&lt;K,V&gt;[] tab, Node&lt;K,V&gt; f) {
+    Node&lt;K,V&gt;[] nextTab; int sc;
+    if (tab != null &amp;&amp; (f instanceof ForwardingNode) &amp;&amp;
+        (nextTab = ((ForwardingNode&lt;K,V&gt;)f).nextTable) != null) {
+        int rs = resizeStamp(tab.length) &lt;&lt; RESIZE_STAMP_SHIFT;
+        while (nextTab == nextTable &amp;&amp; table == tab &amp;&amp;
+                (sc = sizeCtl) &lt; 0) {
+            if (sc == rs + MAX_RESIZERS || sc == rs + 1 ||
+                transferIndex &lt;= 0)
+                break;
+            if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) {
+                transfer(tab, nextTab);
+                break;
+            }
+        }
+        return nextTab;
+    }
+    return table;
+}
+//将treenode链表换成非treenode链表
+static &lt;K,V&gt; Node&lt;K,V&gt; untreeify(Node&lt;K,V&gt; b) {
+    //hd头节点，tl辅助指向p的指针 hd=p =&gt; tl=p =&gt; tl.next=p =&gt; tl=p
+    Node&lt;K,V&gt; hd = null, tl = null;
+    for (Node&lt;K,V&gt; q = b; q != null; q = q.next) {
+        Node&lt;K,V&gt; p = new Node&lt;K,V&gt;(q.hash, q.key, q.val);
+        if (tl == null)
+            hd = p;
+        else
+            tl.next = p;
+        tl = p;
+    }
+    return hd;
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="get方法" tabindex="-1"><a class="header-anchor" href="#get方法"><span>get方法</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public V get(Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; e, p; int n, eh; K ek;
+    //根据key.hashCode()计算hash: 扰动运算后得到得到更散列的hash值
+    int h = spread(key.hashCode());
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (e = tabAt(tab, (n - 1) &amp; h)) != null) {//当前key寻址的桶位有值
+        if ((eh = e.hash) == h) {//如果第一个元素就是要找的元素，则直接返回
+            if ((ek = e.key) == key || (ek != null &amp;&amp; key.equals(ek)))
+                return e.val;
+        }
+        hash小于0 分2种情况，是树或者正在扩容,需要借助find方法寻找元素，find的寻找方式依据Node的不同子类有不同的实现方式:
+        // 情况一：eh=-1 是fwd结点 -&gt; 说明当前table正在扩容，且当前查询的这个桶位的数据已经被迁移走了，需要借助fwd结点的内部方法find去查询
+        // 情况二：eh=-2 是TreeBin节点 -&gt; 需要使用TreeBin 提供的find方法查询。
+        else if (eh &lt; 0)
+            return (p = e.find(h, key)) != null ? p.val : null;
+        //说明是当前桶位已经形成链表的这种情况: 遍历整个链表寻找元素    
+        while ((e = e.next) != null) {
+            if (e.hash == h &amp;&amp;
+                ((ek = e.key) == key || (ek != null &amp;&amp; key.equals(ek))))
+                return e.val;
+        }
+    }
+    return null;
+}
+//TreeBin节点的find方法
+final Node&lt;K,V&gt; find(int h, Object k) {
+    if (k != null) {
+        for (Node&lt;K,V&gt; e = first; e != null; ) {
+            int s; K ek;
+            if (((s = lockState) &amp; (WAITER|WRITER)) != 0) {
+                if (e.hash == h &amp;&amp;
+                    ((ek = e.key) == k || (ek != null &amp;&amp; k.equals(ek))))
+                    return e;
+                e = e.next;
+            }
+            else if (U.compareAndSetInt(this, LOCKSTATE, s,
+                                            s + READER)) {
+                TreeNode&lt;K,V&gt; r, p;
+                try {
+                    p = ((r = root) == null ? null :
+                            r.findTreeNode(h, k, null));
+                } finally {
+                    Thread w;
+                    if (U.getAndAddInt(this, LOCKSTATE, -READER) ==
+                        (READER|WAITER) &amp;&amp; (w = waiter) != null)
+                        LockSupport.unpark(w);
+                }
+                return p;
+            }
+        }
+    }
+    return null;
+}
+//ForwardingNode的find方法 
+Node&lt;K,V&gt; find(int h, Object k) {
+    // loop to avoid arbitrarily deep recursion on forwarding nodes
+    outer: for (Node&lt;K,V&gt;[] tab = nextTable;;) {
+        Node&lt;K,V&gt; e; int n;
+        if (k == null || tab == null || (n = tab.length) == 0 ||
+            (e = tabAt(tab, (n - 1) &amp; h)) == null)
+            return null;
+        for (;;) {
+            int eh; K ek;
+            if ((eh = e.hash) == h &amp;&amp;
+                ((ek = e.key) == k || (ek != null &amp;&amp; k.equals(ek))))
+                return e;
+            if (eh &lt; 0) {
+                if (e instanceof ForwardingNode) {
+                    tab = ((ForwardingNode&lt;K,V&gt;)e).nextTable;
+                    continue outer;
+                }
+                else
+                    return e.find(h, k);
+            }
+            if ((e = e.next) == null)
+                return null;
+        }
+    }
+}
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/java/concurrentHashMap.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><!----><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

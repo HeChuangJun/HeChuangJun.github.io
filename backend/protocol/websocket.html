@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/protocol/websocket.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="websocket"><meta property="og:description" content="1. websocket与http的比较 2. 服务端 2.1. pom.xml 2.2. java 3. springboot整合websocket 3.1. pom.xml 3.2. WebSocketConfig、WebSocketInterceptor、MyWebSocketHandler 3.3. SseEmitter 4. 客户端连接 前端..."><meta property="og:type" content="article"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"websocket","image":[""],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>websocket | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/websocket.html-BElJravN.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/protocol/http.html" aria-label="Http"><!---->Http<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/protocol/mqtt.html" aria-label="MQTT"><!---->MQTT<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/protocol/xml.html" aria-label="xml"><!---->xml<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/protocol/webservice.html" aria-label="webservice"><!---->webservice<!----></a></li><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/protocol/websocket.html" aria-label="websocket"><!---->websocket<!----></a></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->websocket</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 1719 字</span><meta property="wordCount" content="1719"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 6 分钟</span><meta property="timeRequired" content="PT6M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_2-1-pom-xml">2.1. pom.xml</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_2-2-java">2.2. java</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_3-1-pom-xml">3.1. pom.xml</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_3-2-websocketconfig、websocketinterceptor、mywebsockethandler">3.2. WebSocketConfig、WebSocketInterceptor、MyWebSocketHandler</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_3-3-sseemitter">3.3. SseEmitter</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_5-1-eventsource">5.1. EventSource</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_5-2-websocket">5.2. WebSocket</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_7-1-gethttpsessionconfigurator">7.1. GetHttpSessionConfigurator</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_7-2-在-serverendpoint注解里面添加configurator属性">7.2. 在@ServerEndpoint注解里面添加configurator属性</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#_7-3-在onopen方法里加入参数endpointconfig-config即可获取httpsession">7.3. 在onOpen方法里加入参数EndpointConfig config即可获取HttpSession</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><ul><li><a href="#1-websocket%E4%B8%8Ehttp%E7%9A%84%E6%AF%94%E8%BE%83">1. websocket与http的比较</a></li><li><a href="#2-%E6%9C%8D%E5%8A%A1%E7%AB%AF">2. 服务端</a><ul><li><a href="#21-pomxml">2.1. pom.xml</a></li><li><a href="#22-java">2.2. java</a></li></ul></li><li><a href="#3-springboot%E6%95%B4%E5%90%88websocket">3. springboot整合websocket</a><ul><li><a href="#31-pomxml">3.1. pom.xml</a></li><li><a href="#32-websocketconfigwebsocketinterceptormywebsockethandler">3.2. WebSocketConfig、WebSocketInterceptor、MyWebSocketHandler</a></li><li><a href="#33-sseemitter">3.3. SseEmitter</a></li></ul></li><li><a href="#4-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5-%E5%89%8D%E7%AB%AFjs%E5%AF%B9%E8%B1%A1websocket%E5%92%8Ceventsource%E5%88%86%E5%88%AB%E7%94%A8%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%BF%99%E4%B8%A4%E7%A7%8D%E6%9C%8D%E5%8A%A1">4. 客户端连接 前端js对象WebSocket和EventSource分别用于连接这两种服务。</a></li><li><a href="#5-nginx%E9%9C%80%E8%A6%81%E7%9A%84%E9%A2%9D%E5%A4%96%E9%85%8D%E7%BD%AE">5. Nginx需要的额外配置</a><ul><li><a href="#51-eventsource">5.1. EventSource</a></li><li><a href="#52-websocket">5.2. WebSocket</a></li></ul></li><li><a href="#6-%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98">6. 已知问题</a></li><li><a href="#7-%E8%8E%B7%E5%BE%97httpssession%E7%9A%84%E6%96%B9%E6%B3%95">7. 获得httpssession的方法</a><ul><li><a href="#71-gethttpsessionconfigurator">7.1. GetHttpSessionConfigurator</a></li><li><a href="#72-%E5%9C%A8serverendpoint%E6%B3%A8%E8%A7%A3%E9%87%8C%E9%9D%A2%E6%B7%BB%E5%8A%A0configurator%E5%B1%9E%E6%80%A7">7.2. 在@ServerEndpoint注解里面添加configurator属性</a></li><li><a href="#73-%E5%9C%A8onopen%E6%96%B9%E6%B3%95%E9%87%8C%E5%8A%A0%E5%85%A5%E5%8F%82%E6%95%B0endpointconfig-config%E5%8D%B3%E5%8F%AF%E8%8E%B7%E5%8F%96httpsession">7.3. 在onOpen方法里加入参数EndpointConfig config即可获取HttpSession</a></li></ul></li></ul><h1 id="_1-websocket与http的比较" tabindex="-1"><a class="header-anchor" href="#_1-websocket与http的比较"><span>1. websocket与http的比较</span></a></h1><ul><li>WebSocket协议实现了浏览器与服务器的全双工通信，扩展了浏览器与服务端的通信功能，使服务端也能主动向客户端发送数据。JavaEE 7中出了JSR-356:Java API for WebSocket规范。不少Web容器，如Tomcat,Nginx,Jetty等都支持WebSocket。Tomcat从7.0.27开始支持 WebSocket，从7.0.47开始支持JSR-356，下面的Demo代码也是需要部署在Tomcat7.0.47（不包括）以上的版本才能运行</li><li>webscoket相比于http的优势主要有服务器能主动发信息给前端,发的信息是轻量级的，所以服务器的压力较少</li></ul><h1 id="_2-服务端" tabindex="-1"><a class="header-anchor" href="#_2-服务端"><span>2. 服务端</span></a></h1><h2 id="_2-1-pom-xml" tabindex="-1"><a class="header-anchor" href="#_2-1-pom-xml"><span>2.1. pom.xml</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;dependencies&gt;
+	&lt;dependency&gt;
+	&lt;groupId&gt;javax&lt;/groupId&gt;
+	&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
+	&lt;version&gt;7.0&lt;/version&gt;
+	&lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_2-2-java" tabindex="-1"><a class="header-anchor" href="#_2-2-java"><span>2.2. java</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>package com.junye.testwebsocket;
+import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArraySet;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+
+@ServerEndpoint(&quot;/websocket&quot;)
+public class TestWebscoket {
+	/**
+	* @ServerEndpoint 注解是一个类层次的注解，它的功能主要是将目前的类定义成一个websocket服务器端,
+	* 注解的值将被用于监听用户连接的终端访问URL地址,客户端可以通过这个URL来连接到WebSocket服务器端
+	*/
+	
+	//与某个客户端的连接会话，需要通过它来给客户端发送数据
+	private Session session;
+	
+	/**
+	* 连接建立成功调用的方法
+	* @param session  可选的参数。
+	*	session为与某个客户端的连接会话，需要通过它来给客户端发送数据
+	*/
+	@OnOpen
+	public void onOpen(Session session){
+		this.session = session;
+	}
+
+	/**
+	* 连接关闭调用的方法
+	*/
+	@OnClose
+	public void onClose(){
+		System.out.println(&quot;连接关闭&quot;);
+	}
+
+	/**
+	* 收到客户端消息后调用的方法
+	* @param message 客户端发送过来的消息
+	* @param session 可选的参数
+	*/
+	@OnMessage
+	public void onMessage(String message, Session session) {
+		System.out.println(&quot;来自客户端的消息:&quot; + message);
+	}
+
+	/**
+	* 发生错误时调用
+	* @param session
+	* @param error
+	*/
+	@OnError
+	public void onError(Session session, Throwable error){
+		System.out.println(&quot;发生错误&quot;);
+		error.printStackTrace();
+	}
+
+	/**
+	* 这个方法与上面几个方法不一样。没有用注解，是根据自己需要添加的方法。
+	* @param message
+	* @throws IOException
+	*/
+	public void sendMessage(String message) throws IOException{
+		this.session.getBasicRemote().sendText(message);
+		//this.session.getAsyncRemote().sendText(message);
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_3-springboot整合websocket" tabindex="-1"><a class="header-anchor" href="#_3-springboot整合websocket"><span>3. springboot整合websocket</span></a></h1><h2 id="_3-1-pom-xml" tabindex="-1"><a class="header-anchor" href="#_3-1-pom-xml"><span>3.1. pom.xml</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;dependencies&gt;
+	&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;
+	&lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_3-2-websocketconfig、websocketinterceptor、mywebsockethandler" tabindex="-1"><a class="header-anchor" href="#_3-2-websocketconfig、websocketinterceptor、mywebsockethandler"><span>3.2. WebSocketConfig、WebSocketInterceptor、MyWebSocketHandler</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Configuration
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketConfigurer {
+  @Bean
+  public TextWebSocketHandler myWebSocketHandler() {
+    return new MyWebSocketHandler();
+  }
+  @Override
+  public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+    registry.addHandler(myWebSocketHandler(), &quot;/myweb/socket&quot;).addInterceptors(new WebSocketInterceptor()).setAllowedOrigins(&quot;*&quot;);//https://www.cnblogs.com/exmyth/p/11720371.html  
+    //registry.addHandler(myWebSocketHandler(), &quot;/myweb/sockjs&quot;).addInterceptors(new WebSocketInterceptor()).withSockJS();  
+  }
+  @Bean
+  public TaskScheduler taskScheduler() {//避免找不到TaskScheduler Bean
+    ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setPoolSize(10);
+    taskScheduler.initialize();
+    return taskScheduler;
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor {
+  @Override
+  public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map&lt;String, Object&gt; attributes) throws Exception {
+    String channel = ((ServletServerHttpRequest)request).getServletRequest().getParameter(&quot;ch&quot;);
+    attributes.put(&quot;channel&quot;, channel);//传参
+    return super.beforeHandshake(request, response, wsHandler, attributes);
+  }
+  @Override
+  public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
+    super.afterHandshake(request, response, wsHandler, ex);
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@Slf4j
+public class MyWebSocketHandler extends TextWebSocketHandler{
+  @Autowired MyWebSocketService myWebSocketService;//注入需要的Service
+  @Override
+  public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    String channel = (String)session.getAttributes().get(&quot;channel&quot;);//获取参数
+    //记下session和参数用于下一步发消息...
+  }
+  @Override
+  public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    String channel = (String)session.getAttributes().get(&quot;channel&quot;);
+    //做会话关闭后的处理...
+  }
+  @Override
+  protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    log.debug(&quot;receive text message: &quot; + message.getPayload());
+    //收到消息的处理...
+  }
+  public void send(WebSocketSession session, String text) {
+    try {
+      TextMessage message = new TextMessage(text);
+      session.sendMessage(message);//发送消息的方法
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_3-3-sseemitter" tabindex="-1"><a class="header-anchor" href="#_3-3-sseemitter"><span>3.3. SseEmitter</span></a></h2><ul><li>Controller方法返回SseEmitter对象即可为客户端提供EventSource</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>private static Set&lt;SseEmitter&gt; emitters = new HashSet&lt;&gt;();
+@RequestMapping(&quot;/myweb/eventsource&quot;)
+@ResponseBody
+SseEmitter eventSource(String ch) {
+	SseEmitter emitter = new SseEmitter(0L);
+	emitters.put(emitter);//记下emitter用于之后发送数据
+	emitter.onCompletion(() -&gt; {
+		emitters.remove(emitter);//做连接关闭后的处理(ch, emitter)...
+	});
+	emitter.onTimeout(() -&gt; {
+		emitter.complete();
+	});
+	emitter.onError((e) -&gt; {
+		emitter.completeWithError(e);
+	});
+	return emitter;
+	}
+	向所有的emitters发送数据text
+
+	SseEventBuilder builder = SseEmitter.event().data(text);
+	emitters.forEach(emitter -&gt; {
+	try {
+		emitter.send(builder);
+	} catch (Exception e) {
+		errors.add(emitter);
+	}
+});
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_4-客户端连接-前端js对象websocket和eventsource分别用于连接这两种服务。" tabindex="-1"><a class="header-anchor" href="#_4-客户端连接-前端js对象websocket和eventsource分别用于连接这两种服务。"><span>4. 客户端连接 前端js对象WebSocket和EventSource分别用于连接这两种服务。</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;title&gt;Java后端WebSocket的Tomcat实现&lt;/title&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+	Welcome&lt;br/&gt;&lt;input id=&quot;text&quot; type=&quot;text&quot;/&gt;
+	&lt;button onclick=&quot;send()&quot;&gt;发送消息&lt;/button&gt;
+	&lt;hr/&gt;
+	&lt;button onclick=&quot;closeWebSocket()&quot;&gt;关闭WebSocket连接&lt;/button&gt;
+	&lt;hr/&gt;
+	&lt;button onclick=&quot;onclear()&quot;&gt;清空&lt;/button&gt;
+	&lt;hr/&gt;
+	&lt;div id=&quot;message&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+     var websocket = null;
+     //判断当前浏览器是否支持WebSocket
+     if (&#39;WebSocket&#39; in window) {
+         websocket = new WebSocket(&quot;ws://localhost:8080/testwebscoket/websocket&quot;);
+     }
+    else {
+         alert(&#39;当前浏览器 Not support websocket&#39;)
+    }
+     //连接发生错误的回调方法
+     websocket.onerror = function () {
+         setMessageInnerHTML(&quot;WebSocket连接发生错误&quot;);
+    };
+ 
+     //连接成功建立的回调方法
+     websocket.onopen = function () {
+         setMessageInnerHTML(&quot;WebSocket连接成功&quot;);
+     }
+ 
+     //接收到消息的回调方法
+     websocket.onmessage = function (event) {
+         setMessageInnerHTML(event.data);
+     }
+ 
+     //连接关闭的回调方法
+     websocket.onclose = function () {
+         setMessageInnerHTML(&quot;WebSocket连接关闭&quot;);
+     }
+ 
+     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，
+	 //防止连接还没断开就关闭窗口，server端会抛异常。
+     window.onbeforeunload = function () {
+         closeWebSocket();
+     }
+ 
+     //将消息显示在网页上
+     function setMessageInnerHTML(innerHTML) {
+         document.getElementById(&#39;message&#39;).innerHTML += innerHTML + &#39;&lt;br/&gt;&#39;;
+    }
+ 
+    //关闭WebSocket连接
+     function closeWebSocket() {
+         websocket.close();
+     }
+ 
+     //发送消息
+     function send() {
+         var message = document.getElementById(&#39;text&#39;).value;
+         websocket.send(message);
+     }
+	 function onclear(){
+        document.getElementById(&#39;message&#39;).innerHTML = &quot;&quot;;
+    }
+	&lt;/script&gt;
+&lt;/html&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_5-nginx需要的额外配置" tabindex="-1"><a class="header-anchor" href="#_5-nginx需要的额外配置"><span>5. Nginx需要的额外配置</span></a></h1><h2 id="_5-1-eventsource" tabindex="-1"><a class="header-anchor" href="#_5-1-eventsource"><span>5.1. EventSource</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>proxy_http_version 1.1;
+proxy_set_header Connection &#39;&#39;;
+proxy_buffering off;
+proxy_cache off;
+gzip off;
+chunked_transfer_encoding off;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_5-2-websocket" tabindex="-1"><a class="header-anchor" href="#_5-2-websocket"><span>5.2. WebSocket</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection &quot;Upgrade&quot;;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_6-已知问题" tabindex="-1"><a class="header-anchor" href="#_6-已知问题"><span>6. 已知问题</span></a></h1><ul><li>火狐下EventSource中断之后不会自动重连。</li><li>IE系列浏览器都不支持EventSource。</li></ul><h1 id="_7-获得httpssession的方法" tabindex="-1"><a class="header-anchor" href="#_7-获得httpssession的方法"><span>7. 获得httpssession的方法</span></a></h1><ul><li>由于WebSocket与Http协议的不同，故在使用常用的HttpSession方面就存在了一些问题。</li></ul><h2 id="_7-1-gethttpsessionconfigurator" tabindex="-1"><a class="header-anchor" href="#_7-1-gethttpsessionconfigurator"><span>7.1. GetHttpSessionConfigurator</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>package per.zww.web;
+import javax.servlet.http.HttpSession;
+import javax.websocket.HandshakeResponse;
+import javax.websocket.server.HandshakeRequest;
+import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.server.ServerEndpointConfig.Configurator;
+/*
+* 获取HttpSession
+* 
+*/
+public class GetHttpSessionConfigurator extends Configurator {
+	@Override
+	public void modifyHandshake(ServerEndpointConfig sec,HandshakeRequest request, HandshakeResponse response) {
+		// TODO Auto-generated method stub
+		HttpSession httpSession=(HttpSession) request.getHttpSession();
+		sec.getUserProperties().put(HttpSession.class.getName(),httpSession);
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_7-2-在-serverendpoint注解里面添加configurator属性" tabindex="-1"><a class="header-anchor" href="#_7-2-在-serverendpoint注解里面添加configurator属性"><span>7.2. 在@ServerEndpoint注解里面添加configurator属性</span></a></h2><ul><li>@ServerEndpoint(value=&quot;/socketTest&quot;,configurator=GetHttpSessionConfigurator.class)</li></ul><h2 id="_7-3-在onopen方法里加入参数endpointconfig-config即可获取httpsession" tabindex="-1"><a class="header-anchor" href="#_7-3-在onopen方法里加入参数endpointconfig-config即可获取httpsession"><span>7.3. 在onOpen方法里加入参数EndpointConfig config即可获取HttpSession</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>@OnOpen
+public void onOpen(Session session,EndpointConfig config) {
+	HttpSession httpSession= (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+	if (httpSession == null){  
+		httpSession = new HttpSession() {  
+			@Override  
+			public long getCreationTime() {  return 0;  }  
+
+			@Override  
+			public String getId() {  return null;  }  
+
+			@Override  
+			public long getLastAccessedTime() {  return 0;  }  
+
+			@Override  
+			public ServletContext getServletContext() {  return null;  }  
+
+			@Override  
+			public void setMaxInactiveInterval(int i) {}  
+
+			@Override  
+			public int getMaxInactiveInterval() {  return 0;  }  
+
+			@Override  
+			public HttpSessionContext getSessionContext() {  return null;  }  
+
+			@Override  
+			public Object getAttribute(String s) {  return null;  }  
+
+			@Override  
+			public Object getValue(String s) {  return null;  }  
+
+			@Override  
+			public Enumeration&lt;String&gt; getAttributeNames() {  return null;  }  
+
+			@Override  
+			public String[] getValueNames() {  return new String[0];  }  
+
+			@Override  
+			public void setAttribute(String s, Object o) {}  
+
+			@Override  
+			public void putValue(String s, Object o) {}  
+
+			@Override  
+			public void removeAttribute(String s) {}  
+
+			@Override  
+			public void removeValue(String s) {}  
+
+			@Override  
+			public void invalidate() {}  
+
+			@Override  
+			public boolean isNew() {  return false; }  
+		};  
+	}
+	sessionMap.put(session.getId(), session);
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/protocol/websocket.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><a class="route-link nav-link prev" href="/backend/protocol/webservice.html" aria-label="webservice"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->webservice</div></a><!----></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/backend/j2ee/springboot.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="springboot"><meta property="og:description" content="springboot 1. SpringBoot 2. springboot2程序入门 3. Spring Boot API 4. 自定义SpringMVC的配置(拦截器) 5. Mybatis和Spring Boot整合(两种方式) 6. Spring的整合Redis 7. Spring的整合Httpclient 8. Spring的整合Rabbit..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/03d148b38878303db4ee4.png"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"springboot","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/03d148b38878303db4ee4.png"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>springboot | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/springboot.html-0EM6Zh8K.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="vp-sidebar-title">API文档</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">API网关</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务调用</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-MQ" style=""></span><span class="vp-sidebar-title">消息队列</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">作业调度</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">注册中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">配置中心</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">链路追踪</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务保障</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">服务器</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-java" style=""></span><span class="vp-sidebar-title">java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">J2EE</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/j2ee/web.html" aria-label="web"><!---->web<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/j2ee/jsp.html" aria-label="JSP"><!---->JSP<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/j2ee/spring.html" aria-label="spring"><!---->spring<!----></a></li><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/backend/j2ee/springboot.html" aria-label="springboot"><!---->springboot<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/j2ee/springcloud.html" aria-label="SpringCloud"><!---->SpringCloud<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/backend/j2ee/springcloudalibaba.html" aria-label="SpringCloudAlibaba"><!---->SpringCloudAlibaba<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">WEB框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">安全框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-component" style=""></span><span class="vp-sidebar-title">ORM框架</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库连接池</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">数据库中间件</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-database" style=""></span><span class="vp-sidebar-title">分布式事务</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-search" style=""></span><span class="vp-sidebar-title">搜索引擎</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">工具类</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-computer" style=""></span><span class="vp-sidebar-title">自我修养</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-container" style=""></span><span class="vp-sidebar-title">容器化</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-tool" style=""></span><span class="vp-sidebar-title">开发工具</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">监控体系</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-design" style=""></span><span class="vp-sidebar-title">系统设计</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon iconfont icon-distributed-network" style=""></span><span class="vp-sidebar-title">协议&amp;规范</span><span class="vp-arrow end"></span></button><!----></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->springboot</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 2378 字</span><meta property="wordCount" content="2378"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 8 分钟</span><meta property="timeRequired" content="PT8M"></span></div><hr></div><!----><!--[--><!----><!--]--><div class="theme-hope-content"><p>springboot</p><ul><li><a href="#1-springboot">1. SpringBoot</a></li><li><a href="#2-springboot2%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8">2. springboot2程序入门</a></li><li><a href="#3-spring-boot-api">3. Spring Boot API</a></li><li><a href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89springmvc%E7%9A%84%E9%85%8D%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8">4. 自定义SpringMVC的配置(拦截器)</a></li><li><a href="#5-mybatis%E5%92%8Cspring-boot%E6%95%B4%E5%90%88%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F">5. Mybatis和Spring Boot整合(两种方式)</a></li><li><a href="#6-spring%E7%9A%84%E6%95%B4%E5%90%88redis">6. Spring的整合Redis</a></li><li><a href="#7-spring%E7%9A%84%E6%95%B4%E5%90%88httpclient">7. Spring的整合Httpclient</a></li><li><a href="#8-spring%E7%9A%84%E6%95%B4%E5%90%88rabbitmq">8. Spring的整合RabbitMQ</a></li><li><a href="#9-spring%E6%95%B4%E5%90%88servletfilterlistener">9. spring整合Servlet、Filter、Listener</a></li><li><a href="#10-springboot%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">10. springboot常见问题</a></li></ul><h1 id="_1-springboot" tabindex="-1"><a class="header-anchor" href="#_1-springboot"><span>1. SpringBoot</span></a></h1><p>springboot快速创建一个独立运行、准生产级别的基于spring框架的项目<br> springboot其实包含了springmvc等许多的组件，还允许自动配置，省事</p><h1 id="_2-springboot2程序入门" tabindex="-1"><a class="header-anchor" href="#_2-springboot2程序入门"><span>2. springboot2程序入门</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>创建maven项目，打包方式选择war，跳过骨架
+配置pom.xml（注意编译jdk版本和运行的jdk版本匹配）
+	&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
+		xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+		xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 
+		http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+		&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+		&lt;groupId&gt;com.junye&lt;/groupId&gt;
+		&lt;artifactId&gt;testspringboot&lt;/artifactId&gt;
+		&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+		&lt;!--打包的方式为war，自动生成jar包--&gt;
+		&lt;packaging&gt;war&lt;/packaging&gt;
+		&lt;name&gt;testspringboot&lt;/name&gt;
+		&lt;description&gt;AAA&lt;/description&gt;
+		&lt;!-- 定义公共资源版本 --&gt;
+		&lt;parent&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+			&lt;version&gt;2.0.2.RELEASE&lt;/version&gt;
+		&lt;/parent&gt;
+		&lt;!--设置资源的版本--&gt;
+		&lt;properties&gt;
+		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+		&lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+		&lt;java.version&gt;1.8&lt;/java.version&gt;
+		&lt;/properties&gt;
+		
+		&lt;dependencies&gt;
+		&lt;dependency&gt;
+		&lt;!-- 上边引入 parent，因此 下边无需指定版本，相当于配置了springmvc --&gt;
+		&lt;!-- 包含 mvc,aop 等jar资源 --&gt;
+		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+		&lt;!--使用别的服务器，如undertow
+		&lt;exclusions&gt;
+		&lt;exclusion&gt;
+		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+		&lt;/exclusion&gt;
+		&lt;/exclusions&gt;
+		&lt;/dependency&gt;
+		指定特定的服务器
+		&lt;dependency&gt;
+		   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		   &lt;artifactId&gt;spring-boot-starter-undertow&lt;/artifactId&gt;
+		&lt;/dependency&gt;--&gt;
+		&lt;/dependencies&gt;
+		&lt;build&gt;
+		&lt;!--指定springboot的maven插件--&gt;
+		&lt;plugins&gt;
+		&lt;plugin&gt;
+		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+		&lt;/plugin&gt;
+		&lt;/plugins&gt;
+		&lt;/build&gt;
+		&lt;/project&gt;
+src/main/java下的程序入口：Chapter1Application（必须）
+	run中传入的名字必须与类名一致
+		package com.junye.test;
+		import org.springframework.boot.SpringApplication;
+		import org.springframework.boot.autoconfigure.SpringBootApplication;
+		@SpringBootApplication
+		public class Chapter1Application {
+			public static void main(String[] args) {
+				SpringApplication.run(Chapter1Application.class, args);
+			}
+		}
+
+
+src/main/java下的controller层（必须）
+	package com.junye.test;
+		import org.springframework.stereotype.Controller;
+		import org.springframework.ui.Model;
+		import org.springframework.web.bind.annotation.RequestMapping;
+		import org.springframework.web.bind.annotation.RestController;
+		@RestController//自动返回json数据
+		public class HelloController {
+		@RequestMapping(&quot;/hello&quot;)
+		public String index() {
+		return &quot;Hello World&quot;;
+		}
+		}
+	
+启动项目的方法
+	Debug Run或者运行主函数或者maven的spring-boot：run
+	完成上述步骤访问：http://localhost:8080/hello即可显示helloworld
+springboot参数接收与返回与springmvc一致
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_3-spring-boot-api" tabindex="-1"><a class="header-anchor" href="#_3-spring-boot-api"><span>3. Spring Boot API</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>入口类和@SpringBootApplication
+Spring Boot的项目一般都会有*Application的入口类，入口类中会有main方法，这是一个标准的Java应用程序的入口方法。
+@SpringBootApplication注解是Spring Boot的核心注解，它其实是一个组合注解
+
+@SpringBootConfiguration=&gt;@Configuration
+@EnableAutoConfiguration 启用自动配置使项目中依赖的jar包自动配置项目的配置项
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}//默认扫描@SpringBootApplication所在类的同级目录以及它的子目录
+
+关闭自动配置
+spring-boot-autoconfigure-xxx.jar
+@SpringBootApplication(exclude={RedisAutoConfiguration.class})
+
+自定义Banner(spring启动图案)
+http://patorjk.com/software/taag/#p=display&amp;f=Graffiti&amp;t=Type%20Something%20
+拷贝生成的字符到一个文本文件中，并且将该文件命名为banner.txt，将banner.txt拷贝到maven项目的resources目录中即可
+关闭Banner application.properties
+spring.main.banner-mode = off
+
+全局配置文件application.properties或者application.yml，在resources目录下或者类路径下的/config下，
+server.port=8088 #tomcat端口
+server.servlet-path=*.html # 修改进入DispatcherServlet的规则为：*.html
+    
+设置日志级别
+logging.level.org.springframework=DEBUG
+
+静态资源路径
+spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+mvc视图
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+# springboot设置session过期的时间
+server.session.timeout=120
+
+springbootjava配置和application.properties配置冲突优先java配置
+springboot的@component配置导致数据源配置不可用，说明springboot的配置是先加载component然后再加configuration
+
+引入xml配置文件
+@ImportResource({&quot;classpath:xxx-context.xml&quot;})
+
+读取外部的配置文件
+@PropertySource(value = { &quot;classpath:jdbc.properties&quot;, &quot;classpath:env.properties&quot;})
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_4-自定义springmvc的配置-拦截器" tabindex="-1"><a class="header-anchor" href="#_4-自定义springmvc的配置-拦截器"><span>4. 自定义SpringMVC的配置(拦截器)</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>继承WebMvcConfigurerAdapter,然后重写父类中的方法进行扩展。
+import java.nio.charset.Charset;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration
+public class MySrpingMVCConfig extends WebMvcConfigurerAdapter{
+	// 自定义拦截器
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		HandlerInterceptor handlerInterceptor = new HandlerInterceptor() {
+			@Override
+			public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+				System.out.println(&quot;自定义拦截器............&quot;);
+				return true;
+			}
+			@Override
+			public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+
+			}
+
+			@Override
+			public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Exception ex) throws Exception {
+			}
+		};
+		//注册拦截器     
+		registry.addInterceptor(handlerInterceptor).addPathPatterns(&quot;/**&quot;);
+	}
+
+	// 自定义消息转化器的第二种方法
+	@Override
+	public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+		StringHttpMessageConverter converter  = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
+		converters.add(converter);
+	}
+
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_5-mybatis和spring-boot整合-两种方式" tabindex="-1"><a class="header-anchor" href="#_5-mybatis和spring-boot整合-两种方式"><span>5. Mybatis和Spring Boot整合(两种方式)</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>使用mybatis官方提供的Spring Boot整合包实现https://github.com/mybatis/spring-boot-starter
+&lt;!--三包合一，包括mybatis、整合包和事务包--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+	&lt;version&gt;1.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+@Mapper（在接口上面注解即可）或者直接扫描包
+@MapperScan(basePackages= {&quot;com.junye.testspringbootMybaits&quot;})
+@Transactional（service层上面注册）
+java配置sqlfactorysession和数据源
+@Bean
+//@Primary//设置优先,多数据源的时候使用就是当遇到数据对接的时候用
+public ComboPooledDataSource getComboPooledDataSource() throws PropertyVetoException{
+	ComboPooledDataSource cd=new ComboPooledDataSource();
+	cd.setDriverClass(&quot;com.mysql.cj.jdbc.Driver&quot;);
+	cd.setJdbcUrl(&quot;jdbc:mysql://localhost:3306/testmybatis?useSSL=true&amp;serverTimezone=GMT%2B8&quot;);
+	cd.setUser(&quot;root&quot;);
+	cd.setPassword(&quot;1105128664&quot;);
+	return cd;
+}
+
+@Bean(name=&quot;sqlSessionFactory&quot;)
+public SqlSessionFactoryBean getSqlSessionFactoryBean() throws Exception{
+	SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
+	sf.setDataSource(getComboPooledDataSource());
+	sf.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath:match2/test/*.xml&quot;));
+	sf.setTypeAliasesPackage(&quot;com.junye.test&quot;);//设置包的别名
+	//下面的配置可有可无，毕竟设置包的别名已经设计好了
+	//sf.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(&quot;classpath:mybatis-configuration.xml&quot;));
+	return sf;
+}
+
+使用mybatis-spring整合的方式（推荐）
+&lt;!--mybatis核心包--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+	&lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+	&lt;version&gt;3.2.8&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--整合包--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+	&lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+	&lt;version&gt;1.2.2&lt;/version&gt;
+&lt;/dependency&gt; 
+&lt;!--整合事务--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+java配置类
+import javax.sql.DataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
+@Configuration
+public class MyBatisConfig {
+@Bean
+@ConditionalOnMissingBean //当容器里没有指定的Bean的情况下创建该对象
+public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+	SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+	sqlSessionFactoryBean.setDataSource(dataSource);
+	ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+	Resource mybatisConfigXml = resolver.getResource(&quot;classpath:mybatis/mybatis-config.xml&quot;);
+	sqlSessionFactoryBean.setConfigLocation(mybatisConfigXml);
+	sqlSessionFactoryBean.setTypeAliasesPackage(&quot;com.taotao.cart.pojo&quot;);
+	return sqlSessionFactoryBean;
+}
+// mapper接口的扫描器，可用@MapperScan代替
+@Bean
+public MapperScannerConfigurer mapperScannerConfigurer() {
+	MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+	mapperScannerConfigurer.setBasePackage(&quot;com.taotao.cart.mapper&quot;);
+	return mapperScannerConfigurer;
+	}
+}
+
+事务管理
+在Spring Boot中推荐使用@Transactional注解来申明事务。
+当引入jdbc依赖之后，Spring Boot会自动默认分别注入DataSourceTransactionManager
+或JpaTransactionManager，所以我们不需要任何额外配置就可以用@Transactional注解进行事务的使用。
+在Service中添加@Transactional注解：
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_6-spring的整合redis" tabindex="-1"><a class="header-anchor" href="#_6-spring的整合redis"><span>6. Spring的整合Redis</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>	在Spring Boot中提供了RedisTempplate的操作，
+	import java.util.ArrayList;
+	import java.util.List;
+
+	import org.springframework.beans.factory.annotation.Value;
+	import org.springframework.context.annotation.Bean;
+	import org.springframework.context.annotation.Configuration;
+	import org.springframework.context.annotation.PropertySource;
+
+	import redis.clients.jedis.JedisPoolConfig;
+	import redis.clients.jedis.JedisShardInfo;
+	import redis.clients.jedis.ShardedJedisPool;
+
+	@Configuration
+	@PropertySource(value = &quot;classpath:redis.properties&quot;)
+	public class RedisSpringConfig {
+
+	@Value(&quot;${redis.maxTotal}&quot;)
+	private Integer redisMaxTotal;
+
+	@Value(&quot;${redis.node1.host}&quot;)
+	private String redisNode1Host;
+
+	@Value(&quot;${redis.node1.port}&quot;)
+	private Integer redisNode1Port;
+
+	private JedisPoolConfig jedisPoolConfig() {
+		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+		jedisPoolConfig.setMaxTotal(redisMaxTotal);
+		return jedisPoolConfig;
+	}
+
+	@Bean
+	public ShardedJedisPool shardedJedisPool() {
+		List&lt;JedisShardInfo&gt; jedisShardInfos = new ArrayList&lt;JedisShardInfo&gt;();
+		jedisShardInfos.add(new JedisShardInfo(redisNode1Host, redisNode1Port));
+		return new ShardedJedisPool(jedisPoolConfig(), jedisShardInfos);
+		}
+	}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_7-spring的整合httpclient" tabindex="-1"><a class="header-anchor" href="#_7-spring的整合httpclient"><span>7. Spring的整合Httpclient</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+
+import com.taotao.common.httpclient.IdleConnectionEvictor;
+
+@Configuration
+@PropertySource(value = &quot;classpath:httpclient.properties&quot;)
+public class HttpclientSpringConfig {
+
+@Value(&quot;${http.maxTotal}&quot;)
+private Integer httpMaxTotal;
+
+@Value(&quot;${http.defaultMaxPerRoute}&quot;)
+private Integer httpDefaultMaxPerRoute;
+
+@Value(&quot;${http.connectTimeout}&quot;)
+private Integer httpConnectTimeout;
+
+@Value(&quot;${http.connectionRequestTimeout}&quot;)
+private Integer httpConnectionRequestTimeout;
+
+@Value(&quot;${http.socketTimeout}&quot;)
+private Integer httpSocketTimeout;
+
+@Value(&quot;${http.staleConnectionCheckEnabled}&quot;)
+private Boolean httpStaleConnectionCheckEnabled;
+
+@Autowired
+private PoolingHttpClientConnectionManager manager;
+
+@Bean
+public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
+	PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+	// 最大连接数
+	poolingHttpClientConnectionManager.setMaxTotal(httpMaxTotal);
+	// 每个主机的最大并发数
+	poolingHttpClientConnectionManager.setDefaultMaxPerRoute(httpDefaultMaxPerRoute);
+	return poolingHttpClientConnectionManager;
+}
+
+// 定期关闭无效连接
+@Bean
+public IdleConnectionEvictor idleConnectionEvictor() {
+	return new IdleConnectionEvictor(manager);
+}
+
+// 定义Httpclient对
+@Bean
+@Scope(&quot;prototype&quot;)
+public CloseableHttpClient closeableHttpClient() {
+	return HttpClients.custom().setConnectionManager(this.manager).build();
+}
+
+// 请求配置
+@Bean
+public RequestConfig requestConfig() {
+	return RequestConfig.custom().setConnectTimeout(httpConnectTimeout) // 创建连接的最长时间
+	.setConnectionRequestTimeout(httpConnectionRequestTimeout) // 从连接池中获取到连接的最长时间
+	.setSocketTimeout(httpSocketTimeout) // 数据传输的最长时间
+	.setStaleConnectionCheckEnabled(httpStaleConnectionCheckEnabled) // 提交请求前测试连接是否可用
+	.build();
+}
+
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_8-spring的整合rabbitmq" tabindex="-1"><a class="header-anchor" href="#_8-spring的整合rabbitmq"><span>8. Spring的整合RabbitMQ</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>导入spring-boot-starter-amqp的依赖
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframeword.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-boot-starter-amqp&lt;/artifactId&gt;
+&lt;/dependency&gt;
+application.properties文件中配置RabbitMQ的连接信息
+spring.rabbitmq.host=127.0.0.1
+spring.rabbitmq.port=5672
+spring.rabbitmq.password=root
+spring.rabbitmq.username=test
+spring.rabbitmq.virtual-hos=/test
+
+编写Rabbit的Spring配置类
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class RabbitMQSpringConfig {
+
+@Autowired
+private ConnectionFactory connectionFactory;
+
+// 管理
+@Bean
+public RabbitAdmin rabbitAdmin() {
+	return new RabbitAdmin(connectionFactory);
+}
+
+// 声明队列
+@Bean
+public Queue taotaoCartLoginQueue() {
+	// 默认就是自动声明的
+	return new Queue(&quot;TAOTAO-CART-LOGIN-QUEUE&quot;, true);
+}
+
+// 声明队列
+@Bean
+public Queue taotaoCartOrderSuccessQueue() {
+	// 默认就是自动声明的
+	return new Queue(&quot;TAOTAO-CART-ORDER-SUCCESS-QUEUE&quot;, true);
+}
+
+}
+设置监听
+@Component
+public class Test{
+	@RabbitListener(queues = &quot;xxxx&quot;)
+	public void fun(){}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_9-spring整合servlet、filter、listener" tabindex="-1"><a class="header-anchor" href="#_9-spring整合servlet、filter、listener"><span>9. spring整合Servlet、Filter、Listener</span></a></h1><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>注册Servlet
+①使用ServletRegistrationBean注册
+使用ServletRegistrationBean注册只需要在@Configuration类中加入即可
+@Configuration
+public class Registration{
+@Bean  
+public ServletRegistrationBean myServlet() {  
+	ServletRegistrationBean myServlet = new ServletRegistrationBean();  
+	myServlet.addUrlMappings(&quot;/servlet&quot;);  
+	myServlet.setServlet(new MyServlet());  
+	return myServlet;  
+}
+}
+②使用@WebServlet
+使用@WebServlet注册，需要在Servlet类上使用该注解即可，
+但是需要在@Configuration类中使用@ServletComponentScan扫描注册相应的Servlet
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>注册Filter
+注意注册多个filter要自己一个个注册不要挤在一起
+①使用FilterRegistrationBean注册
+使用FilterRegistrationBean注册Filter，只需要在@Configuration类中加入即可
+@Bean  
+public FilterRegistrationBean myFilter() {  
+	FilterRegistrationBean myFilter = new FilterRegistrationBean();  
+	myFilter.addUrlPatterns(&quot;/*&quot;);  
+	myFilter.setFilter(new MyFilter());  
+	return myFilter;  
+}  
+②使用@WebFilter
+使用@WebFilter注册，需要在Filter类上使用该注解即可，
+但是需要在@Configuration类中使用@ServletComponentScan扫描注册相应的Filter。
+ 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>注册Listener
+①使用ServletListenerRegistrationBean注册
+使用ServletListenerRegistrationBean注册Listener只需要在@Configuration类中加入即可
+@Bean  
+public ServletListenerRegistrationBean&lt;MyListener&gt; myServletListener() {  
+	ServletListenerRegistrationBean&lt;MyListener&gt; myListener = 
+	new ServletListenerRegistrationBean&lt;MyListener&gt;();
+	myListener.setListener(new MyListener());  
+	return myListener;  
+}  
+②使用@WebListener
+使用@WebListener注册，需要在Filter类上使用该注解即可，
+但是需要在@Configuration类中使用Spring Boot提供的注解
+@ServletComponentScan扫描注册相应的Listener
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_10-springboot常见问题" tabindex="-1"><a class="header-anchor" href="#_10-springboot常见问题"><span>10. springboot常见问题</span></a></h1><figure><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/03d148b38878303db4ee4.png" alt="47.png" tabindex="0"><figcaption>47.png</figcaption></figure><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>Slf4j日志警告
+提示我们当前的项目中slf4j引入了2个，导致了jar冲突。
+解决：删除自己引入到slf4j的依赖
+&lt;dependency&gt;
+	&lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+	&lt;artifactId&gt;slf4j-log4jl2&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+jsp访问404的问题
+由于Spring boot使用的内嵌的tomcat，而内嵌的tamcat是不支持jsp页面的，
+导包
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+	&lt;artifactId&gt;tomcat-embed-jasper&lt;/artifactId&gt;
+	&lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/backend/j2ee/springboot.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><a class="route-link nav-link prev" href="/backend/j2ee/spring.html" aria-label="spring"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->spring</div></a><a class="route-link nav-link next" href="/backend/j2ee/springcloud.html" aria-label="SpringCloud"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">SpringCloud<!----></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>

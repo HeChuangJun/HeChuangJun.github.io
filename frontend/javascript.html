@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.32" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://javaguide.cn/frontend/javascript.html"><meta property="og:site_name" content="JavaGuide"><meta property="og:title" content="javascript"><meta property="og:description" content="javaScript 1. 概念&作用 2. javascript引入方式 3. 数据类型 4. typeof、instanceof、=== 5. javaScript语法 6. BOM浏览器对象模型（整个HTML页面内容） 7. javascript正则匹配 8. 转换成jq对象 9. 全局属性和函数可用于所有内建的JavaScript对象 10. ..."><meta property="og:type" content="article"><meta property="og:image" content="https://290ff162.telegraph-image-eg9.pages.dev/file/7046ecfecabe6d05a7142.png"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-12-07T01:56:33.000Z"><meta property="article:author" content="HeChuangJun"><meta property="article:published_time" content="2023-01-01T00:00:00.000Z"><meta property="article:modified_time" content="2024-12-07T01:56:33.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"javascript","image":["https://290ff162.telegraph-image-eg9.pages.dev/file/7046ecfecabe6d05a7142.png","https://i0.wp.com/wx4.sinaimg.cn/large/0070JETugy1i4219mpwbtj30pc0ewwgn.jpg","https://i3.wp.com/wx4.sinaimg.cn/large/0070JETugy1i421aoiqvyj30mw07o74v.jpg"],"datePublished":"2023-01-01T00:00:00.000Z","dateModified":"2024-12-07T01:56:33.000Z","author":[{"@type":"Person","name":"HeChuangJun","url":"https://javaguide.cn/article/"}]}</script><meta name="robots" content="all"><meta name="author" content="Guide"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="description" content="「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！"><meta name="apple-mobile-web-app-capable" content="yes"><script>var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();</script><link rel="alternate" type="application/atom+xml" href="https://javaguide.cn/atom.xml" title="JavaGuide Atom Feed"><link rel="alternate" type="application/json" href="https://javaguide.cn/feed.json" title="JavaGuide JSON Feed"><link rel="alternate" type="application/rss+xml" href="https://javaguide.cn/rss.xml" title="JavaGuide RSS Feed"><link rel="icon" href="/favicon.ico"><title>javascript | JavaGuide</title>
+    <link rel="preload" href="/assets/style-B7LVZfe6.css" as="style"><link rel="stylesheet" href="/assets/style-B7LVZfe6.css">
+    <link rel="modulepreload" href="/assets/app-7KT7HDzT.js"><link rel="modulepreload" href="/assets/javascript.html-DXReeTut.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/"><img class="vp-nav-logo" src="/logo.png" alt><!----><span class="vp-site-name hide-in-pad">JavaGuide</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/interview/java/javabasics.html" aria-label="面试指南"><span class="font-icon icon iconfont icon-java" style=""></span>面试指南<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/backend/java/java.html" aria-label="后端"><span class="font-icon icon iconfont icon-java" style=""></span>后端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/frontend/html.html" aria-label="前端"><span class="font-icon icon iconfont icon-book" style=""></span>前端<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/open-source-project/" aria-label="开源项目"><span class="font-icon icon iconfont icon-github" style=""></span>开源项目<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/books/" aria-label="技术书籍"><span class="font-icon icon iconfont icon-book" style=""></span>技术书籍<!----></a></div><div class="nav-item hide-in-mobile"><a class="route-link nav-link" href="/high-quality-technical-articles/" aria-label="程序人生"><span class="font-icon icon iconfont icon-article" style=""></span>程序人生<!----></a></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="知识星球"><span class="title"><span class="font-icon icon iconfont icon-planet" style=""></span>知识星球</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/zhishixingqiu-two-years.html" aria-label="星球介绍"><span class="font-icon icon iconfont icon-about" style=""></span>星球介绍<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/zhuanlan/" aria-label="星球专属优质专栏"><span class="font-icon icon iconfont icon-about" style=""></span>星球专属优质专栏<!----></a></li><li class="dropdown-item"><a href="https://www.yuque.com/snailclimb/rpkqw1/ncxpnfmlng08wlf1" rel="noopener noreferrer" target="_blank" aria-label="星球优质主题汇总" class="nav-link"><span class="font-icon icon iconfont icon-star" style=""></span>星球优质主题汇总<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="网站相关"><span class="title"><span class="font-icon icon iconfont icon-about" style=""></span>网站相关</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/about-the-author/" aria-label="关于作者"><span class="font-icon icon iconfont icon-zuozhe" style=""></span>关于作者<!----></a></li><li class="dropdown-item"><a class="route-link nav-link" href="/timeline/" aria-label="更新历史"><span class="font-icon icon iconfont icon-history" style=""></span>更新历史<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/HeChuangJun/notes" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/frontend/html.html" aria-label="Html"><!---->Html<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/frontend/css.html" aria-label="CSS"><!---->CSS<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/frontend/jquery.html" aria-label="jQuery"><!---->jQuery<!----></a></li><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/frontend/javascript.html" aria-label="javascript"><!---->javascript<!----></a></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><!---->javascript</h1><div class="page-info"><span class="page-author-info" aria-label="作者"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://javaguide.cn/article/" target="_blank" rel="noopener noreferrer">HeChuangJun</a></span><span property="author" content="HeChuangJun"></span></span><!----><!----><!----><span class="page-word-info" aria-label="字数"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 7068 字</span><meta property="wordCount" content="7068"></span><span class="page-reading-time-info" aria-label="阅读时间"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 24 分钟</span><meta property="timeRequired" content="PT24M"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#控制语句">控制语句</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#函数是对象">函数是对象</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#函数作用域">函数作用域</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#json">JSON</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#动态类型">动态类型</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#声明变量">声明变量</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#nodejs">nodejs</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#导出导入">导出导入</a></li><!----><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><p>javaScript</p><ul><li><a href="#1-%E6%A6%82%E5%BF%B5%E4%BD%9C%E7%94%A8">1. 概念&amp;作用</a></li><li><a href="#2-javascript%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F">2. javascript引入方式</a></li><li><a href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">3. 数据类型</a></li><li><a href="#4-typeofinstanceof">4. typeof、instanceof、===</a></li><li><a href="#5-javascript%E8%AF%AD%E6%B3%95">5. javaScript语法</a></li><li><a href="#6-bom%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E6%95%B4%E4%B8%AAhtml%E9%A1%B5%E9%9D%A2%E5%86%85%E5%AE%B9">6. BOM浏览器对象模型（整个HTML页面内容）</a></li><li><a href="#7-javascript%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D">7. javascript正则匹配</a></li><li><a href="#8-%E8%BD%AC%E6%8D%A2%E6%88%90jq%E5%AF%B9%E8%B1%A1">8. 转换成jq对象</a></li><li><a href="#9-%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7%E5%92%8C%E5%87%BD%E6%95%B0%E5%8F%AF%E7%94%A8%E4%BA%8E%E6%89%80%E6%9C%89%E5%86%85%E5%BB%BA%E7%9A%84javascript%E5%AF%B9%E8%B1%A1">9. 全局属性和函数可用于所有内建的JavaScript对象</a></li><li><a href="#10-%E4%B8%BA%E4%BB%80%E4%B9%88js%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84">10. 为什么JS是单线程的？</a></li></ul><h1 id="_1-概念-作用" tabindex="-1"><a class="header-anchor" href="#_1-概念-作用"><span>1. 概念&amp;作用</span></a></h1><ul><li>编程语言 用于开发交互式web页面（向HTML页面添加交互行为）</li><li>脚本语言（轻量级编程语言）</li><li>不需编译（解释性语言）直接嵌入HTML页面中，由浏览器执行</li><li>HTML页面中嵌入动态文本、对浏览器事件响应，读写HTML元素，</li><li>验证提交数据，检测访客数及访客的浏览信息等。使页面具有动态效果</li></ul><h1 id="_2-javascript引入方式" tabindex="-1"><a class="header-anchor" href="#_2-javascript引入方式"><span>2. javascript引入方式</span></a></h1><table><thead><tr><th style="text-align:center;">javascript引入方式</th><th style="text-align:center;">说明</th></tr></thead><tbody><tr><td style="text-align:center;">内嵌式</td><td style="text-align:center;">&lt;script type=&quot;text/javascript(默认，可省略)&quot;&gt;javascript代码&lt;/script&gt;</td></tr><tr><td style="text-align:center;">外联式</td><td style="text-align:center;">&lt;script type=&quot;text/javascript&quot; src=“1.js” charset=“utf-8”&gt;&lt;/script&gt;</td></tr></tbody></table><h1 id="_3-数据类型" tabindex="-1"><a class="header-anchor" href="#_3-数据类型"><span>3. 数据类型</span></a></h1><p>|基本（值）数据类型|说明|举例|<br> |:-😐:-😐<br> |String|使用双引号 &quot; 或单引号 &#39; 括起来的一个或多个字符|&quot;<a href="http://caibaojian.com" target="_blank" rel="noopener noreferrer">http://caibaojian.com<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>&quot;、&#39;字符串&#39;|<br> |Number|包括整数和浮点数（包含小数点的数或科学记数法的数）|30、-10、11.2、2.35e10|<br> |Boolean|表示 true 或 false 这两种状态|5 == 2 其运算结果为 false|<br> |Null|变量或内容值为空（null），可以通过给一个变量赋 null 值来清除变量的内容|str = null|<br> |Undefined|变量被创建后，未给该变量赋值，|var str|<br> |对象（引用）类型|说明|举例|<br> |Array|var cars=new Array();|var cars=[&quot;Audi&quot;,&quot;BMW&quot;,&quot;Volvo&quot;];|<br> |Object|JavaScript 操作的对象|var person={firstname:&quot;Bill&quot;, lastname:&quot;Gates&quot;, id:5566};|<br> |Function|JavaScript 操作的对象|可以执行的一种特别对象|<br></p><h1 id="_4-typeof、instanceof、" tabindex="-1"><a class="header-anchor" href="#_4-typeof、instanceof、"><span>4. typeof、instanceof、===</span></a></h1><ul><li>typeof返回类型字符串 <ul><li>可以判断undefined、Number、string、boolean、function</li><li>不能判断：null与object</li></ul></li><li>instanceof 判断对象具体类型</li><li>=== 可以判断null undefined<br> 严格相等运算符，用作逻辑判等</li></ul><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>1 == 1 // 返回 true
+1 === &#39;1&#39;// 返回 true，会先将右侧的字符串转为数字，再做比较
+1 === 1 // 返回 false，类型不等，直接返回 fa1se
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>typeof 查看某个值的类型</p><p>||<br> 需求，如果参数n没有传递，给它一个【男】</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>推荐做法
+function test(n=&#39;男&#39;){conso1e.1og(n);}
+你可能的做法
+function test(n){
+	if(n === undefined){
+		n=&#39;男&#39;;
+	}
+	conso1e.1og(n);
+}
+还可能是这样
+function test(n){
+	n=(n=== undefined)?&#39;男’:n;
+	console.1og(n);
+}
+一些老旧代码中可能的做法
+function test(n){
+	n = n ||&#39;男&#39;
+	console.1og(n);
+}
+它的语法是
+值1 || 值2
+如果值1 是 Truthy，返回值1，如果值1 是 Falsy 返回值 2
+
+3)??与?.
+需求，如果参数 n没有传递或是 null，给它一个【男】
+如果用传统办法
+function test(n){
+	if(n == undefined || n=== nu11){
+		n=&#39;男&#39;
+    }
+	console.1og(n);
+}
+用??
+function test(n){
+	n = n ?? &#39;男&#39;;
+	console.1og(n);
+}
+
+需求，函数参数是一个对象，可能包含有子属性
+例如，参数可能是
+let stul={
+	name :&quot;张三”，
+	address:{
+		city:&#39;北京
+	};
+}
+let stu2 ={
+	name:&quot;李四”
+}
+let stu3={
+name:&quot;李四&quot;
+address:nu11
+}
+现在要访问子属性(有问题)
+function test(stu){
+console.1og(stu.address.city)
+}
+现在希望当某个属性是 nulish 时，短路并返回 undefined
+function test(stu){
+	console.1og(stu.address?.city)
+}
+用传统办法
+function test(stu){
+	if(stu.address ===undefined ll stu.address === nu11){
+		console.1og(undefined);
+		return;
+    }
+	console.1og(stu.address.city)
+}
+
+...
+展开运算符
+作用1:打散数组传递给多个参数
+let arr = [1, 2, 3];
+function test(a,b,c){
+	console.1og(a,b,c);
+}
+test(arr[0],arr[1],arr[2]);// 输出 1,2,3
+展开运算符写法
+test(...arr);// 输出 1,2,3
+打散可以理解为【去掉了】数组外侧的中括号，只剩下数组元素
+作用2:复制数组或对象
+数组
+let arr1 = [1,2,3];
+let arr2= [...arrl]; // 复制数组
+
+注意:展开运算符复制属于浅拷贝，例如
+let ol = {name:&#39;张三&#39;,address: {city:【北京&#39;}}
+let o2 = {...01};
+
+对象
+let objl = {name:&#39;张三&#39;,age: 18};
+Tet obj2 = {...obj1}; //复制对象
+作用3:合并数组或对象
+let a1 = [1,2];
+let a2 = [3,4];
+let b1= [...al,...a2];// 结果[1,2,3,4]
+let b2 = [...a2,5,...al]// 结果[3,4,5,1,2]
+
+合并对象
+let ol= {name:&#39;张三&#39;};
+Tet o2 = {age:18};
+let o3 ={name:&#39;李四&#39;};
+let nl={...ol,...02};
+let n2 = {...03,...o2,..o1}:
+同名后面覆盖前面
+
+5)[] {}
+解构赋值
+[]
+用在声明变量时
+let arr = [1,2,3];
+let [a,b，c]= arr;//结果 a=1，b=2，c=3
+
+用在声明参数时
+let arr =[1,2,3];
+function test([a,b,c]){
+	consofe.1og(a,b,c)
+}
+test(arr) // 结果 a=1，b=2，c=3
+
+{}
+用在声明变量时
+let obj = {name:&quot;张三&quot;,age:18};
+let {name,age} = obj;
+用在声明参数时
+let obj = {name:&quot;张三&quot;, age:18};
+function test({name, age]) {console.1og(name，age);}
+test(obj)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="控制语句" tabindex="-1"><a class="header-anchor" href="#控制语句"><span>控制语句</span></a></h2><p>if ...else<br> switch<br> while<br> do...while<br> for<br> for ... in ☆</p><p>for ... of ☆</p><p>try ... catch☆</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>1) for in
+主要用来遍历对象
+let father = {name:&#39;张三&#39;, age:18, study:function(){}};
+for(const n in father){
+console.1og(n);
+}
+其中 const n代表遍历出来的属性名
+注意1:方法名也能被遍历出来(它其实也算一种特殊属性)
+注意2:遍历子对象时，父对象的属性会跟着遍历出来
+Tet son =object.create(father);
+son.sex =“男&quot;
+
+for(const n in son){
+	console.1og(n);
+}
+
+注意3:在 for in 内获取属性值，要使用[]语法，而不能用.语法
+for(const n in son){
+	console.log(n, son[n]);
+}
+
+2) for of
+主要用来遍历数组，也可以是其它可迭代对象，如 Map，set 等
+let al =[1,2,3];
+
+for(const i of al){
+console.1og(i);
+}
+let a2 =[
+{name:&#39;张三&#39;, age:18},
+{name:&#39;李四&#39;，age:20}
+{name:&#39;王五&#39;，age:22}
+];
+
+for(const obj of a2){
+console.1og(obj.name， obj.age);
+}
+for(const {name,age} of a2){
+console.1og(name, age);
+}
+
+3) try catch
+let stu1 = {name:&#39;张三&#39;,age:18, address: {city:&#39;北京&#39;}};
+1et stu2 ={name:&#39;张三&#39;,age:18};
+
+function test(stu){
+	try {
+		console.1og(stu.address.city)
+    } catch(e){
+		console.1og(&#39;出现了异常&#39;，e.message)
+    } finally {
+    	console.1og(&#39;fina11y&#39;);
+    }
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_5-javascript语法" tabindex="-1"><a class="header-anchor" href="#_5-javascript语法"><span>5. javaScript语法</span></a></h1><table><thead><tr><th style="text-align:center;">javaScript组成</th><th style="text-align:center;">基本语法</th><th style="text-align:center;">说明</th></tr></thead><tbody><tr><td style="text-align:center;">ECMAScript（核心）</td><td style="text-align:center;">变量定义</td><td style="text-align:center;">var 变量名[=值];(可以不声明，直接使用，默认值undefined、变量存在但没赋值)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">（变量弱类型：同一个变量可以存放不同类型的数据）</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">如果在函数的内容用var定义，那么它是一个局部变量，</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">如果没有使用var它是一个全局的</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">严格区分大小写，注释与java相同</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">运算符</td><td style="text-align:center;">js比较===全等，值和类型，相比java没有equals，null写成&quot;&quot;</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">== 它在做比较的时候会进行自动转换。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">=== 它在做比较的时候不会进行自动转换。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">基本数据类型</td><td style="text-align:center;">number（任何数字）、bigint<br>number 类型标识的是双精度浮动小数，例如<br>10 /3;// 结果 3.3333333333333335<br>既然是浮点小数，那么可以除零<br>10 /0;// 结果 Infinity 正无穷大-10/0;//结果 -Infinity 负无穷大<br>浮点小数都有运算精度问题，例如<br>2.0-1.1;//结果 0.8999999999999999<br>字符串转数字<br>parseInt(&quot;10&quot;);// 结果是数字 10<br>parseInt(&quot;10.5&quot;)//结果是数字 10，去除了小数部分;<br>parseInt(&quot;10&quot;)/3;//结果仍视为 number 浮点数，因此结果为3.3333333333333335<br>parseInt(&quot;abc&quot;);<br>//转换失败，结果是特殊值 NaN(Not a Number)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">string（“”‘’）<br>let s1 =&#39;超链接&#39;<br>let s2 =&#39;超链接&#39;;<br>Tet name=;//zhang li...<br>Tet age =;// 18 20<br>let uri2=<code>/test?name=$iname}&amp;age=${age}</code> ;</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">boolean Truthy、Falsy<br>在js 中，并不是 boolean 才能用于条件判断，你可以在if语句中使用【数字】【字符串】.. 作为判断条件<br>这时就有一个规则，当需要条件判断时，这个值被当作 true 还是false，当作 true的值归类为 truthy，当作 false 的值归类为 falsy<br>false<br>Nullish (null, undefined)<br>0, 0n, NaN<br>&quot;&quot;,&quot;,``</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">null（对象的默认值）和undefined(变量无初始化时的默认值))<br>执行表达式或函数，没有返回结果，出现 undefined<br>访问数组不存在的元素，访问对象不存在的属性，出现 undefined<br>定义变量，没有初始化，出现 undefined<br>二者共同点<br>都没有属性、方法<br>二者区别<br>undefined 由js产生，null 由程序员提供<br>Nullish</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">引用数据类型</td><td style="text-align:center;">Number</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">String match()找到一个或多个正则表达式的匹配.substr(a,b)从起始索引号提取字符串中指定数目的字符.substring(a,b)提取字符串中两个指定的索引号之间的字符。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">Boolean new Boolean(value)value不写默认false</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">Array</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">Boolean</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">DateDate.getTime()返回1970年1月1日至今的毫秒数、解决浏览器缓存问题</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">Math</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">ReqExp对象正则表达式对象 ReqExp.test(要测的对象)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">普通函数</td><td style="text-align:center;">[window/element.onload/var 变量名=]function 函数名(参数[=默认值],参数){函数体,return 返回值}</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">匿名函数</td><td style="text-align:center;"><code>[window/element.onload/var 变量名=]</code>(function(参数,参数){函数体，return 返回值})<br>(function(a,b){return a + b;})<br>(function(a,b){return a+ b;})(1,2)<br></td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">箭头函数</td><td style="text-align:center;">(参数)=&gt;{函数体 return结果}<br>如果只有一个参数，()可以省略<br>如果函数体内只有一行代码，{}可以省略document.getElementById(&quot;p1&quot;).onclick=()=&gt;<br>console.1og(“鼠标单击了...箭头函数&quot;);<br></td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">调用函数</td><td style="text-align:center;">函数名(参数，参数)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">事件(调用函数)</td><td style="text-align:center;">事件=“[return] 函数名([参数，参数])”</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onload 只能写一次并且放到body标签中</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onsubmit 写在form标签中，必须有返回值。return false不提交</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onclick、ondbclick</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onblur 表单校验，text离焦</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onfocus 表单校验，text获得焦点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onchange 二级联动、onkeydown搜索引擎</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onkeypress 搜索引擎</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onkeyup、onmousdown</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onmouseup、onmouseover鼠标悬空高亮问题</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">onmouseout鼠标离开、onmousemove</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">让按钮点击失效：onclick=”javascript:volid(0)”</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">event对象</td><td style="text-align:center;">clientX,鼠标指针水平坐标</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">clientY鼠标指针垂直坐标</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">keyCode返回键盘输入的ASCII码</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">preventDefault()阻止浏览器默认行为</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">stopPropagation()阻止事件传播</td></tr><tr><td style="text-align:center;">BOM浏览器对象</td><td style="text-align:center;">window对象</td><td style="text-align:center;">表示浏览器中打开的窗口,都是全局函数，window可省略</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">alert(“提示框提示信息”);confirm(&quot;确认提示信息&quot;);prompt(&quot;提示信息框&quot;);</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">var xx=setInterval(function(),millisec)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">setInterval（“function()”,毫秒值)----clearInterval(xx)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">setInterval（string,毫秒值）----clearInterval(xx)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">setTimeout（code,millsec）---clearTimeout(xx)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">location对象</td><td style="text-align:center;">包含相关当前的url信息 href</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">history（了解）</td><td style="text-align:center;">包含用户在浏览器窗口中访问过的url</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">history.go(-1);加载前一个连接等于history.back()；</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">history.go(1)；加载后一个链接，等效history.forward();</td></tr><tr><td style="text-align:center;">DOM文档对象模型</td><td style="text-align:center;">Document对象</td><td style="text-align:center;">HTML文档，获得标签元素element对象</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">getElementById(“id”)单个，唯一</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">getElementsByTagName(&quot;name&quot;)需要遍历</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">getElementsByName(&quot;name&quot;)复选框全选与全不选，用数组表示，多个。批量，需要遍历</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">getElementById(&quot;id&quot;).value获取元素里面的值:字符串加“”，变量不加</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">createTextNode()创建文本节点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">createElement()创建元素节点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">write(&quot;&quot;);想页面写入内容</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">element对象</td><td style="text-align:center;">style.属性[=属性值]；获得[设置]样式</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">如果属性有多个单词使用“-”连接，则去掉“-”将后一个单词首字母大写</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">appendChild()向元素添加新的子节点，作为最后一个子节点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">removeChild()从元素中移除子节点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">replaceChild()替换元素中的子节点</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">firstChild返回元素的首个子节点。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">lastChild返回元素的最后一个子元素。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">innerHTML设置或返回元素的内容 =&quot;&quot;向页面某个元素写一段内容，将原有的东西覆盖</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">insertBefore()在指定的已有的子节点之前插入新节点。</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">setAttribute(“属性名”)把指定属性设置或更改为指定值。非css</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">getAttribute(“属性名”)返回元素节点的指定属性值。非css</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">attribute对象</td><td style="text-align:center;">标签属性</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">document.getElementById(“id”).value获得元素里面的值(显示的内容)</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;"></td><td style="text-align:center;">this.setAttribute(name,value)给当前元素设置属性</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">this</td><td style="text-align:center;">表示函数当前操作的元素</td></tr></tbody></table><ul><li>test检索字符串中指定的值。返回true或false。</li><li>对变量或者值使用typeof运算符，则object是由引用或null返回的</li><li>其他返回原始数据类型</li></ul><h3 id="函数是对象" tabindex="-1"><a class="header-anchor" href="#函数是对象"><span>函数是对象</span></a></h3><p>以下形式在js 中非常常见!<br> 1.可以参与赋值，例，具名函数也能参与赋值<br> function abc(){console.1og(&quot;bb&quot;);}<br> document.getElementById(&quot;p1&quot;).onclick = abc;<br> 2.有属性、有方法</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>function abc(){
+	console.log(&quot;bb&quot;);
+}
+console.log(abc)
+f abc(){
+onsole.log(&quot;bb”);
+}
+console.dir(abc)
+f abc()i
+arguments:nu11
+caller:nul1
+length: 0
+name: &quot;abc&quot;
+prototype:{constructor:[[FunctionLocation]]: yM1962:1[[Prototype]1:f()[[scopes]]: scopes[1]
+
+abc.name
+&#39;abc&#39;
+其中带有 f标记的是方法，不带的是属性
+带有 -&gt; 符号的可以继续展开，限于篇幅省略了
+带有[[]]的是内置属性，不能访问，只能查看
+相对重要的是[[Prototype]]和[[scopes]]会在后面继承和作用域时讲到
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>3.可以作为方法参数</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>function a(){console.1og(&#39;a&#39;)}
+function b(fn){
+	console.1og(&#39;b&#39;) //fn 将来可以是一个函数对象
+	fn(); // 调用函数对象
+}
+b(a)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>4.可以作为方法返回值</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>function c(){
+	console.1og(&quot;c&quot;);
+	function d(){
+		conso1e. 1og(&quot;d”);
+	}
+	return d;
+}
+
+c()
+c
+f d(){
+	console.log(&quot;d&quot;);
+}
+c()()
+c
+d
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="函数作用域" tabindex="-1"><a class="header-anchor" href="#函数作用域"><span>函数作用域</span></a></h3><p>函数可以嵌套(js 代码中很常见，只是嵌套的形式更多是匿名函数，箭头函数)</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>function a(){	
+	function b(){
+	
+	}
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>看下面的例子</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>function c(){
+	var z=30;
+}
+var x= 10;
+function a(){
+	var y=20;
+    function b(){
+    // 看这里
+    console.1og(x，y，z); //10 ,20 ,z is not defined
+	}
+	console.log(dir(b))
+	b();
+}
+a();
+console.log(a)
+
+f b()
+arguments: nul1
+caller:null
+length:0
+name: &quot;b&quot;
+prototype:{constructor:f}
+[[FunctionLocation]]:yM2256:4
+[[Prototype]]:f()
+[[scopes]]:scopes[2]
+0:Closure(a){y:20}
+1:Global {window: Window,self: Window, document: document, name:
+window里面包含10
+
+a()
+arguments:nul1
+caller:nul1
+length:
+name :
+prototype:{constructor:f}
+[[FunctionLocation]]: yM2260:2
+[[Prototype]]:f()
+[[Scopes]l:scopes[1]
+0:Gobal {window: Window,self: Window, document: document,
+name :0
+
+以函数为分界线划定作用域，所有函数之外是全局作用域
+查找变量时，由内向外查找
+。在内层作用域找到变量，就会停止查找，不会再找外层
+所有作用域都找不到变量，报错。
+作用域本质上是函数对象的属性，可以通过 console.dir 来查看调试
+闭包
+var x=10;
+function a(){
+	var y= 20;
+	function b(){
+		console.1og(x,y);
+    }
+    return b;
+}
+a()();//在外面执行了 b
+
+函数定义时，它的作用域已经确定好了，因此无论函数将来去了哪，
+都能从它的作用域中找到当时那些变量
+别被概念忽悠了，闭包就是指函数能够访问自己的作用域中变量
+//对比下面的
+var x= 10;
+function a(){
+	var y=20;
+	function b(){
+		// 看这里
+		console.1og(x， y);
+	}
+	b()
+}
+a();
+
+let、var 与作用域
+如果函数外层引用的是 let 变量，那么外层普通的 {} 也会作为作用域边界，最外层的let 也占一个 script 作用域
+let x=10;
+if(true){
+    1et y= 20;
+    function b(){
+        console.1og(x,y);
+    }
+    console.dir(b);
+}
+
+b()
+arguments:nul1
+caller:null
+length:o
+name: &quot;b&quot;
+prototype:fconstructor:f}
+[[FunctionLocation1]:VM200:4
+[[Prototype]]:f()
+[[Scopes1]:Scopes[3]
+0:Block {y:20}
+1:script {x:10}
+Glpbal {window: Window, self: Window, document: document, name:
+
+如果函数外层引用的是 var 变量，外层普通的 {}不会视为边界
+var x= 10;
+if(true){
+	var y= 20;
+	function b(){
+		console.1og(x,y);
+    }
+	console.dir(b);
+}
+
+f b()
+arguments:nul1
+caller:nul1
+length: 0
+name: &quot;b&quot;
+prototype:{constructor:f}
+[[FunctionLocation]]:yM217:4
+[[Prototype]]:f()
+[[scopes]]: scopes[1]
+0:Globel {window: Window, self: Window, document: document, name:80
+
+如果 var 变量出现了重名，则他俩会被视为同一作用域中的同一个变量
+var e= 10
+if(true){
+	var e = 20;
+	console.1og(e);
+}
+console.1og(e);//20
+要想里面的e和外面的e能区分开来，最简单的办法是改成let，或者用函数来界定作用范围
+
+如果是 let，则视为两个作用域中的两个变量
+let e= 10;
+if(true){
+    let e= 20;
+    console.1og(e);//打印 20
+}
+console.1og(e);// 打印 10
+
+要想里面的e和外面的e能区分开来，最简单的办法是改成let，或者用函数来界定作用域范围
+var e=10;
+if(true){
+	function b(){
+		var e=20;
+		console.1og(e);
+	}
+	b();
+}
+console.1og(e);
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Array ☆</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>语法
+// 创建数组
+1et arr = [1,2,3];
+// 获取数组元素
+conso1e.1og(arr[0]);//输出1
+// 修改数组元素
+array[0]= 5;// 数组元素变成了 [5,2,3]
+//遍历数组元素，其中 1ength 是数组属性，代表数组长度
+for(let i=0;i&lt; arr.length; i++){
+	console.1og(arr[i]);
+}
+API 
+push、shift、splice
+
+let arr =[1,2,3];
+arr.push(4);// 向数组尾部(右侧)添加元素，结果[1,2,3,4]
+arr.shift();// 从数组头部(左侧)移除元素，结果[2,3,4]
+arr.splice(1,1);// 删除【参数1】索引位置的【参数2】个元素，结果[2,4]
+
+join
+
+let arr = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]
+arr.join()a,b，c
+arr.join(&#39;&#39;)
+&#39;abc&#39;
+arr.join(&#39;-&#39;)
+a-b-c
+
+map、filter、forEach
+let arr =[1,2,3,6];
+function a(i){ // 代表的新旧元素之间的变换规则
+	return i* 10
+}
+arr.map(a)//具名函数，结果[10,20,30,60]
+// arr.map((i)=&gt;{return i*10});// 箭头函数
+arr.map(i=&gt; i*10);// 箭头函数
+
+。传给 map 的函数，参数代表旧元素，返回值代表新元素
+map 的内部实现(伪代码)
+function map(a){ // 参数是一个函数
+	let narr =[];
+	for(let i=0;i&lt;arr.length; i++){
+        let o = arr[i];//旧元素
+        let n = a(o);			// 新元素
+        narr.push(n);
+    }
+	return narr;
+}
+
+filter 例子
+let arr =[1,2,3,6];
+arr.filter((i)=&gt;i%2==1);// 结果[1,3]
+js。传给 filter 的函数，参数代表旧元素，返回值 true 表示要留下的元素
+forEach 例子
+Tet arr =[1,2,3,6];
+/*for(let i=0;i&lt;arr.length; i++){
+console.1og(arr[i]);
+}*/
+arr.forEach((i)=&gt;console.1og(i));
+两个称呼
+高阶函数，map，filter，forEach
+回调函数，例如作为参数传入的函数
+
+3) object ☆。
+属性
+let obj={
+    属性名:值，
+    方法名:函数，
+    get 属性名(){}，
+    set 属性名(新值){}
+}
+例1
+Tet stu={
+    name:“小明”,
+    age: 18，
+    study: function(){
+    console.1og(this.name +&quot;爱学习”);
+}
+例2
+let name =&quot;小黑”;
+let age = 20;
+1et study=function(){
+console.1og(this.name +“爱学习&quot;);
+}
+let stu2={ name, age, study }
+例3
+let stu3 ={
+	name:&quot;小明&quot;,
+	age: 18,
+	study(){//注意:对象方法这么写，仅限于对象内部
+		console.1og(this.name +“爱学习&quot;);
+	}
+}
+例4
+//没有私有，属于约定规范
+let stu4 ={
+	_name: nu11,/*类似于java中私有成员变量*/
+	get name(){
+		return this._name;
+	}
+}
+特色:属性增删
+对比-下java 中的 Object
+·Java 的 Object 是以类作为模板来创建，对象不能脱离类模板的范围，一个对象的属性、能用的方法都是确定好的
+·js 的对象，不需要什么模板，它的属性和方法可以随时加减
+let stu = {name:&#39;张三&#39;};
+stu.age = 18; // 添加属性
+delete stu.age;// 删除属性
+
+
+stu.study=function(){// 添加方法
+	console.1og(this.name +&quot;在学习”);
+}
+//添加 get，set
+let stu = {_name:nu11};
+
+Object.defineProperties(stu, &quot;name&quot; , {
+	get() = {return this._name},
+	set(name)  = {this._name = name;};
+})
+属性.属性名 相当于访问set/get方法
+
+特色:this
+public class TestMethod {
+	static class student {
+		private string name;
+		public student(string name){
+			this.name = name;
+        }
+        public void study(student this, string subject){
+        	System.out.println(this.name +&quot;在学习&quot;+ subject):
+        }
+    }
+    public static void main(string[] args){
+        student stu = new student(&quot;小明&quot;);
+        //下面的代码，本质上是执行 study(stu，&quot;java&quot;)，因此 this 就是stu
+        stu.study(&quot;java&quot;);
+    }
+}
+
+js 中的 this 也是隐式参数，但它与函数运行时上下文相关
+例如，一个“落单”的函数
+function study(subject){
+	console.1og(this.name +&quot;在学习&quot;+ subject)
+}
+测试一下
+study(&quot;js&quot;); //输出 在学习 js
+这是因为此时函数执行，全局对象 window 被当作了this，window 对象的 name属性是空串
+同样的函数，如果作为对象的方法
+let stu={
+	name:&quot;小白”
+	study
+}
+这种情况下，会将当前对象作为 this
+
+stu.study(&#39;js&#39;);
+// 输出 小白在学习 js
+还可以动态改变 this
+let stu = {name:&#39;黑&quot;};
+study.ca11(stu，&quot;js&quot;);//输出 小黑在学习 js
+这回 study 执行时，就把 cal 的第一个参数 stu 作为 this
+
+一个例外是，在箭头函数内出现的 this，以外层 this 理解
+用匿名函数
+let stu={
+	name:“小花&quot;，
+	friends:[“小白”,“小黑”,&quot;“小明”],
+	p1ay(){
+		this.friends.forEach(function(e){
+			console.1og(this.name +“与&quot;+e +“在玩耍&quot;);
+		});
+    }
+}
+stu.play()
+this.name 所在的函数是【落单】的函数，因此 this 代表window
+输出结果为
+与小白在玩耍
+与小黑在玩耍
+与小明在玩耍
+
+用箭头函数
+let stu={
+	name:&quot;小花”，
+	friends:[&quot;小白”,“小黑”,“小明”]
+	play(){
+		this.friends.forEach(e =&gt;{
+		console.1og(this.name +“与”+e+“在玩耍&quot;);
+		})
+    }
+)
+this.name 所在的函数是箭头函数，因此 this 要看它外层的 play 函数，play 又是属于 stu 的方法，因此 this 代表 stu 对象
+
+不用箭头函数的做法
+let stu ={
+	name:“小花”，
+	friends:[&quot;小白&quot;,“小黑”,“小明”],
+	play:function(){
+		let me = this;
+		this.friends.forEach(function(e){
+			console.1og(this.name +“与&quot;+e +“在玩耍&quot;);
+		});
+    }
+}
+
+特色:原型继承
+let father = {
+	f1:&#39;父属性&#39;，
+	m1:function(){
+		console.1og(&quot;父方法&quot;);
+	}
+}
+1et son = object.create(father);
+conso1e.1og(son.f1);//打印 父属性
+son.m1();// 打印 父方法
+
+father是父对象，son去调用.m1或.f1时，自身对象没有，就到父对象找
+son 自己可以添加自己的属性和方法
+son 里有特殊属性 _proto_代表它的父对象，js 术语: son 的原型对象。
+不同浏览器对打印 son的-proto_ 属性时显示不同
+o Edge 打印 console.dir(son)显示[[Prototype]]
+o Firefox打印console.dir(son)显示&lt;prototype&gt;
+
+特色:基于函数的原型继承
+出于方便的原因，js 又提供了一种基于函数的原型继承
+函数职责
+1.负责创建子对象，给子对象提供属性、方法，功能上相当于构造方法
+2.函数有个特殊的属性 prototype，它就是函数创建的子对象的父对象
+注意!名字有差异，这个属性的作用就是为新对象提供原型
+
+function cons(f2){
+	this.f2 = f2;
+	this.m2 =function(){
+		console.1og(&quot;子方法”);
+	}
+}	
+// cons.prototype 就是父对象
+cons.prototype.f1 =“父属性”;
+cons.prototype.ml=function(){
+	conso1e.1og(&quot;父方法&quot;);
+}
+配合 new 关键字，创建子对象
+1et son = new cons(&quot;子属性&quot;)
+子对象的_proto_就是函数的 prototype 属性
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="json" tabindex="-1"><a class="header-anchor" href="#json"><span>JSON</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>JSON
+一个json 对象可以长这样:
+{
+&quot;name&quot;:&quot;张三”,
+&quot;age&quot;:18
+}
+一个 is 对象长这样:
+{
+name:&quot;张三&quot;,
+age:18
+}
+
+那么他们的区别在哪儿呢?我总结了这么几点
+1.本质不同
+json 对象本质上是个字符串，它的职责是作为客户端和服务器之间传递数据的一种格式，它的属性只是样子货
+js 对象是切切实实的对象，可以有属性方法
+2.语法细节不同
+json 中只能有 nul、true|false、数字、字符串(只有双引号)、对象、数组
+json 中不能有除以上的其它js 对象的特性，如方法等
+json 中的属性必须用双引号引起来
+json 字符串与js 对象的转换
+JSON.parse(json字符串);// 返回js对象
+JSON.stringify(js对象);//返回json字符串
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="动态类型" tabindex="-1"><a class="header-anchor" href="#动态类型"><span>动态类型</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>静态类型语言，如Java，值有类型，变量也有类型、赋值给变量时，类型要相符
+int a = 10;
+string b=&quot;abc&quot;,
+int c=&quot;abc&quot;; //错误
+而js 属于动态类型语言，值有类型，但变量没有类型，赋值给变量时，没要求
+例如
+1et a= 20g
+let b = 100;
+b= &#39;abc&#39;;
+b = true;
+动态类型看起来比较灵活，但变量没有类型，会给后期维护带来困难
+function test(obj){
+// obj 的类型未知，必须根据不同类型做出各种容错处理
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_6-bom浏览器对象模型-整个html页面内容" tabindex="-1"><a class="header-anchor" href="#_6-bom浏览器对象模型-整个html页面内容"><span>6. BOM浏览器对象模型（整个HTML页面内容）</span></a></h1><p>操作文档中的元素和内容，DOM树通过js相应的api实现<br><img src="https://290ff162.telegraph-image-eg9.pages.dev/file/7046ecfecabe6d05a7142.png" alt="dom.png"></p><h1 id="_7-javascript正则匹配" tabindex="-1"><a class="header-anchor" href="#_7-javascript正则匹配"><span>7. javascript正则匹配</span></a></h1><table><thead><tr><th style="text-align:center;">javascript正则匹配</th><th style="text-align:center;"></th></tr></thead><tbody><tr><td style="text-align:center;">String对象</td><td style="text-align:center;">match方法，str.match（）；</td></tr><tr><td style="text-align:center;">ReqExp对象</td><td style="text-align:center;">test方法 ReqExp.test(要测的对象)</td></tr></tbody></table><table><thead><tr><th style="text-align:center;">全局函数</th><th style="text-align:center;">函数名</th><th style="text-align:center;">描述</th></tr></thead><tbody><tr><td style="text-align:center;">转换</td><td style="text-align:center;">parseFloat()</td><td style="text-align:center;">解析一个字符串并返回一个浮点数</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">parseInt()</td><td style="text-align:center;">解析一个字符串并返回一个整数</td></tr><tr><td style="text-align:center;">执行</td><td style="text-align:center;">eval()</td><td style="text-align:center;">计算JavaScript字符串,并把它作为脚本运行</td></tr><tr><td style="text-align:center;">编码</td><td style="text-align:center;">encodeURI()</td><td style="text-align:center;">把字符串编码为URI</td></tr><tr><td style="text-align:center;"></td><td style="text-align:center;">decodeURI()</td><td style="text-align:center;">解码某个编码的URI</td></tr></tbody></table><h1 id="_8-转换成jq对象" tabindex="-1"><a class="header-anchor" href="#_8-转换成jq对象"><span>8. 转换成jq对象</span></a></h1><ul><li>jq选择器.html();</li></ul><h1 id="_9-全局属性和函数可用于所有内建的javascript对象" tabindex="-1"><a class="header-anchor" href="#_9-全局属性和函数可用于所有内建的javascript对象"><span>9. 全局属性和函数可用于所有内建的JavaScript对象</span></a></h1><ul><li>括号里面传入js对象，如string</li><li>decodeURI()解码某个编码的 URI。</li><li>decodeURIComponent()解码一个编码的 URI 组件。</li><li>encodeURI()把字符串编码为 URI。</li><li>encodeURIComponent()把字符串编码为 URI 组件。</li><li>eval()计算 JavaScript 字符串，并把它作为脚本代码来执行。</li><li>parseFloat()解析一个字符串并返回一个浮点数。</li><li>parseInt()解析一个字符串并返回一个整数。</li></ul><h1 id="_10-为什么js是单线程的" tabindex="-1"><a class="header-anchor" href="#_10-为什么js是单线程的"><span>10. 为什么JS是单线程的？</span></a></h1><ul><li>为了避免复杂性，和提升效率。 为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质</li></ul><h2 id="声明变量" tabindex="-1"><a class="header-anchor" href="#声明变量"><span>声明变量</span></a></h2><p>(1)let ☆<br> 1et 变量名 = 值;<br> 。let 声明的变量可以被多次赋值，例如<br> 1et a=100; // 初始值是 100</p><p>a= 200;// ok，被重新赋值为 200<br> 2)const ☆<br> 。const 修饰的叫常量，只能赋值一次<br> const b=300;//初始值是 300<br> b = 400; //error，不能再次赋值</p><ol start="3"><li>var<br> var 声明的变量可以被多次赋值，例如<br> var f= 100;f = 200;</li></ol><h2 id="nodejs" tabindex="-1"><a class="header-anchor" href="#nodejs"><span>nodejs</span></a></h2><p>环境准备I<br> 1)安装 nvm<br> nvm 即(node version manager)，好处是方便切换 node.js 版本<br> 安装注意事项<br> 1.要卸载掉现有的 nodejs<br> 2.提示选择 nvm 和 nodejs 目录时，一定要避免目录中出现空格</p><p>3.选用【以管理员身份运行】cmd程序来执行 nvm 命令<br> 4.首次运行前设置好国内镜像地址<br> nvm node_mirror <a href="http://npm.taobao.org/mirrors/node/nvm" target="_blank" rel="noopener noreferrer">http://npm.taobao.org/mirrors/node/nvm<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><p>npm_mirror <a href="https://npm.taobao.org/mirrors/npm/" target="_blank" rel="noopener noreferrer">https://npm.taobao.org/mirrors/npm/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a><br> 首先查看有哪些可用版本<br> nvm list available<br> 输出</p><p>建议安装 LTS(长期支持版)<br> nvm insta11 16.16.0</p><p>nvm insta11 14.20.0<br> 执行 nvm 1ist 会列出已安装版本<br> 切换到 16.16.0<br> nvm use 16.16.0<br> 切换到 14.20.0<br> nvm use 14.20.0</p><p>安装后 nvm 自己的环境变量会自动添加，但可能需要手工添加 nodejs的 PATH 环境变量</p><p>node -v</p><p>npm -v</p><p>2)检查 npm<br> npm 是js 的包管理器，就类似于java 界的 maver要确保它使用的是国内镜像<br> 检查镜像<br> npm get registry<br> 如果返回的不是 <a href="https://registry.npm.taobao.org/%EF%BC%8C%E9%9C%80%E8%A6%81%E5%81%9A%E5%A6%82%E4%B8%8B%E8%AE%BE%E7%BD%AE" target="_blank" rel="noopener noreferrer">https://registry.npm.taobao.org/，需要做如下设置<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><p>npm config set registry <a href="https://registry.npm.taobao.org/" target="_blank" rel="noopener noreferrer">https://registry.npm.taobao.org/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a><br> 3)搭建简单服务<br> npm insta1l express --save-dev<br> 修改 package.json 文件</p><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>{
+&quot;type&quot;: &quot;module&quot;&quot;,
+devDependencies&quot;:{
+&quot;express&quot;:&quot;^4.18.1&#39;
+}
+}
+
+其中 devDependencies是npm install --save-dev 添加的
+编写 main.js 代码
+import express from &#39;express&#39;
+const app =express()
+app.use(&#39;&#39;,express.static(&#39;./&#39;))
+app.listen(7070)
+
+新建index.html
+
+执行js 代码(运行前端服务器)
+node main.js
+
+innerHtml会解析内容
+content不会
+
+document.querySelector(&quot;.co1&#39;)
+&lt;div class=&quot;co1&quot;&gt;编号&lt;/div&gt;
+document.queryselectorA1l(&#39;.co1&#39;)
+document.getElementById(&quot;h&quot;)
+document.queryselector(&quot;#h&quot;)
+document.querySelector(&quot;.title&quot;).textContent=`&lt;div class=&quot;row bold&quot;&gt;
+document.querySelector(&quot;.tbody&quot;).innerHTML=&#39;&#39;
+
+let array =[
+	{id:1，name:&#39;张三&#39;,SeX:&#39;男&#39;，age:18 }
+	{id:2，name:&#39;李&#39;，sex:&#39;女&#39;，age:17 }
+]
+const tp= document.getElementById(&quot;tp&quot;);
+const row =tp.content;
+const [c1,c2,c3,c4]= row.querySelectorA1l(&quot;.col&quot;);
+const tbody = document.queryselector(&#39;.tbody&#39;);
+for(const {id,name,sex,age} of array){
+c1.textContent =id;
+c2.textContent = name;
+c3.textContent =sex;
+c4.textContent = age;
+const newNode =document.importNode(row,true);
+tbody.appendchild(newNode);
+}
+
+// 同步按收结果，异步接收结果
+public class TestFuture 
+	static ExecutorService pool = Executors.newFixedThreadPool( nThreads: 2);
+	public static void main(Stringl] args)throws ExecutionException, InterruptedException 	{
+	Loggerutil.get().debug(&quot;之前...&quot;);
+	CompletableFuture.supplyAsync(()-&gt;{
+		Loggerutil.get().debug(&quot;开始计算&quot;);
+		sleep2s();
+		Loggerutil.get().debug(&quot;结束计算&quot;)
+		return &quot;123&quot;;
+	}，pooL);//.thenAcceptAsync(result-&gt;Loggerutil.get().debug(result), pool);
+	Loggerutil.get().debug(&quot;之后...&quot;);
+   }
+	static void sleep2s(){...}
+}
+[DEBUG]10:28:03.046[main]-之前..
+[DEBUG]10:28:03.052[pool-1-thread-1]- 开始计算
+[DEBUG]10:28:05.054[pool-1-thread-1]- 结束计算
+[DEBUG] 10:28:05.055[main]- 123
+[DEBUG]10:28:05.055[main]-之后...
+
+4) Fetch APl
+Fetch API可以用来获取远程数据，它有两种方式接收结果，同步方式与异步方式
+格式
+fetch(url, options) //返回 Promise
+同步方式
+const 结果=await fetch(url,options); = await Promise
+// 后续代码
+。await 关键字必须在一个标记了 async的 function 内来使用
+·后续代码不会在结果返回前执行
+
+String result =CompletableFuture.supplyAsync(
+()-&gt;{Loggerutil.get().debug(&quot;开始计算&quot;);
+sleep2s();
+Loggerutil.get().debug(&quot;结束计算&quot;);return &quot;123&quot;;
+},pool).get()
+
+异步方式
+fetch(url, options)
+.then(结果 =&gt;{...});
+.catch(=&gt;console.log(e))
+
+==&gt; Promise.then(结果 =&gt;{...}).catch(=&gt;console.log(e))
+//后续代码
+后续代码不需等待返回结果即可执行
+CompletableFuture.supplyAsync(()-&gt;{
+Loggerutil.get().debug(&quot;开始计算&quot;);
+sleep2s();
+Loggerutil.get().debug(&quot;结束计算&quot;);
+return &quot;123&quot;:
+}，pool).thenAcceptAsync(relt-&gt;Loggerutil.get().debug(result), pool)
+
+@CrossOrigin(&quot;http://localhost:7070&quot;)//后端设置跨域
+
+npm insta11 http-proxy-middleware --save-dev
+在 express 服务器启动代码中加入
+importexpress from &#39;express&#39;
+import {createProxyMiddleware} from http-proxy-middlew
+
+
+const app =express()
+app.use(&#39;/api&#39;,createProxyMiddleware({ target:&#39;http://localhost:8080，change0rigin:true ));
+app.use(express.static(&#39;./&#39;))
+app.listen(7070)
+
+node .\main.js
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><figure><img src="https://i0.wp.com/wx4.sinaimg.cn/large/0070JETugy1i4219mpwbtj30pc0ewwgn.jpg" alt="1.png" tabindex="0"><figcaption>1.png</figcaption></figure><figure><img src="https://i3.wp.com/wx4.sinaimg.cn/large/0070JETugy1i421aoiqvyj30mw07o74v.jpg" alt="2.png" tabindex="0"><figcaption>2.png</figcaption></figure><h2 id="导出导入" tabindex="-1"><a class="header-anchor" href="#导出导入"><span>导出导入</span></a></h2><div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre class="language-text"><code>单个导出
+export const a = 10;
+export let b=20;
+export function c(){
+	console.log(&quot;c&quot;)
+}
+
+//一齐导出
+const a=10;
+let b = 20;
+function c(){
+	console.log(&#39;c&#39;);
+}
+export {a,b,c}
+
+&lt;script type=&quot;module&quot;&gt;
+import {a,b,c} from&#39;./1.js&#39;
+console.log(a);
+console.log(b);
+c();
+&lt;/script&gt;
+
+//导出默认
+export default b;
+
+//导入默认
+import x from&#39;./1.js
+console.log(x)
+
+//整体导入
+import * as m from&#39;./1.js&#39;
+console.log(m)
+console.log(m.a)
+console.log(m.b)
+m.c()
+console.log(m.defau1t)
+
+//标签导入
+&lt;script src=&quot;1.js&quot;&gt;&lt;/script)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/HeChuangJun/notes/edit/main/docs/frontend/javascript.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1105128664@qq.com">HeChuangJun</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><a class="route-link nav-link prev" href="/frontend/jquery.html" aria-label="jQuery"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><!---->jQuery</div></a><!----></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer"><a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a></div><div class="vp-copyright">Copyright © 2025 HeChuangJun </div></footer></div><!--]--><!--]--><!--[--><!--[--><!--]--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-7KT7HDzT.js" defer></script>
+  </body>
+</html>
